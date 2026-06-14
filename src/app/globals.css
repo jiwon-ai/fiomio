@@ -205,3 +205,101 @@
 .animate-float-slow {
   animation: float-slow 14s ease-in-out infinite;
 }
+
+/* ============================================================
+   Article prose (journal) — markdown-rendered HTML
+   ============================================================ */
+.article-prose {
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+.article-prose > * + * {
+  margin-top: 1.25em;
+}
+.article-prose > :first-child {
+  margin-top: 0;
+}
+.article-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2em;
+  color: var(--color-ink);
+}
+.article-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 1.6em;
+  color: var(--color-ink);
+}
+.article-prose p {
+  color: color-mix(in srgb, var(--color-ink) 86%, transparent);
+}
+.article-prose a {
+  color: var(--color-spring-deep);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.article-prose a:hover {
+  color: var(--color-moss);
+}
+.article-prose strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.article-prose ul,
+.article-prose ol {
+  padding-left: 1.2em;
+}
+.article-prose ul {
+  list-style: none;
+  padding-left: 0;
+}
+.article-prose ul li {
+  position: relative;
+  padding-left: 1.3em;
+}
+.article-prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-spring-deep);
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose li + li {
+  margin-top: 0.5em;
+}
+.article-prose blockquote {
+  border-left: 3px solid var(--color-spring);
+  border-radius: 0;
+  padding: 0.1em 0 0.1em 1.2em;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+.article-prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 2.5em 0;
+}
+.article-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-paper-2);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}

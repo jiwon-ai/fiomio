@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { Wordmark } from "./Wordmark";
 import { LangToggle } from "./LangToggle";
@@ -17,10 +18,11 @@ export function Nav() {
   }, []);
 
   const links = [
-    { href: "#probleme", label: t.nav.problem },
-    { href: "#solution", label: t.nav.solution },
-    { href: "#diagnostic", label: t.nav.diagnostic },
-    { href: "#marche", label: t.nav.market },
+    { href: "/#probleme", label: t.nav.problem },
+    { href: "/#solution", label: t.nav.solution },
+    { href: "/#diagnostic", label: t.nav.diagnostic },
+    { href: "/#marche", label: t.nav.market },
+    { href: "/journal", label: t.nav.journal },
   ];
 
   return (
@@ -32,31 +34,31 @@ export function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="text-xl" aria-label="Fiomio — accueil">
+        <Link href="/" className="text-xl" aria-label="Fiomio — accueil">
           <Wordmark onDark />
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a
+              <Link
                 href={l.href}
                 className="link-underline text-sm text-cream/65 transition-colors hover:text-cream"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-3 sm:gap-4">
           <LangToggle onDark />
-          <a
-            href="#rejoindre"
+          <Link
+            href="/#rejoindre"
             className="rounded-full bg-spring px-4 py-2 text-sm font-medium text-spring-ink transition-transform hover:-translate-y-0.5 hover:bg-spring/90"
           >
             {t.nav.cta}
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

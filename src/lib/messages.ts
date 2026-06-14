@@ -13,6 +13,7 @@ export const fr = {
     solution: "La solution",
     diagnostic: "Diagnostic",
     market: "Le marché",
+    journal: "Journal",
     cta: "Rejoindre",
   },
 
@@ -241,6 +242,23 @@ export const fr = {
     countNote: "Acquisition prioritaire — accès gratuit au lancement.",
   },
 
+  journal: {
+    eyebrow: "Le journal",
+    title: "La météo-soin de Paris",
+    intro:
+      "Chaque semaine, comment adapter votre peau au climat parisien — ingrédients décodés, anti-âge, gestes concrets. Zéro influence, rien que de l'expertise.",
+    readMore: "Lire l'article",
+    minRead: "min de lecture",
+    backToJournal: "Le journal",
+    by: "par",
+    newsletterEyebrow: "La météo-soin",
+    newsletterTitle: "Recevez la météo-soin de Paris chaque semaine",
+    newsletterBody:
+      "Le climat de la semaine + un conseil d'expert adapté à votre peau. Pas de spam, désinscription en un clic.",
+    newsletterButton: "S'abonner",
+    empty: "Les premiers articles arrivent très bientôt.",
+  },
+
   footer: {
     tagline: "Intelligence skincare contextualisée — entre Paris et Séoul.",
     pillars: ["Korean Insider", "Paris Observer", "Data-Driven", "Ingredient-First"],
@@ -267,6 +285,7 @@ export const en: Messages = {
     solution: "The solution",
     diagnostic: "Diagnostic",
     market: "The market",
+    journal: "Journal",
     cta: "Join",
   },
 
@@ -492,6 +511,23 @@ export const en: Messages = {
     errorGeneric: "Something went wrong. Try again in a moment.",
     privacy: "No data reselling. GDPR-friendly.",
     countNote: "Priority acquisition — free access at launch.",
+  },
+
+  journal: {
+    eyebrow: "The journal",
+    title: "Paris skincare weather",
+    intro:
+      "Each week, how to adapt your skin to the Paris climate — ingredients decoded, anti-aging, concrete steps. Zero influence, only expertise.",
+    readMore: "Read the article",
+    minRead: "min read",
+    backToJournal: "The journal",
+    by: "by",
+    newsletterEyebrow: "Skincare weather",
+    newsletterTitle: "Get the Paris skincare weather every week",
+    newsletterBody:
+      "The week's climate + an expert tip tailored to your skin. No spam, one-click unsubscribe.",
+    newsletterButton: "Subscribe",
+    empty: "The first articles are coming very soon.",
   },
 
   footer: {

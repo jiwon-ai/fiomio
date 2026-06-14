@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -75,7 +77,11 @@ export default function RootLayout({
       className={`${outfit.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </LangProvider>
       </body>
     </html>
   );
