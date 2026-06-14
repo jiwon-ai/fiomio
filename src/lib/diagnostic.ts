@@ -1,0 +1,226 @@
+/* ============================================================
+   FIOMIO — recommendation engine (demo)
+   Crosses skin profile × Paris season × actives in use to
+   rank ingredients and produce an *explainable* output:
+   matched reasons, cautions, and overall routine logic.
+   This is a transparent rule/scoring model — a preview of the
+   contextual layer the full product will deepen.
+   ============================================================ */
+
+import {
+  INGREDIENTS,
+  type Ingredient,
+  type ConcernKey,
+  type ActiveUse,
+} from "./ingredients";
+import { getSeasonInfo, type SeasonInfo } from "./season";
+
+export type SkinType = "dry" | "combination" | "oily" | "normal";
+
+export type DiagnosticInput = {
+  skinType: SkinType;
+  sensitive: boolean;
+  concerns: ConcernKey[];
+  activeUse: ActiveUse;
+};
+
+export type Bi = { fr: string; en: string };
+
+export type Recommendation = {
+  ingredient: Ingredient;
+  score: number;
+  matched: { fr: string[]; en: string[] };
+};
+
+export type DiagnosticResult = {
+  season: SeasonInfo;
+  recommendations: Recommendation[];
+  cautions: Bi[];
+  routine: Bi;
+};
+
+const CONCERN_LABELS: Record<ConcernKey, Bi> = {
+  redness: { fr: "Rougeurs", en: "Redness" },
+  dehydration: { fr: "Déshydratation", en: "Dehydration" },
+  dullness: { fr: "Éclat", en: "Glow" },
+  aging: { fr: "Anti-âge", en: "Anti-aging" },
+  acne: { fr: "Imperfections", en: "Breakouts" },
+  pores: { fr: "Pores", en: "Pores" },
+  barrier: { fr: "Barrière", en: "Barrier" },
+  pigmentation: { fr: "Taches", en: "Dark spots" },
+};
+
+function scoreIngredient(
+  ing: Ingredient,
+  input: DiagnosticInput,
+  season: SeasonInfo,
+): { score: number; matched: { fr: string[]; en: string[] } } {
+  let score = 0;
+  const matchedFr: string[] = [];
+  const matchedEn: string[] = [];
+
+  // 1. Concern fit — earlier-selected concerns weigh more.
+  const weights = [1, 0.78, 0.62];
+  input.concerns.forEach((c, i) => {
+    const t = ing.targets[c] ?? 0;
+    if (t > 0) {
+      score += t * (weights[i] ?? 0.5);
+      if (t >= 2) {
+        matchedFr.push(CONCERN_LABELS[c].fr);
+        matchedEn.push(CONCERN_LABELS[c].en);
+      }
+    }
+    // season amplifies concerns that matter this season
+    const sb = season.boostConcerns[c] ?? 0;
+    if (sb > 0 && t > 0) score += sb * 0.4;
+  });
+
+  // 2. Season trait bias
+  let seasonTraitHit = false;
+  for (const trait of ing.traits) {
+    const b = season.boostTraits[trait] ?? 0;
+    if (b > 0) {
+      score += b * 0.6;
+      seasonTraitHit = true;
+    }
+    if (season.demoteTraits.includes(trait)) score -= 1.2;
+  }
+  if (seasonTraitHit) {
+    matchedFr.push(season.fr.label);
+    matchedEn.push(season.en.label);
+  }
+
+  // 3. Skin-type affinity
+  if (ing.loves.includes(input.skinType)) score += 0.8;
+
+  // 4. Sensitivity — bias toward gentle, penalize potent
+  if (input.sensitive) {
+    score += (ing.gentleness - 1.5) * 0.7;
+    if (ing.strong) score -= 1.6;
+  }
+
+  // 5. Actives already in use — conflicts & synergies
+  if (input.activeUse !== "none") {
+    if (ing.conflictsWith?.includes(input.activeUse)) score -= 3.2;
+    // Strong actives in use stress the barrier → boost repair/soothe
+    if (
+      (input.activeUse === "retinoid" || input.activeUse === "exfoliant") &&
+      (ing.traits.includes("barrier") || ing.traits.includes("soothing"))
+    ) {
+      score += 1.3;
+      if (input.activeUse === "retinoid" && !matchedFr.includes("Rétinol")) {
+        matchedFr.push("Compense le rétinol");
+        matchedEn.push("Buffers retinol");
+      }
+    }
+  }
+
+  return {
+    score,
+    matched: {
+      fr: Array.from(new Set(matchedFr)).slice(0, 3),
+      en: Array.from(new Set(matchedEn)).slice(0, 3),
+    },
+  };
+}
+
+function buildCautions(
+  input: DiagnosticInput,
+  recs: Recommendation[],
+  season: SeasonInfo,
+): Bi[] {
+  const out: Bi[] = [];
+
+  if (input.activeUse === "retinoid") {
+    out.push({
+      fr: "Vous utilisez déjà du rétinol : ne l'empilez pas avec un acide fort le même soir, et encadrez-le toujours d'hydratation.",
+      en: "You already use retinol: don't stack it with a strong acid on the same night, and always buffer it with hydration.",
+    });
+  }
+  if (input.activeUse === "exfoliant") {
+    out.push({
+      fr: "Vous exfoliez déjà : évitez de cumuler AHA/BHA et rétinol, et espacez les actifs pour préserver la barrière.",
+      en: "You already exfoliate: avoid combining AHA/BHA with retinol, and space out actives to protect the barrier.",
+    });
+  }
+  if (input.activeUse === "vitc") {
+    out.push({
+      fr: "Vitamine C le matin : ne la superposez pas à un exfoliant acide au même moment.",
+      en: "Vitamin C in the morning: don't layer it with an acid exfoliant at the same time.",
+    });
+  }
+  if (input.sensitive) {
+    out.push({
+      fr: "Peau réactive : introduisez chaque nouvel actif un soir sur deux et faites un test de tolérance au pli du coude.",
+      en: "Reactive skin: introduce each new active every other night and patch-test on your inner arm first.",
+    });
+  }
+
+  const needsSpf =
+    season.key === "summer" ||
+    input.activeUse !== "none" ||
+    recs.some((r) => r.ingredient.traits.includes("firming") || r.ingredient.id === "vitaminc");
+  if (needsSpf) {
+    out.push({
+      fr: "Protection solaire SPF 50 chaque matin — indispensable avec un actif renouvelant ou éclaircissant, et sous le soleil parisien.",
+      en: "SPF 50 every morning — essential with any renewing or brightening active, and under the Parisian sun.",
+    });
+  }
+
+  return out.slice(0, 3);
+}
+
+function buildRoutine(recs: Recommendation[], season: SeasonInfo): Bi {
+  const am = recs
+    .filter((r) => r.ingredient.timing !== "PM")
+    .map((r) => r.ingredient.name);
+  const pm = recs
+    .filter((r) => r.ingredient.timing !== "AM")
+    .map((r) => r.ingredient.name);
+
+  const list = (arr: { fr: string; en: string }[], lang: "fr" | "en") =>
+    arr.map((n) => n[lang]).join(" · ") || (lang === "fr" ? "hydratation simple" : "simple hydration");
+
+  return {
+    fr: `Contexte : ${season.fr.label.toLowerCase()} à Paris. Le matin, antioxydant et hydratation puis SPF — ${list(am, "fr")}. Le soir, réparation et actifs ciblés — ${list(pm, "fr")}. On introduit un actif à la fois et on laisse la barrière dicter le rythme.`,
+    en: `Context: ${season.en.label.toLowerCase()} in Paris. In the morning, antioxidant and hydration then SPF — ${list(am, "en")}. At night, repair and targeted actives — ${list(pm, "en")}. Introduce one active at a time and let the barrier set the pace.`,
+  };
+}
+
+export function runDiagnostic(
+  input: DiagnosticInput,
+  date?: Date,
+): DiagnosticResult {
+  const season = getSeasonInfo(date);
+
+  const ranked = INGREDIENTS.map((ing) => {
+    const { score, matched } = scoreIngredient(ing, input, season);
+    return { ingredient: ing, score, matched };
+  }).sort((a, b) => b.score - a.score);
+
+  // Top 3 with a light diversity guard: at most one "exfoliating" pick.
+  const recommendations: Recommendation[] = [];
+  let exfoliantPicked = false;
+  for (const r of ranked) {
+    if (recommendations.length >= 3) break;
+    const isExfo = r.ingredient.traits.includes("exfoliating");
+    if (isExfo && exfoliantPicked) continue;
+    if (r.score <= 0) continue;
+    if (isExfo) exfoliantPicked = true;
+    recommendations.push(r);
+  }
+  // Safety net: never return an empty result.
+  if (recommendations.length < 3) {
+    for (const r of ranked) {
+      if (recommendations.length >= 3) break;
+      if (!recommendations.includes(r)) recommendations.push(r);
+    }
+  }
+
+  return {
+    season,
+    recommendations,
+    cautions: buildCautions(input, recommendations, season),
+    routine: buildRoutine(recommendations, season),
+  };
+}
