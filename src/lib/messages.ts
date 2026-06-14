@@ -256,7 +256,17 @@ export const fr = {
     newsletterBody:
       "Le climat de la semaine + un conseil d'expert adapté à votre peau. Pas de spam, désinscription en un clic.",
     newsletterButton: "S'abonner",
-    empty: "Les premiers articles arrivent très bientôt.",
+    empty: "Les premiers tests produits arrivent très bientôt.",
+    review: {
+      rating: "Note",
+      buy: "Acheter ce produit",
+      verdict: "Le verdict",
+      pros: "Ce que j'ai aimé",
+      cons: "Ce que j'ai moins aimé",
+      draftBadge: "Brouillon",
+      photoPlaceholder: "Votre photo ici",
+      testedBy: "Testé par",
+    },
   },
 
   footer: {
@@ -527,7 +537,17 @@ export const en: Messages = {
     newsletterBody:
       "The week's climate + an expert tip tailored to your skin. No spam, one-click unsubscribe.",
     newsletterButton: "Subscribe",
-    empty: "The first articles are coming very soon.",
+    empty: "The first product tests are coming very soon.",
+    review: {
+      rating: "Rating",
+      buy: "Buy this product",
+      verdict: "The verdict",
+      pros: "What I liked",
+      cons: "What I liked less",
+      draftBadge: "Draft",
+      photoPlaceholder: "Your photo here",
+      testedBy: "Tested by",
+    },
   },
 
   footer: {

@@ -26,16 +26,28 @@ export function ArticleCard({ a }: { a: ArticleMeta }) {
     >
       <div className={`h-1.5 ${ACCENT[a.accent]}`} />
       <div className="flex flex-1 flex-col p-6">
-        <div className="flex flex-wrap gap-1.5">
-          {a.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-spring/12 px-2.5 py-0.5 text-[0.7rem] font-medium text-moss"
-            >
-              {tag}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-wrap gap-1.5">
+            {a.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-spring/12 px-2.5 py-0.5 text-[0.7rem] font-medium text-moss"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          {typeof a.product?.rating === "number" && (
+            <span className="shrink-0 rounded-full bg-ink px-2.5 py-1 font-mono text-[0.72rem] font-medium text-spring">
+              {a.product.rating.toFixed(1)}/10
             </span>
-          ))}
+          )}
         </div>
+        {a.product?.brand && (
+          <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-spring-deep">
+            {a.product.brand}
+          </p>
+        )}
         <h3 className="font-display mt-3 text-xl font-semibold leading-snug text-ink transition-colors group-hover:text-spring-deep">
           {a.title}
         </h3>

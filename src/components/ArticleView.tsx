@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { NewsletterInline } from "./NewsletterInline";
 import { ArticleCard } from "./ArticleCard";
+import { ProductCard, PhotoGallery, ProsCons } from "./ReviewBlocks";
 import type { Article, ArticleMeta } from "@/lib/articles";
 
 export function ArticleView({
@@ -28,12 +29,20 @@ export function ArticleView({
       <header className="relative overflow-hidden bg-ink pt-28 pb-12 sm:pt-32">
         <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-dark opacity-50" />
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
-          <Link
-            href="/journal"
-            className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
-          >
-            ← {j.backToJournal}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/journal"
+              className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
+            >
+              ← {j.backToJournal}
+            </Link>
+            {article.draft && (
+              <span className="rounded-full border border-spring/40 bg-spring/10 px-2.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-widest text-spring">
+                {j.review.draftBadge}
+              </span>
+            )}
+          </div>
+
           <div className="mt-6 flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (
               <span
@@ -55,7 +64,7 @@ export function ArticleView({
             </span>
             <span aria-hidden>·</span>
             <span>
-              {j.by} {article.author}
+              {j.review.testedBy} {article.author}
             </span>
           </div>
         </div>
@@ -64,10 +73,13 @@ export function ArticleView({
       {/* body */}
       <article className="bg-paper py-14 sm:py-16">
         <div className="mx-auto max-w-2xl px-5 sm:px-8">
+          {article.product && <ProductCard product={article.product} />}
+          {article.photos.length > 0 && <PhotoGallery photos={article.photos} />}
           <div
             className="article-prose"
             dangerouslySetInnerHTML={{ __html: article.html }}
           />
+          <ProsCons pros={article.pros} cons={article.cons} />
         </div>
       </article>
 

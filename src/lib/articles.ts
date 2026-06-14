@@ -1,7 +1,9 @@
 /* ============================================================
-   FIOMIO — journal / articles
+   FIOMIO — journal / product reviews
    Markdown files in /content/articles with frontmatter, rendered
-   to static HTML at build time (best SEO, zero runtime cost).
+   to static HTML at build time. Reviews carry structured data
+   (product, rating, photos, pros/cons) in frontmatter; the body
+   is the personal narrative. Drafts are hidden from the index.
    ============================================================ */
 
 import fs from "node:fs";
@@ -16,15 +18,33 @@ import rehypeStringify from "rehype-stringify";
 
 const DIR = path.join(process.cwd(), "content/articles");
 
+export type ProductInfo = {
+  name: string;
+  brand: string;
+  category?: string;
+  price?: string;
+  rating?: number; // out of 10
+  url?: string; // buy / affiliate link
+  verdict?: string;
+};
+
+export type Photo = { src: string; label?: string; alt?: string };
+
 export type ArticleMeta = {
   slug: string;
   title: string;
   excerpt: string;
-  date: string; // ISO yyyy-mm-dd
+  date: string;
   tags: string[];
   author: string;
   accent: "lime" | "teal" | "sage";
   readingMinutes: number;
+  type: "review" | "guide";
+  draft: boolean;
+  product?: ProductInfo;
+  pros: string[];
+  cons: string[];
+  photos: Photo[];
 };
 
 export type Article = ArticleMeta & { html: string };
@@ -41,6 +61,10 @@ export function getArticleSlugs(): string[] {
     .map((f) => f.replace(/\.md$/, ""));
 }
 
+function asStringArray(v: unknown): string[] {
+  return Array.isArray(v) ? v.map((x) => String(x)) : [];
+}
+
 function toMeta(slug: string, raw: string): ArticleMeta {
   const { data, content } = matter(raw);
   const words = content.trim().split(/\s+/).length;
@@ -54,21 +78,51 @@ function toMeta(slug: string, raw: string): ArticleMeta {
   const accent = (["lime", "teal", "sage"] as const).includes(data.accent)
     ? (data.accent as ArticleMeta["accent"])
     : "teal";
+
+  const p = data.product;
+  const product: ProductInfo | undefined = p
+    ? {
+        name: String(p.name ?? ""),
+        brand: String(p.brand ?? ""),
+        category: p.category ? String(p.category) : undefined,
+        price: p.price ? String(p.price) : undefined,
+        rating: typeof p.rating === "number" ? p.rating : undefined,
+        url: p.url ? String(p.url) : undefined,
+        verdict: p.verdict ? String(p.verdict) : undefined,
+      }
+    : undefined;
+
+  const photos: Photo[] = Array.isArray(data.photos)
+    ? data.photos.map((ph: { src?: unknown; label?: unknown; alt?: unknown }) => ({
+        src: String(ph.src ?? ""),
+        label: ph.label ? String(ph.label) : undefined,
+        alt: ph.alt ? String(ph.alt) : undefined,
+      }))
+    : [];
+
   return {
     slug,
     title: data.title ?? slug,
     excerpt: data.excerpt ?? "",
     date,
-    tags: Array.isArray(data.tags) ? data.tags : [],
+    tags: asStringArray(data.tags),
     author: data.author ?? "Fiomio",
     accent,
     readingMinutes: Math.max(1, Math.round(words / 200)),
+    type: data.type === "guide" ? "guide" : "review",
+    draft: data.draft === true,
+    product,
+    pros: asStringArray(data.pros),
+    cons: asStringArray(data.cons),
+    photos,
   };
 }
 
+/** Published articles only (drafts hidden), newest first. */
 export function getAllArticles(): ArticleMeta[] {
   return getArticleSlugs()
     .map((slug) => toMeta(slug, readRaw(slug)))
+    .filter((a) => !a.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
