@@ -1,10 +1,10 @@
 /* ============================================================
    FIOMIO — recommendation engine (demo)
-   Crosses skin profile × Paris season × actives in use to
-   rank ingredients and produce an *explainable* output:
-   matched reasons, cautions, and overall routine logic.
-   This is a transparent rule/scoring model — a preview of the
-   contextual layer the full product will deepen.
+   Crosses skin profile × the Paris forecast for the delivery
+   window × actives in use to rank ingredients and produce an
+   *explainable* output: matched reasons, cautions, routine logic.
+   A transparent rule/scoring model — a preview of the contextual
+   layer the full product will deepen.
    ============================================================ */
 
 import {
@@ -13,7 +13,7 @@ import {
   type ConcernKey,
   type ActiveUse,
 } from "./ingredients";
-import { getSeasonInfo, type SeasonInfo } from "./season";
+import type { ClimateContext } from "./climate";
 
 export type SkinType = "dry" | "combination" | "oily" | "normal";
 
@@ -33,7 +33,7 @@ export type Recommendation = {
 };
 
 export type DiagnosticResult = {
-  season: SeasonInfo;
+  climate: ClimateContext;
   recommendations: Recommendation[];
   cautions: Bi[];
   routine: Bi;
@@ -53,7 +53,7 @@ const CONCERN_LABELS: Record<ConcernKey, Bi> = {
 function scoreIngredient(
   ing: Ingredient,
   input: DiagnosticInput,
-  season: SeasonInfo,
+  climate: ClimateContext,
 ): { score: number; matched: { fr: string[]; en: string[] } } {
   let score = 0;
   const matchedFr: string[] = [];
@@ -70,24 +70,24 @@ function scoreIngredient(
         matchedEn.push(CONCERN_LABELS[c].en);
       }
     }
-    // season amplifies concerns that matter this season
-    const sb = season.boostConcerns[c] ?? 0;
-    if (sb > 0 && t > 0) score += sb * 0.4;
+    // climate amplifies concerns that matter for the delivery window
+    const cb = climate.boostConcerns[c] ?? 0;
+    if (cb > 0 && t > 0) score += cb * 0.4;
   });
 
-  // 2. Season trait bias
-  let seasonTraitHit = false;
+  // 2. Climate trait bias (forecast for the delivery week)
+  let climateTraitHit = false;
   for (const trait of ing.traits) {
-    const b = season.boostTraits[trait] ?? 0;
+    const b = climate.boostTraits[trait] ?? 0;
     if (b > 0) {
       score += b * 0.6;
-      seasonTraitHit = true;
+      climateTraitHit = true;
     }
-    if (season.demoteTraits.includes(trait)) score -= 1.2;
+    if (climate.demoteTraits.includes(trait)) score -= 1.2;
   }
-  if (seasonTraitHit) {
-    matchedFr.push(season.fr.label);
-    matchedEn.push(season.en.label);
+  if (climateTraitHit) {
+    matchedFr.push(climate.chip.fr);
+    matchedEn.push(climate.chip.en);
   }
 
   // 3. Skin-type affinity
@@ -102,13 +102,12 @@ function scoreIngredient(
   // 5. Actives already in use — conflicts & synergies
   if (input.activeUse !== "none") {
     if (ing.conflictsWith?.includes(input.activeUse)) score -= 3.2;
-    // Strong actives in use stress the barrier → boost repair/soothe
     if (
       (input.activeUse === "retinoid" || input.activeUse === "exfoliant") &&
       (ing.traits.includes("barrier") || ing.traits.includes("soothing"))
     ) {
       score += 1.3;
-      if (input.activeUse === "retinoid" && !matchedFr.includes("Rétinol")) {
+      if (input.activeUse === "retinoid" && !matchedFr.includes("Compense le rétinol")) {
         matchedFr.push("Compense le rétinol");
         matchedEn.push("Buffers retinol");
       }
@@ -127,7 +126,7 @@ function scoreIngredient(
 function buildCautions(
   input: DiagnosticInput,
   recs: Recommendation[],
-  season: SeasonInfo,
+  climate: ClimateContext,
 ): Bi[] {
   const out: Bi[] = [];
 
@@ -156,8 +155,9 @@ function buildCautions(
     });
   }
 
+  const uv = climate.metrics?.uv ?? 0;
   const needsSpf =
-    season.key === "summer" ||
+    uv >= 4 ||
     input.activeUse !== "none" ||
     recs.some((r) => r.ingredient.traits.includes("firming") || r.ingredient.id === "vitaminc");
   if (needsSpf) {
@@ -170,7 +170,7 @@ function buildCautions(
   return out.slice(0, 3);
 }
 
-function buildRoutine(recs: Recommendation[], season: SeasonInfo): Bi {
+function buildRoutine(recs: Recommendation[], climate: ClimateContext): Bi {
   const am = recs
     .filter((r) => r.ingredient.timing !== "PM")
     .map((r) => r.ingredient.name);
@@ -179,22 +179,21 @@ function buildRoutine(recs: Recommendation[], season: SeasonInfo): Bi {
     .map((r) => r.ingredient.name);
 
   const list = (arr: { fr: string; en: string }[], lang: "fr" | "en") =>
-    arr.map((n) => n[lang]).join(" · ") || (lang === "fr" ? "hydratation simple" : "simple hydration");
+    arr.map((n) => n[lang]).join(" · ") ||
+    (lang === "fr" ? "hydratation simple" : "simple hydration");
 
   return {
-    fr: `Contexte : ${season.fr.label.toLowerCase()} à Paris. Le matin, antioxydant et hydratation puis SPF — ${list(am, "fr")}. Le soir, réparation et actifs ciblés — ${list(pm, "fr")}. On introduit un actif à la fois et on laisse la barrière dicter le rythme.`,
-    en: `Context: ${season.en.label.toLowerCase()} in Paris. In the morning, antioxidant and hydration then SPF — ${list(am, "en")}. At night, repair and targeted actives — ${list(pm, "en")}. Introduce one active at a time and let the barrier set the pace.`,
+    fr: `Contexte : ${climate.fr.label.toLowerCase()} à Paris au moment de la réception. Le matin, antioxydant et hydratation puis SPF — ${list(am, "fr")}. Le soir, réparation et actifs ciblés — ${list(pm, "fr")}. On introduit un actif à la fois et on laisse la barrière dicter le rythme.`,
+    en: `Context: ${climate.en.label.toLowerCase()} in Paris by the time it arrives. In the morning, antioxidant and hydration then SPF — ${list(am, "en")}. At night, repair and targeted actives — ${list(pm, "en")}. Introduce one active at a time and let the barrier set the pace.`,
   };
 }
 
 export function runDiagnostic(
   input: DiagnosticInput,
-  date?: Date,
+  climate: ClimateContext,
 ): DiagnosticResult {
-  const season = getSeasonInfo(date);
-
   const ranked = INGREDIENTS.map((ing) => {
-    const { score, matched } = scoreIngredient(ing, input, season);
+    const { score, matched } = scoreIngredient(ing, input, climate);
     return { ingredient: ing, score, matched };
   }).sort((a, b) => b.score - a.score);
 
@@ -209,7 +208,6 @@ export function runDiagnostic(
     if (isExfo) exfoliantPicked = true;
     recommendations.push(r);
   }
-  // Safety net: never return an empty result.
   if (recommendations.length < 3) {
     for (const r of ranked) {
       if (recommendations.length >= 3) break;
@@ -218,9 +216,9 @@ export function runDiagnostic(
   }
 
   return {
-    season,
+    climate,
     recommendations,
-    cautions: buildCautions(input, recommendations, season),
-    routine: buildRoutine(recommendations, season),
+    cautions: buildCautions(input, recommendations, climate),
+    routine: buildRoutine(recommendations, climate),
   };
 }

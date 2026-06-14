@@ -112,7 +112,7 @@ export const fr = {
     eyebrow: "03 — Diagnostic",
     title: "Voyez la logique Fiomio à l'œuvre.",
     intro:
-      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations — Fiomio croise la saison parisienne actuelle pour proposer des actifs argumentés.",
+      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations — Fiomio croise les prévisions de Paris pour la semaine où vous recevrez vos produits, et propose des actifs argumentés.",
     demoBadge: "Démo — aperçu produit",
     step: "Étape",
     of: "sur",
@@ -132,6 +132,11 @@ export const fr = {
     climateTitle: "Contexte pris en compte",
     climateCity: "Paris",
     climateNote: "détecté automatiquement",
+    deliveryAround: "Réception estimée",
+    forecastSrc: "prévisions Open-Meteo",
+    seasonEst: "estimation saisonnière",
+    forecastLoading: "Lecture du ciel parisien…",
+    leadTimeNote: "On vous conseille pour la météo que votre peau affrontera à la livraison — pas celle d'aujourd'hui.",
 
     back: "Retour",
     next: "Continuer",
@@ -361,7 +366,7 @@ export const en: Messages = {
     eyebrow: "03 — Diagnostic",
     title: "See the Fiomio logic at work.",
     intro:
-      "A glimpse of the engine. Tell us about your skin and concerns — Fiomio factors in the current Parisian season to suggest reasoned actives.",
+      "A glimpse of the engine. Tell us about your skin and concerns — Fiomio factors in the Paris forecast for the week your products will arrive, and suggests reasoned actives.",
     demoBadge: "Demo — product preview",
     step: "Step",
     of: "of",
@@ -381,6 +386,11 @@ export const en: Messages = {
     climateTitle: "Context factored in",
     climateCity: "Paris",
     climateNote: "auto-detected",
+    deliveryAround: "Estimated delivery",
+    forecastSrc: "Open-Meteo forecast",
+    seasonEst: "seasonal estimate",
+    forecastLoading: "Reading the Paris sky…",
+    leadTimeNote: "We advise for the weather your skin will face on delivery — not today's.",
 
     back: "Back",
     next: "Continue",

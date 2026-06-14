@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
-import { getSeasonInfo, type SeasonInfo } from "@/lib/season";
+import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
 import {
   runDiagnostic,
   type DiagnosticResult,
@@ -18,7 +18,7 @@ export function Diagnostic() {
   const { lang, t } = useLang();
   const d = t.diagnostic;
 
-  const [season, setSeason] = useState<SeasonInfo | null>(null);
+  const [climate, setClimate] = useState<ClimateContext | null>(null);
   const [step, setStep] = useState(0);
   const [skinType, setSkinType] = useState<SkinType | null>(null);
   const [sensitive, setSensitive] = useState<boolean | null>(null);
@@ -26,9 +26,20 @@ export function Diagnostic() {
   const [activeUse, setActiveUse] = useState<ActiveUse | null>(null);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
 
-  // Compute season client-side to avoid hydration mismatch.
+  // Show a seasonal estimate instantly, then upgrade to the live
+  // Paris forecast for the delivery window when it loads.
   useEffect(() => {
-    setSeason(getSeasonInfo());
+    setClimate(seasonFallbackClimate());
+    let alive = true;
+    fetch("/api/forecast")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (alive && data?.ok && data.climate) setClimate(data.climate);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const toggleConcern = (key: ConcernKey) => {
@@ -54,10 +65,12 @@ export function Diagnostic() {
       setStep((s) => s + 1);
       return;
     }
-    // last step → compute
     if (skinType && sensitive !== null && activeUse) {
       setResult(
-        runDiagnostic({ skinType, sensitive, concerns, activeUse }),
+        runDiagnostic(
+          { skinType, sensitive, concerns, activeUse },
+          climate ?? seasonFallbackClimate(),
+        ),
       );
     }
   };
@@ -71,6 +84,14 @@ export function Diagnostic() {
     setActiveUse(null);
   };
 
+  const fmtDate = (iso?: string) =>
+    iso
+      ? new Date(`${iso}T00:00:00`).toLocaleDateString(
+          lang === "fr" ? "fr-FR" : "en-US",
+          { day: "numeric", month: "short" },
+        )
+      : "";
+
   return (
     <section id="diagnostic" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
@@ -83,25 +104,43 @@ export function Diagnostic() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-2xl border border-line bg-cream shadow-[0_24px_70px_-40px_rgba(12,13,12,0.5)]">
-            {/* device header: demo badge + climate context */}
-            <div className="flex flex-col gap-3 border-b border-line bg-white/60 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-              <span className="inline-flex w-max items-center gap-2 rounded-full bg-ink px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-spring">
-                <span className="size-1.5 animate-pulse rounded-full bg-spring" />
-                {d.demoBadge}
-              </span>
-              {season && (
-                <div className="flex items-center gap-2.5 text-sm">
-                  <span aria-hidden className="text-base">
-                    {season.emoji}
-                  </span>
-                  <span className="text-stone">
-                    <span className="font-medium text-ink">
-                      {d.climateCity} · {season[lang].label}
-                    </span>{" "}
-                    <span className="text-stone-2">· {d.climateNote}</span>
-                  </span>
-                </div>
+          <div className="overflow-hidden rounded-2xl border border-line bg-cream shadow-[0_24px_70px_-40px_rgba(15,43,49,0.5)]">
+            {/* device header: demo badge + delivery-window forecast */}
+            <div className="border-b border-line bg-white/60 px-5 py-4 sm:px-7">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <span className="inline-flex w-max items-center gap-2 rounded-full bg-ink px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-spring">
+                  <span className="size-1.5 animate-pulse rounded-full bg-spring" />
+                  {d.demoBadge}
+                </span>
+                {climate && (
+                  <div className="flex items-center gap-2.5 text-sm">
+                    <span aria-hidden className="text-base">
+                      {climate.emoji}
+                    </span>
+                    <span className="text-stone">
+                      <span className="font-medium text-ink">
+                        {d.climateCity} · {climate[lang].label}
+                      </span>{" "}
+                      <span className="text-stone-2">· {climate[lang].detail}</span>
+                    </span>
+                  </div>
+                )}
+              </div>
+              {climate && (
+                <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.68rem] uppercase tracking-wider text-stone-2">
+                  {climate.source === "forecast" ? (
+                    <>
+                      <span aria-hidden>📦</span>
+                      <span>
+                        {d.deliveryAround} {fmtDate(climate.deliveryFrom)} –{" "}
+                        {fmtDate(climate.deliveryTo)}
+                      </span>
+                      <span className="text-spring-deep">· {d.forecastSrc}</span>
+                    </>
+                  ) : (
+                    <span>{d.seasonEst}</span>
+                  )}
+                </p>
               )}
             </div>
 
@@ -113,7 +152,7 @@ export function Diagnostic() {
                   skinTypes={t.skinTypes}
                   concernsList={t.concerns}
                   activesList={t.actives}
-                  season={season}
+                  climate={climate}
                   lang={lang}
                   skinType={skinType}
                   setSkinType={setSkinType}
@@ -148,7 +187,7 @@ function Questionnaire(props: {
   skinTypes: ReturnType<typeof useLang>["t"]["skinTypes"];
   concernsList: ReturnType<typeof useLang>["t"]["concerns"];
   activesList: ReturnType<typeof useLang>["t"]["actives"];
-  season: SeasonInfo | null;
+  climate: ClimateContext | null;
   lang: "fr" | "en";
   skinType: SkinType | null;
   setSkinType: (s: SkinType) => void;
@@ -168,7 +207,7 @@ function Questionnaire(props: {
     skinTypes,
     concernsList,
     activesList,
-    season,
+    climate,
     lang,
     skinType,
     setSkinType,
@@ -211,7 +250,6 @@ function Questionnaire(props: {
         </h3>
         <p className="mt-1.5 text-sm text-stone">{helps[step]}</p>
 
-        {/* Q1 — skin type */}
         {step === 0 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {skinTypes.map((s) => (
@@ -226,7 +264,6 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {/* Q2 — sensitivity */}
         {step === 1 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <OptionCard
@@ -242,7 +279,6 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {/* Q3 — concerns (multi, max 3) */}
         {step === 2 && (
           <div className="mt-6 flex flex-wrap gap-2.5">
             {concernsList.map((c) => {
@@ -270,7 +306,6 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {/* Q4 — active in use */}
         {step === 3 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {activesList.map((a) => (
@@ -284,16 +319,20 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {/* climate note on step 0 */}
-        {step === 0 && season && (
-          <p className="mt-6 rounded-lg border border-line bg-white/60 px-4 py-3 text-[0.85rem] leading-relaxed text-stone">
-            <span className="font-medium text-ink">{d.climateTitle}:</span>{" "}
-            {season[lang].humidity}. {season[lang].note}
-          </p>
+        {/* climate note on step 0 — the lead-time differentiator */}
+        {step === 0 && climate && (
+          <div className="mt-6 rounded-lg border border-spring-deep/25 bg-spring/8 px-4 py-3">
+            <p className="text-[0.85rem] leading-relaxed text-ink/80">
+              <span className="font-medium text-ink">{d.climateTitle} :</span>{" "}
+              {climate[lang].detail}. {climate[lang].note}
+            </p>
+            <p className="mt-1.5 text-[0.78rem] italic leading-relaxed text-stone">
+              {d.leadTimeNote}
+            </p>
+          </div>
         )}
       </div>
 
-      {/* controls */}
       <div className="mt-8 flex items-center justify-between gap-3">
         <button
           type="button"
@@ -359,7 +398,7 @@ function OptionCard({
           <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
             <path
               d="M2.5 6.2l2.2 2.3L9.5 3.5"
-              stroke="#04130b"
+              stroke="#f4f5ee"
               strokeWidth="1.8"
               strokeLinecap="round"
               strokeLinejoin="round"
