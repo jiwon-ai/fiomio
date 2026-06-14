@@ -15,7 +15,7 @@ export function Marquee() {
         {loop.map((label, i) => (
           <span key={i} className="flex items-center whitespace-nowrap">
             <span className="mx-6 size-1 rounded-full bg-spring-deep" aria-hidden />
-            <span className="font-display text-lg text-cream/85 italic">
+            <span className="font-display text-lg font-medium text-cream/85">
               {label}
             </span>
           </span>

@@ -55,14 +55,14 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
     >
       <defs>
         <radialGradient id="fio-glow" cx="55%" cy="42%" r="60%">
-          <stop offset="0%" stopColor="#00ff7f" stopOpacity="0.22" />
-          <stop offset="55%" stopColor="#00ff7f" stopOpacity="0.05" />
-          <stop offset="100%" stopColor="#00ff7f" stopOpacity="0" />
+          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.22" />
+          <stop offset="55%" stopColor="#cbef4d" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="fio-scan" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#00ff7f" stopOpacity="0" />
-          <stop offset="50%" stopColor="#00ff7f" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#00ff7f" stopOpacity="0" />
+          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0" />
+          <stop offset="50%" stopColor="#cbef4d" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
         </linearGradient>
         <filter id="fio-soft" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="6" />
@@ -73,7 +73,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
       <circle cx="210" cy="200" r="190" fill="url(#fio-glow)" />
 
       {/* edges */}
-      <g stroke="#00ff7f" strokeOpacity="0.28" strokeWidth="0.9">
+      <g stroke="#cbef4d" strokeOpacity="0.28" strokeWidth="0.9">
         {EDGES.map(([a, b], i) => (
           <line
             key={i}
@@ -107,7 +107,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
                 cx={n.x}
                 cy={n.y}
                 r="9"
-                fill="#00ff7f"
+                fill="#cbef4d"
                 fillOpacity="0.16"
                 filter="url(#fio-soft)"
               />
@@ -116,7 +116,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
               cx={n.x}
               cy={n.y}
               r={n.key ? 2.8 : 1.8}
-              fill={n.key ? "#00ff7f" : "#8acca8"}
+              fill={n.key ? "#cbef4d" : "#8fb39e"}
               style={{
                 animation: `node-pulse ${2.6 + (i % 5) * 0.5}s ease-in-out ${
                   (i % 7) * 0.32
@@ -131,7 +131,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
       <g
         fontFamily="var(--font-mono)"
         fontSize="9"
-        fill="#8acca8"
+        fill="#8fb39e"
         fillOpacity="0.85"
         letterSpacing="0.08em"
       >

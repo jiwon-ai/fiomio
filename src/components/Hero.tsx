@@ -41,7 +41,7 @@ export function Hero() {
             {h.titleLead}{" "}
             <em className="not-italic text-spring">{h.titleEmph}</em>
             {h.titleMid}{" "}
-            <em className="italic text-sage">{h.titleEmph2}</em>.
+            <em className="not-italic text-sage">{h.titleEmph2}</em>.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-cream/65 sm:text-lg">

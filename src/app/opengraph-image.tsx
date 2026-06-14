@@ -14,11 +14,11 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#0c0d0c",
+          backgroundColor: "#0f2b31",
           backgroundImage:
-            "radial-gradient(600px 400px at 78% 22%, rgba(0,255,127,0.18), transparent 70%)",
+            "radial-gradient(600px 400px at 78% 22%, rgba(203,239,77,0.20), transparent 70%)",
           padding: "72px 80px",
-          fontFamily: "Georgia, serif",
+          fontFamily: "system-ui, -apple-system, sans-serif",
         }}
       >
         <div
@@ -26,29 +26,33 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 14,
-            color: "#00ff7f",
+            color: "#cbef4d",
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
             fontFamily: "monospace",
           }}
         >
-          <div style={{ width: 10, height: 10, borderRadius: 99, background: "#00ff7f" }} />
+          <div style={{ width: 10, height: 10, borderRadius: 99, background: "#cbef4d" }} />
           Korean Insider × Paris Observer
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 88,
+              display: "flex",
+              flexDirection: "column",
+              fontSize: 84,
               fontWeight: 600,
               color: "#fbfbf6",
               letterSpacing: -2,
-              lineHeight: 1.05,
+              lineHeight: 1.08,
             }}
           >
-            La K-beauty décodée pour{" "}
-            <span style={{ color: "#00ff7f" }}>votre peau</span>.
+            <div style={{ display: "flex" }}>La K-beauty décodée</div>
+            <div style={{ display: "flex" }}>
+              pour&nbsp;<span style={{ color: "#cbef4d" }}>votre peau</span>.
+            </div>
           </div>
           <div
             style={{
@@ -74,8 +78,19 @@ export default function OpengraphImage() {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          <div style={{ fontSize: 40, fontWeight: 700, color: "#fbfbf6", letterSpacing: -1 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              gap: 8,
+              fontSize: 40,
+              fontWeight: 700,
+              color: "#fbfbf6",
+              letterSpacing: -1,
+            }}
+          >
             fiomio
+            <div style={{ width: 16, height: 16, borderRadius: 4, background: "#cbef4d", marginBottom: 7 }} />
           </div>
           <div>fiomio.io</div>
         </div>

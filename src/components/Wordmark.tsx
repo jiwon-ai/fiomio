@@ -1,6 +1,7 @@
 "use client";
 
-/** Fiomio wordmark — the dots of the two i's become spring-green data nodes. */
+/* Fiomio wordmark — geometric "fiomio" followed by the lime brand square
+   (the period reimagined as a "pixel of intelligence"). Mirrors the logo. */
 export function Wordmark({
   className = "",
   onDark = false,
@@ -10,22 +11,16 @@ export function Wordmark({
 }) {
   return (
     <span
-      className={`font-display font-semibold tracking-tight inline-flex items-baseline ${
+      className={`font-display font-semibold tracking-tight inline-flex items-end leading-none ${
         onDark ? "text-cream" : "text-ink"
       } ${className}`}
       aria-label="Fiomio"
     >
-      <span aria-hidden>f</span>
-      <span aria-hidden className="relative">
-        ı
-        <span className="absolute -top-[0.06em] left-1/2 -translate-x-1/2 size-[0.16em] rounded-full bg-spring-deep" />
-      </span>
-      <span aria-hidden>om</span>
-      <span aria-hidden className="relative">
-        ı
-        <span className="absolute -top-[0.06em] left-1/2 -translate-x-1/2 size-[0.16em] rounded-full bg-spring-deep" />
-      </span>
-      <span aria-hidden>o</span>
+      <span aria-hidden>fiomio</span>
+      <span
+        aria-hidden
+        className="ml-[0.12em] mb-[0.04em] inline-block size-[0.32em] rounded-[0.08em] bg-spring"
+      />
     </span>
   );
 }

@@ -8,30 +8,30 @@
    ============================================================ */
 
 @theme {
-  /* Brand colors */
-  --color-ink: #0c0d0c;
-  --color-ink-2: #151815;
-  --color-ink-soft: #1a1f1a;
+  /* Brand colors — deep teal + lime (matches the fiomio wordmark) */
+  --color-ink: #0f2b31; /* deep teal — dark sections & text */
+  --color-ink-2: #143138;
+  --color-ink-soft: #1c3a40;
   --color-paper: #f6f7f2;
-  --color-paper-2: #eeeeed;
+  --color-paper-2: #eceee6;
   --color-cream: #fbfbf6;
 
-  --color-spring: #00ff7f; /* signature accent */
-  --color-spring-deep: #00b35a;
-  --color-spring-ink: #04130b;
-  --color-sage: #8acca8;
-  --color-sage-soft: #c2c8c4;
-  --color-mint: #dffff2;
-  --color-moss: #2a5c3a;
+  --color-spring: #cbef4d; /* lime — signature accent / fills / buttons */
+  --color-spring-deep: #2f6b4f; /* deep teal-green — text labels on light */
+  --color-spring-ink: #0f2b31; /* deep teal — text on lime fills */
+  --color-sage: #8fb39e;
+  --color-sage-soft: #b9c7bf;
+  --color-mint: #e8f6cb; /* pale lime tint */
+  --color-moss: #2a5c46;
 
-  --color-stone: #6b6f68;
-  --color-stone-2: #8c918a;
-  --color-line: #dfe2da;
+  --color-stone: #5f6b66;
+  --color-stone-2: #88938d;
+  --color-line: #dde2d8;
   --color-line-dark: #ffffff14;
 
   /* Fonts (wired to next/font CSS variables in layout.tsx) */
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-geist), ui-monospace, monospace;
 
   /* Easing */
@@ -68,10 +68,9 @@
     color: var(--color-spring-ink);
   }
 
-  /* Fraunces optical niceties for display type */
+  /* Display type — Outfit, tightened tracking */
   .font-display {
-    font-optical-sizing: auto;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   h1, h2, h3 {
