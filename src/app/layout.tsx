@@ -22,7 +22,7 @@ const SITE_URL = "https://fiomio.io";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fiomio — Intelligence skincare adaptative · Korean Insider × Paris Observer",
+    default: "Fiomio — Le soin K-beauty choisi pour votre peau et la météo de Paris",
     template: "%s · Fiomio",
   },
   description:

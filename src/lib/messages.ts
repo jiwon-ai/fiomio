@@ -10,7 +10,7 @@ export const fr = {
 
   nav: {
     problem: "Le problème",
-    solution: "La solution",
+    solution: "Comment ça marche",
     diagnostic: "Diagnostic",
     market: "Le marché",
     journal: "Journal",
@@ -18,7 +18,7 @@ export const fr = {
   },
 
   hero: {
-    eyebrow: "Korean Insider × Paris Observer",
+    eyebrow: "Diagnostic gratuit · pensé pour Paris",
     titleLead: "La K-beauty décodée pour",
     titleEmph: "votre peau",
     titleMid: " — et pour le climat de",
@@ -54,10 +54,10 @@ export const fr = {
   ],
 
   problem: {
-    eyebrow: "01 — Le problème",
-    title: "Les consommateurs français sont perdus face à la K-beauty.",
+    eyebrow: "Le vrai problème",
+    title: "Trop de produits coréens. Aucun repère pour votre peau.",
     intro:
-      "La K-beauty s'est imposée en France comme un phénomène d'achat de masse — mais sans grille de lecture locale. Quatre frictions structurent le problème.",
+      "Vous achetez une essence parce qu'elle cartonne sur TikTok, sans savoir si elle est faite pour vous. Voilà pourquoi c'est si frustrant.",
     items: [
       {
         title: "Offre saturée",
@@ -72,17 +72,17 @@ export const fr = {
         body: "Humidité, pollution, dureté de l'eau, chauffage : tout diffère. Une formule pensée pour un climat humide peut être insuffisante dans un hiver parisien sec.",
       },
       {
-        title: "Absence d'intelligence locale",
-        body: "La donnée — recherches, achats, abandons — existe, mais personne ne la structure. C'est précisément la barrière à l'entrée que Fiomio construit.",
+        title: "Personne ne tient compte de Paris",
+        body: "Aucun outil ne relie votre peau, votre ville et la saison. Résultat : vous testez à l'aveugle, et votre argent finit en flacons à moitié vides.",
       },
     ],
   },
 
   solution: {
-    eyebrow: "02 — La solution",
-    title: "Un moteur de recommandation contextuel, pas un décodeur d'étiquettes.",
+    eyebrow: "Comment ça marche",
+    title: "On ne décode pas une étiquette. On vous dit quoi mettre, et pourquoi.",
     intro:
-      "Fiomio transforme trois entrées en une sortie personnalisée et explicable. La valeur n'est pas seulement quoi appliquer, mais pourquoi ce soin convient à cette peau, dans ce climat, à cette saison.",
+      "Trois informations suffisent pour une recommandation personnalisée — et expliquée. Pas seulement quoi appliquer, mais pourquoi ce soin convient à votre peau, dans ce climat, à cette saison.",
     steps: [
       {
         n: "01",
@@ -106,12 +106,38 @@ export const fr = {
       "Une logique de soin cohérente et justifiée — l'explicabilité qui construit la confiance dans un marché où l'influence en manque.",
     differentiatorLabel: "Différenciation",
     differentiator:
-      "Yuka et INCI Beauty décodent déjà les étiquettes — ce terrain est saturé. L'avantage de Fiomio est la personnalisation contextuelle : climat × peau × actifs.",
+      "La plupart des applis se contentent de décoder une étiquette. Fiomio va plus loin : elle croise votre peau, le climat de Paris et la saison pour vous dire quoi appliquer — et surtout pourquoi.",
+  },
+
+  whyDifferent: {
+    eyebrow: "Pourquoi Fiomio",
+    title: "Ce qui change tout pour votre peau.",
+    items: [
+      {
+        title: "On lit votre peau, pas les tendances",
+        body: "Pas de produit star imposé. Une recommandation construite à partir de votre type de peau et de vos vraies préoccupations.",
+      },
+      {
+        title: "Le climat, pas seulement les ingrédients",
+        body: "La météo de Paris au moment où vous recevrez vos soins change ce qui fonctionne. On en tient compte — personne d'autre ne le fait.",
+      },
+      {
+        title: "On vous dit toujours pourquoi",
+        body: "Chaque conseil est expliqué. Vous comprenez ce que vous mettez sur votre peau, et pourquoi ça lui convient.",
+      },
+    ],
+  },
+
+  journalTeaser: {
+    eyebrow: "Le journal",
+    title: "Des tests produits honnêtes. Vraies photos, vrai avis.",
+    body: "On teste, on photographie, on note sur 10 — sans filtre et sans complaisance. Recevez chaque semaine la météo-soin de Paris et nos derniers tests.",
+    cta: "Voir le journal",
   },
 
   diagnostic: {
-    eyebrow: "03 — Diagnostic",
-    title: "Voyez la logique Fiomio à l'œuvre.",
+    eyebrow: "Votre diagnostic, gratuit",
+    title: "Voyez ce que Fiomio vous recommande.",
     intro:
       "Un aperçu du moteur. Renseignez votre peau et vos préoccupations — Fiomio croise les prévisions de Paris pour la semaine où vous recevrez vos produits, et propose des actifs argumentés.",
     demoBadge: "Démo — aperçu produit",
@@ -270,8 +296,8 @@ export const fr = {
   },
 
   footer: {
-    tagline: "Intelligence skincare contextualisée — entre Paris et Séoul.",
-    pillars: ["Korean Insider", "Paris Observer", "Data-Driven", "Ingredient-First"],
+    tagline: "Le bon soin pour votre peau, votre ville, votre saison.",
+    pillars: ["Peau", "Climat", "Actifs", "Sans influence"],
     nav: "Navigation",
     legalCol: "Légal",
     legalNotice: "Mentions légales",
@@ -292,7 +318,7 @@ export const en: Messages = {
 
   nav: {
     problem: "The problem",
-    solution: "The solution",
+    solution: "How it works",
     diagnostic: "Diagnostic",
     market: "The market",
     journal: "Journal",
@@ -300,7 +326,7 @@ export const en: Messages = {
   },
 
   hero: {
-    eyebrow: "Korean Insider × Paris Observer",
+    eyebrow: "Free diagnostic · made for Paris",
     titleLead: "K-beauty, decoded for",
     titleEmph: "your skin",
     titleMid: " — and for the climate of",
@@ -336,10 +362,10 @@ export const en: Messages = {
   ],
 
   problem: {
-    eyebrow: "01 — The problem",
-    title: "French consumers are lost in front of K-beauty.",
+    eyebrow: "The real problem",
+    title: "Too many Korean products. No compass for your skin.",
     intro:
-      "K-beauty became a mass-market phenomenon in France — but with no local lens. Four frictions structure the problem.",
+      "You buy an essence because it's blowing up on TikTok, with no idea whether it's right for you. That's why it feels so frustrating.",
     items: [
       {
         title: "Saturated supply",
@@ -354,17 +380,17 @@ export const en: Messages = {
         body: "Humidity, pollution, water hardness, heating: everything differs. A formula made for a humid climate can fall short in a dry Parisian winter.",
       },
       {
-        title: "No local intelligence",
-        body: "The data — searches, purchases, drop-offs — exists, but no one structures it. That is precisely the moat Fiomio is building.",
+        title: "No one accounts for Paris",
+        body: "No tool connects your skin, your city and the season. So you test blindly — and your money ends up in half-used bottles.",
       },
     ],
   },
 
   solution: {
-    eyebrow: "02 — The solution",
-    title: "A contextual recommendation engine, not a label decoder.",
+    eyebrow: "How it works",
+    title: "We don't decode a label. We tell you what to apply, and why.",
     intro:
-      "Fiomio turns three inputs into one personalized, explainable output. The value is not only what to apply, but why this care fits this skin, in this climate, this season.",
+      "Three pieces of info are enough for a personalized — and explained — recommendation. Not just what to apply, but why this care suits your skin, in this climate, this season.",
     steps: [
       {
         n: "01",
@@ -388,12 +414,38 @@ export const en: Messages = {
       "A coherent, justified skincare logic — the explainability that builds trust in a market where influence falls short.",
     differentiatorLabel: "Differentiation",
     differentiator:
-      "Yuka and INCI Beauty already decode labels — that ground is saturated. Fiomio's edge is contextual personalization: climate × skin × actives.",
+      "Most apps just decode a label. Fiomio goes further: it crosses your skin, the Paris climate and the season to tell you what to apply — and above all, why.",
+  },
+
+  whyDifferent: {
+    eyebrow: "Why Fiomio",
+    title: "What changes everything for your skin.",
+    items: [
+      {
+        title: "We read your skin, not the trends",
+        body: "No hero product forced on you. A recommendation built from your skin type and your real concerns.",
+      },
+      {
+        title: "The climate, not just the ingredients",
+        body: "The Paris weather when your products arrive changes what works. We factor it in — no one else does.",
+      },
+      {
+        title: "We always tell you why",
+        body: "Every tip is explained. You understand what you put on your skin, and why it suits it.",
+      },
+    ],
+  },
+
+  journalTeaser: {
+    eyebrow: "The journal",
+    title: "Honest product tests. Real photos, real verdicts.",
+    body: "We test, we photograph, we score out of 10 — no filter, no flattery. Get the Paris skincare weather and our latest tests every week.",
+    cta: "See the journal",
   },
 
   diagnostic: {
-    eyebrow: "03 — Diagnostic",
-    title: "See the Fiomio logic at work.",
+    eyebrow: "Your free diagnostic",
+    title: "See what Fiomio recommends for you.",
     intro:
       "A glimpse of the engine. Tell us about your skin and concerns — Fiomio factors in the Paris forecast for the week your products will arrive, and suggests reasoned actives.",
     demoBadge: "Demo — product preview",
@@ -551,8 +603,8 @@ export const en: Messages = {
   },
 
   footer: {
-    tagline: "Contextual skincare intelligence — between Paris and Seoul.",
-    pillars: ["Korean Insider", "Paris Observer", "Data-Driven", "Ingredient-First"],
+    tagline: "The right care for your skin, your city, your season.",
+    pillars: ["Skin", "Climate", "Actives", "No influencers"],
     nav: "Navigation",
     legalCol: "Legal",
     legalNotice: "Legal notice",

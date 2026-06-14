@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Fiomio — Intelligence skincare adaptative · Korean Insider × Paris Observer";
+export const alt = "Fiomio — Le soin K-beauty choisi pour votre peau et la météo de Paris";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -34,7 +34,7 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ width: 10, height: 10, borderRadius: 99, background: "#cbef4d" }} />
-          Korean Insider × Paris Observer
+          Diagnostic peau × météo de Paris
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
