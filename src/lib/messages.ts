@@ -22,7 +22,7 @@ export const fr = {
     titleLead: "La K-beauty décodée pour",
     titleEmph: "votre peau",
     titleMid: " — et pour le climat de",
-    titleEmph2: "Paris",
+    titleEmph2: "votre ville",
     subtitle:
       "Les routines coréennes sont pensées pour Séoul. Fiomio croise votre profil cutané, le climat local et les actifs K-beauty pour une recommandation personnalisée — et expliquée. Pas une liste de best-sellers.",
     ctaPrimary: "Faire mon diagnostic",
@@ -119,7 +119,7 @@ export const fr = {
       },
       {
         title: "Le climat, pas seulement les ingrédients",
-        body: "La météo de Paris au moment où vous recevrez vos soins change ce qui fonctionne. On en tient compte — personne d'autre ne le fait.",
+        body: "La météo de votre ville au moment où vous recevrez vos soins change ce qui fonctionne. On en tient compte — personne d'autre ne le fait.",
       },
       {
         title: "On vous dit toujours pourquoi",
@@ -139,7 +139,7 @@ export const fr = {
     eyebrow: "Votre diagnostic, gratuit",
     title: "Voyez ce que Fiomio vous recommande.",
     intro:
-      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations — Fiomio croise les prévisions de Paris pour la semaine où vous recevrez vos produits, et propose des actifs argumentés.",
+      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations — Fiomio croise les prévisions météo de votre ville pour la semaine où vous recevrez vos produits, et propose des actifs argumentés.",
     demoBadge: "Démo — aperçu produit",
     step: "Étape",
     of: "sur",
@@ -164,6 +164,9 @@ export const fr = {
     seasonEst: "estimation saisonnière",
     forecastLoading: "Lecture du ciel parisien…",
     leadTimeNote: "On vous conseille pour la météo que votre peau affrontera à la livraison — pas celle d'aujourd'hui.",
+    changeCity: "changer",
+    cityPlaceholder: "Votre ville…",
+    detecting: "Localisation…",
 
     back: "Retour",
     next: "Continuer",
@@ -330,7 +333,7 @@ export const en: Messages = {
     titleLead: "K-beauty, decoded for",
     titleEmph: "your skin",
     titleMid: " — and for the climate of",
-    titleEmph2: "Paris",
+    titleEmph2: "your city",
     subtitle:
       "Korean routines are designed for Seoul. Fiomio crosses your skin profile, your local climate and K-beauty actives into a personalized — and explained — recommendation. Not a list of best-sellers.",
     ctaPrimary: "Run my diagnostic",
@@ -427,7 +430,7 @@ export const en: Messages = {
       },
       {
         title: "The climate, not just the ingredients",
-        body: "The Paris weather when your products arrive changes what works. We factor it in — no one else does.",
+        body: "Your city's weather when your products arrive changes what works. We factor it in — no one else does.",
       },
       {
         title: "We always tell you why",
@@ -447,7 +450,7 @@ export const en: Messages = {
     eyebrow: "Your free diagnostic",
     title: "See what Fiomio recommends for you.",
     intro:
-      "A glimpse of the engine. Tell us about your skin and concerns — Fiomio factors in the Paris forecast for the week your products will arrive, and suggests reasoned actives.",
+      "A glimpse of the engine. Tell us about your skin and concerns — Fiomio factors in your city's forecast for the week your products will arrive, and suggests reasoned actives.",
     demoBadge: "Demo — product preview",
     step: "Step",
     of: "of",
@@ -472,6 +475,9 @@ export const en: Messages = {
     seasonEst: "seasonal estimate",
     forecastLoading: "Reading the Paris sky…",
     leadTimeNote: "We advise for the weather your skin will face on delivery — not today's.",
+    changeCity: "change",
+    cityPlaceholder: "Your city…",
+    detecting: "Locating…",
 
     back: "Back",
     next: "Continue",

@@ -19,6 +19,7 @@ export type ClimateMetrics = {
 export type ClimateContext = {
   source: "forecast" | "season";
   emoji: string;
+  city?: string; // resolved location label (the user's city)
   deliveryFrom?: string; // ISO yyyy-mm-dd
   deliveryTo?: string;
   metrics?: ClimateMetrics;
@@ -71,6 +72,7 @@ export function deriveClimate(
   metrics: ClimateMetrics,
   from: string,
   to: string,
+  city?: string,
 ): ClimateContext {
   const { tempC, humidity, uv } = metrics;
   const boostTraits: Partial<Record<TraitKey, number>> = {};
@@ -150,6 +152,7 @@ export function deriveClimate(
   return {
     source: "forecast",
     emoji: uv >= 6 ? "☀️" : humidity < 45 ? "🌬️" : tempC < 8 ? "❄️" : "🌤️",
+    city,
     deliveryFrom: from,
     deliveryTo: to,
     metrics: { tempC, humidity, uv, precipMm: metrics.precipMm },
@@ -171,11 +174,12 @@ export function deriveClimate(
 }
 
 /** Seasonal fallback when the live forecast can't be reached. */
-export function seasonFallbackClimate(date?: Date): ClimateContext {
+export function seasonFallbackClimate(date?: Date, city?: string): ClimateContext {
   const s = getSeasonInfo(date);
   return {
     source: "season",
     emoji: s.emoji,
+    city,
     chip: { fr: s.fr.label, en: s.en.label },
     fr: { label: s.fr.label, detail: s.fr.humidity, note: s.fr.note },
     en: { label: s.en.label, detail: s.en.humidity, note: s.en.note },

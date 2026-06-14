@@ -1,13 +1,11 @@
 /* ============================================================
    FIOMIO — Open-Meteo forecast (server-side)
-   Free, no API key. Pulls the Paris forecast and averages the
-   "delivery window" (≈ J+5 → J+12) — the week the ordered
-   products will actually be received and first used.
+   Free, no API key. Pulls the forecast for the USER's location
+   and averages the "delivery window" (≈ J+5 → J+12) — the week
+   the ordered products will actually be received and first used.
    ============================================================ */
 
 import { deriveClimate, type ClimateContext } from "./climate";
-
-const PARIS = { lat: 48.8566, lon: 2.3522 };
 
 function mean(xs: number[]): number {
   const v = xs.filter((x) => typeof x === "number" && !Number.isNaN(x));
@@ -15,17 +13,21 @@ function mean(xs: number[]): number {
 }
 
 /**
- * Fetch the Paris forecast and build a ClimateContext for the
- * delivery window [startDay, endDay] (days from today).
+ * Fetch the forecast for (lat, lon) and build a ClimateContext for the
+ * delivery window [startDay, endDay] (days from today). `city` is the
+ * resolved location label shown to the user.
  * Returns null on any failure — callers fall back to the season model.
  */
-export async function fetchParisClimate(
+export async function fetchClimate(
+  lat: number,
+  lon: number,
+  city?: string,
   startDay = 5,
   endDay = 12,
 ): Promise<ClimateContext | null> {
   const url =
-    `https://api.open-meteo.com/v1/forecast?latitude=${PARIS.lat}&longitude=${PARIS.lon}` +
-    `&timezone=Europe%2FParis&forecast_days=16` +
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+    `&timezone=auto&forecast_days=16` +
     `&daily=temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_sum` +
     `&hourly=relative_humidity_2m`;
 
@@ -50,7 +52,6 @@ export async function fetchParisClimate(
     const uv = Math.max(...idx.map((i) => uvMax[i] ?? 0));
     const precipMm = idx.reduce((s, i) => s + (precip?.[i] ?? 0), 0);
 
-    // daily mean humidity from hourly values across the window
     const rh: number[] | undefined = d?.hourly?.relative_humidity_2m;
     let humidity = 60;
     if (rh && rh.length >= (hi + 1) * 24) {
@@ -60,8 +61,16 @@ export async function fetchParisClimate(
       humidity = mean(hours);
     }
 
-    return deriveClimate({ tempC: temp, humidity, uv, precipMm }, days[lo], days[hi]);
+    return deriveClimate(
+      { tempC: temp, humidity, uv, precipMm },
+      days[lo],
+      days[hi],
+      city,
+    );
   } catch {
     return null;
   }
 }
+
+/** Default location for France-first launch when nothing else is known. */
+export const DEFAULT_LOCATION = { city: "Paris", lat: 48.8566, lon: 2.3522 };

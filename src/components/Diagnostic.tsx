@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
+import { CitySearch } from "./CitySearch";
 import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
+import { detectLocation, type Loc, type GeoResult } from "@/lib/geo";
 import {
   runDiagnostic,
   type DiagnosticResult,
@@ -19,6 +21,8 @@ export function Diagnostic() {
   const d = t.diagnostic;
 
   const [climate, setClimate] = useState<ClimateContext | null>(null);
+  const [loc, setLoc] = useState<Loc | null>(null);
+  const [cityOpen, setCityOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [skinType, setSkinType] = useState<SkinType | null>(null);
   const [sensitive, setSensitive] = useState<boolean | null>(null);
@@ -26,21 +30,39 @@ export function Diagnostic() {
   const [activeUse, setActiveUse] = useState<ActiveUse | null>(null);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
 
-  // Show a seasonal estimate instantly, then upgrade to the live
-  // Paris forecast for the delivery window when it loads.
+  const loadForecast = useCallback((l: Loc | null) => {
+    const url = l
+      ? `/api/forecast?lat=${l.lat}&lon=${l.lon}&city=${encodeURIComponent(l.city)}`
+      : "/api/forecast";
+    fetch(url)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.ok && data.climate) setClimate(data.climate);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Seasonal estimate instantly, then the live forecast for the user's
+  // own location (IP-detected) and the delivery window.
   useEffect(() => {
     setClimate(seasonFallbackClimate());
     let alive = true;
-    fetch("/api/forecast")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (alive && data?.ok && data.climate) setClimate(data.climate);
-      })
-      .catch(() => {});
+    detectLocation().then((l) => {
+      if (!alive) return;
+      if (l) setLoc(l);
+      loadForecast(l);
+    });
     return () => {
       alive = false;
     };
-  }, []);
+  }, [loadForecast]);
+
+  const selectCity = (r: GeoResult) => {
+    const l: Loc = { city: r.name, lat: r.lat, lon: r.lon, country: r.country };
+    setLoc(l);
+    setCityOpen(false);
+    loadForecast(l);
+  };
 
   const toggleConcern = (key: ConcernKey) => {
     setConcerns((prev) =>
@@ -113,16 +135,24 @@ export function Diagnostic() {
                   {d.demoBadge}
                 </span>
                 {climate && (
-                  <div className="flex items-center gap-2.5 text-sm">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
                     <span aria-hidden className="text-base">
                       {climate.emoji}
                     </span>
                     <span className="text-stone">
                       <span className="font-medium text-ink">
-                        {d.climateCity} · {climate[lang].label}
+                        {climate.city || loc?.city || d.climateCity} ·{" "}
+                        {climate[lang].label}
                       </span>{" "}
                       <span className="text-stone-2">· {climate[lang].detail}</span>
                     </span>
+                    <button
+                      type="button"
+                      onClick={() => setCityOpen((o) => !o)}
+                      className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-stone transition-colors hover:border-spring-deep hover:text-ink"
+                    >
+                      {d.changeCity}
+                    </button>
                   </div>
                 )}
               </div>
@@ -141,6 +171,13 @@ export function Diagnostic() {
                     <span>{d.seasonEst}</span>
                   )}
                 </p>
+              )}
+              {cityOpen && (
+                <CitySearch
+                  lang={lang}
+                  placeholder={d.cityPlaceholder}
+                  onSelect={selectCity}
+                />
               )}
             </div>
 
