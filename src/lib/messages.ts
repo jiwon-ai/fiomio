@@ -65,7 +65,7 @@ export const fr = {
       },
       {
         title: "Routines inadaptées",
-        body: "La routine coréenne en dix étapes ne correspond ni au rythme ni aux contraintes de temps d'une active parisienne.",
+        body: "La routine coréenne en dix étapes ne correspond ni au rythme ni aux contraintes de temps d'une vie active.",
       },
       {
         title: "Écart climatique Corée / votre ville",
@@ -445,7 +445,7 @@ export const en: Messages = {
       },
       {
         title: "Ill-fitting routines",
-        body: "The ten-step Korean routine matches neither the rhythm nor the time constraints of a busy Parisian.",
+        body: "The ten-step Korean routine matches neither the rhythm nor the time constraints of a busy working life.",
       },
       {
         title: "Korea / your city climate gap",
