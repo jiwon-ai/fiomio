@@ -84,8 +84,8 @@ export function Hero() {
 
         {/* constellation visual */}
         <div className="relative mx-auto w-full max-w-md">
-          <div className="lab-frame rounded-2xl border-cream/10 bg-gradient-to-b from-white/[0.04] to-transparent p-4">
-            <SkinConstellation className="h-auto w-full" />
+          <div className="overflow-hidden rounded-3xl border border-cream/10 shadow-2xl shadow-black/30">
+            <SkinConstellation className="block h-auto w-full" />
           </div>
         </div>
       </div>

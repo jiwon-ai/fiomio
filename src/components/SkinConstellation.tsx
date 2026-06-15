@@ -1,146 +1,172 @@
 "use client";
 
-/* Abstract "data-on-skin" constellation — the brand's core visual:
-   the platform reading a face as a field of weighted data points.
-   Pure SVG, deterministic coordinates, CSS-animated. */
+/* Fiomio hero visual: the visitor's profile (traced from a real photo) read
+   as a star map. The whole face carries a faint constellation; the Fiomio "f"
+   (lifted from the logo) is the bright highlighted figure on the cheek.
+   The three readouts are LIVE: we detect the visitor's city by IP and pull the
+   current UV / humidity / temperature from Open-Meteo, so every visitor sees
+   their own local numbers. Falls back to Paris if detection fails. */
 
-type Node = { x: number; y: number; key?: boolean };
+import { useEffect, useState } from "react";
+import { detectLocation } from "@/lib/geo";
 
-// Nodes traced along an abstract 3/4 face contour + interior reading points.
-const NODES: Node[] = [
-  { x: 150, y: 60 },
-  { x: 198, y: 48, key: true },
-  { x: 250, y: 64 },
-  { x: 286, y: 104 },
-  { x: 304, y: 158 },
-  { x: 312, y: 214, key: true },
-  { x: 306, y: 270 },
-  { x: 286, y: 322 },
-  { x: 252, y: 364 },
-  { x: 206, y: 388, key: true },
-  { x: 158, y: 380 },
-  { x: 126, y: 344 },
-  { x: 112, y: 290 },
-  { x: 112, y: 232 },
-  { x: 122, y: 176 },
-  { x: 132, y: 118 },
-  // interior reading points
-  { x: 196, y: 150, key: true },
-  { x: 240, y: 196 },
-  { x: 178, y: 232 },
-  { x: 224, y: 270 },
-  { x: 196, y: 314 },
-];
+const PARIS = { city: "Paris", lat: 48.8566, lon: 2.3522 };
 
-const EDGES: [number, number][] = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8],
-  [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14], [14, 15], [15, 0],
-  [16, 1], [16, 17], [17, 5], [16, 18], [18, 12], [18, 19], [19, 8],
-  [19, 20], [20, 9], [17, 19], [14, 16],
-];
-
-const LABELS = [
-  { x: 322, y: 196, t: "UV ▴" },
-  { x: 96, y: 300, t: "HR 34%" },
-  { x: 230, y: 410, t: "pH 5.4" },
-];
+type Live = { city: string; uv: number | null; hr: number | null; temp: number | null };
 
 export function SkinConstellation({ className = "" }: { className?: string }) {
+  const [live, setLive] = useState<Live>({ city: "", uv: null, hr: null, temp: null });
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      let loc = await detectLocation();
+      if (!loc || typeof loc.lat !== "number") loc = PARIS;
+      const city = loc.city || PARIS.city;
+      try {
+        const res = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}` +
+            `&current=temperature_2m,relative_humidity_2m,uv_index&timezone=auto`,
+        );
+        const d = await res.json();
+        const c = d?.current ?? {};
+        if (!alive) return;
+        setLive({
+          city,
+          uv: typeof c.uv_index === "number" ? c.uv_index : null,
+          hr: typeof c.relative_humidity_2m === "number" ? c.relative_humidity_2m : null,
+          temp: typeof c.temperature_2m === "number" ? c.temperature_2m : null,
+        });
+      } catch {
+        if (alive) setLive((s) => ({ ...s, city }));
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const uvT = live.uv == null ? "··" : `${Math.round(live.uv)}`;
+  const hrT = live.hr == null ? "··" : `${Math.round(live.hr)}%`;
+  const tempT = live.temp == null ? "··" : `${Math.round(live.temp)}°C`;
+  const cityT = (live.city || "···").toUpperCase();
+
+  const FACE =
+    "M268,0 L492,0 L492,572 L445,547 L434,539 L425,529 L416,523 L387,509 L368,495 L349,488 L337,488 L320,493 L303,503 L278,523 L264,530 L247,535 L230,535 L224,533 L216,528 L204,514 L198,499 L197,482 L192,478 L178,474 L175,465 L175,458 L179,451 L167,443 L161,436 L161,429 L164,423 L164,415 L160,405 L158,403 L149,405 L135,404 L131,402 L122,391 L121,380 L123,371 L135,346 L151,300 L150,281 L140,261 L134,240 L130,207 L130,183 L138,154 L159,117 L160,113 L157,109 L161,105 L160,98 L163,95 L161,93 L165,84 L165,80 L174,68 L175,64 L190,45 L197,40 L207,28 L218,21 L223,19 L224,20 L227,17 L230,18 L232,15 L245,11 Z";
+
   return (
-    <svg
-      viewBox="0 0 420 460"
-      className={className}
-      role="img"
-      aria-label="Visualisation : données cartographiées sur la peau"
-    >
+    <svg viewBox="0 0 480 560" className={className} role="img" aria-label={`Profil lu comme une carte du ciel, données locales en direct${live.city ? ` pour ${live.city}` : ""}`}>
       <defs>
-        <radialGradient id="fio-glow" cx="55%" cy="42%" r="60%">
-          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.22" />
+        <radialGradient id="fio-glow" cx="48%" cy="44%" r="60%">
+          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.20" />
           <stop offset="55%" stopColor="#cbef4d" stopOpacity="0.05" />
           <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="fio-scan" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0" />
-          <stop offset="50%" stopColor="#cbef4d" stopOpacity="0.5" />
+        <radialGradient id="fio-fglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.16" />
           <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="fio-skin" x1="0" y1="0" x2="0.45" y2="1">
+          <stop offset="0%" stopColor="#e3fa7d" stopOpacity="0.22" />
+          <stop offset="55%" stopColor="#6fcb9e" stopOpacity="0.13" />
+          <stop offset="100%" stopColor="#2f8f78" stopOpacity="0.10" />
         </linearGradient>
-        <filter id="fio-soft" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="6" />
+        <pattern id="fio-dotbg" width="24" height="24" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1" fill="#cbef4d" fillOpacity="0.05" />
+        </pattern>
+        <filter id="fio-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n" />
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.9  0 0 0 0 1  0 0 0 0 0.78  0 0 0 0.45 0" />
         </filter>
+        <clipPath id="fio-panel">
+          <rect x="0" y="0" width="480" height="560" rx="24" />
+        </clipPath>
+        <clipPath id="fio-face">
+          <path d={FACE} />
+        </clipPath>
       </defs>
 
-      {/* ambient glow */}
-      <circle cx="210" cy="200" r="190" fill="url(#fio-glow)" />
+      <g clipPath="url(#fio-panel)">
+        <rect x="0" y="0" width="480" height="560" fill="#0e2a30" />
+        <rect x="0" y="0" width="480" height="560" fill="url(#fio-dotbg)" />
+        <circle cx="239" cy="255" r="300" fill="url(#fio-glow)" />
 
-      {/* edges */}
-      <g stroke="#cbef4d" strokeOpacity="0.28" strokeWidth="0.9">
-        {EDGES.map(([a, b], i) => (
-          <line
-            key={i}
-            x1={NODES[a].x}
-            y1={NODES[a].y}
-            x2={NODES[b].x}
-            y2={NODES[b].y}
-          />
-        ))}
-      </g>
+        <g transform="translate(19,-25)">
+          <path d={FACE} fill="url(#fio-skin)" />
 
-      {/* scanning line */}
-      <rect x="80" y="40" width="260" height="2" fill="url(#fio-scan)">
-        <animate
-          attributeName="y"
-          values="60;380;60"
-          dur="7s"
-          repeatCount="indefinite"
-          calcMode="spline"
-          keySplines="0.45 0 0.55 1; 0.45 0 0.55 1"
-          keyTimes="0;0.5;1"
-        />
-      </rect>
-
-      {/* nodes */}
-      <g>
-        {NODES.map((n, i) => (
-          <g key={i}>
-            {n.key && (
-              <circle
-                cx={n.x}
-                cy={n.y}
-                r="9"
-                fill="#cbef4d"
-                fillOpacity="0.16"
-                filter="url(#fio-soft)"
-              />
-            )}
-            <circle
-              cx={n.x}
-              cy={n.y}
-              r={n.key ? 2.8 : 1.8}
-              fill={n.key ? "#cbef4d" : "#8fb39e"}
-              style={{
-                animation: `node-pulse ${2.6 + (i % 5) * 0.5}s ease-in-out ${
-                  (i % 7) * 0.32
-                }s infinite`,
-              }}
-            />
+          {/* film grain + faint face-wide constellation, clipped to the face */}
+          <g clipPath="url(#fio-face)">
+            <rect x="120" y="-30" width="400" height="620" filter="url(#fio-grain)" opacity="0.5" />
+            <g stroke="#cbef4d" strokeOpacity="0.15" strokeWidth="0.5">
+              <line x1="185" y1="95" x2="255" y2="80" /><line x1="255" y1="80" x2="330" y2="130" /><line x1="185" y1="95" x2="165" y2="185" /><line x1="255" y1="80" x2="240" y2="165" /><line x1="240" y1="165" x2="305" y2="205" /><line x1="165" y1="185" x2="240" y2="165" /><line x1="165" y1="185" x2="150" y2="265" /><line x1="305" y1="205" x2="300" y2="290" /><line x1="240" y1="165" x2="300" y2="290" /><line x1="150" y1="265" x2="180" y2="345" /><line x1="300" y1="290" x2="330" y2="360" /><line x1="180" y1="345" x2="195" y2="425" /><line x1="330" y1="360" x2="285" y2="440" /><line x1="195" y1="425" x2="160" y2="405" /><line x1="195" y1="425" x2="235" y2="500" /><line x1="285" y1="440" x2="235" y2="500" /><line x1="235" y1="500" x2="305" y2="505" /><line x1="285" y1="440" x2="305" y2="505" /><line x1="305" y1="205" x2="390" y2="250" /><line x1="330" y1="360" x2="420" y2="400" /><line x1="285" y1="440" x2="420" y2="400" /><line x1="330" y1="130" x2="305" y2="205" />
+            </g>
+            <g fill="#cdeaad">
+              <circle cx="185" cy="95" r="1" opacity="0.4" /><circle cx="255" cy="80" r="1" opacity="0.4"><animate attributeName="opacity" values="0.25;0.55;0.25" dur="3.3s" repeatCount="indefinite" /></circle><circle cx="330" cy="130" r="1" opacity="0.4" /><circle cx="165" cy="185" r="1" opacity="0.4" /><circle cx="240" cy="165" r="1" opacity="0.4"><animate attributeName="opacity" values="0.25;0.55;0.25" dur="2.9s" begin="0.6s" repeatCount="indefinite" /></circle><circle cx="305" cy="205" r="1" opacity="0.4" /><circle cx="150" cy="265" r="1" opacity="0.4" /><circle cx="300" cy="290" r="1" opacity="0.4" /><circle cx="180" cy="345" r="1" opacity="0.4" /><circle cx="330" cy="360" r="1" opacity="0.4"><animate attributeName="opacity" values="0.25;0.55;0.25" dur="3.1s" begin="1s" repeatCount="indefinite" /></circle><circle cx="195" cy="425" r="1" opacity="0.4" /><circle cx="285" cy="440" r="1" opacity="0.4" /><circle cx="160" cy="405" r="1" opacity="0.4" /><circle cx="235" cy="500" r="1" opacity="0.4" /><circle cx="305" cy="505" r="1" opacity="0.4" /><circle cx="390" cy="250" r="1" opacity="0.4" /><circle cx="420" cy="400" r="1" opacity="0.4" />
+            </g>
+            <g fill="#bfe6a8">
+              <circle cx="210" cy="120" r="0.5" opacity="0.2" /><circle cx="360" cy="180" r="0.5" opacity="0.2" /><circle cx="140" cy="320" r="0.5" opacity="0.2" /><circle cx="430" cy="300" r="0.5" opacity="0.2" /><circle cx="270" cy="380" r="0.5" opacity="0.2" /><circle cx="360" cy="490" r="0.5" opacity="0.2" /><circle cx="200" cy="220" r="0.5" opacity="0.2" /><circle cx="320" cy="450" r="0.5" opacity="0.2" />
+            </g>
           </g>
-        ))}
+
+          <path d={FACE} fill="none" stroke="#eaf980" strokeOpacity="0.5" strokeWidth="1.3" strokeLinejoin="round" />
+
+          {/* highlighted f constellation (lifted from the logo) */}
+          <circle cx="255" cy="332" r="58" fill="url(#fio-fglow)" />
+          <g stroke="#cbef4d" strokeOpacity="0.18" strokeWidth="0.5">
+            <line x1="284.6" y1="306.1" x2="300" y2="290" />
+            <line x1="225.4" y1="385.7" x2="195" y2="425" />
+          </g>
+          <g transform="translate(255,332) scale(1.85) translate(-39,-43)">
+            <g stroke="#dff582" strokeOpacity="0.55" strokeWidth="0.6">
+              <line x1="55" y1="29" x2="49.5" y2="16" /><line x1="49.5" y1="16" x2="38" y2="23" /><line x1="38" y1="23" x2="39.4" y2="34" /><line x1="39.4" y1="34" x2="43" y2="47" /><line x1="43" y1="47" x2="41.6" y2="64" /><line x1="41.6" y1="64" x2="35" y2="74" /><line x1="35" y1="74" x2="23" y2="72" /><line x1="27" y1="47" x2="43" y2="47" /><line x1="43" y1="47" x2="52" y2="44" />
+            </g>
+            <g fill="#f3ffce">
+              <circle cx="49.5" cy="16" r="3" fill="#cbef4d" fillOpacity="0.18" />
+              <circle cx="55" cy="29" r="1.4"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite" /></circle>
+              <circle cx="49.5" cy="16" r="1.8"><animate attributeName="opacity" values="0.6;1;0.6" dur="3.2s" begin="0.4s" repeatCount="indefinite" /></circle>
+              <circle cx="38" cy="23" r="1.4" />
+              <circle cx="39.4" cy="34" r="1.4"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" begin="0.8s" repeatCount="indefinite" /></circle>
+              <circle cx="41.6" cy="64" r="1.4"><animate attributeName="opacity" values="0.6;1;0.6" dur="3s" begin="1.1s" repeatCount="indefinite" /></circle>
+              <circle cx="35" cy="74" r="1.4" />
+              <circle cx="23" cy="72" r="1.5"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.7s" begin="0.6s" repeatCount="indefinite" /></circle>
+              <circle cx="27" cy="47" r="1.4" /><circle cx="52" cy="44" r="1.4" />
+            </g>
+            <circle cx="43" cy="47" r="5.5" fill="#cbef4d" fillOpacity="0.28">
+              <animate attributeName="r" values="4.5;7.5;4.5" dur="3s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.35;0.12;0.35" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="43" cy="47" r="2.4" fill="#eafff0" />
+          </g>
+
+          {/* live local readouts (UV / humidity / temperature) */}
+          <g stroke="#cbef4d" strokeOpacity="0.34" strokeWidth="0.8">
+            <line x1="60" y1="230" x2="165" y2="240" /><line x1="66" y1="360" x2="156" y2="360" /><line x1="60" y1="506" x2="200" y2="500" />
+          </g>
+          <g fill="#cbef4d">
+            <circle cx="165" cy="240" r="2.4" /><circle cx="156" cy="360" r="2.4" /><circle cx="200" cy="500" r="2.4" />
+            <circle cx="6" cy="138" r="1.8"><animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite" /></circle>
+            <circle cx="6" cy="226" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite" /></circle>
+            <circle cx="6" cy="356" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.5s" repeatCount="indefinite" /></circle>
+            <circle cx="6" cy="502" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.9s" repeatCount="indefinite" /></circle>
+          </g>
+          <g fontFamily="var(--font-mono), ui-monospace, monospace" letterSpacing="0.05em" fill="#cbef4d">
+            <text x="14" y="143" fontSize="13" fontWeight="500">{cityT}</text>
+            <text x="14" y="230" fontSize="14">UV {uvT}</text>
+            <text x="14" y="364" fontSize="14">HR {hrT}</text>
+            <text x="14" y="506" fontSize="14">{tempT}</text>
+          </g>
+
+          {/* cyan scan laser, sweeping up and down */}
+          <g>
+            <rect x="116" y="-7" width="210" height="14" fill="#3fe9ff" fillOpacity="0.1" />
+            <rect x="116" y="-1" width="210" height="2.2" fill="#ecffff" fillOpacity="0.92" />
+            <rect x="116" y="-1" width="210" height="2.2" fill="#3fe9ff" fillOpacity="0.5" />
+            <animateTransform attributeName="transform" type="translate" values="0,130; 0,510; 0,130" dur="5.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" />
+          </g>
+        </g>
       </g>
 
-      {/* data labels */}
-      <g
-        fontFamily="var(--font-mono)"
-        fontSize="9"
-        fill="#8fb39e"
-        fillOpacity="0.85"
-        letterSpacing="0.08em"
-      >
-        {LABELS.map((l, i) => (
-          <text key={i} x={l.x} y={l.y}>
-            {l.t}
-          </text>
-        ))}
-      </g>
+      <rect x="0.5" y="0.5" width="479" height="559" rx="24" fill="none" stroke="#cbef4d" strokeOpacity="0.15" />
     </svg>
   );
 }
