@@ -9,12 +9,14 @@
 
 import { useEffect, useState } from "react";
 import { detectLocation } from "@/lib/geo";
+import { useLang } from "@/lib/i18n";
 
 const PARIS = { city: "Paris", lat: 48.8566, lon: 2.3522 };
 
 type Live = { city: string; uv: number | null; hr: number | null; temp: number | null };
 
 export function SkinConstellation({ className = "" }: { className?: string }) {
+  const { lang } = useLang();
   const [live, setLive] = useState<Live>({ city: "", uv: null, hr: null, temp: null });
 
   useEffect(() => {
@@ -49,7 +51,8 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
   const uvT = live.uv == null ? "··" : `${Math.round(live.uv)}`;
   const hrT = live.hr == null ? "··" : `${Math.round(live.hr)}%`;
   const tempT = live.temp == null ? "··" : `${Math.round(live.temp)}°C`;
-  const cityT = (live.city || "···").toUpperCase();
+  const cityT = live.city || "···";
+  const intro = lang === "en" ? "You are in" : "Vous êtes à";
 
   const FACE =
     "M268,0 L492,0 L492,572 L445,547 L434,539 L425,529 L416,523 L387,509 L368,495 L349,488 L337,488 L320,493 L303,503 L278,523 L264,530 L247,535 L230,535 L224,533 L216,528 L204,514 L198,499 L197,482 L192,478 L178,474 L175,465 L175,458 L179,451 L167,443 L161,436 L161,429 L164,423 L164,415 L160,405 L158,403 L149,405 L135,404 L131,402 L122,391 L121,380 L123,371 L135,346 L151,300 L150,281 L140,261 L134,240 L130,207 L130,183 L138,154 L159,117 L160,113 L157,109 L161,105 L160,98 L163,95 L161,93 L165,84 L165,80 L174,68 L175,64 L190,45 L197,40 L207,28 L218,21 L223,19 L224,20 L227,17 L230,18 L232,15 L245,11 Z";
@@ -144,16 +147,31 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
           </g>
           <g fill="#cbef4d">
             <circle cx="165" cy="240" r="2.4" /><circle cx="156" cy="360" r="2.4" /><circle cx="200" cy="500" r="2.4" />
-            <circle cx="6" cy="138" r="1.8"><animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite" /></circle>
             <circle cx="6" cy="226" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite" /></circle>
             <circle cx="6" cy="356" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.5s" repeatCount="indefinite" /></circle>
             <circle cx="6" cy="502" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.9s" repeatCount="indefinite" /></circle>
           </g>
           <g fontFamily="var(--font-mono), ui-monospace, monospace" letterSpacing="0.05em" fill="#cbef4d">
-            <text x="14" y="143" fontSize="13" fontWeight="500">{cityT}</text>
             <text x="14" y="230" fontSize="14">UV {uvT}</text>
             <text x="14" y="364" fontSize="14">HR {hrT}</text>
             <text x="14" y="506" fontSize="14">{tempT}</text>
+          </g>
+
+          {/* "you are here" header: the visitor's detected city, set apart from the data */}
+          <g>
+            <circle cx="17" cy="50" r="2.2" fill="#cbef4d">
+              <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="17" cy="50" r="2.2" fill="none" stroke="#cbef4d" strokeOpacity="0.6">
+              <animate attributeName="r" values="2.2;9" dur="2.8s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.6;0" dur="2.8s" repeatCount="indefinite" />
+            </circle>
+            <text x="28" y="54" fontFamily="var(--font-mono), ui-monospace, monospace" fontSize="10.5" letterSpacing="0.18em" fill="#8fb39e">
+              {intro.toUpperCase()}
+            </text>
+            <text x="15" y="82" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="23" fontWeight="600" fill="#cbef4d">
+              {cityT}
+            </text>
           </g>
 
           {/* cyan scan laser, sweeping up and down */}
