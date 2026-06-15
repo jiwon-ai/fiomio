@@ -4,7 +4,9 @@ import { Problem } from "@/components/Problem";
 import { Solution } from "@/components/Solution";
 import { Diagnostic } from "@/components/Diagnostic";
 import { WhyDifferent } from "@/components/WhyDifferent";
+import { Engagement } from "@/components/Engagement";
 import { JournalTeaser } from "@/components/JournalTeaser";
+import { Faq } from "@/components/Faq";
 import { Waitlist } from "@/components/Waitlist";
 
 export default function Home() {
@@ -16,7 +18,9 @@ export default function Home() {
       <Solution />
       <Diagnostic />
       <WhyDifferent />
+      <Engagement />
       <JournalTeaser />
+      <Faq />
       <Waitlist />
     </main>
   );

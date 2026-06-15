@@ -298,6 +298,75 @@ export const fr = {
     },
   },
 
+  engagement: {
+    eyebrow: "Notre engagement",
+    title: "Les marques achètent de la visibilité. Jamais notre avis.",
+    intro:
+      "Vous recoupez les recommandations avant d'acheter ? Nous aussi. Voici nos règles — les mêmes que vous appliqueriez.",
+    items: [
+      {
+        title: "On ne vend jamais notre avis",
+        body: "Aucune marque ne peut acheter une recommandation, une note ou une place dans un classement.",
+      },
+      {
+        title: "Transparence sur l'argent",
+        body: "Les liens d'affiliation sont signalés : on touche une commission seulement si vous achetez — jamais en échange d'un avis favorable.",
+      },
+      {
+        title: "La publicité est étiquetée",
+        body: "Un espace sponsorisé est indiqué clairement, noir sur blanc, et séparé de nos tests.",
+      },
+      {
+        title: "On dit aussi ce qui ne marche pas",
+        body: "Un test honnête inclut les défauts. Sinon, ce n'est pas un test.",
+      },
+      {
+        title: "Vos données restent les vôtres",
+        body: "Jamais revendues. Conforme au RGPD, désinscription en un clic.",
+      },
+      {
+        title: "Information, pas ordonnance",
+        body: "Des conseils éducatifs sur les ingrédients, pas un avis médical.",
+      },
+    ],
+    transparence: "Comment on gagne de l'argent",
+    founderEyebrow: "Le mot de la fondatrice",
+    founderNote:
+      "Coréenne installée à Paris, j'ai vu mes amies — et moi — acheter de la K-beauty au feeling, sans savoir si elle était faite pour notre peau et notre climat. Les routines pensées pour Séoul ne tiennent pas l'hiver parisien. J'ai créé Fiomio pour ce que j'aurais aimé avoir : un avis honnête, expliqué, et testé sur ma propre peau.",
+    founderSign: "Jiwon, fondatrice",
+  },
+
+  faq: {
+    eyebrow: "FAQ",
+    title: "Vos questions, sans détour.",
+    items: [
+      {
+        q: "C'est vraiment gratuit ?",
+        a: "Oui. Le diagnostic et le contenu sont gratuits. On se rémunère via des liens d'affiliation (toujours signalés) et, plus tard, des rapports de marché vendus aux marques — jamais en vendant notre avis.",
+      },
+      {
+        q: "Au fond, ce n'est pas de la pub déguisée ?",
+        a: "Non. Une marque peut acheter de la visibilité clairement étiquetée, jamais une recommandation ni une note. Nos tests restent indépendants, payés ou non.",
+      },
+      {
+        q: "Est-ce que ça marche vraiment pour MA peau ?",
+        a: "Le diagnostic croise votre type de peau, vos préoccupations et la météo de votre ville. Chaque conseil est expliqué — à vous de juger. Introduisez toujours un actif à la fois.",
+      },
+      {
+        q: "En quoi êtes-vous différents de Yuka ou INCI Beauty ?",
+        a: "Ces applis décodent une étiquette, de façon générique. Fiomio personnalise : votre peau × votre climat × la saison, avec une recommandation expliquée.",
+      },
+      {
+        q: "Mes données sont-elles en sécurité ?",
+        a: "Vos réponses au diagnostic restent dans votre navigateur. Votre e-mail n'est jamais revendu et la désinscription se fait en un clic.",
+      },
+      {
+        q: "Est-ce un avis médical ?",
+        a: "Non. Fiomio fournit une information éducative sur les ingrédients. En cas de problème cutané, consultez un dermatologue.",
+      },
+    ],
+  },
+
   footer: {
     tagline: "Le bon soin pour votre peau, votre ville, votre saison.",
     pillars: ["Peau", "Climat", "Actifs", "Sans influence"],
@@ -606,6 +675,75 @@ export const en: Messages = {
       photoPlaceholder: "Your photo here",
       testedBy: "Tested by",
     },
+  },
+
+  engagement: {
+    eyebrow: "Our promise",
+    title: "Brands can buy visibility. Never our verdict.",
+    intro:
+      "You fact-check recommendations before buying? So do we. Here are our rules — the same ones you'd apply.",
+    items: [
+      {
+        title: "We never sell our verdict",
+        body: "No brand can buy a recommendation, a score, or a place in a ranking.",
+      },
+      {
+        title: "Transparent about money",
+        body: "Affiliate links are flagged: we earn a commission only if you buy — never in exchange for a favorable review.",
+      },
+      {
+        title: "Advertising is labeled",
+        body: "Any sponsored space is clearly marked and kept separate from our tests.",
+      },
+      {
+        title: "We also say what doesn't work",
+        body: "An honest test includes the flaws. Otherwise it isn't a test.",
+      },
+      {
+        title: "Your data stays yours",
+        body: "Never resold. GDPR-compliant, one-click unsubscribe.",
+      },
+      {
+        title: "Information, not a prescription",
+        body: "Educational guidance on ingredients, not medical advice.",
+      },
+    ],
+    transparence: "How we make money",
+    founderEyebrow: "From the founder",
+    founderNote:
+      "A Korean living in Paris, I watched my friends — and myself — buy K-beauty on instinct, with no idea whether it suited our skin and our climate. Routines designed for Seoul don't hold up in a Parisian winter. I built Fiomio to be what I wish I'd had: an honest, explained opinion, tested on my own skin.",
+    founderSign: "Jiwon, founder",
+  },
+
+  faq: {
+    eyebrow: "FAQ",
+    title: "Your questions, straight up.",
+    items: [
+      {
+        q: "Is it really free?",
+        a: "Yes. The diagnostic and the content are free. We earn through affiliate links (always flagged) and, later, market reports sold to brands — never by selling our verdict.",
+      },
+      {
+        q: "Isn't this just disguised advertising?",
+        a: "No. A brand can buy clearly-labeled visibility, never a recommendation or a score. Our tests stay independent, paid or not.",
+      },
+      {
+        q: "Does it really work for MY skin?",
+        a: "The diagnostic crosses your skin type, your concerns and your city's weather. Every tip is explained — you decide. Always introduce one active at a time.",
+      },
+      {
+        q: "How are you different from Yuka or INCI Beauty?",
+        a: "Those apps decode a label, generically. Fiomio personalizes: your skin × your climate × the season, with an explained recommendation.",
+      },
+      {
+        q: "Is my data safe?",
+        a: "Your diagnostic answers stay in your browser. Your email is never resold and unsubscribing takes one click.",
+      },
+      {
+        q: "Is this medical advice?",
+        a: "No. Fiomio provides educational information about ingredients. For any skin condition, see a dermatologist.",
+      },
+    ],
   },
 
   footer: {

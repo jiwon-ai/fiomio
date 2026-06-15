@@ -84,6 +84,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="/transparence"
+                  className="link-underline text-sm text-cream/65 hover:text-cream"
+                >
+                  {t.engagement.transparence}
+                </a>
+              </li>
+              <li>
+                <a
                   href="mailto:hello@fiomio.io"
                   className="link-underline text-sm text-cream/65 hover:text-cream"
                 >
