@@ -28,35 +28,37 @@ export async function POST(req: Request) {
     at: new Date().toISOString(),
   };
 
-  // 1) Beehiiv (collect + send the newsletter). Set BEEHIIV_API_KEY +
-  //    BEEHIIV_PUBLICATION_ID (pub_xxxx) in the Vercel env.
-  const beehiivKey = process.env.BEEHIIV_API_KEY;
-  const beehiivPub = process.env.BEEHIIV_PUBLICATION_ID;
-  if (beehiivKey && beehiivPub) {
+  // 1) Brevo (collect + store contacts; send from Brevo's free tier later,
+  //    or export the list to any other ESP — no lock-in). Set BREVO_API_KEY
+  //    (+ optional BREVO_LIST_ID) in the Vercel env.
+  const brevoKey = process.env.BREVO_API_KEY;
+  if (brevoKey) {
     try {
-      const res = await fetch(
-        `https://api.beehiiv.com/v2/publications/${beehiivPub}/subscriptions`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${beehiivKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            reactivate_existing: true,
-            send_welcome_email: true,
-            utm_source: "fiomio",
-            utm_medium: entry.source,
-            referring_site: "fiomio.io",
-          }),
+      const listId = process.env.BREVO_LIST_ID;
+      const res = await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          "api-key": brevoKey,
+          "Content-Type": "application/json",
+          accept: "application/json",
         },
-      );
-      // 409 = already subscribed → still a success for our UX.
-      if (!res.ok && res.status !== 409) throw new Error(`beehiiv ${res.status}`);
+        body: JSON.stringify({
+          email,
+          updateEnabled: true, // 204 instead of error if already a contact
+          ...(listId ? { listIds: [Number(listId)] } : {}),
+        }),
+      });
+      // 201 created / 204 updated are both res.ok. A 400 "duplicate_parameter"
+      // just means the email is already on file → still a success for our UX.
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        if (!txt.includes("duplicate_parameter")) {
+          throw new Error(`brevo ${res.status} ${txt}`);
+        }
+      }
       return NextResponse.json({ ok: true });
     } catch (err) {
-      console.error("[waitlist] beehiiv failed:", err);
+      console.error("[waitlist] brevo failed:", err);
       return NextResponse.json({ ok: false, error: "provider_error" }, { status: 502 });
     }
   }
