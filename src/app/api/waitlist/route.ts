@@ -59,7 +59,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     } catch (err) {
       console.error("[waitlist] brevo failed:", err);
-      return NextResponse.json({ ok: false, error: "provider_error" }, { status: 502 });
+      // TEMP DEBUG: surface the upstream reason (401 bad key / 400 bad list) so
+      // we can pinpoint a misconfigured env var. Remove once verified.
+      const detail = err instanceof Error ? err.message : String(err);
+      return NextResponse.json({ ok: false, error: "provider_error", detail }, { status: 502 });
     }
   }
 
