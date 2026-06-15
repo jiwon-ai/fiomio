@@ -11,10 +11,13 @@ import {
   runDiagnostic,
   type DiagnosticResult,
   type SkinType,
+  type AgeRange,
+  type Gender,
+  type Pregnancy,
 } from "@/lib/diagnostic";
 import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 7;
 
 export function Diagnostic() {
   const { lang, t } = useLang();
@@ -28,6 +31,9 @@ export function Diagnostic() {
   const [sensitive, setSensitive] = useState<boolean | null>(null);
   const [concerns, setConcerns] = useState<ConcernKey[]>([]);
   const [activeUse, setActiveUse] = useState<ActiveUse | null>(null);
+  const [ageRange, setAgeRange] = useState<AgeRange | null>(null);
+  const [gender, setGender] = useState<Gender | null>(null);
+  const [pregnancy, setPregnancy] = useState<Pregnancy | null>(null);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
 
   const loadForecast = useCallback((l: Loc | null) => {
@@ -79,18 +85,21 @@ export function Diagnostic() {
     if (step === 1) return sensitive !== null;
     if (step === 2) return concerns.length >= 1;
     if (step === 3) return activeUse !== null;
+    if (step === 4) return ageRange !== null;
+    if (step === 5) return gender !== null;
+    if (step === 6) return pregnancy !== null;
     return false;
-  }, [step, skinType, sensitive, concerns, activeUse]);
+  }, [step, skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy]);
 
   const handleNext = () => {
     if (step < TOTAL_STEPS - 1) {
       setStep((s) => s + 1);
       return;
     }
-    if (skinType && sensitive !== null && activeUse) {
+    if (skinType && sensitive !== null && activeUse && ageRange && gender && pregnancy) {
       setResult(
         runDiagnostic(
-          { skinType, sensitive, concerns, activeUse },
+          { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy },
           climate ?? seasonFallbackClimate(),
         ),
       );
@@ -104,6 +113,9 @@ export function Diagnostic() {
     setSensitive(null);
     setConcerns([]);
     setActiveUse(null);
+    setAgeRange(null);
+    setGender(null);
+    setPregnancy(null);
   };
 
   const fmtDate = (iso?: string) =>
@@ -189,6 +201,9 @@ export function Diagnostic() {
                   skinTypes={t.skinTypes}
                   concernsList={t.concerns}
                   activesList={t.actives}
+                  ageRangesList={t.ageRanges}
+                  gendersList={t.genders}
+                  pregnancyList={t.pregnancyOptions}
                   climate={climate}
                   lang={lang}
                   skinType={skinType}
@@ -199,6 +214,12 @@ export function Diagnostic() {
                   toggleConcern={toggleConcern}
                   activeUse={activeUse}
                   setActiveUse={setActiveUse}
+                  ageRange={ageRange}
+                  setAgeRange={setAgeRange}
+                  gender={gender}
+                  setGender={setGender}
+                  pregnancy={pregnancy}
+                  setPregnancy={setPregnancy}
                   canAdvance={canAdvance}
                   onBack={() => setStep((s) => Math.max(0, s - 1))}
                   onNext={handleNext}
@@ -224,6 +245,9 @@ function Questionnaire(props: {
   skinTypes: ReturnType<typeof useLang>["t"]["skinTypes"];
   concernsList: ReturnType<typeof useLang>["t"]["concerns"];
   activesList: ReturnType<typeof useLang>["t"]["actives"];
+  ageRangesList: ReturnType<typeof useLang>["t"]["ageRanges"];
+  gendersList: ReturnType<typeof useLang>["t"]["genders"];
+  pregnancyList: ReturnType<typeof useLang>["t"]["pregnancyOptions"];
   climate: ClimateContext | null;
   lang: "fr" | "en";
   skinType: SkinType | null;
@@ -234,6 +258,12 @@ function Questionnaire(props: {
   toggleConcern: (k: ConcernKey) => void;
   activeUse: ActiveUse | null;
   setActiveUse: (a: ActiveUse) => void;
+  ageRange: AgeRange | null;
+  setAgeRange: (a: AgeRange) => void;
+  gender: Gender | null;
+  setGender: (g: Gender) => void;
+  pregnancy: Pregnancy | null;
+  setPregnancy: (p: Pregnancy) => void;
   canAdvance: boolean;
   onBack: () => void;
   onNext: () => void;
@@ -244,6 +274,9 @@ function Questionnaire(props: {
     skinTypes,
     concernsList,
     activesList,
+    ageRangesList,
+    gendersList,
+    pregnancyList,
     climate,
     lang,
     skinType,
@@ -254,13 +287,19 @@ function Questionnaire(props: {
     toggleConcern,
     activeUse,
     setActiveUse,
+    ageRange,
+    setAgeRange,
+    gender,
+    setGender,
+    pregnancy,
+    setPregnancy,
     canAdvance,
     onBack,
     onNext,
   } = props;
 
-  const titles = [d.q1Title, d.q2Title, d.q3Title, d.q4Title];
-  const helps = [d.q1Help, d.q2Help, d.q3Help, d.q4Help];
+  const titles = [d.q1Title, d.q2Title, d.q3Title, d.q4Title, d.q5Title, d.q6Title, d.q7Title];
+  const helps = [d.q1Help, d.q2Help, d.q3Help, d.q4Help, d.q5Help, d.q6Help, d.q7Help];
 
   return (
     <div>
@@ -351,6 +390,46 @@ function Questionnaire(props: {
                 selected={activeUse === a.key}
                 onClick={() => setActiveUse(a.key as ActiveUse)}
                 title={a.label}
+              />
+            ))}
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {ageRangesList.map((a) => (
+              <OptionCard
+                key={a.key}
+                selected={ageRange === a.key}
+                onClick={() => setAgeRange(a.key as AgeRange)}
+                title={a.label}
+              />
+            ))}
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {gendersList.map((g) => (
+              <OptionCard
+                key={g.key}
+                selected={gender === g.key}
+                onClick={() => setGender(g.key as Gender)}
+                title={g.label}
+              />
+            ))}
+          </div>
+        )}
+
+        {step === 6 && (
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {pregnancyList.map((p) => (
+              <OptionCard
+                key={p.key}
+                selected={pregnancy === p.key}
+                onClick={() => setPregnancy(p.key as Pregnancy)}
+                title={p.label}
+                desc={p.desc}
               />
             ))}
           </div>

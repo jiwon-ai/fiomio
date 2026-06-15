@@ -16,12 +16,21 @@ import {
 import type { ClimateContext } from "./climate";
 
 export type SkinType = "dry" | "combination" | "oily" | "normal";
+export type AgeRange = "u25" | "a25_34" | "a35_44" | "a45p";
+export type Gender = "female" | "male" | "other";
+export type Pregnancy = "none" | "pregnant" | "trying";
+
+/** Actives commonly advised against during pregnancy / conception. */
+const PREGNANCY_UNSAFE = ["retinol", "salicylic", "arbutin"];
 
 export type DiagnosticInput = {
   skinType: SkinType;
   sensitive: boolean;
   concerns: ConcernKey[];
   activeUse: ActiveUse;
+  ageRange: AgeRange;
+  gender: Gender;
+  pregnancy: Pregnancy;
 };
 
 export type Bi = { fr: string; en: string };
@@ -93,6 +102,14 @@ function scoreIngredient(
   // 3. Skin-type affinity
   if (ing.loves.includes(input.skinType)) score += 0.8;
 
+  // 3b. Age: a gentle anti-aging bias for 35+ (firming actives weigh more)
+  if (
+    (input.ageRange === "a35_44" || input.ageRange === "a45p") &&
+    ing.traits.includes("firming")
+  ) {
+    score += 0.6;
+  }
+
   // 4. Sensitivity — bias toward gentle, penalize potent
   if (input.sensitive) {
     score += (ing.gentleness - 1.5) * 0.7;
@@ -129,6 +146,13 @@ function buildCautions(
   climate: ClimateContext,
 ): Bi[] {
   const out: Bi[] = [];
+
+  if (input.pregnancy !== "none") {
+    out.push({
+      fr: "Grossesse ou projet de grossesse : par précaution, on écarte les rétinoïdes, l'acide salicylique et l'arbutine. Validez toujours votre routine avec votre médecin ou sage-femme.",
+      en: "Pregnant or trying to conceive: as a precaution, we leave out retinoids, salicylic acid and arbutin. Always confirm your routine with your doctor or midwife.",
+    });
+  }
 
   if (input.activeUse === "retinoid") {
     out.push({
@@ -194,7 +218,12 @@ export function runDiagnostic(
   input: DiagnosticInput,
   climate: ClimateContext,
 ): DiagnosticResult {
-  const ranked = INGREDIENTS.map((ing) => {
+  // Pregnancy / conception: remove the actives best avoided before ranking.
+  const pool =
+    input.pregnancy !== "none"
+      ? INGREDIENTS.filter((ing) => !PREGNANCY_UNSAFE.includes(ing.id))
+      : INGREDIENTS;
+  const ranked = pool.map((ing) => {
     const { score, matched } = scoreIngredient(ing, input, climate);
     return { ingredient: ing, score, matched };
   }).sort((a, b) => b.score - a.score);

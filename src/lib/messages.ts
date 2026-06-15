@@ -131,7 +131,7 @@ export const fr = {
   journalTeaser: {
     eyebrow: "Le journal",
     title: "Des tests produits honnêtes. Vraies photos, vrai avis.",
-    body: "On teste, on photographie, on note sur 10, sans filtre et sans complaisance. Recevez chaque semaine la météo-soin de votre ville et nos derniers tests.",
+    body: "On teste, on décode, on note sans complaisance. Recevez chaque semaine les secrets d'une insider coréenne : les cosmétiques qui valent vraiment le coup, la skincare à rapporter de Séoul, et nos derniers tests.",
     cta: "Voir le journal",
   },
 
@@ -152,6 +152,12 @@ export const fr = {
     q3Help: "Sélectionnez jusqu'à trois priorités.",
     q4Title: "Utilisez-vous déjà un actif fort ?",
     q4Help: "Ces actifs fragilisent la barrière, la recommandation s'adapte.",
+    q5Title: "Votre tranche d'âge ?",
+    q5Help: "Les priorités de la peau évoluent avec l'âge.",
+    q6Title: "Vous êtes…",
+    q6Help: "Pour affiner, sans cliché.",
+    q7Title: "Grossesse en cours ou en projet ?",
+    q7Help: "Pour écarter automatiquement les actifs déconseillés.",
 
     sensitiveYes: "Oui, réactive",
     sensitiveNo: "Non, tolérante",
@@ -211,6 +217,22 @@ export const fr = {
     { key: "exfoliant", label: "Exfoliant acide (AHA/BHA)" },
     { key: "vitc", label: "Vitamine C" },
     { key: "none", label: "Aucun pour l'instant" },
+  ],
+  ageRanges: [
+    { key: "u25", label: "Moins de 25 ans" },
+    { key: "a25_34", label: "25 à 34 ans" },
+    { key: "a35_44", label: "35 à 44 ans" },
+    { key: "a45p", label: "45 ans et plus" },
+  ],
+  genders: [
+    { key: "female", label: "Une femme" },
+    { key: "male", label: "Un homme" },
+    { key: "other", label: "Autre / je préfère ne pas dire" },
+  ],
+  pregnancyOptions: [
+    { key: "none", label: "Non", desc: "Aucune restriction" },
+    { key: "pregnant", label: "Enceinte", desc: "On écarte les actifs déconseillés" },
+    { key: "trying", label: "En projet", desc: "Même précaution, par anticipation" },
   ],
 
   market: {
@@ -273,15 +295,15 @@ export const fr = {
 
   journal: {
     eyebrow: "Le journal",
-    title: "La météo-soin",
+    title: "Le secret coréen",
     intro:
-      "Chaque semaine, comment adapter votre peau au climat de votre ville, ingrédients décodés, anti-âge, gestes concrets. Zéro influence, rien que des faits.",
+      "Chaque semaine, les secrets d'une insider coréenne : quels cosmétiques coréens valent le coup, où shopper la skincare en Corée, et comment l'adapter à votre peau et votre climat. Décodé, jamais survendu.",
     readMore: "Lire l'article",
     minRead: "min de lecture",
     backToJournal: "Le journal",
     by: "par",
-    newsletterEyebrow: "La météo-soin",
-    newsletterTitle: "Recevez la météo-soin de votre ville chaque semaine",
+    newsletterEyebrow: "Le secret coréen",
+    newsletterTitle: "Recevez les secrets d'une insider coréenne, chaque semaine",
     newsletterBody:
       "Le climat de la semaine + un conseil d'expert adapté à votre peau. Pas de spam, désinscription en un clic.",
     newsletterButton: "S'abonner",
@@ -511,7 +533,7 @@ export const en: Messages = {
   journalTeaser: {
     eyebrow: "The journal",
     title: "Honest product tests. Real photos, real verdicts.",
-    body: "We test, we photograph, we score out of 10, no filter, no flattery. Get your city's skincare weather and our latest tests every week.",
+    body: "We test, we decode, we score without flattery. Every week, get a Korean insider's secrets: the cosmetics worth it, the skincare to bring back from Seoul, and our latest reviews.",
     cta: "See the journal",
   },
 
@@ -532,6 +554,12 @@ export const en: Messages = {
     q3Help: "Select up to three priorities.",
     q4Title: "Are you already using a strong active?",
     q4Help: "These weaken the barrier, the recommendation adapts.",
+    q5Title: "Your age range?",
+    q5Help: "Skin priorities shift with age.",
+    q6Title: "You are…",
+    q6Help: "To fine-tune, without clichés.",
+    q7Title: "Pregnant or trying to conceive?",
+    q7Help: "To automatically leave out the actives best avoided.",
 
     sensitiveYes: "Yes, reactive",
     sensitiveNo: "No, tolerant",
@@ -590,6 +618,22 @@ export const en: Messages = {
     { key: "exfoliant", label: "Acid exfoliant (AHA/BHA)" },
     { key: "vitc", label: "Vitamin C" },
     { key: "none", label: "None for now" },
+  ],
+  ageRanges: [
+    { key: "u25", label: "Under 25" },
+    { key: "a25_34", label: "25 to 34" },
+    { key: "a35_44", label: "35 to 44" },
+    { key: "a45p", label: "45 and over" },
+  ],
+  genders: [
+    { key: "female", label: "A woman" },
+    { key: "male", label: "A man" },
+    { key: "other", label: "Other / prefer not to say" },
+  ],
+  pregnancyOptions: [
+    { key: "none", label: "No", desc: "No restriction" },
+    { key: "pregnant", label: "Pregnant", desc: "We leave out the actives best avoided" },
+    { key: "trying", label: "Trying", desc: "Same precaution, ahead of time" },
   ],
 
   market: {
@@ -652,15 +696,15 @@ export const en: Messages = {
 
   journal: {
     eyebrow: "The journal",
-    title: "Skincare weather",
+    title: "The Korean secret",
     intro:
-      "Each week, how to adapt your skin to your city's climate, ingredients decoded, anti-aging, concrete steps. Zero influence, just the facts.",
+      "Every week, a Korean insider's secrets: which Korean cosmetics are worth it, where to shop skincare in Korea, and how to adapt it to your skin and climate. Decoded, never oversold.",
     readMore: "Read the article",
     minRead: "min read",
     backToJournal: "The journal",
     by: "by",
-    newsletterEyebrow: "Skincare weather",
-    newsletterTitle: "Get your city's skincare weather every week",
+    newsletterEyebrow: "The Korean secret",
+    newsletterTitle: "Get a Korean insider's secrets, every week",
     newsletterBody:
       "The week's climate + an expert tip tailored to your skin. No spam, one-click unsubscribe.",
     newsletterButton: "Subscribe",
