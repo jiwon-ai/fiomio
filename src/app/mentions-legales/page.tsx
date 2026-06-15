@@ -18,13 +18,19 @@ export default function MentionsLegales() {
       </p>
 
       <h2>Éditeur du site</h2>
+      <p>
+        Le site fiomio.io est édité à titre individuel par <strong>Jiwon Yi</strong>,
+        dans le cadre d&apos;un projet en cours de développement.
+      </p>
       <ul>
-        <li>Raison sociale : <strong>[à compléter, nom / dénomination]</strong></li>
-        <li>Forme juridique : [à compléter, ex. micro-entreprise, SAS, SASU]</li>
-        <li>Adresse : [à compléter, siège social]</li>
-        <li>SIRET : [à compléter]</li>
-        <li>Adresse e-mail : hello@fiomio.io</li>
+        <li>Contact : <a href="mailto:hello@fiomio.io">hello@fiomio.io</a></li>
       </ul>
+      <p>
+        Fiomio n&apos;exerce pas encore d&apos;activité commerciale immatriculée.
+        Dès l&apos;immatriculation (micro-entreprise ou société), les informations
+        légales correspondantes (dénomination, forme juridique, adresse du siège
+        social et numéro SIRET) seront ajoutées sur cette page.
+      </p>
 
       <h2>Directeur de la publication</h2>
       <p>Jiwon Yi, joignable à l&apos;adresse hello@fiomio.io.</p>
