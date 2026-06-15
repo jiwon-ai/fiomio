@@ -90,7 +90,7 @@ export default function OpengraphImage() {
             }}
           >
             fiomio
-            <div style={{ width: 16, height: 16, borderRadius: 4, background: "#cbef4d", marginBottom: 7 }} />
+            <div style={{ width: 15, height: 15, borderRadius: 99, background: "#cbef4d", marginBottom: 8 }} />
           </div>
           <div>fiomio.io</div>
         </div>
