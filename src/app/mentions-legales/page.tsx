@@ -19,20 +19,20 @@ export default function MentionsLegales() {
 
       <h2>Éditeur du site</h2>
       <ul>
-        <li>Raison sociale : <strong>[à compléter — nom / dénomination]</strong></li>
-        <li>Forme juridique : [à compléter — ex. micro-entreprise, SAS, SASU]</li>
-        <li>Adresse : [à compléter — siège social]</li>
+        <li>Raison sociale : <strong>[à compléter, nom / dénomination]</strong></li>
+        <li>Forme juridique : [à compléter, ex. micro-entreprise, SAS, SASU]</li>
+        <li>Adresse : [à compléter, siège social]</li>
         <li>SIRET : [à compléter]</li>
         <li>Adresse e-mail : hello@fiomio.io</li>
       </ul>
 
       <h2>Directeur de la publication</h2>
-      <p>Jiwon Yi — joignable à l&apos;adresse hello@fiomio.io.</p>
+      <p>Jiwon Yi, joignable à l&apos;adresse hello@fiomio.io.</p>
 
       <h2>Hébergeur</h2>
       <p>
         Le site est hébergé par <strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133,
-        Walnut, CA 91789, États-Unis — vercel.com.
+        Walnut, CA 91789, États-Unis, vercel.com.
       </p>
 
       <h2>Propriété intellectuelle</h2>

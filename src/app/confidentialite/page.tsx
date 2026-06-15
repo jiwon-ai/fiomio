@@ -29,12 +29,12 @@ export default function Confidentialite() {
       <p>Nous collectons uniquement les données que vous nous transmettez volontairement :</p>
       <ul>
         <li>
-          <strong>Adresse e-mail</strong> — lorsque vous rejoignez la liste d&apos;attente
+          <strong>Adresse e-mail</strong>, lorsque vous rejoignez la liste d&apos;attente
           ou vous abonnez à la newsletter.
         </li>
         <li>
           <strong>Réponses au diagnostic</strong> (type de peau, préoccupations,
-          ville) — traitées dans votre navigateur pour générer la recommandation ;
+          ville), traitées dans votre navigateur pour générer la recommandation ;
           elles ne sont pas associées à votre identité ni conservées sur nos
           serveurs dans la version actuelle.
         </li>
@@ -42,8 +42,8 @@ export default function Confidentialite() {
 
       <h2>Finalités et base légale</h2>
       <ul>
-        <li>Vous envoyer l&apos;accès anticipé et la newsletter — base légale : votre <strong>consentement</strong>.</li>
-        <li>Améliorer le service et le contenu — intérêt légitime, sur données agrégées et anonymes.</li>
+        <li>Vous envoyer l&apos;accès anticipé et la newsletter, base légale : votre <strong>consentement</strong>.</li>
+        <li>Améliorer le service et le contenu, intérêt légitime, sur données agrégées et anonymes.</li>
       </ul>
 
       <h2>Durée de conservation</h2>

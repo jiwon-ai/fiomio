@@ -1,5 +1,5 @@
 ---
-title: "Modèle — test produit (dupliquez ce fichier)"
+title: "Modèle, test produit (dupliquez ce fichier)"
 excerpt: "Le gabarit d'un test produit Fiomio. Dupliquez ce fichier, remplacez tout par votre vrai test et vos photos, puis passez draft à false."
 date: "2026-06-14"
 tags: ["Modèle"]
@@ -14,12 +14,12 @@ product:
   price: "≈ 00 €"
   rating: 8.5
   url: "https://exemple.com/produit?aff=fiomio"
-  verdict: "[Une phrase qui résume tout — pour qui, dans quel climat.]"
+  verdict: "[Une phrase qui résume tout, pour qui, dans quel climat.]"
 pros:
   - "[Un point fort concret et précis]"
-  - "[Un autre — la texture, l'absorption, l'effet observé]"
+  - "[Un autre, la texture, l'absorption, l'effet observé]"
 cons:
-  - "[Un vrai défaut — l'honnêteté crée la confiance]"
+  - "[Un vrai défaut, l'honnêteté crée la confiance]"
 photos:
   - src: ""
     label: "Avant"
@@ -33,17 +33,17 @@ photos:
 
 ## Pourquoi j'ai testé ce produit
 
-[Plantez le décor — c'est ce qui rend un test crédible. Votre type de peau, le problème du moment, la météo de Paris cette semaine-là. Plus c'est précis, plus c'est vrai : « ma peau tiraillait depuis le retour du chauffage » vaut mieux que « ma peau était sèche ».]
+[Plantez le décor, c'est ce qui rend un test crédible. Votre type de peau, le problème du moment, la météo de Paris cette semaine-là. Plus c'est précis, plus c'est vrai : « ma peau tiraillait depuis le retour du chauffage » vaut mieux que « ma peau était sèche ».]
 
 ## Mon expérience, semaine après semaine
 
-[Le cœur du test. Décrivez ce que les autres ne disent pas : la texture, l'odeur, la sensation à l'application, le temps d'absorption. Ce qui a changé — et quand. Ce qui n'a **pas** marché. Une vraie chronologie bat dix superlatifs.]
+[Le cœur du test. Décrivez ce que les autres ne disent pas : la texture, l'odeur, la sensation à l'application, le temps d'absorption. Ce qui a changé, et quand. Ce qui n'a **pas** marché. Une vraie chronologie bat dix superlatifs.]
 
 [Vos photos avant/après s'affichent au-dessus. Pour insérer d'autres images dans le texte : `![légende](/journal/mon-produit/photo.jpg)`.]
 
 ## Pour quelle peau, à quel moment
 
-[Reliez le produit au climat — c'est l'angle Fiomio. À qui le conseillez-vous, dans quel climat parisien, à quelle saison ? Et à qui le déconseillez-vous ?]
+[Reliez le produit au climat, c'est l'angle Fiomio. À qui le conseillez-vous, dans quel climat parisien, à quelle saison ? Et à qui le déconseillez-vous ?]
 
 ---
 

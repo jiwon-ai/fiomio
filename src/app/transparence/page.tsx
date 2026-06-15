@@ -14,7 +14,7 @@ export default function Transparence() {
     <LegalPage title="Comment on gagne de l'argent" updated="15 juin 2026">
       <p>
         Un service gratuit doit bien se financer quelque part. Plutôt que de le
-        cacher, on l&apos;explique — parce que la confiance, ça se mérite.
+        cacher, on l&apos;explique, parce que la confiance, ça se mérite.
       </p>
 
       <blockquote>
@@ -35,7 +35,7 @@ export default function Transparence() {
       <p>
         À terme, on vendra aux marques des analyses agrégées et anonymes sur les
         comportements skincare en France. Les marques paient pour comprendre le
-        marché — <strong>pas pour influencer ce qu&apos;on vous recommande</strong>.
+        marché, <strong>pas pour influencer ce qu&apos;on vous recommande</strong>.
         Vos données individuelles ne sont jamais vendues.
       </p>
 
