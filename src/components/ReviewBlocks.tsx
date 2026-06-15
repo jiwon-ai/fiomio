@@ -1,6 +1,7 @@
 "use client";
 
 import { useLang } from "@/lib/i18n";
+import { buildAffiliateLink } from "@/lib/affiliates";
 import type { ProductInfo, Photo } from "@/lib/articles";
 
 function Stars({ rating }: { rating: number }) {
@@ -70,7 +71,7 @@ export function ProductCard({ product }: { product: ProductInfo }) {
 
       {product.url && (
         <a
-          href={product.url}
+          href={buildAffiliateLink(product.url)}
           target="_blank"
           rel="sponsored nofollow noopener noreferrer"
           className="spring-glow mt-5 inline-flex items-center gap-2 rounded-full bg-spring px-5 py-3 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5"
