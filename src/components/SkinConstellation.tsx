@@ -166,8 +166,8 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
               <animate attributeName="r" values="2.2;9" dur="2.8s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.6;0" dur="2.8s" repeatCount="indefinite" />
             </circle>
-            <text x="28" y="54" fontFamily="var(--font-mono), ui-monospace, monospace" fontSize="10.5" letterSpacing="0.18em" fill="#8fb39e">
-              {intro.toUpperCase()}
+            <text x="28" y="55" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="12.5" letterSpacing="0.01em" fill="#9fc0aa">
+              {intro}
             </text>
             <text x="15" y="82" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="23" fontWeight="600" fill="#cbef4d">
               {cityT}
