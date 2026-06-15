@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Fiomio — Le soin K-beauty choisi pour votre peau et la météo de Paris";
+export const alt = "Fiomio · Le soin K-beauty choisi pour votre peau et la météo de votre ville";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -34,7 +34,7 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ width: 10, height: 10, borderRadius: 99, background: "#cbef4d" }} />
-          Diagnostic peau × météo de Paris
+          Diagnostic peau × météo de votre ville
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>

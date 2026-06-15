@@ -92,7 +92,7 @@ export const fr = {
       {
         n: "02",
         title: "Données climatiques",
-        body: "Humidité, pollution, saison à Paris, la variable absente de tous les outils concurrents.",
+        body: "Humidité, pollution, saison locale, la variable absente de tous les outils concurrents.",
       },
       {
         n: "03",
@@ -106,7 +106,7 @@ export const fr = {
       "Une logique de soin cohérente et justifiée, l'explicabilité qui construit la confiance dans un marché où l'influence en manque.",
     differentiatorLabel: "Différenciation",
     differentiator:
-      "La plupart des applis se contentent de décoder une étiquette. Fiomio va plus loin : elle croise votre peau, le climat de Paris et la saison pour vous dire quoi appliquer, et surtout pourquoi.",
+      "La plupart des applis se contentent de décoder une étiquette. Fiomio va plus loin : elle croise votre peau, le climat local et la saison pour vous dire quoi appliquer, et surtout pourquoi.",
   },
 
   whyDifferent: {
@@ -131,7 +131,7 @@ export const fr = {
   journalTeaser: {
     eyebrow: "Le journal",
     title: "Des tests produits honnêtes. Vraies photos, vrai avis.",
-    body: "On teste, on photographie, on note sur 10, sans filtre et sans complaisance. Recevez chaque semaine la météo-soin de Paris et nos derniers tests.",
+    body: "On teste, on photographie, on note sur 10, sans filtre et sans complaisance. Recevez chaque semaine la météo-soin de votre ville et nos derniers tests.",
     cta: "Voir le journal",
   },
 
@@ -162,7 +162,7 @@ export const fr = {
     deliveryAround: "Réception estimée",
     forecastSrc: "prévisions Open-Meteo",
     seasonEst: "estimation saisonnière",
-    forecastLoading: "Lecture du ciel parisien…",
+    forecastLoading: "Lecture du ciel local…",
     leadTimeNote: "On vous conseille pour la météo que votre peau affrontera à la livraison, pas celle d'aujourd'hui.",
     changeCity: "changer",
     cityPlaceholder: "Votre ville…",
@@ -176,7 +176,7 @@ export const fr = {
 
     resultEyebrow: "Recommandation Fiomio",
     resultTitle: "Votre logique de soin",
-    resultIntro: "Trois actifs, choisis pour votre peau et le climat parisien actuel, chacun avec sa raison.",
+    resultIntro: "Trois actifs, choisis pour votre peau et le climat actuel de votre ville, chacun avec sa raison.",
     why: "Pourquoi",
     howToUse: "Quand l'utiliser",
     priority: "Priorité",
@@ -273,15 +273,15 @@ export const fr = {
 
   journal: {
     eyebrow: "Le journal",
-    title: "La météo-soin de Paris",
+    title: "La météo-soin",
     intro:
-      "Chaque semaine, comment adapter votre peau au climat parisien, ingrédients décodés, anti-âge, gestes concrets. Zéro influence, rien que de l'expertise.",
+      "Chaque semaine, comment adapter votre peau au climat de votre ville, ingrédients décodés, anti-âge, gestes concrets. Zéro influence, rien que des faits.",
     readMore: "Lire l'article",
     minRead: "min de lecture",
     backToJournal: "Le journal",
     by: "par",
     newsletterEyebrow: "La météo-soin",
-    newsletterTitle: "Recevez la météo-soin de Paris chaque semaine",
+    newsletterTitle: "Recevez la météo-soin de votre ville chaque semaine",
     newsletterBody:
       "Le climat de la semaine + un conseil d'expert adapté à votre peau. Pas de spam, désinscription en un clic.",
     newsletterButton: "S'abonner",
@@ -472,7 +472,7 @@ export const en: Messages = {
       {
         n: "02",
         title: "Climate data",
-        body: "Humidity, pollution, season in Paris, the variable missing from every competing tool.",
+        body: "Humidity, pollution, local season, the variable missing from every competing tool.",
       },
       {
         n: "03",
@@ -486,7 +486,7 @@ export const en: Messages = {
       "A coherent, justified skincare logic, the explainability that builds trust in a market where influence falls short.",
     differentiatorLabel: "Differentiation",
     differentiator:
-      "Most apps just decode a label. Fiomio goes further: it crosses your skin, the Paris climate and the season to tell you what to apply, and above all, why.",
+      "Most apps just decode a label. Fiomio goes further: it crosses your skin, your local climate and the season to tell you what to apply, and above all, why.",
   },
 
   whyDifferent: {
@@ -511,7 +511,7 @@ export const en: Messages = {
   journalTeaser: {
     eyebrow: "The journal",
     title: "Honest product tests. Real photos, real verdicts.",
-    body: "We test, we photograph, we score out of 10, no filter, no flattery. Get the Paris skincare weather and our latest tests every week.",
+    body: "We test, we photograph, we score out of 10, no filter, no flattery. Get your city's skincare weather and our latest tests every week.",
     cta: "See the journal",
   },
 
@@ -542,7 +542,7 @@ export const en: Messages = {
     deliveryAround: "Estimated delivery",
     forecastSrc: "Open-Meteo forecast",
     seasonEst: "seasonal estimate",
-    forecastLoading: "Reading the Paris sky…",
+    forecastLoading: "Reading the local sky…",
     leadTimeNote: "We advise for the weather your skin will face on delivery, not today's.",
     changeCity: "change",
     cityPlaceholder: "Your city…",
@@ -556,7 +556,7 @@ export const en: Messages = {
 
     resultEyebrow: "Fiomio recommendation",
     resultTitle: "Your skincare logic",
-    resultIntro: "Three actives, chosen for your skin and the current Parisian climate, each with its reason.",
+    resultIntro: "Three actives, chosen for your skin and your city's current climate, each with its reason.",
     why: "Why",
     howToUse: "When to use it",
     priority: "Priority",
@@ -652,15 +652,15 @@ export const en: Messages = {
 
   journal: {
     eyebrow: "The journal",
-    title: "Paris skincare weather",
+    title: "Skincare weather",
     intro:
-      "Each week, how to adapt your skin to the Paris climate, ingredients decoded, anti-aging, concrete steps. Zero influence, only expertise.",
+      "Each week, how to adapt your skin to your city's climate, ingredients decoded, anti-aging, concrete steps. Zero influence, just the facts.",
     readMore: "Read the article",
     minRead: "min read",
     backToJournal: "The journal",
     by: "by",
     newsletterEyebrow: "Skincare weather",
-    newsletterTitle: "Get the Paris skincare weather every week",
+    newsletterTitle: "Get your city's skincare weather every week",
     newsletterBody:
       "The week's climate + an expert tip tailored to your skin. No spam, one-click unsubscribe.",
     newsletterButton: "Subscribe",

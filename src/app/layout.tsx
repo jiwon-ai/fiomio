@@ -29,11 +29,11 @@ const SITE_URL = "https://fiomio.io";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fiomio — Le soin K-beauty choisi pour votre peau et la météo de Paris",
+    default: "Fiomio · Le soin K-beauty choisi pour votre peau et la météo de votre ville",
     template: "%s · Fiomio",
   },
   description:
-    "Fiomio réinterprète les ingrédients de la K-beauty pour votre peau, votre ville et votre saison. Une recommandation personnalisée et explicable — pas une liste de best-sellers.",
+    "Fiomio réinterprète les ingrédients de la K-beauty pour votre peau, votre ville et votre saison. Une recommandation personnalisée et explicable, pas une liste de best-sellers.",
   keywords: [
     "K-beauty",
     "skincare",
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
     alternateLocale: "en_US",
     url: SITE_URL,
     siteName: "Fiomio",
-    title: "Fiomio — Intelligence skincare adaptative",
+    title: "Fiomio · Intelligence skincare adaptative",
     description:
-      "K-beauty décodée pour votre peau, votre climat, votre saison. Korean Insider × Paris Observer.",
+      "K-beauty décodée pour votre peau, votre climat, votre saison.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fiomio — Intelligence skincare adaptative",
+    title: "Fiomio · Intelligence skincare adaptative",
     description:
       "K-beauty décodée pour votre peau, votre climat, votre saison.",
   },

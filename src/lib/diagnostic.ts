@@ -162,8 +162,8 @@ function buildCautions(
     recs.some((r) => r.ingredient.traits.includes("firming") || r.ingredient.id === "vitaminc");
   if (needsSpf) {
     out.push({
-      fr: "Protection solaire SPF 50 chaque matin — indispensable avec un actif renouvelant ou éclaircissant, et dès qu'il y a du soleil.",
-      en: "SPF 50 every morning — essential with any renewing or brightening active, and whenever the sun is out.",
+      fr: "Protection solaire SPF 50 chaque matin, indispensable avec un actif renouvelant ou éclaircissant, et dès qu'il y a du soleil.",
+      en: "SPF 50 every morning, essential with any renewing or brightening active, and whenever the sun is out.",
     });
   }
 
@@ -185,8 +185,8 @@ function buildRoutine(recs: Recommendation[], climate: ClimateContext): Bi {
   const cityFr = climate.city || "votre ville";
   const cityEn = climate.city || "your city";
   return {
-    fr: `Contexte : ${climate.fr.label.toLowerCase()} à ${cityFr} au moment de la réception. Le matin, antioxydant et hydratation puis SPF — ${list(am, "fr")}. Le soir, réparation et actifs ciblés — ${list(pm, "fr")}. On introduit un actif à la fois et on laisse la barrière dicter le rythme.`,
-    en: `Context: ${climate.en.label.toLowerCase()} in ${cityEn} by the time it arrives. In the morning, antioxidant and hydration then SPF — ${list(am, "en")}. At night, repair and targeted actives — ${list(pm, "en")}. Introduce one active at a time and let the barrier set the pace.`,
+    fr: `Contexte : ${climate.fr.label.toLowerCase()} à ${cityFr} au moment de la réception. Le matin, antioxydant et hydratation puis SPF : ${list(am, "fr")}. Le soir, réparation et actifs ciblés : ${list(pm, "fr")}. On introduit un actif à la fois et on laisse la barrière dicter le rythme.`,
+    en: `Context: ${climate.en.label.toLowerCase()} in ${cityEn} by the time it arrives. In the morning, antioxidant and hydration then SPF: ${list(am, "en")}. At night, repair and targeted actives: ${list(pm, "en")}. Introduce one active at a time and let the barrier set the pace.`,
   };
 }
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   FIOMIO — K-beauty active knowledge base
+   FIOMIO, K-beauty active knowledge base
    Each active is decoded and weighted (not merely listed):
    how well it serves each concern, its traits, gentleness,
    timing, and the conflicts that drive the "handle with care"
@@ -62,8 +62,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "combination", "normal"],
     why: {
-      fr: "Reconstituent le ciment lipidique de la peau, affaibli par l'air sec parisien et les actifs forts. La base d'une barrière qui retient l'eau.",
-      en: "Rebuild the skin's lipid mortar, weakened by dry Parisian air and strong actives. The foundation of a barrier that holds water.",
+      fr: "Reconstituent le ciment lipidique de la peau, affaibli par l'air sec local et les actifs forts. La base d'une barrière qui retient l'eau.",
+      en: "Rebuild the skin's lipid mortar, weakened by dry local air and strong actives. The foundation of a barrier that holds water.",
     },
     howToUse: {
       fr: "Matin et soir, après les sérums, avant la crème (ou dans la crème).",
@@ -84,8 +84,8 @@ export const INGREDIENTS: Ingredient[] = [
       en: "Draws water into the upper layers for instant plumping. Ideal when dehydration outweighs a lack of lipids.",
     },
     howToUse: {
-      fr: "Sur peau légèrement humide, puis scellez avec une crème — sinon il peut assécher en air très sec.",
-      en: "On slightly damp skin, then seal with a cream — otherwise it can dry you out in very dry air.",
+      fr: "Sur peau légèrement humide, puis scellez avec une crème, sinon il peut assécher en air très sec.",
+      en: "On slightly damp skin, then seal with a cream, otherwise it can dry you out in very dry air.",
     },
   },
   {
@@ -106,8 +106,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["combination", "oily", "normal", "dry"],
     why: {
-      fr: "Régule le sébum, resserre l'aspect des pores, unifie le teint et soutient la barrière — sans irriter. Compatible avec presque tout, y compris le rétinol en alternance.",
-      en: "Regulates sebum, refines the look of pores, evens tone and supports the barrier — without irritation. Plays well with almost everything, including retinol on alternate nights.",
+      fr: "Régule le sébum, resserre l'aspect des pores, unifie le teint et soutient la barrière, sans irriter. Compatible avec presque tout, y compris le rétinol en alternance.",
+      en: "Regulates sebum, refines the look of pores, evens tone and supports the barrier, without irritation. Plays well with almost everything, including retinol on alternate nights.",
     },
     howToUse: {
       fr: "Matin et/ou soir. 5 % suffisent ; au-delà, risque d'inconfort sur peau réactive.",
@@ -178,8 +178,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "normal", "combination"],
     why: {
-      fr: "Scelle l'hydratation sans effet gras ni comédon — parfait pour verrouiller un sérum hydratant dans l'air sec hivernal.",
-      en: "Seals in hydration with no greasiness or clogging — perfect to lock a hydrating serum into dry winter air.",
+      fr: "Scelle l'hydratation sans effet gras ni comédon, parfait pour verrouiller un sérum hydratant dans l'air sec hivernal.",
+      en: "Seals in hydration with no greasiness or clogging, perfect to lock a hydrating serum into dry winter air.",
     },
     howToUse: {
       fr: "En dernière étape du soir, quelques gouttes sur peau encore humide.",
@@ -196,8 +196,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "combination", "normal", "oily"],
     why: {
-      fr: "Hydrate, répare et apaise simultanément — un favori K-beauty pour redonner du rebond aux peaux fatiguées.",
-      en: "Hydrates, repairs and soothes at once — a K-beauty favorite to bring bounce back to tired skin.",
+      fr: "Hydrate, répare et apaise simultanément, un favori K-beauty pour redonner du rebond aux peaux fatiguées.",
+      en: "Hydrates, repairs and soothes at once, a K-beauty favorite to bring bounce back to tired skin.",
     },
     howToUse: {
       fr: "En essence après le nettoyage, matin et soir.",
@@ -234,8 +234,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["combination", "oily", "normal"],
     why: {
-      fr: "Rare polyvalent qui apaise les rougeurs, déloge les imperfections et estompe les taches — bien toléré même par les peaux réactives.",
-      en: "A rare multitasker that calms redness, clears breakouts and fades marks — well tolerated even by reactive skin.",
+      fr: "Rare polyvalent qui apaise les rougeurs, déloge les imperfections et estompe les taches, bien toléré même par les peaux réactives.",
+      en: "A rare multitasker that calms redness, clears breakouts and fades marks, well tolerated even by reactive skin.",
     },
     howToUse: {
       fr: "Matin ou soir ; introduisez un jour sur deux au début.",
@@ -252,8 +252,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "PM",
     loves: ["oily", "combination"],
     why: {
-      fr: "Liposoluble, il pénètre dans le pore pour déloger le sébum et désincruster — l'actif clé contre imperfections et points noirs.",
-      en: "Oil-soluble, it gets inside the pore to clear sebum and decongest — the key active against breakouts and blackheads.",
+      fr: "Liposoluble, il pénètre dans le pore pour déloger le sébum et désincruster, l'actif clé contre imperfections et points noirs.",
+      en: "Oil-soluble, it gets inside the pore to clear sebum and decongest, the key active against breakouts and blackheads.",
     },
     howToUse: {
       fr: "Le soir, 2–3 fois par semaine. Jamais le même soir que le rétinol.",
@@ -272,8 +272,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "PM",
     loves: ["normal", "combination", "oily"],
     why: {
-      fr: "L'actif anti-âge le plus documenté : stimule le renouvellement et la fermeté. Puissant — à introduire lentement, jamais sans hydratation.",
-      en: "The most documented anti-aging active: drives cell turnover and firmness. Potent — introduce slowly, never without hydration.",
+      fr: "L'actif anti-âge le plus documenté : stimule le renouvellement et la fermeté. Puissant, à introduire lentement, jamais sans hydratation.",
+      en: "The most documented anti-aging active: drives cell turnover and firmness. Potent, introduce slowly, never without hydration.",
     },
     howToUse: {
       fr: "Le soir, 1–2 fois par semaine au début, encadré de céramides. SPF obligatoire le lendemain.",
@@ -292,8 +292,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "normal", "combination"],
     why: {
-      fr: "Signalent à la peau de produire collagène et élastine, sans l'irritation du rétinol — l'anti-âge des peaux sensibles.",
-      en: "Signal the skin to build collagen and elastin, without retinol's irritation — anti-aging for sensitive skin.",
+      fr: "Signalent à la peau de produire collagène et élastine, sans l'irritation du rétinol, l'anti-âge des peaux sensibles.",
+      en: "Signal the skin to build collagen and elastin, without retinol's irritation, anti-aging for sensitive skin.",
     },
     howToUse: {
       fr: "Matin et soir ; excellent partenaire du rétinol pour amortir son agressivité.",
@@ -310,8 +310,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "combination", "normal", "oily"],
     why: {
-      fr: "Apaise et lisse les peaux irritées, accélère la réparation — un actif discret mais fiable pour calmer une barrière malmenée.",
-      en: "Soothes and smooths irritated skin and speeds repair — a quiet but reliable active to calm a stressed barrier.",
+      fr: "Apaise et lisse les peaux irritées, accélère la réparation, un actif discret mais fiable pour calmer une barrière malmenée.",
+      en: "Soothes and smooths irritated skin and speeds repair, a quiet but reliable active to calm a stressed barrier.",
     },
     howToUse: {
       fr: "Matin et soir ; se superpose à tout sans risque.",
@@ -328,8 +328,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "combination", "normal", "oily"],
     why: {
-      fr: "Retient l'eau plus longtemps que l'acide hyaluronique et calme l'inflammation — un hydratant de fond très bien toléré.",
-      en: "Holds water longer than hyaluronic acid and calms inflammation — a very well-tolerated everyday hydrator.",
+      fr: "Retient l'eau plus longtemps que l'acide hyaluronique et calme l'inflammation, un hydratant de fond très bien toléré.",
+      en: "Holds water longer than hyaluronic acid and calms inflammation, a very well-tolerated everyday hydrator.",
     },
     howToUse: {
       fr: "Matin et soir, en sérum ou essence, avant les soins plus riches.",
@@ -382,8 +382,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["oily", "combination", "normal", "dry"],
     why: {
-      fr: "Bouclier antioxydant doux contre la pollution parisienne, tout en régulant le sébum — parfait en couche du matin.",
-      en: "A gentle antioxidant shield against Parisian pollution while regulating sebum — perfect as a morning layer.",
+      fr: "Bouclier antioxydant doux contre la pollution locale, tout en régulant le sébum, parfait en couche du matin.",
+      en: "A gentle antioxidant shield against local pollution while regulating sebum, perfect as a morning layer.",
     },
     howToUse: {
       fr: "Le matin sous la protection solaire ; convient aussi le soir.",
@@ -436,8 +436,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["dry", "normal", "combination", "oily"],
     why: {
-      fr: "Effet lissant proche du rétinol sans l'irritation ni la photosensibilité — l'anti-âge des peaux sensibles ou déjà sous actifs.",
-      en: "A retinol-like smoothing effect without the irritation or photosensitivity — anti-aging for sensitive skin or those already on actives.",
+      fr: "Effet lissant proche du rétinol sans l'irritation ni la photosensibilité, l'anti-âge des peaux sensibles ou déjà sous actifs.",
+      en: "A retinol-like smoothing effect without the irritation or photosensitivity, anti-aging for sensitive skin or those already on actives.",
     },
     howToUse: {
       fr: "Matin et/ou soir ; se cumule sans risque, même avec une barrière fragilisée.",
@@ -454,8 +454,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "AM/PM",
     loves: ["combination", "normal", "dry", "oily"],
     why: {
-      fr: "Cible les taches tenaces et les marques post-inflammatoires sans irriter — efficace là où la vitamine C est mal tolérée.",
-      en: "Targets stubborn spots and post-inflammatory marks without irritation — effective where vitamin C isn't tolerated.",
+      fr: "Cible les taches tenaces et les marques post-inflammatoires sans irriter, efficace là où la vitamine C est mal tolérée.",
+      en: "Targets stubborn spots and post-inflammatory marks without irritation, effective where vitamin C isn't tolerated.",
     },
     howToUse: {
       fr: "Matin et soir ; se superpose bien à la niacinamide pour un effet anti-taches renforcé.",
@@ -550,8 +550,8 @@ export const INGREDIENTS: Ingredient[] = [
     timing: "PM",
     loves: ["dry", "combination", "normal", "oily"],
     why: {
-      fr: "Acide à très grosse molécule qui exfolie en surface et retient l'eau — l'entrée idéale vers les acides pour peaux réactives.",
-      en: "A very large-molecule acid that exfoliates the surface and holds water — the ideal gateway into acids for reactive skin.",
+      fr: "Acide à très grosse molécule qui exfolie en surface et retient l'eau, l'entrée idéale vers les acides pour peaux réactives.",
+      en: "A very large-molecule acid that exfoliates the surface and holds water, the ideal gateway into acids for reactive skin.",
     },
     howToUse: {
       fr: "Le soir, 2–3 fois par semaine ; bien mieux toléré que les AHA classiques.",
