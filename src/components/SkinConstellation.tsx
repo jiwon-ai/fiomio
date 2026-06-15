@@ -52,7 +52,8 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
   const hrT = live.hr == null ? "··" : `${Math.round(live.hr)}%`;
   const tempT = live.temp == null ? "··" : `${Math.round(live.temp)}°C`;
   const cityT = live.city || "···";
-  const intro = lang === "en" ? "You are in" : "Vous êtes à";
+  const intro = lang === "en" ? "You are" : "Vous êtes";
+  const prep = lang === "en" ? "in" : "à";
 
   const FACE =
     "M268,0 L492,0 L492,572 L445,547 L434,539 L425,529 L416,523 L387,509 L368,495 L349,488 L337,488 L320,493 L303,503 L278,523 L264,530 L247,535 L230,535 L224,533 L216,528 L204,514 L198,499 L197,482 L192,478 L178,474 L175,465 L175,458 L179,451 L167,443 L161,436 L161,429 L164,423 L164,415 L160,405 L158,403 L149,405 L135,404 L131,402 L122,391 L121,380 L123,371 L135,346 L151,300 L150,281 L140,261 L134,240 L130,207 L130,183 L138,154 L159,117 L160,113 L157,109 L161,105 L160,98 L163,95 L161,93 L165,84 L165,80 L174,68 L175,64 L190,45 L197,40 L207,28 L218,21 L223,19 L224,20 L227,17 L230,18 L232,15 L245,11 Z";
@@ -170,7 +171,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
               {intro}
             </text>
             <text x="15" y="82" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="23" fontWeight="600" fill="#cbef4d">
-              {cityT}
+              {prep} {cityT}
             </text>
           </g>
 

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { Reveal } from "./ui/Reveal";
 
@@ -60,16 +59,6 @@ export function Engagement() {
               — {e.founderSign}
             </figcaption>
           </figure>
-        </Reveal>
-
-        <Reveal className="mt-8">
-          <Link
-            href="/transparence"
-            className="link-underline inline-flex items-center gap-2 text-sm font-medium text-spring transition-colors hover:text-spring/80"
-          >
-            {e.transparence}
-            <span aria-hidden>→</span>
-          </Link>
         </Reveal>
       </div>
     </section>
