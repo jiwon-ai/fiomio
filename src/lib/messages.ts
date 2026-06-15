@@ -68,12 +68,12 @@ export const fr = {
         body: "La routine coréenne en dix étapes ne correspond ni au rythme ni aux contraintes de temps d'une active parisienne.",
       },
       {
-        title: "Écart climatique Séoul / Paris",
-        body: "Humidité, pollution, dureté de l'eau, chauffage : tout diffère. Une formule pensée pour un climat humide peut être insuffisante dans un hiver parisien sec.",
+        title: "Écart climatique Corée / votre ville",
+        body: "Humidité, pollution, dureté de l'eau, chauffage : tout change selon l'endroit. Une formule pensée pour le climat humide de la Corée peut tomber à plat là où vous vivez.",
       },
       {
-        title: "Personne ne tient compte de Paris",
-        body: "Aucun outil ne relie votre peau, votre ville et la saison. Résultat : vous testez à l'aveugle, et votre argent finit en flacons à moitié vides.",
+        title: "Personne ne regarde votre peau",
+        body: "Les marques vendent une image et un joli flacon. Personne ne relie ça à votre peau, votre ville et la saison. Résultat : vous testez à l'aveugle, et votre argent finit en flacons à moitié vides.",
       },
     ],
   },
@@ -448,12 +448,12 @@ export const en: Messages = {
         body: "The ten-step Korean routine matches neither the rhythm nor the time constraints of a busy Parisian.",
       },
       {
-        title: "Seoul / Paris climate gap",
-        body: "Humidity, pollution, water hardness, heating: everything differs. A formula made for a humid climate can fall short in a dry Parisian winter.",
+        title: "Korea / your city climate gap",
+        body: "Humidity, pollution, water hardness, heating: everything changes from place to place. A formula made for Korea's humid climate can fall short where you actually live.",
       },
       {
-        title: "No one accounts for Paris",
-        body: "No tool connects your skin, your city and the season. So you test blindly, and your money ends up in half-used bottles.",
+        title: "No one looks at your skin",
+        body: "Brands sell you an image and a pretty bottle. No one connects that to your skin, your city and the season. So you test blindly, and your money ends up in half-used bottles.",
       },
     ],
   },
