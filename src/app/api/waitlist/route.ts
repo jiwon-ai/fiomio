@@ -28,8 +28,40 @@ export async function POST(req: Request) {
     at: new Date().toISOString(),
   };
 
-  // 1) Preferred: forward to a configured provider (Google Sheet webhook,
-  //    Zapier/Make, Formspree, Resend Audience, etc.) — set in .env.local.
+  // 1) Beehiiv (collect + send the newsletter). Set BEEHIIV_API_KEY +
+  //    BEEHIIV_PUBLICATION_ID (pub_xxxx) in the Vercel env.
+  const beehiivKey = process.env.BEEHIIV_API_KEY;
+  const beehiivPub = process.env.BEEHIIV_PUBLICATION_ID;
+  if (beehiivKey && beehiivPub) {
+    try {
+      const res = await fetch(
+        `https://api.beehiiv.com/v2/publications/${beehiivPub}/subscriptions`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${beehiivKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            reactivate_existing: true,
+            send_welcome_email: true,
+            utm_source: "fiomio",
+            utm_medium: entry.source,
+            referring_site: "fiomio.io",
+          }),
+        },
+      );
+      // 409 = already subscribed → still a success for our UX.
+      if (!res.ok && res.status !== 409) throw new Error(`beehiiv ${res.status}`);
+      return NextResponse.json({ ok: true });
+    } catch (err) {
+      console.error("[waitlist] beehiiv failed:", err);
+      return NextResponse.json({ ok: false, error: "provider_error" }, { status: 502 });
+    }
+  }
+
+  // 2) Generic webhook fallback (Google Sheet, Zapier/Make, Formspree, etc.).
   const webhook = process.env.WAITLIST_WEBHOOK_URL;
   if (webhook) {
     try {
