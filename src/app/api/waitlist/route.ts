@@ -34,7 +34,9 @@ export async function POST(req: Request) {
   const brevoKey = process.env.BREVO_API_KEY;
   if (brevoKey) {
     try {
-      const listId = process.env.BREVO_LIST_ID;
+      // Default to list 2 ("Votre première liste") so signups always land in a
+      // list; override with BREVO_LIST_ID env if you create a dedicated one.
+      const listId = process.env.BREVO_LIST_ID || "2";
       const res = await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
         headers: {
@@ -59,10 +61,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     } catch (err) {
       console.error("[waitlist] brevo failed:", err);
-      // TEMP DEBUG: surface the upstream reason (401 bad key / 400 bad list) so
-      // we can pinpoint a misconfigured env var. Remove once verified.
-      const detail = err instanceof Error ? err.message : String(err);
-      return NextResponse.json({ ok: false, error: "provider_error", detail }, { status: 502 });
+      return NextResponse.json({ ok: false, error: "provider_error" }, { status: 502 });
     }
   }
 
