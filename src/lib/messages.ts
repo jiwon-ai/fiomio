@@ -332,7 +332,7 @@ export const fr = {
     transparence: "Comment on gagne de l'argent",
     founderEyebrow: "Le mot de la fondatrice",
     founderNote:
-      "Analyste de données et passionnée de cosmétique, coréenne installée à Paris. Fiomio est né de là. J'adore la K-beauty, mais ses formules sont pensées pour Séoul, pas pour le climat parisien. Alors j'ai appliqué mon métier, l'analyse de données, à ce que j'aime, le soin de la peau, pour comprendre ce qui marche vraiment selon votre peau, votre ville et la saison. Des recommandations expliquées, vérifiables, jamais sponsorisées.",
+      "À Paris, mes amies me demandaient souvent : « Toi qui es coréenne, conseille-moi une crème coréenne. » Et là, j'hésitais. Parce qu'un soin adoré à Séoul peut ne rien donner sur une peau parisienne : l'eau, le chauffage, l'air, l'hiver sec, tout change. Je n'avais pas envie de recommander à l'aveugle. Analyste de données et passionnée de cosmétique, j'ai fini par appliquer mon métier à ce que j'aime : croiser votre peau, votre ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né de cette hésitation. Des recommandations expliquées, vérifiables, jamais sponsorisées.",
     founderSign: "Jiwon, fondatrice",
   },
 
@@ -711,7 +711,7 @@ export const en: Messages = {
     transparence: "How we make money",
     founderEyebrow: "From the founder",
     founderNote:
-      "A data analyst and a cosmetics lover, Korean, living in Paris. Fiomio grew out of that. I love K-beauty, but its formulas are made for Seoul, not for the Paris climate. So I applied my craft, data analysis, to what I love, skincare, to understand what actually works for your skin, your city and the season. Recommendations that are explained, verifiable, and never sponsored.",
+      "In Paris, my friends would often ask me: “You're Korean, recommend me a Korean cream.” And I would hesitate. Because a product adored in Seoul can do nothing for Parisian skin: the water, the heating, the air, the dry winter, everything changes. I didn't want to recommend blindly. A data analyst and a cosmetics lover, I ended up applying my craft to what I love: crossing your skin, your city and the season to understand what actually works. Fiomio was born from that hesitation. Recommendations that are explained, verifiable, and never sponsored.",
     founderSign: "Jiwon, founder",
   },
 
