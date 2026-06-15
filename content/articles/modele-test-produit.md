@@ -13,7 +13,7 @@ product:
   category: "Essence"
   price: "≈ 00 €"
   rating: 8.5
-  url: "https://exemple.com/produit?aff=fiomio"
+  url: "https://sovrn.co/1bw61g4"
   verdict: "[Une phrase qui résume tout, pour qui, dans quel climat.]"
 pros:
   - "[Un point fort concret et précis]"
