@@ -1,11 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
+import { getLocation } from "@/lib/geo";
 import { SkinConstellation } from "./SkinConstellation";
 
 export function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const h = t.hero;
+
+  const [city, setCity] = useState<string | null>(null);
+  useEffect(() => {
+    let alive = true;
+    getLocation().then((loc) => {
+      if (alive && loc?.city) setCity(loc.city);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const eyebrowCity = city || (lang === "en" ? "your city" : "votre ville");
 
   const stats = [
     { v: h.statMarketValue, l: h.statMarketLabel },
@@ -33,7 +47,7 @@ export function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full border border-spring/25 bg-spring/5 px-3 py-1.5">
             <span className="size-1.5 animate-pulse rounded-full bg-spring" />
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-spring">
-              {h.eyebrow}
+              {h.eyebrow} {eyebrowCity}
             </span>
           </span>
 

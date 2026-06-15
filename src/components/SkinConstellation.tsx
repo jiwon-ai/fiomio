@@ -8,7 +8,7 @@
    their own local numbers. Falls back to Paris if detection fails. */
 
 import { useEffect, useState } from "react";
-import { detectLocation } from "@/lib/geo";
+import { getLocation } from "@/lib/geo";
 import { useLang } from "@/lib/i18n";
 
 const PARIS = { city: "Paris", lat: 48.8566, lon: 2.3522 };
@@ -22,7 +22,7 @@ export function SkinConstellation({ className = "" }: { className?: string }) {
   useEffect(() => {
     let alive = true;
     (async () => {
-      let loc = await detectLocation();
+      let loc = await getLocation();
       if (!loc || typeof loc.lat !== "number") loc = PARIS;
       const city = loc.city || PARIS.city;
       try {

@@ -18,7 +18,7 @@ export const fr = {
   },
 
   hero: {
-    eyebrow: "Diagnostic gratuit · pensé pour Paris",
+    eyebrow: "Diagnostic gratuit · pensé pour",
     titleLead: "La K-beauty décodée pour",
     titleEmph: "votre peau",
     titleMid: ". Et pour le climat de",
@@ -398,7 +398,7 @@ export const en: Messages = {
   },
 
   hero: {
-    eyebrow: "Free diagnostic · made for Paris",
+    eyebrow: "Free diagnostic · made for",
     titleLead: "K-beauty, decoded for",
     titleEmph: "your skin",
     titleMid: ". And for the climate of",

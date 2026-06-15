@@ -50,6 +50,13 @@ export async function detectLocation(): Promise<Loc | null> {
   return null;
 }
 
+/** Cached single detection shared across components (avoids duplicate IP calls). */
+let _locPromise: Promise<Loc | null> | null = null;
+export function getLocation(): Promise<Loc | null> {
+  if (!_locPromise) _locPromise = detectLocation();
+  return _locPromise;
+}
+
 export type GeoResult = {
   name: string;
   lat: number;
