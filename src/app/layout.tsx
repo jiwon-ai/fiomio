@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { Outfit, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+
+// Sovrn Commerce (ex-Skimlinks) auto-affiliation. Loads only once the
+// publisher id is set (post-approval) — then all outbound merchant links
+// are turned into affiliate links automatically. Set NEXT_PUBLIC_SOVRN_ID
+// in the Vercel env (e.g. "123456X1700000").
+const SOVRN_ID = process.env.NEXT_PUBLIC_SOVRN_ID;
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -82,6 +89,13 @@ export default function RootLayout({
           {children}
           <Footer />
         </LangProvider>
+        {SOVRN_ID ? (
+          <Script
+            id="sovrn-commerce"
+            strategy="afterInteractive"
+            src={`https://s.skimresources.com/js/${SOVRN_ID}.skimlinks.js`}
+          />
+        ) : null}
       </body>
     </html>
   );
