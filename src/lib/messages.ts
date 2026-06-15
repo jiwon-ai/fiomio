@@ -332,7 +332,7 @@ export const fr = {
     transparence: "Comment on gagne de l'argent",
     founderEyebrow: "Le mot de la fondatrice",
     founderNote:
-      "Coréenne, je connais la K-beauty de l'intérieur ; installée à Paris, j'en mesure les limites. Ses formules sont pensées pour le climat, l'eau et les routines de Séoul — à Paris, le contexte change tout, et presque personne ne le prend en compte. J'ai fait de cet angle mort le cœur de Fiomio : croiser la peau, le climat et les actifs, et ne recommander que ce qui peut s'expliquer et se vérifier. Pas d'influence — de la méthode.",
+      "Analyste de données et passionnée de cosmétique, coréenne installée à Paris. Fiomio est né de là. J'adore la K-beauty, mais ses formules sont pensées pour Séoul, pas pour le climat parisien. Alors j'ai appliqué mon métier, l'analyse de données, à ce que j'aime, le soin de la peau, pour comprendre ce qui marche vraiment selon votre peau, votre ville et la saison. Des recommandations expliquées, vérifiables, jamais sponsorisées.",
     founderSign: "Jiwon, fondatrice",
   },
 
@@ -711,7 +711,7 @@ export const en: Messages = {
     transparence: "How we make money",
     founderEyebrow: "From the founder",
     founderNote:
-      "Korean, I know K-beauty from the inside; based in Paris, I see its limits. Its formulas are designed for Seoul's climate, water and routines — in Paris, context changes everything, and almost no one accounts for it. I made that blind spot the heart of Fiomio: crossing skin, climate and actives, and recommending only what can be explained and verified. Not influence — method.",
+      "A data analyst and a cosmetics lover, Korean, living in Paris. Fiomio grew out of that. I love K-beauty, but its formulas are made for Seoul, not for the Paris climate. So I applied my craft, data analysis, to what I love, skincare, to understand what actually works for your skin, your city and the season. Recommendations that are explained, verifiable, and never sponsored.",
     founderSign: "Jiwon, founder",
   },
 
