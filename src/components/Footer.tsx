@@ -67,12 +67,18 @@ export function Footer() {
             </p>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <a href="#" className="link-underline text-sm text-cream/65 hover:text-cream">
+                <a
+                  href="/mentions-legales"
+                  className="link-underline text-sm text-cream/65 hover:text-cream"
+                >
                   {f.legalNotice}
                 </a>
               </li>
               <li>
-                <a href="#" className="link-underline text-sm text-cream/65 hover:text-cream">
+                <a
+                  href="/confidentialite"
+                  className="link-underline text-sm text-cream/65 hover:text-cream"
+                >
                   {f.privacy}
                 </a>
               </li>
