@@ -332,7 +332,7 @@ export const fr = {
     transparence: "Comment on gagne de l'argent",
     founderEyebrow: "Le mot de la fondatrice",
     founderNote:
-      "Coréenne installée à Paris, j'ai vu mes amies — et moi — acheter de la K-beauty au feeling, sans savoir si elle était faite pour notre peau et notre climat. Les routines pensées pour Séoul ne tiennent pas l'hiver parisien. J'ai créé Fiomio pour ce que j'aurais aimé avoir : un avis honnête, expliqué, et testé sur ma propre peau.",
+      "Coréenne, je connais la K-beauty de l'intérieur ; installée à Paris, j'en mesure les limites. Ses formules sont pensées pour le climat, l'eau et les routines de Séoul — à Paris, le contexte change tout, et presque personne ne le prend en compte. J'ai fait de cet angle mort le cœur de Fiomio : croiser la peau, le climat et les actifs, et ne recommander que ce qui peut s'expliquer et se vérifier. Pas d'influence — de la méthode.",
     founderSign: "Jiwon, fondatrice",
   },
 
@@ -711,7 +711,7 @@ export const en: Messages = {
     transparence: "How we make money",
     founderEyebrow: "From the founder",
     founderNote:
-      "A Korean living in Paris, I watched my friends — and myself — buy K-beauty on instinct, with no idea whether it suited our skin and our climate. Routines designed for Seoul don't hold up in a Parisian winter. I built Fiomio to be what I wish I'd had: an honest, explained opinion, tested on my own skin.",
+      "Korean, I know K-beauty from the inside; based in Paris, I see its limits. Its formulas are designed for Seoul's climate, water and routines — in Paris, context changes everything, and almost no one accounts for it. I made that blind spot the heart of Fiomio: crossing skin, climate and actives, and recommending only what can be explained and verified. Not influence — method.",
     founderSign: "Jiwon, founder",
   },
 
