@@ -8,32 +8,36 @@ export function Engagement() {
   const e = t.engagement;
 
   return (
-    <section className="relative overflow-hidden bg-void-2 py-32 text-cream sm:py-40">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 top-0 size-[36rem] rounded-full bg-spring/[0.06] blur-[90px]"
-      />
-      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-12">
+    <section className="bg-paper-2 py-28 sm:py-36">
+      <div className="mx-auto max-w-6xl px-6 sm:px-12">
         <Reveal className="max-w-3xl">
           <p className="eyebrow">{e.eyebrow}</p>
           <h2
-            className="font-editorial mt-6 font-light leading-[0.92] tracking-tight text-cream"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
+            className="font-display mt-5 font-medium leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)" }}
           >
             {e.title}
           </h2>
-          <p className="mt-6 text-base font-light leading-relaxed text-cream/45">
-            {e.intro}
-          </p>
+          <p className="mt-5 text-base leading-relaxed text-stone">{e.intro}</p>
         </Reveal>
 
         <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {e.items.map((item, i) => (
             <Reveal as="li" key={i} delay={i * 70} className="flex gap-4">
-              <span className="mt-0.5 h-px w-5 shrink-0 translate-y-3 bg-spring/50" />
+              <span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-spring/20 text-spring-deep">
+                <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M3 8.5l3.2 3.2L13 4.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
               <div>
-                <h3 className="text-sm font-semibold text-cream">{item.title}</h3>
-                <p className="mt-1.5 text-[0.88rem] leading-relaxed text-cream/40">
+                <h3 className="text-sm font-semibold text-ink">{item.title}</h3>
+                <p className="mt-1 text-[0.88rem] leading-relaxed text-stone">
                   {item.body}
                 </p>
               </div>
@@ -42,15 +46,15 @@ export function Engagement() {
         </ul>
 
         {/* Founder note */}
-        <Reveal className="mt-16">
-          <figure className="lab-frame-dark max-w-2xl p-8 sm:p-10">
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-spring/70">
+        <Reveal className="mt-14">
+          <figure className="lab-frame max-w-2xl bg-cream p-8 sm:p-10">
+            <p className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-spring-deep">
               {e.founderEyebrow}
             </p>
-            <blockquote className="font-display mt-5 text-base font-light leading-relaxed text-cream/80 sm:text-lg">
+            <blockquote className="font-display mt-4 text-base font-normal leading-relaxed text-ink sm:text-lg">
               &ldquo;{e.founderNote}&rdquo;
             </blockquote>
-            <figcaption className="mt-5 text-xs text-cream/35">
+            <figcaption className="mt-4 text-sm text-stone">
               — {e.founderSign}
             </figcaption>
           </figure>

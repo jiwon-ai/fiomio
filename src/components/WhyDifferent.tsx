@@ -30,8 +30,8 @@ export function WhyDifferent() {
 
         <Reveal className="max-w-3xl">
           <h2
-            className="font-editorial font-light leading-[0.92] tracking-tight text-ink"
-            style={{ fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}
+            className="font-display font-medium leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
           >
             {w.title}
           </h2>
@@ -41,7 +41,7 @@ export function WhyDifferent() {
           {w.items.map((it, i) => (
             <Reveal as="div" key={i} delay={i * 90}>
               <div className="border-t border-line pt-7">
-                <span className="font-editorial text-5xl font-light text-spring-deep/25">
+                <span className="font-display text-4xl font-light text-spring-deep/20">
                   0{i + 1}
                 </span>
                 <h3 className="font-display mt-5 text-base font-semibold leading-snug text-ink">

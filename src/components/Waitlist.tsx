@@ -43,45 +43,38 @@ export function Waitlist() {
   return (
     <section
       id="rejoindre"
-      className="relative overflow-hidden bg-void py-28 sm:py-36"
+      className="relative overflow-hidden bg-paper py-28 sm:py-36"
     >
-      {/* Spring glow */}
       <div
         aria-hidden
-        className="animate-float-slow pointer-events-none absolute left-1/2 top-0 size-[44rem] -translate-x-1/2 rounded-full bg-spring/[0.08] blur-[90px]"
+        className="pointer-events-none absolute inset-0 dot-grid opacity-60"
       />
       <div className="relative z-10 mx-auto max-w-xl px-6 text-center sm:px-10">
         <Reveal>
           <p className="eyebrow">{w.eyebrow}</p>
           <h2
-            className="font-editorial mt-5 font-light leading-tight tracking-tight text-cream"
-            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+            className="font-display mt-5 font-medium leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(1.9rem, 4.5vw, 3.2rem)" }}
           >
             {w.title}
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-base font-light leading-relaxed text-cream/45">
+          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone">
             {w.body}
           </p>
 
           {status === "success" ? (
-            <div className="mx-auto mt-10 flex max-w-md items-center justify-center gap-3 border border-spring/30 bg-spring/[0.06] px-6 py-4">
-              <span className="grid size-5 place-items-center rounded-full bg-spring text-void">
+            <div className="mx-auto mt-9 flex max-w-md items-center justify-center gap-3 rounded-full border border-spring/40 bg-spring/10 px-6 py-4">
+              <span className="grid size-6 place-items-center rounded-full bg-spring text-spring-ink">
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path
-                    d="M2.5 6.2l2.2 2.3L9.5 3.5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M2.5 6.2l2.2 2.3L9.5 3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              <span className="text-sm font-medium text-cream">{message}</span>
+              <span className="text-sm font-medium text-ink">{message}</span>
             </div>
           ) : (
             <form
               onSubmit={onSubmit}
-              className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row"
+              className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row"
               noValidate
             >
               <label htmlFor="wl-email" className="sr-only">
@@ -98,12 +91,12 @@ export function Waitlist() {
                   if (status === "error") setStatus("idle");
                 }}
                 placeholder={w.placeholder}
-                className="h-12 flex-1 border border-line-void bg-white/[0.03] px-5 py-3 text-sm text-cream placeholder:text-cream/28 outline-none transition-colors focus:border-spring/40 focus:bg-white/[0.06]"
+                className="h-13 flex-1 rounded-full border border-line bg-white px-5 py-3.5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
               />
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="inline-flex h-12 items-center justify-center bg-spring px-6 text-sm font-semibold text-void transition-opacity hover:opacity-90 disabled:opacity-60"
+                className="spring-glow inline-flex h-13 items-center justify-center rounded-full bg-spring px-6 py-3.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
               >
                 {status === "sending" ? w.sending : w.button}
               </button>
@@ -111,10 +104,10 @@ export function Waitlist() {
           )}
 
           {status === "error" && (
-            <p className="mt-3 text-sm text-[#ff8a8a]">{message}</p>
+            <p className="mt-3 text-sm text-red-500">{message}</p>
           )}
 
-          <p className="mt-6 font-mono text-[0.62rem] uppercase tracking-widest text-cream/25">
+          <p className="mt-5 font-mono text-[0.62rem] uppercase tracking-widest text-stone/45">
             {w.countNote} · {w.privacy}
           </p>
         </Reveal>

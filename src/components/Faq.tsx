@@ -15,8 +15,8 @@ export function Faq() {
         <Reveal className="mb-10">
           <p className="eyebrow text-spring-deep">{f.eyebrow}</p>
           <h2
-            className="font-editorial mt-4 font-light leading-tight tracking-tight text-ink"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}
+            className="font-display mt-4 font-semibold leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)" }}
           >
             {f.title}
           </h2>

@@ -30,8 +30,8 @@ export function Solution() {
 
         <Reveal className="max-w-3xl">
           <h2
-            className="font-editorial font-light leading-[0.92] tracking-tight text-ink"
-            style={{ fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}
+            className="font-display font-medium leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
           >
             {s.title}
           </h2>

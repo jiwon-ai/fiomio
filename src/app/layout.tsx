@@ -91,7 +91,7 @@ export default function RootLayout({
       lang="fr"
       className={`${outfit.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-void text-cream">
+      <body className="min-h-full flex flex-col bg-paper text-ink">
         <LangProvider>
           <Nav />
           {children}

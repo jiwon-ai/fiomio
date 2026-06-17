@@ -16,8 +16,8 @@ export function JournalTeaser() {
             <div className="max-w-xl">
               <p className="eyebrow text-spring-deep">{j.eyebrow}</p>
               <h2
-                className="font-editorial mt-4 font-light leading-tight tracking-tight text-ink"
-                style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}
+                className="font-display mt-4 font-semibold leading-tight tracking-tight text-ink"
+                style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)" }}
               >
                 {j.title}
               </h2>

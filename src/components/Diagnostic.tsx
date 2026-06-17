@@ -131,7 +131,7 @@ export function Diagnostic() {
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow text-spring-deep">{d.eyebrow}</p>
-          <h2 className="font-editorial mt-4 font-light leading-tight tracking-tight text-ink" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+          <h2 className="font-display mt-4 font-semibold leading-tight tracking-tight text-ink" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)" }}>
             {d.title}
           </h2>
           <p className="mt-5 text-base leading-relaxed text-stone">{d.intro}</p>
