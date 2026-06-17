@@ -1,46 +1,46 @@
 @import "tailwindcss";
 
 /* ============================================================
-   FIOMIO — Design system
-   "Korean Insider × Paris Observer"
-   Palette derived from the brand deck:
-   spring-green data accent · editorial ink · warm paper · sage
+   FIOMIO — Dark editorial design system
+   Gentle Monster-inspired: art-gallery, cinematic, near-black
    ============================================================ */
 
 @theme {
-  /* Brand colors — deep teal + lime (matches the fiomio wordmark) */
-  --color-ink: #0f2b31; /* deep teal — dark sections & text */
+  --color-void: #06090a;
+  --color-void-2: #0d1214;
+  --color-ink: #0f2b31;
   --color-ink-2: #143138;
   --color-ink-soft: #1c3a40;
   --color-paper: #f6f7f2;
   --color-paper-2: #eceee6;
   --color-cream: #fbfbf6;
 
-  --color-spring: #cbef4d; /* lime — signature accent / fills / buttons */
-  --color-spring-deep: #2f6b4f; /* deep teal-green — text labels on light */
-  --color-spring-ink: #0f2b31; /* deep teal — text on lime fills */
+  --color-spring: #cbef4d;
+  --color-spring-deep: #2f6b4f;
+  --color-spring-ink: #0f2b31;
   --color-sage: #8fb39e;
   --color-sage-soft: #b9c7bf;
-  --color-mint: #e8f6cb; /* pale lime tint */
+  --color-mint: #e8f6cb;
   --color-moss: #2a5c46;
 
   --color-stone: #5f6b66;
   --color-stone-2: #88938d;
   --color-line: #dde2d8;
   --color-line-dark: #ffffff14;
+  --color-line-void: rgba(255, 255, 255, 0.07);
 
-  /* Fonts (wired to next/font CSS variables in layout.tsx) */
   --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-mono-geist), ui-monospace, monospace;
 
-  /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cinematic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 :root {
-  --background: var(--color-paper);
-  --foreground: var(--color-ink);
+  --background: var(--color-void);
+  --foreground: var(--color-cream);
 }
 
 @layer base {
@@ -49,9 +49,8 @@
     -webkit-text-size-adjust: 100%;
   }
 
-  /* Offset in-page anchors so the fixed nav doesn't cover headings. */
   section[id] {
-    scroll-margin-top: 4.5rem;
+    scroll-margin-top: 5rem;
   }
 
   body {
@@ -68,12 +67,13 @@
     color: var(--color-spring-ink);
   }
 
-  /* Display type — Outfit, tightened tracking */
   .font-display {
     letter-spacing: -0.025em;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     text-wrap: balance;
   }
 
@@ -81,7 +81,6 @@
     text-wrap: pretty;
   }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -95,19 +94,41 @@
 }
 
 /* ============================================================
-   Utilities & components
+   Utilities
    ============================================================ */
 
-/* Technical eyebrow label (section numbers) */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
+  font-size: 0.63rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-spring-deep);
+  color: var(--color-spring);
 }
 
-/* Thin "lab frame" border used across the brand */
+/* Huge ghost section marker — Gentle Monster-style art number */
+.art-number {
+  font-family: var(--font-editorial);
+  font-size: clamp(7rem, 20vw, 16rem);
+  font-weight: 300;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  right: -0.02em;
+  top: -0.1em;
+}
+
+/* Film-grain noise overlay */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+
+/* Thin "lab frame" corners */
 .lab-frame {
   position: relative;
   border: 1px solid var(--color-line);
@@ -133,14 +154,37 @@
   border-top: 0;
 }
 
-/* Spring glow */
+.lab-frame-dark {
+  position: relative;
+  border: 1px solid var(--color-line-void);
+}
+.lab-frame-dark::before,
+.lab-frame-dark::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(203, 239, 77, 0.35);
+}
+.lab-frame-dark::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.lab-frame-dark::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+
 .spring-glow {
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--color-spring) 30%, transparent),
     0 0 60px -12px color-mix(in srgb, var(--color-spring) 55%, transparent);
 }
 
-/* Underline-on-hover link */
 .link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -152,13 +196,13 @@
   background-size: 100% 1px;
 }
 
-/* Reveal-on-scroll (toggled by IntersectionObserver) */
+/* Cinematic reveal — slower, more intentional */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(28px);
   transition:
-    opacity 0.9s var(--ease-out-expo),
-    transform 0.9s var(--ease-out-expo);
+    opacity 1.2s var(--ease-cinematic),
+    transform 1.2s var(--ease-cinematic);
   will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -166,92 +210,101 @@
   transform: none;
 }
 
-/* Subtle grain/noise via radial dots for dark sections */
 .dot-grid {
-  background-image: radial-gradient(
-    var(--color-line) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(var(--color-line) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 .dot-grid-dark {
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.06) 1px,
+    rgba(255, 255, 255, 0.04) 1px,
     transparent 1px
   );
-  background-size: 22px 22px;
+  background-size: 30px 30px;
 }
 
-/* Marquee */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .animate-marquee {
-  animation: marquee 38s linear infinite;
+  animation: marquee 55s linear infinite;
 }
 
-/* Constellation node pulse */
 @keyframes node-pulse {
-  0%, 100% { opacity: 0.35; r: 1.6; }
-  50% { opacity: 1; r: 2.6; }
+  0%,
+  100% {
+    opacity: 0.35;
+    r: 1.6;
+  }
+  50% {
+    opacity: 1;
+    r: 2.6;
+  }
 }
 
-/* Slow float for ambient gradient blobs */
 @keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(2%, -3%) scale(1.04); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(2%, -3%) scale(1.04);
+  }
 }
 .animate-float-slow {
-  animation: float-slow 14s ease-in-out infinite;
+  animation: float-slow 16s ease-in-out infinite;
 }
 
 /* ============================================================
-   Article prose (journal) — markdown-rendered HTML
+   Article prose — dark editorial
    ============================================================ */
 .article-prose {
-  color: var(--color-ink);
+  color: var(--color-cream);
   font-size: 1.05rem;
-  line-height: 1.75;
+  line-height: 1.8;
 }
 .article-prose > * + * {
-  margin-top: 1.25em;
+  margin-top: 1.3em;
 }
 .article-prose > :first-child {
   margin-top: 0;
 }
 .article-prose h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.6rem;
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-size: 2rem;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  margin-top: 2em;
-  color: var(--color-ink);
+  margin-top: 2.2em;
+  color: var(--color-cream);
 }
 .article-prose h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.25rem;
-  margin-top: 1.6em;
-  color: var(--color-ink);
+  font-size: 1.2rem;
+  margin-top: 1.8em;
+  color: var(--color-cream);
 }
 .article-prose p {
-  color: color-mix(in srgb, var(--color-ink) 86%, transparent);
+  color: color-mix(in srgb, var(--color-cream) 72%, transparent);
 }
 .article-prose a {
-  color: var(--color-spring-deep);
+  color: var(--color-spring);
   font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 .article-prose a:hover {
-  color: var(--color-moss);
+  color: var(--color-cream);
 }
 .article-prose strong {
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--color-cream);
 }
 .article-prose ul,
 .article-prose ol {
@@ -270,10 +323,10 @@
   position: absolute;
   left: 0;
   top: 0.62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--color-spring-deep);
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--color-spring);
 }
 .article-prose ol {
   list-style: decimal;
@@ -282,24 +335,23 @@
   margin-top: 0.5em;
 }
 .article-prose blockquote {
-  border-left: 3px solid var(--color-spring);
-  border-radius: 0;
-  padding: 0.1em 0 0.1em 1.2em;
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--color-ink);
+  border-left: 2px solid var(--color-spring);
+  padding: 0.1em 0 0.1em 1.4em;
+  font-family: var(--font-editorial);
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--color-cream);
 }
 .article-prose hr {
   border: 0;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-line-void);
   margin: 2.5em 0;
 }
 .article-prose code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: var(--color-paper-2);
+  background: rgba(255, 255, 255, 0.07);
   padding: 0.15em 0.4em;
   border-radius: 4px;
 }

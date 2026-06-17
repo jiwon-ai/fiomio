@@ -8,28 +8,42 @@ export function WhyDifferent() {
   const w = t.whyDifferent;
 
   return (
-    <section className="bg-paper-2 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+    <section className="relative overflow-hidden bg-void py-32 sm:py-40">
+      {/* Ghost art number */}
+      <span aria-hidden className="art-number select-none">03</span>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-12">
+        {/* Section label */}
+        <Reveal className="mb-14 flex items-center gap-4">
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.28em] text-spring">
+            03
+          </span>
+          <span className="block h-px w-12 bg-spring/30" />
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.28em] text-cream/25">
+            {w.eyebrow}
+          </span>
+        </Reveal>
+
         <Reveal className="max-w-3xl">
-          <p className="eyebrow">{w.eyebrow}</p>
-          <h2 className="font-display mt-4 text-3xl font-medium leading-tight tracking-tight text-ink sm:text-[2.6rem]">
+          <h2
+            className="font-editorial font-light leading-[0.92] tracking-tight text-cream"
+            style={{ fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}
+          >
             {w.title}
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
           {w.items.map((it, i) => (
             <Reveal as="div" key={i} delay={i * 90}>
-              <div className="lab-frame h-full rounded-xl bg-cream p-7">
-                <span className="inline-flex size-9 items-center justify-center rounded-full bg-spring font-mono text-sm font-semibold text-spring-ink">
+              <div className="border-t border-line-void pt-7">
+                <span className="font-editorial text-5xl font-light text-spring/30">
                   0{i + 1}
                 </span>
-                <h3 className="font-display mt-4 text-lg font-semibold leading-snug text-ink">
+                <h3 className="font-display mt-5 text-base font-semibold leading-snug text-cream">
                   {it.title}
                 </h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed text-stone">
-                  {it.body}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-cream/42">{it.body}</p>
               </div>
             </Reveal>
           ))}

@@ -9,22 +9,25 @@ export function JournalTeaser() {
   const j = t.journalTeaser;
 
   return (
-    <section className="bg-paper py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+    <section className="bg-void py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl px-6 sm:px-12">
         <Reveal>
-          <div className="lab-frame flex flex-col gap-6 rounded-2xl bg-cream p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
+          <div className="lab-frame-dark flex flex-col gap-8 p-10 sm:flex-row sm:items-center sm:justify-between sm:p-14">
             <div className="max-w-xl">
               <p className="eyebrow">{j.eyebrow}</p>
-              <h2 className="font-display mt-3 text-2xl font-semibold leading-tight tracking-tight text-ink sm:text-3xl">
+              <h2
+                className="font-editorial mt-4 font-light leading-tight tracking-tight text-cream"
+                style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}
+              >
                 {j.title}
               </h2>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-stone">
+              <p className="mt-3 text-sm font-light leading-relaxed text-cream/42">
                 {j.body}
               </p>
             </div>
             <Link
               href="/journal"
-              className="spring-glow inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5 sm:self-auto"
+              className="inline-flex shrink-0 items-center gap-3 self-start font-mono text-[0.65rem] uppercase tracking-[0.22em] text-spring transition-colors hover:text-cream sm:self-auto"
             >
               {j.cta}
               <span aria-hidden>→</span>

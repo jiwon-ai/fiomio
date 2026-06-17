@@ -127,14 +127,14 @@ export function Diagnostic() {
       : "";
 
   return (
-    <section id="diagnostic" className="bg-paper py-24 sm:py-32">
+    <section id="diagnostic" className="bg-void py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">{d.eyebrow}</p>
-          <h2 className="font-display mt-4 text-3xl font-medium leading-tight tracking-tight text-ink sm:text-[2.6rem]">
+          <h2 className="font-editorial mt-4 font-light leading-tight tracking-tight text-cream" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
             {d.title}
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-stone">{d.intro}</p>
+          <p className="mt-5 text-base font-light leading-relaxed text-cream/45">{d.intro}</p>
         </Reveal>
 
         <Reveal className="mt-12">

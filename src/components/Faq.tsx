@@ -10,36 +10,44 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="bg-paper-2 py-24 sm:py-28">
-      <div className="mx-auto max-w-3xl px-5 sm:px-8">
-        <Reveal className="text-center">
+    <section className="bg-void-2 py-24 sm:py-28">
+      <div className="mx-auto max-w-3xl px-6 sm:px-12">
+        <Reveal className="mb-12">
           <p className="eyebrow">{f.eyebrow}</p>
-          <h2 className="font-display mt-4 text-3xl font-medium leading-tight tracking-tight text-ink sm:text-[2.4rem]">
+          <h2
+            className="font-editorial mt-4 font-light leading-tight tracking-tight text-cream"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}
+          >
             {f.title}
           </h2>
         </Reveal>
 
-        <Reveal className="mt-10">
-          <ul className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-cream">
+        <Reveal>
+          <ul className="border-t border-line-void">
             {f.items.map((item, i) => {
               const isOpen = open === i;
               return (
-                <li key={i}>
+                <li key={i} className="border-b border-line-void">
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-7 sm:py-5"
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-cream/80"
                   >
-                    <span className="font-medium text-ink">{item.q}</span>
+                    <span className="text-sm font-medium text-cream/80">{item.q}</span>
                     <span
-                      className={`grid size-6 shrink-0 place-items-center rounded-full border border-line text-stone transition-transform duration-300 ${
+                      className={`grid size-5 shrink-0 place-items-center text-spring transition-transform duration-300 ${
                         isOpen ? "rotate-45" : ""
                       }`}
                       aria-hidden
                     >
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M8 3v10M3 8h10"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
                       </svg>
                     </span>
                   </button>
@@ -49,7 +57,7 @@ export function Faq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-5 pb-5 text-[0.95rem] leading-relaxed text-stone sm:px-7">
+                      <p className="pb-5 text-sm leading-relaxed text-cream/40">
                         {item.a}
                       </p>
                     </div>
