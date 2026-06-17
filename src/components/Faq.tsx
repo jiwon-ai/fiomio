@@ -10,33 +10,33 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="bg-void-2 py-24 sm:py-28">
+    <section className="bg-paper-2 py-24 sm:py-28">
       <div className="mx-auto max-w-3xl px-6 sm:px-12">
-        <Reveal className="mb-12">
-          <p className="eyebrow">{f.eyebrow}</p>
+        <Reveal className="mb-10">
+          <p className="eyebrow text-spring-deep">{f.eyebrow}</p>
           <h2
-            className="font-editorial mt-4 font-light leading-tight tracking-tight text-cream"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}
+            className="font-editorial mt-4 font-light leading-tight tracking-tight text-ink"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}
           >
             {f.title}
           </h2>
         </Reveal>
 
         <Reveal>
-          <ul className="border-t border-line-void">
+          <ul className="divide-y divide-line overflow-hidden border border-line bg-cream">
             {f.items.map((item, i) => {
               const isOpen = open === i;
               return (
-                <li key={i} className="border-b border-line-void">
+                <li key={i}>
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-cream/80"
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-white"
                   >
-                    <span className="text-sm font-medium text-cream/80">{item.q}</span>
+                    <span className="text-sm font-medium text-ink">{item.q}</span>
                     <span
-                      className={`grid size-5 shrink-0 place-items-center text-spring transition-transform duration-300 ${
+                      className={`grid size-5 shrink-0 place-items-center text-spring-deep transition-transform duration-300 ${
                         isOpen ? "rotate-45" : ""
                       }`}
                       aria-hidden
@@ -57,7 +57,7 @@ export function Faq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pb-5 text-sm leading-relaxed text-cream/40">
+                      <p className="px-6 pb-5 text-sm leading-relaxed text-stone">
                         {item.a}
                       </p>
                     </div>

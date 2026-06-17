@@ -47,8 +47,7 @@ export function Engagement() {
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-spring/70">
               {e.founderEyebrow}
             </p>
-            <blockquote className="font-editorial mt-5 font-light leading-relaxed text-cream/85 sm:text-xl"
-              style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)" }}>
+            <blockquote className="font-display mt-5 text-base font-light leading-relaxed text-cream/80 sm:text-lg">
               &ldquo;{e.founderNote}&rdquo;
             </blockquote>
             <figcaption className="mt-5 text-xs text-cream/35">
