@@ -4,6 +4,7 @@
 // Returns { note: { fr, en } } or { note: null } when no API key is set.
 
 import Anthropic from "@anthropic-ai/sdk";
+import { retrieveIngredientContext } from "@/lib/rag";
 
 export const runtime = "nodejs";
 
@@ -107,6 +108,13 @@ export async function POST(req: Request) {
     ? `Forecast: ${climate.en.label} — ${climate.en.detail}.`
     : "";
 
+  // RAG: retrieve relevant ingredient science from Supabase (if configured)
+  const ragQuery = `${skinTypeFr} ${sensitiveFr} ${concernsFr} ${ingredientsFr}`.trim();
+  const ragContext = await retrieveIngredientContext(
+    ragQuery,
+    input.pregnancy !== "none"
+  );
+
   try {
     const client = new Anthropic({ apiKey: key });
 
@@ -115,7 +123,8 @@ export async function POST(req: Request) {
       max_tokens: 400,
       system: `Tu es la conseillère experte en K-beauty de Fiomio.
 Tu parles d'abord en français authentique, comme une amie dermatologue.
-Tu connais les actifs cosmétiques en profondeur et tu adaptes tes conseils à la peau et à la météo.`,
+Tu connais les actifs cosmétiques en profondeur et tu adaptes tes conseils à la peau et à la météo.
+Quand des données scientifiques te sont fournies, utilise-les pour enrichir ta réponse avec des détails précis et crédibles.`,
       messages: [
         {
           role: "user",
@@ -133,9 +142,9 @@ ${weatherFr}
 — Ingrédients recommandés —
 FR : ${ingredientsFr}
 EN : ${ingredientsEn}
-
+${ragContext}
 Instructions :
-• "fr" : 2-3 phrases en français naturel et chaleureux. Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Jamais générique.
+• "fr" : 2-3 phrases en français naturel et chaleureux. Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Si des données scientifiques sont disponibles ci-dessus, mentionne un fait précis (sans citer la source). Jamais générique.
 • "en" : même message en anglais, même ton, même niveau de détail.
 • Ton : amie experte — pas clinique, pas commercial.
 • Si enceinte, rassure sur la sécurité des ingrédients choisis.`,

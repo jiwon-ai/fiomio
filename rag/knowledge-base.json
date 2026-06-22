@@ -1,0 +1,731 @@
+[
+  {
+    "id": "ceramides",
+    "name_fr": "Céramides",
+    "name_en": "Ceramides",
+    "category": "barrier-repair",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["barrier", "dehydration", "redness", "aging"],
+    "skin_types": ["dry", "sensitive", "combination", "normal"],
+    "pairs_well_with": ["hyaluronic-acid", "panthenol", "beta-glucan", "peptides"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Les céramides sont des lipides naturellement présents dans la couche cornée de l'épiderme, constituant environ 50 % des lipides intercellulaires. Elles forment une structure lamellaire qui retient l'eau dans la peau et empêche la pénétration d'agents irritants et d'allergènes. Lorsque la barrière est appauvrie en céramides (froid, savons agressifs, maladies comme l'eczéma), on observe une augmentation de la perte insensible en eau (PIE) et une hypersensibilité réactionnelle. Les formules topiques reconstituent ce film lipidique et restaurent la fonction barrière en quelques jours."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Les céramides conviennent à tous les types de peau, en particulier les peaux sèches, atopiques et sensibles. Elles sont indiquées après utilisation d'actifs irritants comme le rétinol ou les AHA/BHA, en hiver lorsque le froid fragilise la barrière, et en cas de tiraillements, de rougeurs ou de desquamation. Une étude publiée dans le Journal of Investigative Dermatology (2012) a démontré que l'application topique d'un complexe céramide-cholestérol-acides gras réduit la PIE de 43 % après 4 semaines. Elles sont également recommandées chez les peaux matures dont la production naturelle de céramides diminue avec l'âge."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Les céramides sont parmi les ingrédients les plus sûrs en cosmétique — elles sont identiques aux lipides naturels de la peau, sans potentiel irritant ni sensibilisant. Elles sont totalement sûres pendant la grossesse et l'allaitement. Elles se combinent parfaitement avec l'acide hyaluronique (hydratation en profondeur), le panthénol (apaisement), le bêta-glucane (renforcement barrière) et les peptides (anti-âge). Il n'existe aucune incompatibilité connue avec d'autres actifs cosmétiques. Le moment idéal d'application est après le sérum aqueux et avant l'huile ou la crème solaire."
+      }
+    ]
+  },
+  {
+    "id": "hyaluronic-acid",
+    "name_fr": "Acide hyaluronique",
+    "name_en": "Hyaluronic acid",
+    "category": "humectant",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dehydration", "dullness", "aging"],
+    "skin_types": ["dry", "combination", "oily", "normal", "sensitive"],
+    "pairs_well_with": ["ceramides", "panthenol", "beta-glucan", "niacinamide"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'acide hyaluronique (AH) est un glycosaminoglycane naturellement présent dans le derme et l'épiderme. Sa propriété principale est sa capacité à retenir jusqu'à 1 000 fois son poids en eau. Les formules modernes combinent plusieurs poids moléculaires : les molécules de haut poids moléculaire (> 1 500 kDa) forment un film hydratant en surface et calment l'inflammation ; les molécules de bas poids moléculaire (< 50 kDa) pénètrent dans l'épiderme pour hydrater en profondeur. Le sodium hyaluronate, sel de l'acide hyaluronique, est la forme la plus courante dans les formules topiques."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'acide hyaluronique convient à tous les types de peau, y compris les peaux grasses et acnéiques car il est non comédogène. Il est particulièrement indiqué pour les peaux déshydratées (différentes des peaux sèches — une peau grasse peut être déshydratée), les peaux ternes, et les peaux matures dont la production d'AH endogène diminue avec l'âge (50 % de perte entre 20 et 50 ans). Il atténue visiblement les rides de déshydratation en quelques heures. Pour un effet optimal, il doit être appliqué sur une peau légèrement humide et scellé par une crème ou une huile."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "L'acide hyaluronique est totalement safe pendant la grossesse et l'allaitement. Il est non irritant, non sensibilisant, et convient aux peaux les plus réactives. Il se combine avec absolument tous les autres actifs. Attention en climat très sec : sans couche occlusives par-dessus, un AH de bas poids moléculaire peut paradoxalement extraire l'eau des couches profondes vers la surface où elle s'évapore. En été sec ou en avion, toujours appliquer une crème hydratante dessus."
+      }
+    ]
+  },
+  {
+    "id": "niacinamide",
+    "name_fr": "Niacinamide",
+    "name_en": "Niacinamide",
+    "category": "multitasker",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["pores", "acne", "dullness", "redness", "barrier", "pigmentation", "dehydration"],
+    "skin_types": ["oily", "combination", "acne-prone", "sensitive", "normal"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "azelaic-acid", "tranexamic-acid", "peptides"],
+    "avoid_with": ["vitamin-c-pure"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Le niacinamide est la forme amide de la vitamine B3 (nicotinamide). Il agit via plusieurs mécanismes simultanés : il inhibe le transfert des mélanosomes (granules de mélanine) des mélanocytes vers les kératinocytes, réduisant ainsi la pigmentation ; il stimule la synthèse de céramides et d'autres lipides intercellulaires, renforçant la barrière ; il inhibe la lipase cutanée, réduisant la production de sébum et l'acné inflammatoire ; il inhibe la protéine kinase C, diminuant les rougeurs. Ces effets apparaissent généralement en 4 à 8 semaines d'utilisation régulière."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le niacinamide est l'actif le plus polyvalent en cosmétique : un seul ingrédient adresse 7 des 8 préoccupations cutanées majeures. Il est particulièrement indiqué pour les peaux mixtes à grasses avec pores dilatés et imperfections, les peaux sensibles avec rougeurs diffuses (rosacée légère, couperose), les teints irréguliers avec taches post-inflammatoires, et les peaux qui souhaitent renforcer leur barrière sans actifs lourds. Des études cliniques montrent une réduction de 25 % des pores visibles à 4 semaines à une concentration de 5 %, et une réduction des taches solaires comparable à l'hydroquinone à 4 % sans les effets secondaires."
+      },
+      {
+        "title": "Sécurité, concentration et compatibilité",
+        "text": "Le niacinamide est sûr pendant la grossesse. Les concentrations efficaces se situent entre 2 % (rougeurs) et 10 % (pores, taches) — au-delà de 10 %, un picotement transitoire peut apparaître. La combinaison niacinamide + vitamine C pure (acide ascorbique) a longtemps été déconseillée (risque de formation de niacine irritante), mais des études récentes montrent que ce phénomène est négligeable aux concentrations et pH cosmétiques. Il se combine très bien avec l'acide azélaïque pour les rougeurs, l'acide tranexamique pour les taches, et les céramides pour la barrière."
+      }
+    ]
+  },
+  {
+    "id": "centella-asiatica",
+    "name_fr": "Centella asiatica (Cica)",
+    "name_en": "Centella asiatica (Cica)",
+    "category": "k-beauty-soother",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "barrier", "dehydration", "aging"],
+    "skin_types": ["sensitive", "dry", "combination", "normal"],
+    "pairs_well_with": ["madecassoside", "ceramides", "panthenol", "allantoin", "beta-glucan"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Centella asiatica est une plante médicinale utilisée depuis des siècles en médecine ayurvédique. Ses principes actifs principaux sont les triterpènes : acide asiatique, acide madécassique, asiaticosides et madécassosides. Ces composés stimulent la synthèse de collagène de type I et III par les fibroblastes, inhibent les médiateurs de l'inflammation (IL-1β, TNF-α), renforcent la matrice extracellulaire et accélèrent la cicatrisation des micro-lésions cutanées. Le terme K-beauty 'Cica' est dérivé du mot français 'cicatrisant' — ce qui illustre son origine médicale dans la cicatrisation des plaies."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Centella asiatica est l'actif phare de la K-beauty pour les peaux sensibles et réactives. Ses indications principales sont : les rougeurs persistantes et la couperose légère, la barrière cutanée fragilisée (après procédures esthétiques, exposition au froid, utilisation intensive d'actifs exfoliants), les peaux déshydratées et inconfortables, et la prévention des signes d'âge grâce à la stimulation du collagène. Elle est particulièrement appréciée en France où les peaux sensibles représentent plus de 50 % de la population selon une étude INSERM. L'effet calmant est visible en 15 à 30 minutes après application."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Centella asiatica est totalement sûre pendant la grossesse et l'allaitement. Elle est non irritante et très rarement allergisante. Elle se combine parfaitement avec le madécassoside (amplification de l'effet cica), le panthénol, l'allantoïne, les céramides et le bêta-glucane pour un soin réparateur complet. Elle est compatible avec les rétinols et les acides (elle peut en atténuer l'irritation quand appliquée avant ou après). Pour les peaux très sensibles, un produit Cica en première couche du soir avant le rétinol est une technique couramment recommandée par les dermatologues coréens."
+      }
+    ]
+  },
+  {
+    "id": "madecassoside",
+    "name_fr": "Madécassoside",
+    "name_en": "Madecassoside",
+    "category": "k-beauty-soother",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "barrier", "aging"],
+    "skin_types": ["sensitive", "dry", "combination", "normal"],
+    "pairs_well_with": ["centella-asiatica", "ceramides", "panthenol", "allantoin"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action et différence avec Centella",
+        "text": "Le madécassoside est un des triterpènes glycosylés purifiés extraits de Centella asiatica. Contrairement à l'extrait total de cica (qui contient un mélange de triterpènes), le madécassoside est un composé isolé à haute pureté. Il inhibe spécifiquement la production de prostaglandines et de leucotriènes (médiateurs de l'inflammation), stimule la synthèse de collagène IV (essentiel pour la membrane basale) et améliore la microcirculation cutanée. Sa biodisponibilité épidermique est supérieure à celle de l'extrait brut car la molécule est standardisée et sa pénétration cutanée est optimisée."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le madécassoside est le 'Cica concentré' — une version plus puissante et ciblée pour les peaux présentant des rougeurs intenses, une barrière très fragilisée, ou une peau post-procédure (peeling, laser, microneedling). Des études cliniques montrent une réduction de 52 % des rougeurs après 4 semaines à une concentration de 0,1 %. Il est recommandé après exposition au froid intense (ce qui est particulièrement pertinent pour les utilisatrices françaises en automne-hiver), après utilisation agressive d'actifs, ou pour les peaux eczémateuses en phase non-aiguë. Les crèmes à base de madécassoside sont également utilisées comme soin post-laser en dermatologie."
+      },
+      {
+        "title": "Sécurité et utilisation",
+        "text": "Le madécassoside est parmi les actifs les plus sûrs qui existent, validé cliniquement pour les peaux atopiques de l'enfant et pour les femmes enceintes. Il n'existe aucune contre-indication. La concentration efficace en topique est de 0,05 % à 0,2 %. Il se combine avec le panthénol, l'allantoïne et les céramides pour un effet réparateur synergique. En application : appliquer en première couche sur peau propre, attendre 1-2 minutes avant les autres soins."
+      }
+    ]
+  },
+  {
+    "id": "panthenol",
+    "name_fr": "Panthénol (Pro-vitamine B5)",
+    "name_en": "Panthenol (B5)",
+    "category": "soother-humectant",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dehydration", "barrier", "redness"],
+    "skin_types": ["dry", "sensitive", "combination", "normal", "oily"],
+    "pairs_well_with": ["ceramides", "hyaluronic-acid", "centella-asiatica", "allantoin", "beta-glucan"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Le panthénol (D-panthénol ou pro-vitamine B5) est un alcool précurseur de l'acide pantothénique. Une fois appliqué sur la peau, il est converti en acide pantothénique (vitamine B5), coenzyme essentiel à la synthèse des acides gras et à la production d'énergie cellulaire. Il fonctionne comme humectant (attire l'eau de l'air et des couches profondes vers la couche cornée), émollient (comble les espaces entre les cornéocytes) et cicatrisant léger (stimule la prolifération des fibroblastes). Sa double action humectante et réparatrice en fait un actif particulièrement polyvalent."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le panthénol est souvent appelé l'actif 'oublié' car il est présent dans presque tous les soins sans être mis en avant. Ses bénéfices principaux : hydratation durable sans sensation grasse (idéal peaux mixtes), apaisement immédiat des rougeurs et irritations, renforcement de la barrière en complément des céramides, et aide à la récupération après exfoliation ou exposition au soleil. Il est particulièrement précieux en tant que 'buffer' — atténuateur des effets irritants des actifs puissants comme le rétinol et les AHA. Une étude de 2019 a montré que 5 % panthénol réduit l'irritation rétinol de 31 % sans diminuer son efficacité anti-âge."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Le panthénol est totalement sûr pendant la grossesse et l'allaitement. Il est inclus dans la liste des ingrédients de référence pour les soins bébé. Il est compatible avec absolument tous les actifs. Son rôle de 'buffer' le rend particulièrement utile associé au rétinol, aux AHA/BHA et à la vitamine C pour atténuer les effets secondaires sans réduire l'efficacité. Il peut être utilisé matin et soir, dans les sérums, crèmes, masques et même comme soin contour des yeux."
+      }
+    ]
+  },
+  {
+    "id": "squalane",
+    "name_fr": "Squalane",
+    "name_en": "Squalane",
+    "category": "emollient",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dehydration", "barrier"],
+    "skin_types": ["dry", "combination", "sensitive", "oily", "normal"],
+    "pairs_well_with": ["ceramides", "hyaluronic-acid", "retinol", "vitamin-c"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Le squalane est un hydrocarbure saturé dérivé du squalène (naturellement présent dans le sébum humain à hauteur de 12 %). La version cosmétique provient aujourd'hui majoritairement de la canne à sucre (fermentation) ou d'olives, remplaçant l'ancienne source d'huile de foie de requin. Sa structure moléculaire est similaire au sébum naturel, ce qui lui confère une excellente affinité avec la peau et une pénétration rapide sans résidu gras. Il forme une fine couche semi-occlusive qui retient l'humidité sans boucher les pores, et protège les lipides de la membrane cellulaire contre l'oxydation."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le squalane est paradoxalement adapté aux peaux grasses et acnéiques — sa légèreté et sa non-comédogénicité en font une excellente huile pour les peaux qui fuient les textures lourdes. Pour les peaux sèches, il apporte une nutrition légère et un confort immédiat. Il est particulièrement utile comme dernière couche du soir pour 'sceller' les actifs aqueux (sérum HA, niacinamide) et éviter leur évaporation. Il solubilise également les actifs liposolubles comme la vitamine C huile, le rétinol et les filtres solaires, améliorant leur pénétration quand utilisé en mélange."
+      },
+      {
+        "title": "Sécurité et utilisation",
+        "text": "Le squalane végétal est sûr pendant la grossesse. Il est non irritant, non allergisant, et convient aux peaux les plus sensibles. Application : quelques gouttes mélangées au sérum, ou appliqué pur en dernière étape du soir. En mélange avec le rétinol (méthode 'sandwich'), il réduit les tiraillements sans diminuer l'efficacité de l'actif. Compatible avec tous les actifs cosmétiques."
+      }
+    ]
+  },
+  {
+    "id": "snail-mucin",
+    "name_fr": "Mucine d'escargot (filtrat)",
+    "name_en": "Snail mucin",
+    "category": "k-beauty-repair",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dehydration", "barrier", "dullness", "redness", "acne"],
+    "skin_types": ["dry", "combination", "acne-prone", "sensitive", "normal"],
+    "pairs_well_with": ["hyaluronic-acid", "niacinamide", "centella-asiatica", "ceramides"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Composition et mécanisme",
+        "text": "La mucine d'escargot (Helix Aspersa Müller ou Helix Aspersa Maxima) est une sécrétion naturelle que l'escargot utilise pour se protéger et réparer sa coquille et ses tissus. En cosmétique, on utilise le filtrat (70-96 % de concentration dans les produits K-beauty haut de gamme). Sa composition est complexe : acide glycolique (légère exfoliation), glycoprotéines (hydratation et réparation), collagène et élastine hydrolysés, allantoïne (cicatrisation), protéases (renouvellement cellulaire), antimicrobiens naturels (action anti-acné) et acide hyaluronique. Cette combinaison multifonctionnelle explique pourquoi la mucine est populaire en K-beauty : un seul ingrédient agit sur plusieurs problématiques simultanément."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "La mucine d'escargot convient particulièrement aux peaux acnéiques post-inflammatoires (réduit les marques et hydrate sans obstruer les pores), aux peaux déshydratées cherchant une texture légère et 'glassy', et aux peaux mixtes qui alternent zones sèches et grasses. L'acide glycolique naturellement présent assure un micro-renouvellement cellulaire qui améliore l'éclat. Des études in vivo montrent une amélioration de l'hydratation de 50 % et une réduction des irrégularités cutanées de 35 % après 12 semaines. C'est l'un des actifs emblématiques du 'glass skin' coréen."
+      },
+      {
+        "title": "Sécurité et utilisation",
+        "text": "La mucine d'escargot est sûre pendant la grossesse. Les personnes allergiques aux escargots ou mollusques en général doivent faire un test cutané préalable sur l'intérieur du poignet. Elle est non comédogène et convient aux peaux les plus sensibles. Elle s'applique après le toner et avant les sérums actifs, idéalement matin et soir. Sa texture visqueuse caractéristique ('snail trail') disparaît à l'application et ne laisse pas de résidu. Compatible avec tous les actifs."
+      }
+    ]
+  },
+  {
+    "id": "vitamin-c",
+    "name_fr": "Vitamine C (acide L-ascorbique)",
+    "name_en": "Vitamin C",
+    "category": "antioxidant-brightener",
+    "pregnancy_safe": true,
+    "gentleness": 1,
+    "timing": ["AM"],
+    "concerns": ["dullness", "pigmentation", "aging"],
+    "skin_types": ["normal", "combination", "oily"],
+    "pairs_well_with": ["vitamin-e", "ferulic-acid", "hyaluronic-acid", "squalane"],
+    "avoid_with": ["retinol-same-time", "aha-bha-same-time", "niacinamide-high-conc"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "La vitamine C (acide L-ascorbique ou acide ascorbique) est le gold standard des antioxydants en cosmétique. Elle inhibe la tyrosinase, enzyme clé de la mélanosynthèse, réduisant ainsi la formation de taches pigmentaires. Elle est cofacteur essentiel de la prolyl hydroxylase, enzyme nécessaire à la synthèse de collagène stable — sans vitamine C, le collagène est non fonctionnel. Elle neutralise les radicaux libres générés par les UV et la pollution, protégeant les lipides membranaires et l'ADN cellulaire. L'acide L-ascorbique pur est la forme la plus active mais la plus instable — il s'oxyde rapidement (jaunissement du produit) et peut piquer sur les peaux sensibles. Les dérivés stables (ascorbyl glucoside, 3-O-ethyl ascorbic acid, sodium ascorbyl phosphate) sont moins irritants mais moins puissants."
+      },
+      {
+        "title": "Bénéfices et utilisation matin",
+        "text": "La vitamine C est l'actif matinal par excellence : elle potentialise l'action de la crème solaire (protection synergique contre les UVA), protège contre la pollution urbaine (radicaux libres), et travaille à estomper les taches pigmentaires dès l'exposition solaire. Une étude de l'Université de Duke (2005) démontre que la combinaison vitamine C 15 % + vitamine E 1 % + acide férulique 0,5 % quadruple la protection contre les dommages UV. En France, ce combo est particulièrement pertinent pour les peaux exposées à la pollution parisienne. Les résultats sur les taches pigmentaires sont visibles en 8 à 12 semaines."
+      },
+      {
+        "title": "Sécurité, concentration et précautions",
+        "text": "La vitamine C est sûre pendant la grossesse sous forme topique à des concentrations normales (≤ 20 %). Déconseillée aux peaux très sensibles et réactives avec l'acide L-ascorbique pur — préférer les dérivés stables comme l'ascorbyl glucoside (moins irritant). Ne pas appliquer en même temps que le rétinol (pH incompatibles) ni que les AHA/BHA (surexfoliation). Laisser 30 minutes entre la vitamine C et les autres actifs acides, ou utiliser la vitamine C le matin et les acides/rétinol le soir. Conserver en flacon opaque et dark pour éviter l'oxydation. Un produit vitamine C oxydé (brun foncé) est inactif et peut potentiellement irriter — jeter si cette couleur apparaît."
+      }
+    ]
+  },
+  {
+    "id": "azelaic-acid",
+    "name_fr": "Acide azélaïque",
+    "name_en": "Azelaic acid",
+    "category": "anti-redness-brightener",
+    "pregnancy_safe": true,
+    "gentleness": 2,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "acne", "pigmentation", "pores"],
+    "skin_types": ["sensitive", "acne-prone", "combination", "oily"],
+    "pairs_well_with": ["niacinamide", "tranexamic-acid", "ceramides", "centella-asiatica"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'acide azélaïque est un diacide saturé (acide nonanedioïque) naturellement présent dans les céréales comme le blé, le seigle et l'orge. Il agit par plusieurs mécanismes : inhibition sélective de la tyrosinase hyperactive dans les mélanocytes anormaux (réduction des taches sans dépigmentation des zones saines), activité antibactérienne contre Cutibacterium acnes (bactérie de l'acné) sans induire de résistance, action anti-inflammatoire en inhibant la production de radicaux libres par les neutrophiles (pertinente pour la rosacée), et légère action kératolytique normalisant l'hyperkératinisation folliculaire."
+      },
+      {
+        "title": "Bénéfices et indications — l'actif idéal pour la rosacée et les peaux sensibles",
+        "text": "L'acide azélaïque est approuvé comme médicament en Europe (Skinoren 20 %) pour la rosacée et l'acné. C'est l'un des rares actifs anti-taches validé pendant la grossesse. Il est particulièrement adapté aux peaux sensibles avec rougeurs diffuses ou rosacée légère, aux peaux acnéiques post-inflammatoires avec taches résiduelles, et aux peaux hyperpigmentées qui ne tolèrent pas la vitamine C ou l'hydroquinone. La concentration cosmétique habituelle est 10 %, versus 20 % en prescription. À 10 %, il est bien toléré même par les peaux réactives. Les résultats sur les taches pigmentaires sont visibles en 4 à 8 semaines."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "L'acide azélaïque est l'un des rares actifs exfoliants-dépigmentants formellement autorisés pendant la grossesse et l'allaitement — une distinction importante dans le paysage cosmétique. Un léger picotement transitoire à l'application est normal, surtout au début. Il se combine très bien avec le niacinamide (action synergique sur rougeurs et taches), l'acide tranexamique (dépigmentation), les céramides (réparation barrière). Il peut être utilisé le matin et le soir. Commencer à une fréquence réduite (2-3 fois par semaine) puis augmenter progressivement."
+      }
+    ]
+  },
+  {
+    "id": "salicylic-acid",
+    "name_fr": "Acide salicylique (BHA)",
+    "name_en": "Salicylic acid (BHA)",
+    "category": "exfoliant-bha",
+    "pregnancy_safe": false,
+    "gentleness": 1,
+    "timing": ["PM"],
+    "concerns": ["acne", "pores", "dullness"],
+    "skin_types": ["oily", "combination", "acne-prone"],
+    "pairs_well_with": ["niacinamide", "hyaluronic-acid", "ceramides"],
+    "avoid_with": ["vitamin-c-same-time", "aha-same-time", "retinol-same-time"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — l'exfoliant liposoluble",
+        "text": "L'acide salicylique est un bêta-hydroxy acide (BHA) dérivé de l'écorce de saule. Sa particularité essentielle : il est liposoluble (contrairement aux AHA qui sont hydrosolubles), ce qui lui permet de pénétrer dans les follicules sébacés obstrués. Il dissout les liaisons entre les cornéocytes (kératolyse), fluidifie le sébum intrafolliculaire et désobstrue les pores de l'intérieur. Il exerce également une action anti-inflammatoire (precurseur des salicylates) et une légère activité antibactérienne. À 2 %, il est le standard pour le traitement des comédons ouverts et fermés (points noirs et blancs)."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'acide salicylique est l'actif de référence pour les peaux grasses acnéiques avec pores dilatés. Ses indications principales : acné comédogénique (points noirs, points blancs), pores dilatés sur le nez et le menton (zone T), teint terne avec excès de sébum, et prévention des éruptions récurrentes. Il ne convient pas aux peaux sèches et sensibles car il peut assécher excessivement. En France, les formules cosmétiques sont limitées à 2 % (au-delà, c'est du domaine médicamenteux). Un peeling salicylique professionnel à 20-30 % est utilisé en dermatologie pour les acnés sévères et les hyperpigmentations."
+      },
+      {
+        "title": "Sécurité et précautions",
+        "text": "L'acide salicylique est DÉCONSEILLÉ pendant la grossesse aux concentrations utilisées en cosmétique — par principe de précaution (les salicylates à hautes doses sont tératogènes par voie systémique). Les femmes enceintes doivent éviter les exfoliants BHA et se tourner vers l'acide lactique (AHA doux, safe grossesse) ou l'acide azélaïque. Il ne doit pas être combiné avec d'autres actifs acides le même soir (AHA, rétinol, vitamine C). Toujours appliquer une crème hydratante après, et éviter le maquillage occlusif le lendemain. Commencer à 1-2 fois par semaine maximum."
+      }
+    ]
+  },
+  {
+    "id": "retinol",
+    "name_fr": "Rétinol",
+    "name_en": "Retinol",
+    "category": "anti-aging-vitamin-a",
+    "pregnancy_safe": false,
+    "gentleness": 0,
+    "timing": ["PM"],
+    "concerns": ["aging", "pores", "pigmentation", "acne"],
+    "skin_types": ["normal", "combination", "oily"],
+    "pairs_well_with": ["panthenol", "ceramides", "squalane", "hyaluronic-acid"],
+    "avoid_with": ["vitamin-c-same-session", "aha-bha-same-session", "salicylic-acid"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — le gold standard anti-âge",
+        "text": "Le rétinol est un rétinoïde de vitamine A qui, une fois converti en acide rétinoïque dans la peau, se lie aux récepteurs RAR (Retinoic Acid Receptors) et modifie l'expression génique. Il stimule la prolifération des kératinocytes (renouvellement cellulaire), inhibe les métalloprotéinases qui dégradent le collagène (MMP-1, MMP-3), stimule la synthèse de nouveau collagène et d'élastine, normalise la différenciation folliculaire (action anti-acné), et redistribue la mélanine (anti-taches). Le rétinol est la forme OTC (sans ordonnance) la plus puissante — il est 20 fois moins actif que la trétinoïne (sur ordonnance), mais sans ses effets secondaires sévères."
+      },
+      {
+        "title": "Utilisation et montée en charge progressive",
+        "text": "La règle absolue du rétinol : monter en charge progressivement. Commencer à 0,025-0,05 % 1 fois par semaine pendant 4 semaines, puis 2 fois/semaine pendant 4 semaines, puis tous les deux jours, puis quotidiennement si toléré. L'irritation initiale (retinization : rougeurs, desquamation, picotements) est normale et transitoire — elle disparaît généralement après 4 à 6 semaines. Toujours appliquer le soir uniquement (photosensibilisant), sur peau sèche (peau humide amplifie la pénétration et l'irritation), et sceller avec une crème riche (méthode sandwich : crème fine → rétinol → crème riche). Les résultats sur les rides sont visibles à partir de 12 semaines."
+      },
+      {
+        "title": "Contre-indications absolues — INTERDIT grossesse",
+        "text": "Le rétinol est FORMELLEMENT CONTRE-INDIQUÉ pendant la grossesse et la période de conception — même topique, il présente un risque tératogène documenté (malformations fœtales). Les femmes enceintes ou souhaitant concevoir doivent arrêter tout produit rétinol et rétinoïde immédiatement. L'alternative sûre et validée est le bakuchiol (même action anti-âge, zéro risque grossesse). Le rétinol est également déconseillé en cas de rosacée active, d'eczéma, de peau très sensible. Les peaux sensibles peuvent préférer le rétinal (rétinaldéhyde) ou le rétinyl propionate, légèrement moins irritants. Ne jamais utiliser avec les AHA/BHA le même soir."
+      }
+    ]
+  },
+  {
+    "id": "peptides",
+    "name_fr": "Peptides",
+    "name_en": "Peptides",
+    "category": "anti-aging-firming",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["aging", "barrier", "dehydration"],
+    "skin_types": ["normal", "dry", "combination", "sensitive"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "niacinamide", "vitamin-c"],
+    "avoid_with": ["direct-acids-same-layer"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Les peptides sont de courtes chaînes d'acides aminés (2 à 20 résidus) qui agissent comme messagers biologiques. En cosmétique, plusieurs familles sont utilisées : les peptides signal (ex. Matrixyl / palmitoyl pentapeptide-4) qui stimulent la production de collagène et d'élastine en 'mimant' les signaux de dégradation du collagène ; les peptides neurotransmetteurs (ex. Argireline / acetyl hexapeptide-3) qui inhibent la contraction musculaire (effet 'Botox like' doux) ; les peptides carrier qui transportent des minéraux (cuivre, manganèse) vers les fibroblastes ; et les peptides antimicrobiens qui ont une action sur l'acné. Leur efficacité est réelle mais modérée comparée au rétinol ou aux acides."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Les peptides sont l'alternative anti-âge idéale pour les peaux sensibles qui ne tolèrent pas le rétinol, pour les femmes enceintes cherchant un soin anti-âge sûr, et pour les utilisatrices de rétinol souhaitant amplifier les résultats. Les peptides signal (Matrixyl) montrent des résultats comparables à la trétinoïne 0,1 % sur les rides de surface après 6 mois, sans aucun effet secondaire. Ils conviennent à partir de 25-30 ans en prévention, et à tous les âges pour le maintien de la fermeté. Leur intérêt est amplifié en combinaison avec la vitamine C (qui fournit les cofacteurs nécessaires à la synthèse de collagène) et l'acide hyaluronique."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Les peptides sont totalement sûrs pendant la grossesse et l'allaitement — c'est l'un des rares actifs anti-âge qui peut remplacer le rétinol chez la femme enceinte. Ils sont non irritants et conviennent aux peaux les plus sensibles. Attention : les peptides sont inactivés par les acides forts (AHA, BHA, vitamine C L-ascorbique à pH < 3) — éviter de les combiner dans la même couche ou le même temps d'application. Appliquer les peptides après neutralisation du pH (15-20 minutes après les acides) ou matin uniquement si les acides sont réservés au soir."
+      }
+    ]
+  },
+  {
+    "id": "allantoin",
+    "name_fr": "Allantoïne",
+    "name_en": "Allantoin",
+    "category": "soother-healer",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "barrier", "dehydration"],
+    "skin_types": ["sensitive", "dry", "combination", "normal", "acne-prone"],
+    "pairs_well_with": ["centella-asiatica", "panthenol", "ceramides", "madecassoside"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'allantoïne est un composé hétérocyclique (2,5-dioxo-4-imidazolidinyl urée) naturellement présent dans la consoude (Symphytum officinale) et dans certains organismes biologiques. Elle est aujourd'hui synthétisée pour un usage cosmétique standardisé. Son mécanisme principal est la kératolyse douce : elle rompt les liaisons entre les cornéocytes abîmés, favorisant leur élimination et le renouvellement cellulaire sans irritation. Elle stimule également la prolifération cellulaire (cicatrisation) et inhibe les récepteurs de la douleur TRPV1 (réduction des picotements et de l'inflammation)."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'allantoïne est souvent appelée 'la kératolyse douce de la K-beauty'. Elle exfolie en douceur sans acide, convenant aux peaux trop sensibles pour les AHA. Ses indications : peaux inconfortables avec petites squames et tiraillements, peaux post-procédure nécessitant cicatrisation douce, peaux acnéiques post-inflammation, et peaux sèches avec texture irrégulière. À une concentration de 0,5 % (réglementaire EU), elle améliore la texture de la peau en 2 à 4 semaines. Elle est très présente dans les gammes K-beauty de soins apaisants (gammes Cica, Mugwort)."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "L'allantoïne est totalement sûre pendant la grossesse et est approuvée pour les soins nourrissons. Elle est non irritante, non sensibilisante, et convient même aux peaux eczémateuses. Compatible avec absolument tous les actifs. Elle peut être combinée avec des actifs irritants (rétinol, acides) pour en atténuer les effets secondaires. Application matin et soir sans restriction de fréquence."
+      }
+    ]
+  },
+  {
+    "id": "beta-glucan",
+    "name_fr": "Bêta-glucane",
+    "name_en": "Beta-glucan",
+    "category": "soother-humectant",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dehydration", "barrier", "redness", "aging"],
+    "skin_types": ["sensitive", "dry", "combination", "normal"],
+    "pairs_well_with": ["ceramides", "hyaluronic-acid", "centella-asiatica", "peptides"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Le bêta-glucane (β-1,3/1,6-glucane) est un polysaccharide naturel extrait de levure de boulangerie (Saccharomyces cerevisiae), de l'avoine ou de certains champignons. Sa molécule est plus grande que l'acide hyaluronique, formant un réseau viscoélastique en surface qui retient l'eau de manière exceptionnelle et crée une barrière protectrice. Il active les récepteurs Dectin-1 sur les kératinocytes et macrophages, stimulant la réponse immunitaire cutanée naturelle sans inflammation. Il stimule également la synthèse de collagène et d'élastine via les fibroblastes."
+      },
+      {
+        "title": "Bénéfices et indications — supérieur à l'AH pour certains profils",
+        "text": "Le bêta-glucane est souvent décrit comme 'l'acide hyaluronique du futur' : dans une étude comparative directe, le bêta-glucane à 0,1 % a montré une capacité de rétention d'eau supérieure à l'AH et une meilleure réduction de la profondeur des rides sur 8 semaines. Il est particulièrement indiqué pour les peaux immunodéprimées (stress, pollution), les peaux post-exposition solaire intense, les peaux matures dont l'immunité cutanée décline, et les peaux sensibles qui cherchent un actif hydratant sans aucun risque d'irritation. L'avoine colloïdale (riche en bêta-glucane) est utilisée depuis des décennies en dermatologie pour l'eczéma et les dermatoses inflammatoires."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Le bêta-glucane est totalement sûr pendant la grossesse. Il est non irritant, non allergisant, et représente l'un des actifs hydratants les plus doux disponibles. Compatible avec absolument tous les actifs. Il se combine particulièrement bien avec les céramides (renforcement barrière synergique), les peptides (anti-âge complet), et la centella asiatica (soin réparateur intensif). Application matin et soir sans restriction."
+      }
+    ]
+  },
+  {
+    "id": "mugwort",
+    "name_fr": "Armoise (Artemisia / Mugwort)",
+    "name_en": "Mugwort (Artemisia)",
+    "category": "k-beauty-soother",
+    "pregnancy_safe": false,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "barrier", "dehydration"],
+    "skin_types": ["sensitive", "combination", "dry", "normal"],
+    "pairs_well_with": ["centella-asiatica", "ceramides", "allantoin", "beta-glucan"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action et origines K-beauty",
+        "text": "L'armoise (Artemisia vulgaris ou Artemisia capillaris) est une plante herbacée utilisée dans la médecine traditionnelle coréenne (hanbang) depuis des millénaires. Ses composés actifs sont les flavonoïdes (apigénine, lutéoline), les terpènes (artémisinine), les polyphénols et les huiles essentielles. En cosmétique, l'extrait d'armoise inhibe la dégranulation des mastocytes (réduction de l'inflammation allergique), réduit la production d'histamine (anti-démangeaison), inhibe les radicaux libres (protection antioxydante) et renforce la barrière lipidique cutanée. C'est l'actif phare des gammes K-beauty dédiées aux peaux sensibles et réactives."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'armoise convient particulièrement aux peaux sujettes aux rougeurs diffuses, aux réactions allergiques cutanées légères, aux démangeaisons et aux inconforts liés à la sensibilité. Elle est très appréciée en automne et en hiver, saisons où les changements de température provoquent des réactions vasomotrices (flush, rougeurs). En Corée, les produits à l'armoise sont recommandés après le lavage quotidien pour les peaux 'chagrined' — ce terme coréen désigne une peau qui réagit excessivement aux stimuli externes. Elle a un léger effet séborégulateur sur les peaux mixtes. L'odeur herbacée caractéristique est appréciée dans la cosmétique naturelle."
+      },
+      {
+        "title": "Précautions — déconseillée enceinte",
+        "text": "L'armoise contient des thurones et d'autres composés qui stimulent les contractions utérines — elle est traditionnellement utilisée comme emménagogue (pour provoquer les règles). Elle est DÉCONSEILLÉE pendant la grossesse par précaution. Pour les peaux sensibles enceintes, la centella asiatica est une alternative parfaitement équivalente et totalement sûre. Les personnes allergiques à la famille des Astéracées (ambroisie, chrysanthème, marguerite) peuvent réagir à l'armoise — faire un test cutané préalable."
+      }
+    ]
+  },
+  {
+    "id": "heartleaf",
+    "name_fr": "Heartleaf (Houttuynia cordata)",
+    "name_en": "Heartleaf (Houttuynia cordata)",
+    "category": "k-beauty-soother",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "acne", "barrier", "pores"],
+    "skin_types": ["sensitive", "acne-prone", "combination", "oily"],
+    "pairs_well_with": ["niacinamide", "centella-asiatica", "allantoin", "azelaic-acid"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "Houttuynia cordata est une plante médicinale asiatique (appelée 'Eomma namu' en coréen) dont la feuille en forme de cœur a donné le nom anglais 'Heartleaf'. Ses composés actifs principaux sont : la quercétine (flavonoïde anti-inflammatoire puissant), le méthyl-n-nonyl cétone (antimicrobien naturel), l'acide chlorogénique (antioxydant) et des polysaccharides immunomodulateurs. Elle inhibe la croissance de Cutibacterium acnes (bactérie de l'acné) et des Staphylocoques (bactéries des infections cutanées secondaires), réduit la production de sébum via inhibition de la 5-alpha réductase, et diminue les médiateurs pro-inflammatoires (IL-6, TNF-α)."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le Heartleaf est l'actif K-beauty qui combine le mieux action anti-acné et apaisement des rougeurs — là où la plupart des actifs anti-acné (BHA, peroxyde de benzoyle) tendent à irriter, le Heartleaf assèche les imperfections tout en calmant simultanément. Il convient aux peaux acnéiques sensibles ou réactives qui ne tolèrent pas les traitements conventionnels. Sa double action séborégulation + apaisement en fait un ingrédient de choix pour les peaux mixtes à grasses avec rougeurs. Des études cliniques coréennes montrent une réduction de 60 % du nombre d'imperfections et de 45 % des rougeurs associées après 8 semaines."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Houttuynia cordata est sûre pendant la grossesse sous forme topique. Elle est non irritante et bien tolérée même par les peaux sensibles. Elle se combine très bien avec le niacinamide (action synergique anti-acné + pores), la centella asiatica (apaisement renforcé), et l'acide azélaïque (anti-taches post-acné safe grossesse). Compatible avec tous les autres actifs en routine."
+      }
+    ]
+  },
+  {
+    "id": "green-tea",
+    "name_fr": "Thé vert (EGCG)",
+    "name_en": "Green tea (EGCG)",
+    "category": "antioxidant-k-beauty",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["redness", "acne", "dullness", "pores"],
+    "skin_types": ["oily", "combination", "sensitive", "normal"],
+    "pairs_well_with": ["niacinamide", "hyaluronic-acid", "vitamin-c", "centella-asiatica"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'épigallocatéchine gallate (EGCG) est le principal polyphénol du thé vert (Camellia sinensis), représentant 50 à 80 % de ses catéchines. L'EGCG est un antioxydant dont la puissance est estimée 200 fois supérieure à celle de la vitamine E. Il inhibe la 5-alpha réductase (enzyme qui convertit la testostérone en DHT, moteur de la production sébacée), réduit la production de sébum dans les glandes sébacées, inhibe la bactérie C. acnes et son expression toxinique, et protège les kératinocytes et fibroblastes contre les dommages UV par inhibition des enzymes protéolytiques induites par les UV."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "Le thé vert est particulièrement adapté aux peaux grasses à tendance acnéique avec excès de sébum, aux peaux exposées à la pollution urbaine (pertinent pour les utilisatrices parisiennes), et aux teints ternes fatigués. Une étude de 2016 a montré qu'un extrait de thé vert à 2 % réduit la production sébacée de 61 % après 8 semaines — un résultat comparable à certains traitements médicamenteux. L'effet antioxydant protège contre le vieillissement photo-induit (photoaging), en synergie avec la crème solaire. Il est aussi utilisé comme sérum 'post-soleil' pour neutraliser les radicaux libres générés par les UV."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Le thé vert est sûr pendant la grossesse sous forme topique (à distinguer de la consommation orale de thé vert concentré qui peut réduire l'absorption de folates). Il est non irritant et convient aux peaux les plus sensibles. Il se combine bien avec la vitamine C (synergie antioxydante), le niacinamide (réduction pores et sébum), et l'acide hyaluronique (hydratation légère peaux grasses). Application matin de préférence pour maximiser la protection antioxydante journalière."
+      }
+    ]
+  },
+  {
+    "id": "galactomyces",
+    "name_fr": "Galactomyces (ferment)",
+    "name_en": "Galactomyces (ferment)",
+    "category": "k-beauty-brightener",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dullness", "pores", "dehydration", "pigmentation"],
+    "skin_types": ["oily", "combination", "normal", "acne-prone"],
+    "pairs_well_with": ["niacinamide", "hyaluronic-acid", "snail-mucin", "tranexamic-acid"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action et origines",
+        "text": "Galactomyces ferment filtrate (GFF) est un filtrat de fermentation obtenu par culture de la levure Galactomyces ferment (anciennement Candida). Cette levure est utilisée dans la production du saké — son rôle dans la K-beauty a été découvert quand les ouvriers japonais des brasseries de saké avaient des mains remarquablement jeunes et lumineuses. Le GFF contient une multitude de composés bioactifs : vitamines B, acides aminés, minéraux (zinc, magnésium), beta-glucanes de levure, enzymes fermentées. Ces composés améliorent la circulation sanguine cutanée (éclat), régulent la production de sébum, resserrent l'aspect des pores et unifient le teint par action sur la mélanogenèse."
+      },
+      {
+        "title": "Bénéfices et indications — le secret du 'glass skin'",
+        "text": "Galactomyces est l'ingrédient clé des essences de culture coréennes les plus iconiques (SK-II Pitera Essence, etc.). Il est particulièrement indiqué pour les teints ternes et fatigués, les pores dilatés avec excès de sébum, les peaux irrégulières cherchant l'éclat 'glass skin', et les peaux en début de vieillissement (25-35 ans) avec premières irrégularités de teint. Des études cliniques montrent une amélioration significative de l'éclat, de la texture et de l'homogénéité du teint après 4 semaines. Il est utilisé en haute concentration (90 %+) dans les essences premium coréennes."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Galactomyces est sûr pendant la grossesse. Il est non irritant et convient aux peaux les plus sensibles. Les personnes présentant une allergie confirmée aux levures ou aux champignons doivent être prudentes et faire un test préalable. Il se combine très bien avec le niacinamide (action synergique sur pores et éclat), le snail mucin (hydratation et réparation), et l'acide tranexamique (anti-taches et éclat). C'est un actif de couche 'essence' — appliquer avant les sérums et après le toner."
+      }
+    ]
+  },
+  {
+    "id": "propolis",
+    "name_fr": "Propolis",
+    "name_en": "Propolis",
+    "category": "k-beauty-nourishing",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["acne", "redness", "dullness", "dehydration"],
+    "skin_types": ["dry", "combination", "sensitive", "acne-prone"],
+    "pairs_well_with": ["hyaluronic-acid", "niacinamide", "centella-asiatica", "snail-mucin"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "La propolis est une résine naturelle collectée par les abeilles sur les bourgeons d'arbres (peuplier, conifères) et mélangée à de la cire d'abeille et des sécrétions salivaires. Elle sert aux abeilles à stériliser la ruche. Sa composition : flavonoïdes (chrysine, galangine, kaempférol), acides phénoliques (acide caféique, acide férulique), terpènes, et vitamines B, C, E. Elle exerce une activité antibactérienne à large spectre (dont C. acnes), antivirale, antifongique, anti-inflammatoire (inhibition COX-2) et antioxydante. En K-beauty, l'extrait de propolis coréen provient majoritairement des abeilles noires d'Australie ou de Nouvelle-Zélande."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "La propolis est un actif nourissant-apaisant qui combine les bénéfices d'un traitement anti-acné doux avec ceux d'un soin hydratant riche. Elle convient aux peaux acnéiques qui ont tendance à se dessécher avec les traitements conventionnels (BHA, peroxyde de benzoyle). Elle est aussi adaptée aux peaux sèches qui ont des éruptions occasionnelles (déséquilibre barrière). Les produits propolis K-beauty (sérum, ampoule) ont une texture dorée caractéristique et un effet 'cocooning' immédiat. L'acide férulique naturellement présent potentialise l'effet antioxydant des autres actifs. Elle améliore l'éclat en quelques applications grâce à la concentration en flavonoïdes."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "La propolis est sûre pendant la grossesse sous forme topique. ATTENTION : les personnes allergiques au miel, au pollen ou aux piqûres d'abeilles peuvent présenter une allergie à la propolis. Faire systématiquement un test cutané au poignet 24h avant la première utilisation. En l'absence d'allergie, la propolis est non irritante et convient aux peaux sensibles. Elle se combine très bien avec l'acide hyaluronique (hydratation renforcée), le niacinamide (anti-acné et éclat), et la centella asiatica (apaisement). Compatible avec tous les actifs dans une routine normale."
+      }
+    ]
+  },
+  {
+    "id": "bakuchiol",
+    "name_fr": "Bakouchi (Bakuchiol)",
+    "name_en": "Bakuchiol",
+    "category": "retinol-alternative",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["aging", "pigmentation", "redness", "barrier"],
+    "skin_types": ["sensitive", "dry", "combination", "normal"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "peptides", "niacinamide"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — l'alternative végétale au rétinol",
+        "text": "Le bakuchiol est un méroterpène phénolique extrait des graines de Psoralea corylifolia (bakouchi, plante ayurvédique). Il a été étudié intensivement depuis 2019 comme alternative au rétinol. Il active les récepteurs RAR (rétinoïde) de manière similaire au rétinol sans être chimiquement apparenté. Une étude publiée dans le British Journal of Dermatology (2018) en double aveugle comparant 0,5 % bakuchiol 2x/jour vs 0,5 % rétinol 1x/jour pendant 12 semaines a montré : réductions comparables des rides (-20 % vs -22 %), de la pigmentation et de l'élasticité, avec significativement moins d'irritation, desquamation et photosensibilité avec le bakuchiol."
+      },
+      {
+        "title": "Bénéfices — l'actif anti-âge idéal pour enceintes et peaux sensibles",
+        "text": "Le bakuchiol est l'actif anti-âge recommandé pour : les femmes enceintes ou allaitantes qui doivent éviter le rétinol, les peaux trop sensibles pour tolérer le rétinol (rosacée, peaux réactives, périménopause), les débutantes qui n'ont jamais utilisé d'actif anti-âge, et comme complément du rétinol les jours de repos. À la différence du rétinol, il peut être utilisé matin ET soir, sans risque de photosensibilité, et en combinaison avec des acides ou de la vitamine C. Il n'y a pas de période de montée en charge nécessaire — il peut être utilisé quotidiennement dès le départ."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Le bakuchiol est totalement sûr pendant la grossesse et l'allaitement — c'est son avantage principal par rapport au rétinol. Il est non irritant, convient aux peaux les plus sensibles, et ne cause aucune photosensibilité. Il se combine parfaitement avec l'acide hyaluronique, les céramides, les peptides et le niacinamide. Contrairement au rétinol, il est compatible avec la vitamine C et les AHA/BHA le même soir. Il peut être utilisé matin et soir. Pour les peaux sensibles qui cherchent une routine anti-âge complète et safe, la combinaison bakuchiol + peptides + hyaluronic acid est idéale."
+      }
+    ]
+  },
+  {
+    "id": "tranexamic-acid",
+    "name_fr": "Acide tranexamique",
+    "name_en": "Tranexamic acid",
+    "category": "brightener-depigmenter",
+    "pregnancy_safe": false,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["pigmentation", "redness", "dullness"],
+    "skin_types": ["normal", "combination", "dry", "sensitive"],
+    "pairs_well_with": ["niacinamide", "azelaic-acid", "vitamin-c", "hyaluronic-acid"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'acide tranexamique (TXA) est un dérivé synthétique de la lysine (acide aminé) initialement développé comme médicament antihémorragique. Son utilisation en cosmétique est récente (depuis 2015) mais ses résultats sur les taches pigmentaires sont remarquables. Il inhibe l'interaction entre les kératinocytes et les mélanocytes en bloquant la plasminogène/plasmine, réduisant ainsi la production de prostaglandines et d'acide arachidonique qui stimulent la mélanosynthèse. Il inhibe également directement l'activité tyrosinase. Son originalité : il agit en amont de la cascade mélanosynthétique, là où la plupart des dépigmentants agissent en aval."
+      },
+      {
+        "title": "Bénéfices et comparaison avec les autres dépigmentants",
+        "text": "L'acide tranexamique est actuellement l'un des dépigmentants cosmétiques les plus efficaces, notamment pour le mélasma (taches hormonales). Des études comparatives montrent son efficacité comparable ou supérieure à l'hydroquinone 2 % (le gold standard médicamenteux) sans ses effets secondaires (irritation, effet rebond, ochronose). Il traite efficacement les taches solaires, le mélasma, les taches post-inflammatoires (après acné), et l'hyperpigmentation diffuse. À 2-5 % en topique, les résultats sont visibles en 4 à 8 semaines. Il se combine en synergie avec le niacinamide (inhibition du transfert des mélanosomes) et l'acide azélaïque (inhibition tyrosinase directe)."
+      },
+      {
+        "title": "Sécurité et précautions",
+        "text": "L'acide tranexamique topique est généralement bien toléré, non irritant, et convient aux peaux sensibles. PRÉCAUTION pendant la grossesse : par principe de précaution, son usage topique est déconseillé chez la femme enceinte car la molécule peut être absorbée systémiquement en faible quantité. Pour les taches pigmentaires pendant la grossesse (mélasma très fréquent), préférer l'acide azélaïque (formellement autorisé grossesse) ou la vitamine C stabilisée. En dehors de la grossesse, il peut être utilisé matin et soir. Associer obligatoirement une protection solaire SPF 50+ le matin."
+      }
+    ]
+  },
+  {
+    "id": "alpha-arbutin",
+    "name_fr": "Alpha-arbutine",
+    "name_en": "Alpha-arbutin",
+    "category": "brightener-gentle",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["pigmentation", "dullness"],
+    "skin_types": ["sensitive", "normal", "combination", "dry"],
+    "pairs_well_with": ["niacinamide", "vitamin-c", "tranexamic-acid", "hyaluronic-acid"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action",
+        "text": "L'alpha-arbutine est un glucoside naturel d'hydroquinone (glycosylation stable de l'hydroquinone). Elle inhibe la tyrosinase de manière compétitive et réversible, réduisant la conversion de la tyrosine en mélanine. Sa forme alpha est 10 fois plus puissante et stable que la bêta-arbutine. Contrairement à l'hydroquinone libre (toxique, interdite en Europe au-delà de 0,5 %), l'alpha-arbutine libère l'hydroquinone progressivement et à très faible concentration directement dans les mélanocytes, sans les effets systémiques ni le risque d'ochronose (pigmentation paradoxale)."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'alpha-arbutine est le dépigmentant doux de référence pour les peaux sensibles qui ne tolèrent pas la vitamine C ou les acides. Elle est efficace sur les taches légères à modérées : taches post-solaires, petites irrégularités de teint, taches post-inflammatoires légères. Pour les taches sévères ou le mélasma, elle sera moins efficace seule mais très utile en combinaison avec l'acide tranexamique et le niacinamide. La concentration efficace en cosmétique est de 1 à 2 %. Les résultats sont visibles en 4 à 6 semaines. C'est l'actif anti-taches idéal pour commencer."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "L'alpha-arbutine est sûre pendant la grossesse — c'est l'un des rares actifs dépigmentants validés pour la femme enceinte (avec l'acide azélaïque et la vitamine C). Elle est non irritante, convient aux peaux les plus sensibles et peut être utilisée en soin occulaire pour les cernes pigmentés. Elle se combine parfaitement avec le niacinamide (synergie dépigmentante), la vitamine C (amplification effet brightening), et l'acide tranexamique (pour les cas plus résistants). Compatible avec tous les actifs."
+      }
+    ]
+  },
+  {
+    "id": "mandelic-acid",
+    "name_fr": "Acide mandélique (AHA)",
+    "name_en": "Mandelic acid (AHA)",
+    "category": "exfoliant-aha-gentle",
+    "pregnancy_safe": false,
+    "gentleness": 2,
+    "timing": ["PM"],
+    "concerns": ["dullness", "pigmentation", "acne", "aging"],
+    "skin_types": ["sensitive", "combination", "acne-prone", "dry"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "panthenol"],
+    "avoid_with": ["retinol-same-session", "salicylic-acid-same-session", "vitamin-c-same-session"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — l'AHA des peaux sensibles",
+        "text": "L'acide mandélique est un alpha-hydroxy acide (AHA) extrait des amandes amères. Sa molécule est beaucoup plus grande que l'acide glycolique (molécule = 152 g/mol vs 76 g/mol), ce qui ralentit sa pénétration cutanée et le rend significativement moins irritant. Il rompt les liaisons entre les cornéocytes (exfoliation chimique), stimule le renouvellement cellulaire, inhibe légèrement la tyrosinase (légère action dépigmentante) et a une activité antibactérienne sur C. acnes (action anti-acné). C'est l'AHA recommandé aux peaux sensibles et aux teintes de peau foncées (moins de risque de post-inflammatory hyperpigmentation qu'avec l'acide glycolique)."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'acide mandélique est particulièrement adapté aux peaux sensibles qui souhaitent exfolier chimiquement sans les irritations des AHA classiques, aux peaux acnéiques qui cherchent une alternative douce au BHA, et aux peaux de carnation foncée (type III-VI) où l'acide glycolique peut aggraver l'hyperpigmentation. À 10 %, il améliore le teint et la texture en 4 à 6 semaines. Il peut également être utilisé en masque (20-30 %) pour un effet plus intense une fois par semaine."
+      },
+      {
+        "title": "Sécurité et précautions",
+        "text": "Par précaution, les AHA (dont l'acide mandélique) sont déconseillés pendant la grossesse — préférer l'acide lactique si une exfoliation douce est nécessaire (à discuter avec le médecin). Il rend la peau photosensible — toujours utiliser SPF 50+ le lendemain. Ne pas combiner avec le rétinol, le BHA ou la vitamine C le même soir. Commencer à 1 à 2 fois par semaine puis augmenter progressivement. Les rougeurs et picotements transitoires sont normaux lors des premières utilisations."
+      }
+    ]
+  },
+  {
+    "id": "glycolic-acid",
+    "name_fr": "Acide glycolique (AHA)",
+    "name_en": "Glycolic acid (AHA)",
+    "category": "exfoliant-aha-strong",
+    "pregnancy_safe": false,
+    "gentleness": 1,
+    "timing": ["PM"],
+    "concerns": ["dullness", "aging", "pigmentation", "acne"],
+    "skin_types": ["normal", "oily", "combination"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "panthenol", "niacinamide"],
+    "avoid_with": ["retinol-same-session", "salicylic-acid-same-session", "vitamin-c-same-session"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — l'AHA le plus puissant",
+        "text": "L'acide glycolique est l'AHA à la molécule la plus petite (76 g/mol), ce qui lui confère la pénétration cutanée la plus rapide et l'efficacité la plus élevée parmi les AHA. Il rompt les liaisons ioniques entre les cornéocytes, dissolvant le 'ciment' intercellulaire et favorisant la desquamation des cellules mortes. À concentration élevée (20-70 % en cabinet), il est utilisé pour les peelings chimiques superficiels à moyens. À concentration cosmétique (5-15 %), il stimule le renouvellement cellulaire, améliore la texture, réduit les rides superficielles, unifie le teint et stimule la synthèse de collagène."
+      },
+      {
+        "title": "Bénéfices et indications",
+        "text": "L'acide glycolique est le plus étudié des AHA avec plus de 30 ans d'études cliniques. Il est particulièrement efficace pour : le renouvellement cellulaire accéléré (teint plus lumineux en 2 à 4 semaines), la réduction des rides superficielles et de la texture irrégulière, les taches solaires et post-inflammatoires légères, et l'acné comédonienne. Il n'est pas recommandé aux peaux sensibles ni aux carnations foncées (risque accru de PIH). Son usage est moins répandu dans la K-beauty que les AHA plus doux (lactique, mandélique), mais il reste le standard en dermatologie occidentale."
+      },
+      {
+        "title": "Sécurité et précautions",
+        "text": "L'acide glycolique est DÉCONSEILLÉ pendant la grossesse. Il rend la peau photosensible — SPF 50+ obligatoire le matin. À utiliser le soir uniquement, maximum 3 fois par semaine en période d'adaptation. Ne jamais combiner avec rétinol, BHA ou vitamine C le même soir. Contre-indiqué sur peaux enflammées, eczémateuses ou avec rosacée active. Toujours bien hydrater après (acide hyaluronique + crème riche)."
+      }
+    ]
+  },
+  {
+    "id": "lactic-acid",
+    "name_fr": "Acide lactique (AHA)",
+    "name_en": "Lactic acid (AHA)",
+    "category": "exfoliant-aha-gentle",
+    "pregnancy_safe": true,
+    "gentleness": 2,
+    "timing": ["PM"],
+    "concerns": ["dehydration", "dullness", "aging", "pigmentation"],
+    "skin_types": ["dry", "sensitive", "combination", "normal"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "panthenol", "niacinamide"],
+    "avoid_with": ["retinol-same-session", "salicylic-acid-same-session"],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — l'AHA hydratant",
+        "text": "L'acide lactique est un AHA naturellement présent dans les produits fermentés (lait, yaourt). Sa molécule de taille intermédiaire (90 g/mol) lui confère une pénétration modérée — plus douce que l'acide glycolique mais plus active que l'acide mandélique. Sa particularité unique : il est à la fois exfoliant ET humectant. Il se lie aux molécules d'eau dans la couche cornée (propriétés NMF — Natural Moisturising Factor) tout en désintégrant les liaisons intercornéocytaires. C'est l'AHA idéal pour les peaux sèches qui souhaitent exfolier sans se dessécher davantage."
+      },
+      {
+        "title": "Bénéfices et indications — l'AHA safe grossesse",
+        "text": "L'acide lactique est l'un des rares exfoliants chimiques généralement considérés comme acceptables pendant la grossesse à des concentrations cosmétiques (5-10 %) — il est naturellement présent dans le corps. Il est particulièrement recommandé aux peaux sèches cherchant exfoliation + hydratation en un seul actif, aux peaux sensibles qui ne tolèrent pas l'acide glycolique, aux teints ternes avec texture rugueuse, et aux femmes enceintes souhaitant exfolier en douceur (à confirmer avec le médecin). À 10-12 %, il traite efficacement la kératose pilaire (petits boutons sur les bras)."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Parmi les AHA, l'acide lactique est le plus doux et le plus adapté aux peaux sensibles. Généralement toléré pendant la grossesse à concentrations cosmétiques (toujours consulter le médecin). Photosensibilisant — SPF 50+ le lendemain. Ne pas combiner avec rétinol le même soir. À utiliser le soir 2 à 4 fois par semaine maximum. Toujours hydrater après (hyaluronique + céramides)."
+      }
+    ]
+  },
+  {
+    "id": "pha",
+    "name_fr": "PHA (gluconolactone / acide lactobionique)",
+    "name_en": "PHA (gluconolactone)",
+    "category": "exfoliant-pha-ultra-gentle",
+    "pregnancy_safe": true,
+    "gentleness": 3,
+    "timing": ["AM", "PM"],
+    "concerns": ["dullness", "dehydration", "barrier", "acne"],
+    "skin_types": ["sensitive", "dry", "combination", "normal", "acne-prone"],
+    "pairs_well_with": ["hyaluronic-acid", "ceramides", "centella-asiatica", "niacinamide"],
+    "avoid_with": [],
+    "chunks": [
+      {
+        "title": "Mécanisme d'action — la nouvelle génération d'AHA",
+        "text": "Les PHA (poly-hydroxy acides) sont des molécules apparentées aux AHA mais avec plusieurs groupes hydroxyle supplémentaires. Les principaux PHA cosmétiques sont la gluconolactone et l'acide lactobionique. Leur grande taille moléculaire (multiple de l'AHA) ralentit considérablement leur pénétration, les limitant à la couche cornée superficielle. Ils exfolient en douceur, ont des propriétés humectantes propres (liaisons avec l'eau), inhibent les métalloprotéinases (action anti-âge), et ont un effet antioxydant. L'acide lactobionique chélate également le fer (réduction des radicaux libres) et inhibe l'élastase (protège l'élastine)."
+      },
+      {
+        "title": "Bénéfices — l'exfoliant pour peaux ultra-sensibles",
+        "text": "Les PHA sont les exfoliants recommandés pour les peaux que les AHA et BHA irritent trop : rosacée légère, peaux atopiques en phase stable, peaux matures et fragiles, et premiers soins exfoliants pour débutantes. Contrairement aux AHA, les PHA ne causent pratiquement aucune photosensibilité (molécule trop grande pour pénétrer) et peuvent être utilisés le matin. Ils conviennent aux peaux grasses acnéiques qui veulent exfolier en douceur sans irriter. Ils améliorent la texture de la peau et l'éclat en 4 à 8 semaines, sans les risques des exfoliants conventionnels."
+      },
+      {
+        "title": "Sécurité et compatibilité",
+        "text": "Les PHA sont généralement considérés comme sûrs pendant la grossesse et sont inclus dans certaines gammes de soins maternité. Ils sont non irritants, ne causent pas de photosensibilité significative, et conviennent aux peaux les plus réactives. Ils peuvent être utilisés matin et soir sans restriction. Ils se combinent parfaitement avec l'acide hyaluronique, les céramides, le niacinamide, et la centella asiatica pour une routine douce complète. Les PHA sont particulièrement intéressants comme alternative aux AHA pour les peaux qui souhaitent intégrer l'exfoliation chimique sans risques."
+      }
+    ]
+  }
+]
