@@ -94,39 +94,44 @@ export function Diagnostic() {
     return false;
   }, [step, skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy]);
 
+  const showResults = useCallback((preg: Pregnancy) => {
+    if (!skinType || sensitive === null || !activeUse || !ageRange || !gender) return;
+    setPregnancy(preg);
+    const input = { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy: preg };
+    const cl = climate ?? seasonFallbackClimate();
+    const r = runDiagnostic(input, cl);
+    setResult(r);
+    setLlmNote(null);
+    llmTimer.current = setTimeout(() => setLlmLoading(true), 350);
+    fetch("/api/recommend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input,
+        climate: cl,
+        top3: r.recommendations.map((rec) => rec.ingredient.name),
+      }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => { if (data?.note) setLlmNote(data.note); })
+      .catch(() => {})
+      .finally(() => {
+        if (llmTimer.current) clearTimeout(llmTimer.current);
+        setLlmLoading(false);
+      });
+  }, [skinType, sensitive, concerns, activeUse, ageRange, gender, climate]);
+
   const handleNext = () => {
     if (step < TOTAL_STEPS - 1) {
+      // Male users skip the pregnancy question — not relevant
+      if (step === 5 && gender === "male") {
+        showResults("none" as Pregnancy);
+        return;
+      }
       setStep((s) => s + 1);
       return;
     }
-    if (skinType && sensitive !== null && activeUse && ageRange && gender && pregnancy) {
-      const input = { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy };
-      const cl = climate ?? seasonFallbackClimate();
-      const r = runDiagnostic(input, cl);
-      setResult(r);
-
-      // Async LLM note — non-blocking, shown after cards render.
-      // Skeleton only appears after 350ms so a fast "no-key" response
-      // never causes a visible flash.
-      setLlmNote(null);
-      llmTimer.current = setTimeout(() => setLlmLoading(true), 350);
-      fetch("/api/recommend", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          input,
-          climate: cl,
-          top3: r.recommendations.map((rec) => rec.ingredient.name),
-        }),
-      })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data) => { if (data?.note) setLlmNote(data.note); })
-        .catch(() => {})
-        .finally(() => {
-          if (llmTimer.current) clearTimeout(llmTimer.current);
-          setLlmLoading(false);
-        });
-    }
+    if (pregnancy) showResults(pregnancy);
   };
 
   const reset = () => {
@@ -416,6 +421,7 @@ function Questionnaire(props: {
                 selected={activeUse === a.key}
                 onClick={() => setActiveUse(a.key as ActiveUse)}
                 title={a.label}
+                desc={"desc" in a ? (a as { desc: string }).desc : undefined}
               />
             ))}
           </div>
@@ -429,6 +435,7 @@ function Questionnaire(props: {
                 selected={ageRange === a.key}
                 onClick={() => setAgeRange(a.key as AgeRange)}
                 title={a.label}
+                desc={"desc" in a ? (a as { desc: string }).desc : undefined}
               />
             ))}
           </div>
@@ -498,7 +505,7 @@ function Questionnaire(props: {
               : "cursor-not-allowed bg-line text-stone-2"
           }`}
         >
-          {step === TOTAL_STEPS - 1 ? d.seeResults : d.next}
+          {step === TOTAL_STEPS - 1 || (step === 5 && gender === "male") ? d.seeResults : d.next}
         </button>
       </div>
     </div>
