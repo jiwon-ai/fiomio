@@ -35,6 +35,8 @@ export function Diagnostic() {
   const [gender, setGender] = useState<Gender | null>(null);
   const [pregnancy, setPregnancy] = useState<Pregnancy | null>(null);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
+  const [llmNote, setLlmNote] = useState<{ fr: string; en: string } | null>(null);
+  const [llmLoading, setLlmLoading] = useState(false);
 
   const loadForecast = useCallback((l: Loc | null) => {
     const url = l
@@ -97,17 +99,34 @@ export function Diagnostic() {
       return;
     }
     if (skinType && sensitive !== null && activeUse && ageRange && gender && pregnancy) {
-      setResult(
-        runDiagnostic(
-          { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy },
-          climate ?? seasonFallbackClimate(),
-        ),
-      );
+      const input = { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy };
+      const cl = climate ?? seasonFallbackClimate();
+      const r = runDiagnostic(input, cl);
+      setResult(r);
+
+      // Async LLM note — non-blocking, shown after cards render
+      setLlmLoading(true);
+      setLlmNote(null);
+      fetch("/api/recommend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          input,
+          climate: cl,
+          top3: r.recommendations.map((rec) => rec.ingredient.name),
+        }),
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => { if (data?.note) setLlmNote(data.note); })
+        .catch(() => {})
+        .finally(() => setLlmLoading(false));
     }
   };
 
   const reset = () => {
     setResult(null);
+    setLlmNote(null);
+    setLlmLoading(false);
     setStep(0);
     setSkinType(null);
     setSensitive(null);
@@ -225,7 +244,7 @@ export function Diagnostic() {
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} onReset={reset} />
+                <Results d={d} lang={lang} result={result} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -533,11 +552,15 @@ function Results({
   lang,
   result,
   onReset,
+  llmNote,
+  llmLoading,
 }: {
   d: DDict;
   lang: "fr" | "en";
   result: DiagnosticResult;
   onReset: () => void;
+  llmNote: { fr: string; en: string } | null;
+  llmLoading: boolean;
 }) {
   return (
     <div>
@@ -563,6 +586,29 @@ function Results({
           <IngredientCard key={rec.ingredient.id} rec={rec} rank={i + 1} />
         ))}
       </div>
+
+      {/* AI personalised note */}
+      {(llmLoading || llmNote) && (
+        <div className="mt-5 rounded-xl border border-line bg-white p-5">
+          <p className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-widest text-stone-2">
+            {lang === "fr" ? "Analyse personnalisée" : "Personalised analysis"}
+            <span className="rounded bg-spring-deep/15 px-1.5 py-0.5 text-[0.58rem] font-semibold text-spring-deep">
+              AI
+            </span>
+          </p>
+          {llmLoading ? (
+            <div className="mt-3 space-y-2">
+              <div className="h-3 w-full animate-pulse rounded bg-ink/8" />
+              <div className="h-3 w-5/6 animate-pulse rounded bg-ink/8" />
+              <div className="h-3 w-4/6 animate-pulse rounded bg-ink/8" />
+            </div>
+          ) : llmNote ? (
+            <p className="mt-2 text-[0.9rem] leading-relaxed text-ink/80">
+              {llmNote[lang]}
+            </p>
+          ) : null}
+        </div>
+      )}
 
       {/* routine logic */}
       <div className="mt-5 rounded-xl bg-ink p-6 text-cream">
