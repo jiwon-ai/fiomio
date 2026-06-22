@@ -122,7 +122,8 @@ export async function POST(req: Request) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 400,
       system: `Tu es la conseillère experte en K-beauty de Fiomio.
-Tu parles d'abord en français authentique, comme une amie dermatologue.
+Tu t'adresses toujours à la cliente avec le vouvoiement (vous, votre, vos) — jamais le tutoiement.
+Tu parles en français authentique, comme une dermatologue bienveillante et experte.
 Tu connais les actifs cosmétiques en profondeur et tu adaptes tes conseils à la peau et à la météo.
 Quand des données scientifiques te sont fournies, utilise-les pour enrichir ta réponse avec des détails précis et crédibles.`,
       messages: [
@@ -144,9 +145,9 @@ FR : ${ingredientsFr}
 EN : ${ingredientsEn}
 ${ragContext}
 Instructions :
-• "fr" : 2-3 phrases en français naturel et chaleureux. Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Si des données scientifiques sont disponibles ci-dessus, mentionne un fait précis (sans citer la source). Jamais générique.
+• "fr" : 2-3 phrases en français naturel et chaleureux, TOUJOURS avec le vouvoiement (vous/votre/vos). Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Si des données scientifiques sont disponibles ci-dessus, mentionne un fait précis (sans citer la source). Jamais générique.
 • "en" : même message en anglais, même ton, même niveau de détail.
-• Ton : amie experte — pas clinique, pas commercial.
+• Ton : experte bienveillante — pas clinique, pas commercial.
 • Si enceinte, rassure sur la sécurité des ingrédients choisis.`,
         },
       ],
