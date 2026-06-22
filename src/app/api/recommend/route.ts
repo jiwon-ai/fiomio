@@ -12,6 +12,42 @@ export function GET() {
   return Response.json({ llmEnabled: Boolean(process.env.ANTHROPIC_API_KEY) });
 }
 
+// ── French labels for internal keys ──────────────────────────────────────────
+
+const SKIN_TYPE_FR: Record<string, string> = {
+  dry:         "peau sèche",
+  combination: "peau mixte",
+  oily:        "peau grasse",
+  normal:      "peau normale",
+};
+
+const CONCERN_FR: Record<string, string> = {
+  redness:      "rougeurs",
+  dehydration:  "déshydratation",
+  dullness:     "manque d'éclat",
+  aging:        "anti-âge",
+  acne:         "imperfections",
+  pores:        "pores dilatés",
+  barrier:      "barrière cutanée fragilisée",
+  pigmentation: "taches pigmentaires",
+};
+
+const ACTIVE_FR: Record<string, string> = {
+  retinoid:   "rétinoïde",
+  exfoliant:  "exfoliant",
+  vitc:       "vitamine C",
+  none:       "",
+};
+
+const AGE_FR: Record<string, string> = {
+  u25:    "moins de 25 ans",
+  a25_34: "25-34 ans",
+  a35_44: "35-44 ans",
+  a45p:   "45 ans et plus",
+};
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
 type Body = {
   input: {
     skinType: string;
@@ -22,11 +58,14 @@ type Body = {
     pregnancy: string;
   };
   climate: {
+    fr?: { label?: string; detail?: string };
     en?: { label?: string; detail?: string };
     city?: string;
   } | null;
   top3: Array<{ fr: string; en: string }>;
 };
+
+// ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function POST(req: Request) {
   const key = process.env.ANTHROPIC_API_KEY;
@@ -41,13 +80,31 @@ export async function POST(req: Request) {
 
   const { input, climate, top3 } = body;
 
+  // ── Build French context ───────────────────────────────────────────────────
+  const skinTypeFr   = SKIN_TYPE_FR[input.skinType] ?? input.skinType;
+  const sensitiveFr  = input.sensitive ? " sensible" : "";
+  const concernsFr   = input.concerns.map((c) => CONCERN_FR[c] ?? c).join(", ");
+  const activeFr     = ACTIVE_FR[input.activeUse];
+  const activeLine   = activeFr ? `Actif en cours d'utilisation : ${activeFr}` : "";
+  const ageFr        = AGE_FR[input.ageRange] ?? "";
+  const pregnancyFr  = input.pregnancy === "pregnant"
+    ? " (enceinte — sécurité des ingrédients prioritaire)"
+    : input.pregnancy === "trying" ? " (essaie de concevoir)" : "";
+
+  const cityFr      = climate?.city ?? "";
+  const weatherFr   = (climate?.fr?.label ?? climate?.en?.label)
+    ? `Météo prévue à la livraison${cityFr ? ` (${cityFr})` : ""} : ${climate?.fr?.label ?? climate?.en?.label} — ${climate?.fr?.detail ?? climate?.en?.detail}.`
+    : "";
+
   const ingredientsFr = top3.map((n) => n.fr).join(", ");
   const ingredientsEn = top3.map((n) => n.en).join(", ");
-  const concernsStr   = input.concerns.join(", ");
-  const pregnancyNote = input.pregnancy !== "none" ? " (enceinte — sécurité prioritaire / pregnant — safety first)" : "";
-  const sensitiveNote = input.sensitive ? " sensible/sensitive" : "";
-  const weatherCtx    = climate?.en?.label
-    ? `Forecast for delivery window: ${climate.en.label} — ${climate.en.detail}.`
+
+  // ── Build English context (for EN note) ───────────────────────────────────
+  const skinTypeEn  = input.skinType;
+  const sensitiveEn = input.sensitive ? " sensitive" : "";
+  const concernsEn  = input.concerns.join(", ");
+  const weatherEn   = climate?.en?.label
+    ? `Forecast: ${climate.en.label} — ${climate.en.detail}.`
     : "";
 
   try {
@@ -55,27 +112,38 @@ export async function POST(req: Request) {
 
     const resp = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 320,
+      max_tokens: 400,
+      system: `Tu es la conseillère experte en K-beauty de Fiomio.
+Tu parles d'abord en français authentique, comme une amie dermatologue.
+Tu connais les actifs cosmétiques en profondeur et tu adaptes tes conseils à la peau et à la météo.`,
       messages: [
         {
           role: "user",
-          content: `You are Fiomio's expert K-beauty skin advisor.
-Write a warm, personalised 2-3 sentence skin note for this customer.
-Return ONLY a JSON object with this exact shape: {"fr": "...", "en": "..."}
-Each value is the complete note in that language. No other text, no markdown.
+          content: `Écris une note personnalisée pour cette cliente Fiomio.
+Renvoie UNIQUEMENT un objet JSON de cette forme exacte : {"fr": "...", "en": "..."}
+Aucun autre texte, aucun markdown.
 
-Profile: ${input.skinType}${sensitiveNote} skin${pregnancyNote}
-Concerns: ${concernsStr}
-${weatherCtx}
-Recommended ingredients — FR: ${ingredientsFr} / EN: ${ingredientsEn}
+— Profil —
+Type de peau : ${skinTypeFr}${sensitiveFr}${pregnancyFr}
+Préoccupations : ${concernsFr}
+Tranche d'âge : ${ageFr}
+${activeLine}
+${weatherFr}
 
-Be specific about WHY these three work together for this exact skin profile and climate.
-Tone: warm, expert friend — not clinical. 2-3 sentences per language.`,
+— Ingrédients recommandés —
+FR : ${ingredientsFr}
+EN : ${ingredientsEn}
+
+Instructions :
+• "fr" : 2-3 phrases en français naturel et chaleureux. Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Jamais générique.
+• "en" : même message en anglais, même ton, même niveau de détail.
+• Ton : amie experte — pas clinique, pas commercial.
+• Si enceinte, rassure sur la sécurité des ingrédients choisis.`,
         },
       ],
     });
 
-    const raw = resp.content[0].type === "text" ? resp.content[0].text.trim() : "";
+    const raw   = resp.content[0].type === "text" ? resp.content[0].text.trim() : "";
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) return Response.json({ note: null });
 
