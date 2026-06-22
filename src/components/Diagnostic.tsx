@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
@@ -37,6 +37,7 @@ export function Diagnostic() {
   const [result, setResult] = useState<DiagnosticResult | null>(null);
   const [llmNote, setLlmNote] = useState<{ fr: string; en: string } | null>(null);
   const [llmLoading, setLlmLoading] = useState(false);
+  const llmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadForecast = useCallback((l: Loc | null) => {
     const url = l
@@ -104,9 +105,11 @@ export function Diagnostic() {
       const r = runDiagnostic(input, cl);
       setResult(r);
 
-      // Async LLM note — non-blocking, shown after cards render
-      setLlmLoading(true);
+      // Async LLM note — non-blocking, shown after cards render.
+      // Skeleton only appears after 350ms so a fast "no-key" response
+      // never causes a visible flash.
       setLlmNote(null);
+      llmTimer.current = setTimeout(() => setLlmLoading(true), 350);
       fetch("/api/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -119,7 +122,10 @@ export function Diagnostic() {
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => { if (data?.note) setLlmNote(data.note); })
         .catch(() => {})
-        .finally(() => setLlmLoading(false));
+        .finally(() => {
+          if (llmTimer.current) clearTimeout(llmTimer.current);
+          setLlmLoading(false);
+        });
     }
   };
 
@@ -127,6 +133,7 @@ export function Diagnostic() {
     setResult(null);
     setLlmNote(null);
     setLlmLoading(false);
+    if (llmTimer.current) clearTimeout(llmTimer.current);
     setStep(0);
     setSkinType(null);
     setSensitive(null);

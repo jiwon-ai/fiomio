@@ -7,6 +7,11 @@ import Anthropic from "@anthropic-ai/sdk";
 
 export const runtime = "nodejs";
 
+/** GET /api/recommend — reports whether the LLM layer is active */
+export function GET() {
+  return Response.json({ llmEnabled: Boolean(process.env.ANTHROPIC_API_KEY) });
+}
+
 type Body = {
   input: {
     skinType: string;
