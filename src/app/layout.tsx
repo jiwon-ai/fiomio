@@ -5,6 +5,7 @@ import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { SiteJsonLd } from "@/components/JsonLd";
 
 // Sovrn Commerce (ex-Skimlinks) auto-affiliation. Loads only once the
 // publisher id is set (post-approval) — then all outbound merchant links
@@ -59,7 +60,11 @@ export const metadata: Metadata = {
   creator: "Fiomio",
   alternates: {
     canonical: SITE_URL,
-    languages: { fr: SITE_URL, en: `${SITE_URL}/?lang=en` },
+    languages: {
+      fr: SITE_URL,
+      en: `${SITE_URL}/?lang=en`,
+      "x-default": SITE_URL,
+    },
   },
   openGraph: {
     type: "website",
@@ -92,11 +97,15 @@ export default function RootLayout({
       className={`${outfit.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
+        <a href="#main-content" className="skip-link">
+          Aller au contenu
+        </a>
         <LangProvider>
           <Nav />
-          {children}
+          <div id="main-content">{children}</div>
           <Footer />
         </LangProvider>
+        <SiteJsonLd />
         {SOVRN_ID ? (
           <Script
             id="sovrn-commerce"

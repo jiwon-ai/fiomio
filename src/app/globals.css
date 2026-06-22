@@ -355,3 +355,27 @@
   padding: 0.15em 0.4em;
   border-radius: 4px;
 }
+
+/* Accessibility: keyboard skip-to-content link (visible only on focus) */
+@layer components {
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--color-spring);
+    color: var(--color-spring-ink);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: translateY(-160%);
+    transition: transform 0.18s var(--ease-out-expo);
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--color-spring-ink);
+    outline-offset: 2px;
+  }
+}

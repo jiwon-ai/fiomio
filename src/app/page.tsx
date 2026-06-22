@@ -8,6 +8,7 @@ import { Engagement } from "@/components/Engagement";
 import { JournalTeaser } from "@/components/JournalTeaser";
 import { Faq } from "@/components/Faq";
 import { Waitlist } from "@/components/Waitlist";
+import { FaqJsonLd } from "@/components/JsonLd";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <JournalTeaser />
       <Faq />
       <Waitlist />
+      <FaqJsonLd />
     </main>
   );
 }
