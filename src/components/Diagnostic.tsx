@@ -7,7 +7,7 @@ import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
 import { DiagIcon } from "./diagnostic/icons";
-import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
+import { seasonFallbackClimate, ingredientClimateReason, type ClimateContext } from "@/lib/climate";
 import { getSeasonInfo } from "@/lib/season";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
@@ -706,26 +706,17 @@ function Results({
   const recNames = result.recommendations.map((r) => r.ingredient.name[lang]).join(" · ");
   const gapIntro = activeUse === "none" ? p.gapIntroNone : p.gapIntro;
 
+  const top = result.recommendations[0];
+  const cl = result.climate;
+  const cityLabel = cl.city || (lang === "fr" ? "votre ville" : "your city");
+  const metricLine = cl.metrics
+    ? `${Math.round(cl.metrics.tempC)}\u00b0 \u00b7 ${Math.round(cl.metrics.humidity)}% \u00b7 UV ${Math.round(cl.metrics.uv)}`
+    : "";
+  const topReason = top ? ingredientClimateReason(top.ingredient, cl, lang) : "";
+
   return (
     <div>
-      {/* 3D centerpiece — small, artistic; no caption */}
-      <div className="mb-6 flex justify-center">
-        <div className="relative aspect-square w-36 sm:w-44">
-          <ResultViz
-            className="absolute inset-0 h-full w-full"
-            count={result.recommendations.length}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="eyebrow">{d.resultEyebrow}</p>
-          <h3 className="font-display mt-2 text-2xl font-semibold text-ink">
-            {d.resultTitle}
-          </h3>
-          <p className="mt-1.5 max-w-xl text-sm text-stone">{d.resultIntro}</p>
-        </div>
+      <div className="flex justify-end">
         <button
           type="button"
           onClick={onReset}
@@ -733,6 +724,44 @@ function Results({
         >
           ↻ {d.restart}
         </button>
+      </div>
+
+      {/* VERDICT HERO \u2014 concrete: your city + climate, the #1 active big, the reason */}
+      <div className="mt-3 overflow-hidden rounded-2xl border border-spring-deep/20 bg-spring/8">
+        <div className="grid gap-5 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+          <div className="min-w-0">
+            <p className="eyebrow">{d.resultEyebrow}</p>
+            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-spring-deep">
+              <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.4" /></svg>
+              {cityLabel} · {cl[lang].label}
+              {metricLine && (
+                <span className="font-sans normal-case tracking-normal text-stone/70">· {metricLine}</span>
+              )}
+            </p>
+            {top && (
+              <>
+                <p className="mt-5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-stone-2">
+                  {d.topActiveLabel}
+                </p>
+                <h3 className="font-display mt-1 text-3xl font-semibold leading-[1.04] text-ink sm:text-[2.6rem]">
+                  {top.ingredient.name[lang]}
+                </h3>
+                <p className="mt-3 max-w-lg text-[0.98rem] leading-relaxed text-ink/85">
+                  {topReason}
+                </p>
+                <div className="mt-5">
+                  <ShareButton d={d} text={topReason} />
+                </div>
+              </>
+            )}
+          </div>
+          <div className="relative mx-auto aspect-square w-24 shrink-0 sm:w-36">
+            <ResultViz
+              className="absolute inset-0 h-full w-full"
+              count={result.recommendations.length}
+            />
+          </div>
+        </div>
       </div>
 
       {/* (a) routine-gap framing */}
@@ -747,7 +776,7 @@ function Results({
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         {result.recommendations.map((rec, i) => (
-          <IngredientCard key={rec.ingredient.id} lang={lang} rec={rec} rank={i + 1} />
+          <IngredientCard key={rec.ingredient.id} lang={lang} rec={rec} rank={i + 1} climate={result.climate} />
         ))}
       </div>
 
@@ -854,6 +883,41 @@ function Results({
 
       <p className="mt-5 text-xs leading-relaxed text-stone-2">{d.disclaimer}</p>
     </div>
+  );
+}
+
+/* ---------------- Share (virality) ---------------- */
+
+function ShareButton({ d, text }: { d: DDict; text: string }) {
+  const [done, setDone] = useState(false);
+  const onShare = async () => {
+    const url = "https://fiomio.io";
+    track("result_shared", {});
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: "Fiomio", text, url });
+        return;
+      } catch {
+        return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(`${text} ${url}`);
+      setDone(true);
+      setTimeout(() => setDone(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
+  return (
+    <button
+      type="button"
+      onClick={onShare}
+      className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
+    >
+      <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4" /></svg>
+      {done ? d.shareCopied : d.shareCta}
+    </button>
   );
 }
 

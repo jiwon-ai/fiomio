@@ -6,7 +6,7 @@
    Falls back to a seasonal estimate if the forecast is unavailable.
    ============================================================ */
 
-import type { TraitKey, ConcernKey } from "./ingredients";
+import type { TraitKey, ConcernKey, Ingredient } from "./ingredients";
 import { getSeasonInfo } from "./season";
 
 export type ClimateMetrics = {
@@ -191,4 +191,77 @@ export function seasonFallbackClimate(
     boostConcerns: s.boostConcerns,
     demoteTraits: s.demoteTraits,
   };
+}
+
+/* A concrete, location-specific one-liner: ties the user's REAL city + the
+   delivery-window metrics (UV / humidity / temperature) to how THIS active
+   helps. This is the "because your city & climate, this ingredient" line. */
+export function ingredientClimateReason(
+  ing: Ingredient,
+  climate: ClimateContext,
+  lang: "fr" | "en",
+): string {
+  const city = climate.city || (lang === "fr" ? "votre ville" : "your city");
+  const m = climate.metrics;
+  const uv = m ? Math.round(m.uv) : null;
+  const hum = m ? Math.round(m.humidity) : null;
+  const temp = m ? Math.round(m.tempC) : null;
+  const t = new Set(ing.traits);
+  const name = ing.name[lang];
+  const dryWord = lang === "fr" ? "sec" : "dry";
+  const uvTxt = uv != null ? (lang === "fr" ? `UV indice ${uv}` : `UV index ${uv}`) : (lang === "fr" ? "les UV" : "UV exposure");
+  const humTxt = hum != null ? `${hum}%` : (lang === "fr" ? "l'humidité" : "the humidity");
+  const tempTxt = temp != null ? `${temp}°` : "";
+
+  const primary: TraitKey | "generic" =
+    (t.has("antioxidant") && "antioxidant") ||
+    (t.has("brightening") && "brightening") ||
+    (t.has("hydrating") && "hydrating") ||
+    (t.has("barrier") && "barrier") ||
+    (t.has("occlusive") && "occlusive") ||
+    (t.has("oilControl") && "oilControl") ||
+    (t.has("exfoliating") && "exfoliating") ||
+    (t.has("soothing") && "soothing") ||
+    (t.has("firming") && "firming") ||
+    "generic";
+
+  switch (primary) {
+    case "antioxidant":
+      return lang === "fr"
+        ? `À ${city}, ${uvTxt} : ${name} neutralise le stress oxydatif et protège l'éclat.`
+        : `In ${city}, ${uvTxt}: ${name} neutralizes oxidative stress and protects radiance.`;
+    case "brightening":
+      return lang === "fr"
+        ? `À ${city}, ${uvTxt} : ${name} cible les taches et ravive l'éclat.`
+        : `In ${city}, ${uvTxt}: ${name} targets dark spots and revives glow.`;
+    case "hydrating":
+      return lang === "fr"
+        ? `À ${city}, ${humTxt} d'humidité : ${name} capte et retient l'eau dans la peau.`
+        : `In ${city}, ${humTxt} humidity: ${name} pulls and holds water in the skin.`;
+    case "barrier":
+    case "occlusive":
+      return lang === "fr"
+        ? `À ${city}, l'air ${dryWord} fragilise la barrière : ${name} la reconstruit et scelle l'eau.`
+        : `In ${city}, ${dryWord} air weakens the barrier: ${name} rebuilds it and seals water in.`;
+    case "oilControl":
+      return lang === "fr"
+        ? `À ${city}, ${tempTxt} ${humTxt} : ${name} régule le sébum sans décaper.`.replace("  ", " ")
+        : `In ${city}, ${tempTxt} ${humTxt}: ${name} regulates sebum without stripping.`.replace("  ", " ");
+    case "exfoliating":
+      return lang === "fr"
+        ? `À ${city}, ${humTxt} d'humidité : ${name} désincruste les pores en douceur.`
+        : `In ${city}, ${humTxt} humidity: ${name} gently clears congested pores.`;
+    case "soothing":
+      return lang === "fr"
+        ? `Pour la réactivité accentuée par le climat de ${city} : ${name} apaise rougeurs et inconfort.`
+        : `For reactivity heightened by ${city}'s climate: ${name} calms redness and discomfort.`;
+    case "firming":
+      return lang === "fr"
+        ? `À ${city}, ${uvTxt} accélère le vieillissement : ${name} raffermit et lisse.`
+        : `In ${city}, ${uvTxt} speeds aging: ${name} firms and smooths.`;
+    default:
+      return lang === "fr"
+        ? `Choisi pour votre peau et le climat de ${city}.`
+        : `Chosen for your skin and ${city}'s climate.`;
+  }
 }
