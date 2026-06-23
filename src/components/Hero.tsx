@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Lang, Messages } from "@/lib/locale";
 import { getLocation, displayPlace } from "@/lib/geo";
 import { SkinConstellation } from "./SkinConstellation";
+import { HeroShader } from "./HeroShader";
 
 export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   const h = t.hero;
@@ -35,6 +36,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
       className="relative overflow-hidden bg-cream"
       style={{ minHeight: "100svh" }}
     >
+      <HeroShader />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 dot-grid opacity-50"
