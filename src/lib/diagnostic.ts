@@ -80,6 +80,21 @@ const INCI_ALIASES: Record<string, string[]> = {
   kojic: ["kojic acid", "kojic dipalmitate"],
   caffeine: ["caffeine"],
   sheabutter: ["butyrospermum parkii", "shea butter"],
+  pdrn: ["polydeoxyribonucleotide", "pdrn", "sodium dna"],
+  collagen: ["hydrolyzed collagen", "collagen", "soluble collagen"],
+  teatree: ["melaleuca alternifolia", "tea tree"],
+  aloe: ["aloe barbadensis", "aloe vera"],
+  bifida: ["bifida ferment lysate", "bifida"],
+  cholesterol: ["cholesterol"],
+  glutathione: ["glutathione"],
+  mulberry: ["morus", "mulberry"],
+  oat: ["avena sativa", "colloidal oat", "oat"],
+  witchhazel: ["hamamelis virginiana", "witch hazel"],
+  jojoba: ["simmondsia chinensis", "jojoba"],
+  rosehip: ["rosa canina", "rosehip", "rosa rubiginosa"],
+  calendula: ["calendula officinalis", "calendula"],
+  snowmushroom: ["tremella fuciformis", "snow mushroom"],
+  betaine: ["betaine"],
 };
 
 /** Map our ingredient ids → the INCI tokens (name + aliases) used to match
