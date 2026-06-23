@@ -176,6 +176,20 @@ export function ProductScanner({ lang }: { lang: Lang }) {
       at: new Date().toISOString(),
     };
     setProducts((prev) => [entry, ...prev]);
+    // flywheel: anonymous product + outcome (no email / no IP)
+    fetch("/api/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        scanId: entry.id,
+        barcode: entry.barcode,
+        name: entry.name,
+        brand: entry.brand,
+        inci: entry.inci,
+        verdict,
+        lang,
+      }),
+    }).catch(() => {});
     setPending(null);
     setNotice("");
     setQuery("");

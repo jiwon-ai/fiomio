@@ -64,6 +64,22 @@ const INCI_ALIASES: Record<string, string[]> = {
   lactic: ["lactic acid"],
   pha: ["gluconolactone", "pha"],
   niacinamide: ["niacinamide"],
+  adenosine: ["adenosine"],
+  tocopherol: ["tocopherol", "tocopheryl acetate", "vitamin e"],
+  ferulic: ["ferulic acid"],
+  licorice: ["glycyrrhiza", "licorice", "glabridin", "dipotassium glycyrrhizate"],
+  zincpca: ["zinc pca"],
+  polyglutamic: ["polyglutamic acid", "sodium polyglutamate"],
+  ginseng: ["panax ginseng", "ginseng"],
+  rice: ["oryza sativa", "rice extract", "rice ferment"],
+  ectoin: ["ectoin", "ectoine"],
+  urea: ["urea"],
+  resveratrol: ["resveratrol"],
+  q10: ["ubiquinone", "coenzyme q10"],
+  lactobionic: ["lactobionic acid"],
+  kojic: ["kojic acid", "kojic dipalmitate"],
+  caffeine: ["caffeine"],
+  sheabutter: ["butyrospermum parkii", "shea butter"],
 };
 
 /** Map normalized avoid tokens (INCI) → our ingredient ids. */
