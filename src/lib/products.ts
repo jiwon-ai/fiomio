@@ -1,8 +1,18 @@
-// DRAFT catalog — product names are real but URLs/availability MUST be verified before launch. No prices (confirm at launch).
+// DRAFT catalog — product NAMES are real & well-known. Links are generated as
+// YesStyle search URLs (a configured affiliate partner), so every link resolves
+// and is auto-affiliated. No prices (confirm at launch). Swap to exact product
+// pages later if desired.
 
 import type { ConcernKey } from "@/lib/ingredients";
 
 export const PRODUCTS_DRAFT = true;
+
+/** Build a YesStyle search URL for a product (a configured affiliate partner).
+ *  YesStyle's canonical search path is /en/list.html?q=… (verified). Spaces → "+". */
+export function yesstyleSearchUrl(brand: string, name: string): string {
+  const q = encodeURIComponent(`${brand} ${name}`).replace(/%20/g, "+");
+  return `https://www.yesstyle.com/en/list.html?q=${q}`;
+}
 
 export type Product = {
   id: string;
@@ -20,13 +30,11 @@ export type Product = {
     | "treatment"
     | "mask";
   blurb: { fr: string; en: string };
-  url: string;
 };
 
 /* Real, well-known K-beauty products mapped to our active ids.
-   URLs point to brand official sites or retailer search pages we are
-   confident exist — NEVER pre-baked with affiliate tags. Every url is
-   passed through buildAffiliateLink() at render time. */
+   Links are built at render time via yesstyleSearchUrl(brand, name) →
+   buildAffiliateLink(), so they always resolve and carry our affiliate tag. */
 export const PRODUCTS: Product[] = [
   {
     id: "cosrx-snail-96",
@@ -39,7 +47,6 @@ export const PRODUCTS: Product[] = [
       fr: "Essence mucine : répare et repulpe la barrière en douceur.",
       en: "Snail-mucin essence: gently repairs and plumps the barrier.",
     },
-    url: "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
   },
   {
     id: "anua-heartleaf-77",
@@ -52,7 +59,6 @@ export const PRODUCTS: Product[] = [
       fr: "Toner heartleaf : apaise rougeurs et imperfections sans assécher.",
       en: "Heartleaf toner: calms redness and blemishes without drying.",
     },
-    url: "https://anua.co.kr/en/product/heartleaf-77-soothing-toner",
   },
   {
     id: "skin1004-centella-ampoule",
@@ -65,7 +71,6 @@ export const PRODUCTS: Product[] = [
       fr: "Ampoule cica pure : calme la réactivité et soutient la barrière.",
       en: "Pure cica ampoule: calms reactivity and supports the barrier.",
     },
-    url: "https://skin1004.com/products/madagascar-centella-ampoule",
   },
   {
     id: "purito-centella-serum",
@@ -78,7 +83,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum cica sans parfum : apaisant minimaliste pour peaux réactives.",
       en: "Fragrance-free cica serum: minimalist soothing for reactive skin.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Purito%20Centella%20Unscented%20Serum",
   },
   {
     id: "boj-glow-deep-serum",
@@ -91,7 +95,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum riz et arbutine : ravive l'éclat et estompe les taches.",
       en: "Rice + arbutin serum: revives glow and fades dark spots.",
     },
-    url: "https://beautyofjoseon.com/products/glow-deep-serum-rice-alpha-arbutin",
   },
   {
     id: "boj-revive-serum",
@@ -104,7 +107,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum ginseng et mucine : nourrit et redonne du rebond.",
       en: "Ginseng + snail serum: nourishes and restores bounce.",
     },
-    url: "https://beautyofjoseon.com/products/revive-serum-ginseng-snail-mucin",
   },
   {
     id: "boj-relief-sun",
@@ -117,7 +119,6 @@ export const PRODUCTS: Product[] = [
       fr: "SPF50+ fluide au fini naturel : protection quotidienne agréable.",
       en: "Lightweight SPF50+ with a natural finish: easy daily protection.",
     },
-    url: "https://beautyofjoseon.com/products/relief-sun-rice-probiotics",
   },
   {
     id: "boj-glow-serum",
@@ -130,7 +131,6 @@ export const PRODUCTS: Product[] = [
       fr: "Propolis et niacinamide : éclat et clarté pour peaux fatiguées.",
       en: "Propolis + niacinamide: glow and clarity for tired skin.",
     },
-    url: "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
   },
   {
     id: "numbuzin-no3",
@@ -143,7 +143,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum éclat multi-ferments : unifie et illumine le teint.",
       en: "Multi-ferment brightening serum: evens and lights up the complexion.",
     },
-    url: "https://www.yesstyle.com/en/search?q=numbuzin%20No.3%20Skin%20Brightening%20Serum",
   },
   {
     id: "isntree-ha-toner",
@@ -156,7 +155,6 @@ export const PRODUCTS: Product[] = [
       fr: "Toner à l'acide hyaluronique : hydratation repulpante en couches.",
       en: "Hyaluronic acid toner: plumping, layerable hydration.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Isntree%20Hyaluronic%20Acid%20Toner",
   },
   {
     id: "torriden-dive-in-serum",
@@ -169,7 +167,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum hyaluronique léger : hydrate en profondeur, fini frais.",
       en: "Light hyaluronic serum: deep hydration, fresh finish.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Torriden%20Dive-In%20Hyaluronic%20Acid%20Serum",
   },
   {
     id: "aestura-atobarrier365",
@@ -182,7 +179,6 @@ export const PRODUCTS: Product[] = [
       fr: "Crème céramides : restaure la barrière des peaux sèches et sensibles.",
       en: "Ceramide cream: rebuilds the barrier of dry, sensitive skin.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Aestura%20Atobarrier365%20Cream",
   },
   {
     id: "drjart-ceramidin-cream",
@@ -195,7 +191,6 @@ export const PRODUCTS: Product[] = [
       fr: "Crème ceramidin : confort et étanchéité pour barrière fragilisée.",
       en: "Ceramidin cream: comfort and seal for a compromised barrier.",
     },
-    url: "https://www.drjart.com/en-us/products/ceramidin-cream",
   },
   {
     id: "somebymi-retinol",
@@ -208,7 +203,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum rétinol progressif : lissage et fermeté, à introduire lentement.",
       en: "Gradual retinol serum: smoothing and firmness, introduce slowly.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Some%20By%20Mi%20Retinol%20Intense%20Serum",
   },
   {
     id: "naturium-vitc",
@@ -221,7 +215,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum vitamine C : bouclier antioxydant et éclat du matin.",
       en: "Vitamin C serum: antioxidant shield and morning glow.",
     },
-    url: "https://naturium.com/products/vitamin-c-complex-serum",
   },
   {
     id: "cosrx-aha-bha-toner",
@@ -234,7 +227,6 @@ export const PRODUCTS: Product[] = [
       fr: "Toner AHA/BHA : affine le grain et désincruste les pores.",
       en: "AHA/BHA toner: refines texture and decongests pores.",
     },
-    url: "https://www.cosrx.com/products/aha-bha-clarifying-treatment-toner",
   },
   {
     id: "cosrx-bha-blackhead",
@@ -247,7 +239,6 @@ export const PRODUCTS: Product[] = [
       fr: "BHA ciblé : déloge sébum et points noirs au cœur du pore.",
       en: "Targeted BHA: clears sebum and blackheads inside the pore.",
     },
-    url: "https://www.cosrx.com/products/bha-blackhead-power-liquid",
   },
   {
     id: "isntree-mugwort",
@@ -260,7 +251,6 @@ export const PRODUCTS: Product[] = [
       fr: "Ampoule armoise : apaise profondément les peaux irritées.",
       en: "Mugwort ampoule: deeply calms irritated, reactive skin.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Isntree%20Mugwort%20Ampoule",
   },
   {
     id: "roundlab-dokdo-toner",
@@ -273,7 +263,6 @@ export const PRODUCTS: Product[] = [
       fr: "Toner minéral apaisant : hydrate et rééquilibre en douceur.",
       en: "Soothing mineral toner: hydrates and rebalances gently.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Round%20Lab%201025%20Dokdo%20Toner",
   },
   {
     id: "roundlab-mugwort-cream",
@@ -286,7 +275,6 @@ export const PRODUCTS: Product[] = [
       fr: "Crème armoise : calme et nourrit les barrières sensibilisées.",
       en: "Mugwort cream: calms and nourishes sensitised barriers.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Round%20Lab%20Mugwort%20Calming%20Cream",
   },
   {
     id: "mixsoon-bean-essence",
@@ -299,7 +287,6 @@ export const PRODUCTS: Product[] = [
       fr: "Essence fermentée minimaliste : lisse le grain et ravive l'éclat.",
       en: "Minimalist fermented essence: smooths texture and revives glow.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Mixsoon%20Bean%20Essence",
   },
   {
     id: "abib-heartleaf-toner",
@@ -312,7 +299,6 @@ export const PRODUCTS: Product[] = [
       fr: "Toner heartleaf apaisant : confort immédiat pour peaux sensibles.",
       en: "Soothing heartleaf toner: instant comfort for sensitive skin.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Abib%20Heartleaf%20Essence%20Calming%20Toner",
   },
   {
     id: "axisy-dark-spot-serum",
@@ -325,7 +311,6 @@ export const PRODUCTS: Product[] = [
       fr: "Sérum anti-taches : unifie le teint et nourrit légèrement.",
       en: "Dark-spot serum: evens tone with a light nourishing finish.",
     },
-    url: "https://www.yesstyle.com/en/search?q=AXIS-Y%20Dark%20Spot%20Correcting%20Glow%20Serum",
   },
   {
     id: "klairs-vitc-drop",
@@ -338,7 +323,6 @@ export const PRODUCTS: Product[] = [
       fr: "Vitamine C douce 5 % : éclat progressif, bien tolérée.",
       en: "Gentle 5% vitamin C: gradual glow, well tolerated.",
     },
-    url: "https://www.yesstyle.com/en/search?q=Klairs%20Freshly%20Juiced%20Vitamin%20Drop",
   },
 ];
 

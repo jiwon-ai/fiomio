@@ -9,7 +9,7 @@ import { DiagIcon } from "./diagnostic/icons";
 import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
 import { detectLocation, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
-import { productsForIngredients, type Product } from "@/lib/products";
+import { productsForIngredients, yesstyleSearchUrl, type Product } from "@/lib/products";
 import {
   runDiagnostic,
   type DiagnosticResult,
@@ -834,7 +834,7 @@ function ProductCard({
         {p.blurb[lang]}
       </p>
       <a
-        href={buildAffiliateLink(p.url)}
+        href={buildAffiliateLink(yesstyleSearchUrl(p.brand, p.name))}
         target="_blank"
         rel="sponsored noopener noreferrer"
         className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
