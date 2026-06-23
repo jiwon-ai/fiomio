@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Lang, Messages } from "@/lib/locale";
-import type { OrbClimate } from "./HeroOrb";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
@@ -21,8 +20,9 @@ import {
 } from "@/lib/diagnostic";
 import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
 
-// Lazy 3D centerpiece for the results — the climate-rendered "formula" drop.
-const ResultOrb = dynamic(() => import("./HeroOrb").then((m) => m.HeroOrb), {
+// Lazy 3D centerpiece for the results — a constellation of the recommended
+// actives around your skin (distinct from the hero drop).
+const ResultViz = dynamic(() => import("./ResultViz").then((m) => m.ResultViz), {
   ssr: false,
   loading: () => null,
 });
@@ -296,7 +296,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} activeUse={activeUse} climate={climate} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -625,7 +625,6 @@ function Results({
   lang,
   result,
   activeUse,
-  climate,
   onReset,
   llmNote,
   llmLoading,
@@ -634,18 +633,10 @@ function Results({
   lang: "fr" | "en";
   result: DiagnosticResult;
   activeUse: ActiveUse | null;
-  climate?: ClimateContext | null;
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
 }) {
-  const orbClimate: OrbClimate | null = climate?.metrics
-    ? {
-        uv: climate.metrics.uv,
-        hr: climate.metrics.humidity,
-        temp: climate.metrics.tempC,
-      }
-    : null;
   const p = d.products;
   const recIds = result.recommendations.map((r) => r.ingredient.id);
   const products = productsForIngredients(recIds, 6);
@@ -656,10 +647,10 @@ function Results({
     <div>
       {/* 3D centerpiece — the formula, rendered from your climate */}
       <div className="mb-8 flex flex-col items-center text-center">
-        <div className="relative aspect-square w-36 sm:w-48">
-          <ResultOrb
+        <div className="relative aspect-square w-56 sm:w-72">
+          <ResultViz
             className="absolute inset-0 h-full w-full"
-            climate={orbClimate}
+            count={result.recommendations.length}
           />
         </div>
         <p className="mt-3 font-editorial text-base italic text-ink/70">
