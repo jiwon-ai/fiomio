@@ -39,8 +39,8 @@ export function buildSeasonalEmail(
 
   const subject =
     lang === "fr"
-      ? `${label} arrive à ${where} — votre routine`
-      : `${label} is coming to ${where} — your routine`;
+      ? `${label} arrive à ${where} : votre routine`
+      : `${label} is coming to ${where} : your routine`;
 
   const intro =
     lang === "fr"

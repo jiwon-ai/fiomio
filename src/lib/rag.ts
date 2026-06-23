@@ -62,7 +62,7 @@ export async function retrieveIngredientContext(
   return (
     "\n\n---\nConnaissances scientifiques pertinentes (base de données Fiomio) :\n" +
     chunks
-      .map((c) => `• ${c.name_fr} — ${c.chunk_title}\n${c.content_fr}`)
+      .map((c) => `• ${c.name_fr} : ${c.chunk_title}\n${c.content_fr}`)
       .join("\n\n")
   );
 }

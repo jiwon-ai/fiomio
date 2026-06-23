@@ -22,7 +22,7 @@ export const fr = {
     eyebrow: "Pour les marques",
     title: "Ce que votre cliente veut vraiment, avant qu'elle ne le dise.",
     intro:
-      "Fiomio agrège, de façon anonyme, la demande réelle en soin : profils de peau, préoccupations, climat et actifs recherchés — par ville et par saison. Une lecture du marché que les chiffres de vente seuls ne donnent pas.",
+      "Fiomio agrège, de façon anonyme, la demande réelle en soin : profils de peau, préoccupations, climat et actifs recherchés, par ville et par saison. Une lecture du marché que les chiffres de vente seuls ne donnent pas.",
     items: [
       {
         title: "Rapports de marché",
@@ -34,7 +34,7 @@ export const fr = {
       },
       {
         title: "Visibilité signalée",
-        body: "Un espace clairement étiqueté — jamais une recommandation achetée. Nos tests restent indépendants.",
+        body: "Un espace clairement étiqueté, jamais une recommandation achetée. Nos tests restent indépendants.",
       },
     ],
     privacy:
@@ -108,7 +108,7 @@ export const fr = {
   solution: {
     eyebrow: "Comment ça marche",
     title: "On ne décode pas une étiquette. On vous dit quoi mettre, et pourquoi.",
-    intro: "Quatre informations suffisent. Pas seulement quoi appliquer — pourquoi.",
+    intro: "Quatre informations suffisent. Pas seulement quoi appliquer, pourquoi.",
     steps: [
       {
         n: "01",
@@ -123,7 +123,7 @@ export const fr = {
       {
         n: "03",
         title: "Données climatiques",
-        body: "Humidité, saison locale — la variable que les autres ignorent.",
+        body: "Humidité, saison locale, la variable que les autres ignorent.",
       },
       {
         n: "04",
@@ -135,7 +135,7 @@ export const fr = {
     resultTitle: "Des actifs adaptés, avec une explication.",
     resultBody: "Une logique justifiée. L\u2019explicabilité qui crée la confiance.",
     differentiatorLabel: "Différenciation",
-    differentiator: "Les autres décodent une étiquette. Fiomio croise peau × climat × saison — et dit pourquoi.",
+    differentiator: "Les autres décodent une étiquette. Fiomio croise peau × climat × saison, et dit pourquoi.",
   },
 
   whyDifferent: {
@@ -152,7 +152,7 @@ export const fr = {
       },
       {
         title: "On vous dit toujours pourquoi",
-        body: "Chaque conseil expliqué — vous savez ce que vous appliquez, et pourquoi.",
+        body: "Chaque conseil expliqué, vous savez ce que vous appliquez, et pourquoi.",
       },
     ],
   },
@@ -178,18 +178,18 @@ export const fr = {
     q2Title: "Votre peau réagit-elle facilement ?",
     q2Help: "Rougeurs au froid, picotements à l'application, inconforts sans raison évidente.",
     q3Title: "Qu'est-ce qui vous préoccupe le plus en ce moment ?",
-    q3Help: "Trois priorités maximum — Fiomio les pondère dans sa sélection.",
+    q3Help: "Trois priorités maximum, Fiomio les pondère dans sa sélection.",
     q4Title: "Avez-vous un actif exigeant dans votre routine ?",
-    q4Help: "Rétinol, acides, vitamine C modifient l'équilibre barrière — Fiomio en tient compte.",
+    q4Help: "Rétinol, acides, vitamine C modifient l'équilibre barrière, Fiomio en tient compte.",
     q5Title: "Dans quelle tranche d'âge vous situez-vous ?",
     q5Help: "Les besoins de la peau évoluent d'une décennie à l'autre.",
     q6Title: "Vous êtes…",
     q6Help: "Les variations hormonales influencent la sécrétion sébacée et l'hydratation.",
     q7Title: "Êtes-vous enceinte ou en projet de grossesse ?",
-    q7Help: "Rétinol et certains AHA sont contre-indiqués pendant la grossesse — Fiomio les retire automatiquement.",
+    q7Help: "Rétinol et certains AHA sont contre-indiqués pendant la grossesse, Fiomio les retire automatiquement.",
 
-    sensitiveYes: "Oui — elle signale",
-    sensitiveNo: "Non — elle s'adapte",
+    sensitiveYes: "Oui, elle signale",
+    sensitiveNo: "Non, elle s'adapte",
 
     climateTitle: "Contexte pris en compte",
     climateCity: "Paris",
@@ -211,7 +211,7 @@ export const fr = {
 
     resultEyebrow: "Recommandation Fiomio",
     resultTitle: "Votre protocole d'actifs",
-    resultIntro: "Trois actifs sélectionnés pour votre profil cutané et la météo de votre ville — chacun a une raison précise d'être là.",
+    resultIntro: "Trois actifs sélectionnés pour votre profil cutané et la météo de votre ville, chacun a une raison précise d'être là.",
     why: "Pourquoi cet actif",
     howToUse: "Quand l'utiliser",
     priority: "Priorité",
@@ -225,7 +225,7 @@ export const fr = {
     fbTitle: "Cette sélection vous paraît juste ?",
     fbYes: "Oui, ça me parle",
     fbNo: "Pas vraiment",
-    fbThanks: "Merci — chaque retour affine nos recommandations.",
+    fbThanks: "Merci, chaque retour affine nos recommandations.",
 
     products: {
       gapTitle: "Ce qui manque à votre routine",
@@ -239,21 +239,21 @@ export const fr = {
       matchLabel: "Actif",
       seeProduct: "Voir le produit",
       affiliateNote:
-        "Liens affiliés signalés — une commission possible, sans surcoût, jamais en échange d'un avis.",
+        "Liens affiliés signalés, une commission possible, sans surcoût, jamais en échange d'un avis.",
       comingTitle: "Au lancement, des correspondances précises",
       comingBody:
-        "Vous recevrez des produits choisis pour votre peau, votre ville et votre budget — pas une liste de best-sellers.",
+        "Vous recevrez des produits choisis pour votre peau, votre ville et votre budget, pas une liste de best-sellers.",
       joinCta: "Rejoindre la liste",
-      draftNote: "Sélection d'exemples — catalogue en cours de constitution.",
+      draftNote: "Sélection d'exemples, catalogue en cours de constitution.",
     },
   },
 
   // Labels for the diagnostic options (values map to engine keys)
   skinTypes: [
     { key: "dry", label: "Sèche", desc: "Tiraillements après le lavage, sensation d'inconfort, parfois quelques squames" },
-    { key: "combination", label: "Mixte", desc: "Zone T (front, nez, menton) brillante — pommettes et tempes qui tirent" },
+    { key: "combination", label: "Mixte", desc: "Zone T (front, nez, menton) brillante, pommettes et tempes qui tirent" },
     { key: "oily", label: "Grasse", desc: "Brillance généralisée en cours de journée, pores dilatés, maquillage qui glisse" },
-    { key: "normal", label: "Normale", desc: "Peu de tiraillements, peu de brillance — votre peau s'autorégule bien" },
+    { key: "normal", label: "Normale", desc: "Peu de tiraillements, peu de brillance, votre peau s'autorégule bien" },
   ],
   concerns: [
     { key: "redness", label: "Rougeurs & réactivité vasculaire" },
@@ -335,10 +335,10 @@ export const fr = {
   waitlist: {
     eyebrow: "Rejoindre",
     title: "On anticipe ce dont votre peau aura besoin.",
-    body: "Analyste de données, je lis votre peau et le climat de votre ville pour anticiper ce dont vous aurez besoin — et vous l\u2019envoyer avant que la saison ne change, pas après. Sans spam, désinscription en un clic.",
+    body: "Analyste de données, je lis votre peau et le climat de votre ville pour anticiper ce dont vous aurez besoin, et vous l\u2019envoyer avant que la saison ne change, pas après. Sans spam, désinscription en un clic.",
     placeholder: "votre@email.com",
     cityPlaceholder: "Votre ville",
-    cityHint: "Détecté automatiquement — corrigez-le pour des conseils adaptés à votre ville.",
+    cityHint: "Détecté automatiquement, corrigez-le pour des conseils adaptés à votre ville.",
     button: "Rejoindre la liste",
     sending: "Envoi…",
     success: "Bienvenue. Vous êtes sur la liste, surveillez votre boîte mail.",
@@ -386,7 +386,7 @@ export const fr = {
       },
       {
         title: "Transparence sur l'argent",
-        body: "Commission seulement si vous achetez — jamais pour un avis favorable.",
+        body: "Commission seulement si vous achetez, jamais pour un avis favorable.",
       },
       {
         title: "La publicité est étiquetée",
@@ -408,7 +408,7 @@ export const fr = {
     transparence: "Comment on gagne de l'argent",
     founderEyebrow: "Le mot de la fondatrice",
     founderNote:
-      "À Paris, mes amies me disaient : « Toi qui es coréenne, conseille-moi une crème. » J\u2019hésitais — un soin adoré à Séoul peut ne rien donner sur une peau parisienne : l\u2019eau, le chauffage, l\u2019air sec, tout change. Analyste de données et passionnée de cosmétique, j\u2019ai appliqué mon métier à ce que j\u2019aime : croiser votre peau, votre ville et la saison. Fiomio est né de cette hésitation.",
+      "À Paris, mes amies me disaient : « Toi qui es coréenne, conseille-moi une crème. » J\u2019hésitais, un soin adoré à Séoul peut ne rien donner sur une peau parisienne : l\u2019eau, le chauffage, l\u2019air sec, tout change. Analyste de données et passionnée de cosmétique, j\u2019ai appliqué mon métier à ce que j\u2019aime : croiser votre peau, votre ville et la saison. Fiomio est né de cette hésitation.",
     founderSign: "Jiwon, fondatrice",
   },
 
@@ -434,7 +434,7 @@ export const fr = {
       },
       {
         q: "Mes données sont-elles en sécurité ?",
-        a: "Vos réponses au diagnostic sont anonymisées (sans e-mail, sans IP) pour améliorer nos recommandations — jamais liées à votre identité ni revendues. Votre e-mail, lui, n'est jamais revendu et la désinscription se fait en un clic.",
+        a: "Vos réponses au diagnostic sont anonymisées (sans e-mail, sans IP) pour améliorer nos recommandations, jamais liées à votre identité ni revendues. Votre e-mail, lui, n'est jamais revendu et la désinscription se fait en un clic.",
       },
       {
         q: "Est-ce un avis médical ?",
@@ -478,7 +478,7 @@ export const en: Messages = {
     eyebrow: "For brands",
     title: "What your customer actually wants, before she says it.",
     intro:
-      "Fiomio anonymously aggregates real skincare demand: skin profiles, concerns, climate and the actives people search for — by city and by season. A read on the market that sales figures alone can't give.",
+      "Fiomio anonymously aggregates real skincare demand: skin profiles, concerns, climate and the actives people search for, by city and by season. A read on the market that sales figures alone can't give.",
     items: [
       {
         title: "Market reports",
@@ -490,7 +490,7 @@ export const en: Messages = {
       },
       {
         title: "Labeled visibility",
-        body: "A clearly marked space — never a bought recommendation. Our tests stay independent.",
+        body: "A clearly marked space, never a bought recommendation. Our tests stay independent.",
       },
     ],
     privacy:
@@ -563,7 +563,7 @@ export const en: Messages = {
   solution: {
     eyebrow: "How it works",
     title: "We don't decode a label. We tell you what to apply, and why.",
-    intro: "Four inputs are enough. Not just what to apply — why.",
+    intro: "Four inputs are enough. Not just what to apply, why.",
     steps: [
       {
         n: "01",
@@ -578,7 +578,7 @@ export const en: Messages = {
       {
         n: "03",
         title: "Climate data",
-        body: "Humidity, local season — the variable others ignore.",
+        body: "Humidity, local season, the variable others ignore.",
       },
       {
         n: "04",
@@ -590,7 +590,7 @@ export const en: Messages = {
     resultTitle: "Fitting actives, with an explanation.",
     resultBody: "A justified logic. The explainability that builds trust.",
     differentiatorLabel: "Differentiation",
-    differentiator: "Others decode a label. Fiomio crosses skin × climate × season — and tells you why.",
+    differentiator: "Others decode a label. Fiomio crosses skin × climate × season, and tells you why.",
   },
 
   whyDifferent: {
@@ -607,7 +607,7 @@ export const en: Messages = {
       },
       {
         title: "We always tell you why",
-        body: "Every tip explained — you know what you apply, and why.",
+        body: "Every tip explained, you know what you apply, and why.",
       },
     ],
   },
@@ -633,18 +633,18 @@ export const en: Messages = {
     q2Title: "Does your skin react easily?",
     q2Help: "Redness in the cold, tingling on application, discomfort for no clear reason.",
     q3Title: "What concerns you most right now?",
-    q3Help: "Up to three priorities — Fiomio weights them in its selection.",
+    q3Help: "Up to three priorities, Fiomio weights them in its selection.",
     q4Title: "Do you use a demanding active in your routine?",
-    q4Help: "Retinol, acids, vitamin C alter your barrier balance — Fiomio factors this in.",
+    q4Help: "Retinol, acids, vitamin C alter your barrier balance, Fiomio factors this in.",
     q5Title: "What's your age range?",
     q5Help: "Skin needs shift meaningfully from one decade to the next.",
     q6Title: "You are…",
     q6Help: "Hormonal variations influence sebum production and hydration.",
     q7Title: "Are you pregnant or trying to conceive?",
-    q7Help: "Retinol and some AHAs are not recommended during pregnancy — Fiomio removes them automatically.",
+    q7Help: "Retinol and some AHAs are not recommended during pregnancy, Fiomio removes them automatically.",
 
-    sensitiveYes: "Yes — it signals",
-    sensitiveNo: "No — it adapts",
+    sensitiveYes: "Yes, it signals",
+    sensitiveNo: "No, it adapts",
 
     climateTitle: "Context factored in",
     climateCity: "Paris",
@@ -666,7 +666,7 @@ export const en: Messages = {
 
     resultEyebrow: "Fiomio recommendation",
     resultTitle: "Your active protocol",
-    resultIntro: "Three actives selected for your skin profile and your city's climate — each one has a precise reason to be here.",
+    resultIntro: "Three actives selected for your skin profile and your city's climate, each one has a precise reason to be here.",
     why: "Why this active",
     howToUse: "When to use it",
     priority: "Priority",
@@ -680,7 +680,7 @@ export const en: Messages = {
     fbTitle: "Does this selection feel right?",
     fbYes: "Yes, it resonates",
     fbNo: "Not really",
-    fbThanks: "Thanks — every reply sharpens our recommendations.",
+    fbThanks: "Thanks, every reply sharpens our recommendations.",
 
     products: {
       gapTitle: "What your routine is missing",
@@ -694,20 +694,20 @@ export const en: Messages = {
       matchLabel: "Active",
       seeProduct: "See product",
       affiliateNote:
-        "Affiliate links disclosed — a possible commission, at no extra cost, never in exchange for a review.",
+        "Affiliate links disclosed, a possible commission, at no extra cost, never in exchange for a review.",
       comingTitle: "At launch, precise matches",
       comingBody:
-        "You'll get products chosen for your skin, your city and your budget — not a list of best-sellers.",
+        "You'll get products chosen for your skin, your city and your budget, not a list of best-sellers.",
       joinCta: "Join the list",
-      draftNote: "Sample selection — catalogue still being assembled.",
+      draftNote: "Sample selection, catalogue still being assembled.",
     },
   },
 
   skinTypes: [
     { key: "dry", label: "Dry", desc: "Tightness after cleansing, discomfort, occasional flaking" },
-    { key: "combination", label: "Combination", desc: "Shiny T-zone (forehead, nose, chin) — dry cheeks and temples" },
+    { key: "combination", label: "Combination", desc: "Shiny T-zone (forehead, nose, chin), dry cheeks and temples" },
     { key: "oily", label: "Oily", desc: "Generalised shine by midday, enlarged pores, makeup that slips" },
-    { key: "normal", label: "Normal", desc: "Little tightness, little shine — your skin self-regulates well" },
+    { key: "normal", label: "Normal", desc: "Little tightness, little shine, your skin self-regulates well" },
   ],
   concerns: [
     { key: "redness", label: "Redness & vascular reactivity" },
@@ -789,10 +789,10 @@ export const en: Messages = {
   waitlist: {
     eyebrow: "Join",
     title: "We anticipate what your skin will need.",
-    body: "A data analyst reading your skin and your city\u2019s climate to anticipate what you\u2019ll need — and send it before the season turns, not after. No spam, one-click unsubscribe.",
+    body: "A data analyst reading your skin and your city\u2019s climate to anticipate what you\u2019ll need, and send it before the season turns, not after. No spam, one-click unsubscribe.",
     placeholder: "you@email.com",
     cityPlaceholder: "Your city",
-    cityHint: "Auto-detected — fix it for advice tuned to your city.",
+    cityHint: "Auto-detected, fix it for advice tuned to your city.",
     button: "Join the list",
     sending: "Sending…",
     success: "Welcome. You're on the list, keep an eye on your inbox.",
@@ -840,7 +840,7 @@ export const en: Messages = {
       },
       {
         title: "Transparent about money",
-        body: "We earn only if you buy — never for a favorable review.",
+        body: "We earn only if you buy, never for a favorable review.",
       },
       {
         title: "Advertising is labeled",
@@ -862,7 +862,7 @@ export const en: Messages = {
     transparence: "How we make money",
     founderEyebrow: "From the founder",
     founderNote:
-      "In Paris, friends kept asking: \u201cYou\u2019re Korean, recommend me a cream.\u201d I\u2019d hesitate \u2014 a product adored in Seoul can do nothing for Parisian skin: the water, the heating, the dry air, everything changes. A data analyst and cosmetics lover, I applied my craft to what I love: crossing your skin, your city and the season. Fiomio was born from that hesitation.",
+      "In Paris, friends kept asking: \u201cYou\u2019re Korean, recommend me a cream.\u201d I\u2019d hesitate, a product adored in Seoul can do nothing for Parisian skin: the water, the heating, the dry air, everything changes. A data analyst and cosmetics lover, I applied my craft to what I love: crossing your skin, your city and the season. Fiomio was born from that hesitation.",
     founderSign: "Jiwon, founder",
   },
 
@@ -888,7 +888,7 @@ export const en: Messages = {
       },
       {
         q: "Is my data safe?",
-        a: "Your diagnostic answers are anonymized (no email, no IP) to improve our recommendations — never tied to your identity or resold. Your email is never resold either, and unsubscribing takes one click.",
+        a: "Your diagnostic answers are anonymized (no email, no IP) to improve our recommendations, never tied to your identity or resold. Your email is never resold either, and unsubscribing takes one click.",
       },
       {
         q: "Is this medical advice?",

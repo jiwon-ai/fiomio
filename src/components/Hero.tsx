@@ -208,7 +208,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               ? [
                   "Diagnostic gratuit en 2 minutes",
                   "Sans compte, sans spam",
-                  "Sans influence \u2014 jamais sponsoris\u00e9",
+                  "Sans influence, jamais sponsoris\u00e9",
                 ]
               : [
                   "Free 2-minute diagnostic",

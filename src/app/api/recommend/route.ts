@@ -89,12 +89,12 @@ export async function POST(req: Request) {
   const activeLine   = activeFr ? `Actif en cours d'utilisation : ${activeFr}` : "";
   const ageFr        = AGE_FR[input.ageRange] ?? "";
   const pregnancyFr  = input.pregnancy === "pregnant"
-    ? " (enceinte — sécurité des ingrédients prioritaire)"
+    ? " (enceinte, sécurité des ingrédients prioritaire)"
     : input.pregnancy === "trying" ? " (essaie de concevoir)" : "";
 
   const cityFr      = climate?.city ?? "";
   const weatherFr   = (climate?.fr?.label ?? climate?.en?.label)
-    ? `Météo prévue à la livraison${cityFr ? ` (${cityFr})` : ""} : ${climate?.fr?.label ?? climate?.en?.label} — ${climate?.fr?.detail ?? climate?.en?.detail}.`
+    ? `Météo prévue à la livraison${cityFr ? ` (${cityFr})` : ""} : ${climate?.fr?.label ?? climate?.en?.label}, ${climate?.fr?.detail ?? climate?.en?.detail}.`
     : "";
 
   const ingredientsFr = top3.map((n) => n.fr).join(", ");
@@ -105,7 +105,7 @@ export async function POST(req: Request) {
   const sensitiveEn = input.sensitive ? " sensitive" : "";
   const concernsEn  = input.concerns.join(", ");
   const weatherEn   = climate?.en?.label
-    ? `Forecast: ${climate.en.label} — ${climate.en.detail}.`
+    ? `Forecast: ${climate.en.label}, ${climate.en.detail}.`
     : "";
 
   // RAG: retrieve relevant ingredient science from Supabase (if configured)
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 400,
       system: `Tu es la conseillère experte en K-beauty de Fiomio.
-Tu t'adresses toujours à la cliente avec le vouvoiement (vous, votre, vos) — jamais le tutoiement.
+Tu t'adresses toujours à la cliente avec le vouvoiement (vous, votre, vos), jamais le tutoiement.
 Tu parles en français authentique, comme une dermatologue bienveillante et experte.
 Tu connais les actifs cosmétiques en profondeur et tu adaptes tes conseils à la peau et à la météo.
 Quand des données scientifiques te sont fournies, utilise-les pour enrichir ta réponse avec des détails précis et crédibles.`,
@@ -133,21 +133,22 @@ Quand des données scientifiques te sont fournies, utilise-les pour enrichir ta 
 Renvoie UNIQUEMENT un objet JSON de cette forme exacte : {"fr": "...", "en": "..."}
 Aucun autre texte, aucun markdown.
 
-— Profil —
+Profil
 Type de peau : ${skinTypeFr}${sensitiveFr}${pregnancyFr}
 Préoccupations : ${concernsFr}
 Tranche d'âge : ${ageFr}
 ${activeLine}
 ${weatherFr}
 
-— Ingrédients recommandés —
+Ingrédients recommandés
 FR : ${ingredientsFr}
 EN : ${ingredientsEn}
 ${ragContext}
 Instructions :
 • "fr" : 2-3 phrases en français naturel et chaleureux, TOUJOURS avec le vouvoiement (vous/votre/vos). Explique pourquoi ces trois ingrédients fonctionnent ensemble pour CE profil et CETTE météo. Si des données scientifiques sont disponibles ci-dessus, mentionne un fait précis (sans citer la source). Jamais générique.
 • "en" : même message en anglais, même ton, même niveau de détail.
-• Ton : experte bienveillante — pas clinique, pas commercial.
+• Ton : experte bienveillante, pas clinique, pas commercial.
+• N'utilise jamais de tiret cadratin (—) ni de tiret demi-cadratin; sépare par une virgule, un point ou deux points.
 • Si enceinte, rassure sur la sécurité des ingrédients choisis.`,
         },
       ],

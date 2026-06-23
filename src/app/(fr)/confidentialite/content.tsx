@@ -19,27 +19,27 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
 
         <h2>Data we collect</h2>
         <ul>
-          <li><strong>Email address</strong> — when you join the waitlist or subscribe to the newsletter.</li>
-          <li><strong>City and approximate location</strong> — auto-detected from your IP and editable, or chosen by you, so we can tailor the newsletter to your local climate and season. Stored alongside your email only if you subscribe.</li>
-          <li><strong>Anonymous diagnostic data</strong> — your answers (skin type, concerns, chosen actives, city, season) and the actives we recommend are stored in <strong>anonymized</strong> form, <strong>without your email and without your IP address</strong>, to improve the quality of our recommendation engine.</li>
-          <li><strong>Anonymous feedback</strong> — whether a recommendation felt right, stored without any identifier.</li>
-          <li><strong>Cookieless audience measurement</strong> — aggregate visit statistics that use no cookies and do not identify you.</li>
+          <li><strong>Email address</strong>, when you join the waitlist or subscribe to the newsletter.</li>
+          <li><strong>City and approximate location</strong>, auto-detected from your IP and editable, or chosen by you, so we can tailor the newsletter to your local climate and season. Stored alongside your email only if you subscribe.</li>
+          <li><strong>Anonymous diagnostic data</strong>, your answers (skin type, concerns, chosen actives, city, season) and the actives we recommend are stored in <strong>anonymized</strong> form, <strong>without your email and without your IP address</strong>, to improve the quality of our recommendation engine.</li>
+          <li><strong>Anonymous feedback</strong>, whether a recommendation felt right, stored without any identifier.</li>
+          <li><strong>Cookieless audience measurement</strong>, aggregate visit statistics that use no cookies and do not identify you.</li>
         </ul>
 
         <h2>Purposes and legal basis</h2>
         <ul>
-          <li>Sending you early access and the seasonal newsletter — legal basis: your <strong>consent</strong> (given when you sign up).</li>
-          <li>Improving our recommendation engine from anonymized diagnostic and feedback data — <strong>legitimate interest</strong>.</li>
-          <li>Producing <strong>aggregated, anonymized</strong> market insights and reports that may be shared or sold to skincare brands — legitimate interest. These contain <strong>no individual data</strong> and never identify you.</li>
+          <li>Sending you early access and the seasonal newsletter, legal basis: your <strong>consent</strong> (given when you sign up).</li>
+          <li>Improving our recommendation engine from anonymized diagnostic and feedback data, <strong>legitimate interest</strong>.</li>
+          <li>Producing <strong>aggregated, anonymized</strong> market insights and reports that may be shared or sold to skincare brands, legitimate interest. These contain <strong>no individual data</strong> and never identify you.</li>
         </ul>
 
         <h2>Recipients and processors</h2>
         <p>Your personal data is never sold. We rely on the following processors, bound to protect it under the GDPR:</p>
         <ul>
-          <li><strong>Brevo</strong> — storing contacts and sending emails.</li>
-          <li><strong>Vercel</strong> — hosting and cookieless analytics.</li>
-          <li><strong>Supabase</strong> — storing the anonymized diagnostic data.</li>
-          <li><strong>Open-Meteo</strong> — weather and city lookup (no personal data that could identify you is sent).</li>
+          <li><strong>Brevo</strong>, storing contacts and sending emails.</li>
+          <li><strong>Vercel</strong>, hosting and cookieless analytics.</li>
+          <li><strong>Supabase</strong>, storing the anonymized diagnostic data.</li>
+          <li><strong>Open-Meteo</strong>, weather and city lookup (no personal data that could identify you is sent).</li>
         </ul>
         <p>Brands only ever receive <strong>aggregated, anonymized</strong> insights, never your personal data.</p>
 
@@ -96,27 +96,27 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
 
       <h2>Données que nous collectons</h2>
       <ul>
-        <li><strong>Adresse e-mail</strong> — lorsque vous rejoignez la liste d&apos;attente ou vous abonnez à la newsletter.</li>
-        <li><strong>Ville et localisation approximative</strong> — détectée automatiquement à partir de votre IP et modifiable, ou choisie par vous, afin d&apos;adapter la newsletter au climat et à la saison de votre ville. Conservée avec votre e-mail uniquement si vous vous inscrivez.</li>
-        <li><strong>Données de diagnostic anonymes</strong> — vos réponses (type de peau, préoccupations, actifs utilisés, ville, saison) et les actifs recommandés sont conservés de façon <strong>anonymisée</strong>, <strong>sans votre e-mail et sans votre adresse IP</strong>, pour améliorer la qualité de notre moteur de recommandation.</li>
-        <li><strong>Retours anonymes</strong> — si une recommandation vous a semblé juste, enregistré sans aucun identifiant.</li>
-        <li><strong>Mesure d&apos;audience sans cookie</strong> — des statistiques de visite agrégées, sans cookie et qui ne vous identifient pas.</li>
+        <li><strong>Adresse e-mail</strong>, lorsque vous rejoignez la liste d&apos;attente ou vous abonnez à la newsletter.</li>
+        <li><strong>Ville et localisation approximative</strong>, détectée automatiquement à partir de votre IP et modifiable, ou choisie par vous, afin d&apos;adapter la newsletter au climat et à la saison de votre ville. Conservée avec votre e-mail uniquement si vous vous inscrivez.</li>
+        <li><strong>Données de diagnostic anonymes</strong>, vos réponses (type de peau, préoccupations, actifs utilisés, ville, saison) et les actifs recommandés sont conservés de façon <strong>anonymisée</strong>, <strong>sans votre e-mail et sans votre adresse IP</strong>, pour améliorer la qualité de notre moteur de recommandation.</li>
+        <li><strong>Retours anonymes</strong>, si une recommandation vous a semblé juste, enregistré sans aucun identifiant.</li>
+        <li><strong>Mesure d&apos;audience sans cookie</strong>, des statistiques de visite agrégées, sans cookie et qui ne vous identifient pas.</li>
       </ul>
 
       <h2>Finalités et base légale</h2>
       <ul>
-        <li>Vous envoyer l&apos;accès anticipé et la newsletter saisonnière — base légale : votre <strong>consentement</strong> (donné lors de l&apos;inscription).</li>
-        <li>Améliorer notre moteur de recommandation à partir de données de diagnostic et de retours anonymisés — <strong>intérêt légitime</strong>.</li>
-        <li>Produire des analyses et rapports de marché <strong>agrégés et anonymisés</strong>, susceptibles d&apos;être partagés ou vendus à des marques de soin — intérêt légitime. Ils ne contiennent <strong>aucune donnée individuelle</strong> et ne vous identifient jamais.</li>
+        <li>Vous envoyer l&apos;accès anticipé et la newsletter saisonnière, base légale : votre <strong>consentement</strong> (donné lors de l&apos;inscription).</li>
+        <li>Améliorer notre moteur de recommandation à partir de données de diagnostic et de retours anonymisés, <strong>intérêt légitime</strong>.</li>
+        <li>Produire des analyses et rapports de marché <strong>agrégés et anonymisés</strong>, susceptibles d&apos;être partagés ou vendus à des marques de soin, intérêt légitime. Ils ne contiennent <strong>aucune donnée individuelle</strong> et ne vous identifient jamais.</li>
       </ul>
 
       <h2>Destinataires et sous-traitants</h2>
       <p>Vos données personnelles ne sont jamais vendues. Nous faisons appel aux sous-traitants suivants, engagés à les protéger conformément au RGPD :</p>
       <ul>
-        <li><strong>Brevo</strong> — stockage des contacts et envoi des e-mails.</li>
-        <li><strong>Vercel</strong> — hébergement et mesure d&apos;audience sans cookie.</li>
-        <li><strong>Supabase</strong> — stockage des données de diagnostic anonymisées.</li>
-        <li><strong>Open-Meteo</strong> — météo et recherche de ville (aucune donnée personnelle permettant de vous identifier n&apos;est transmise).</li>
+        <li><strong>Brevo</strong>, stockage des contacts et envoi des e-mails.</li>
+        <li><strong>Vercel</strong>, hébergement et mesure d&apos;audience sans cookie.</li>
+        <li><strong>Supabase</strong>, stockage des données de diagnostic anonymisées.</li>
+        <li><strong>Open-Meteo</strong>, météo et recherche de ville (aucune donnée personnelle permettant de vous identifier n&apos;est transmise).</li>
       </ul>
       <p>Les marques ne reçoivent que des analyses <strong>agrégées et anonymisées</strong>, jamais vos données personnelles.</p>
 

@@ -52,7 +52,7 @@ export function Engagement({ t }: { t: Messages }) {
               &ldquo;{e.founderNote}&rdquo;
             </blockquote>
             <figcaption className="mt-4 text-sm text-stone">
-              — {e.founderSign}
+              {e.founderSign}
             </figcaption>
           </figure>
         </Reveal>

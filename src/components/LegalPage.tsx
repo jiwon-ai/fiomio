@@ -33,7 +33,7 @@ export function LegalPage({
             {title}
           </h1>
           <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-widest text-stone/50">
-            {updatedLabel} — {updated}
+            {updatedLabel} : {updated}
           </p>
         </div>
       </header>

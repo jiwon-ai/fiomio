@@ -87,7 +87,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
                   href="mailto:hello@fiomio.io"
                   className="link-underline text-sm font-light text-cream/40 hover:text-cream/75"
                 >
-                  {f.contact} — hello@fiomio.io
+                  {f.contact} : hello@fiomio.io
                 </a>
               </li>
             </ul>
