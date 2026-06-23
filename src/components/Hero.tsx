@@ -182,7 +182,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
                 technique · acquisition · n° d'inventaire — left-aligned. */}
             <figcaption className="mt-7 max-w-xs text-left sm:mt-9">
               <span className="block font-display text-sm font-bold tracking-tight text-ink">
-                Jiwon Yi
+                Jiwon
               </span>
               <span className="block font-editorial text-base italic leading-snug text-ink/80">
                 {lang === "fr" ? "« Climat × Formule »" : "\u201cClimate \u00d7 Formula\u201d"}, 2026
@@ -196,7 +196,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
                   : "Generative serum driven by local climate data"}
               </span>
               <span className="mt-1 block font-mono text-[0.58rem] tracking-wide text-stone/45">
-                Inv. FIO\u00b72026\u00b701
+                Inv. FIO·2026·01
               </span>
             </figcaption>
           </div>
