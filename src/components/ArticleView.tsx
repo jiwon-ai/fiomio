@@ -29,17 +29,17 @@ export function ArticleView({
   return (
     <main className="flex-1">
       {/* dark header band */}
-      <header className="relative overflow-hidden bg-ink pt-28 pb-12 sm:pt-32">
+      <header className="relative overflow-hidden bg-cream pt-28 pb-12 sm:pt-32">
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
           <div className="flex items-center gap-3">
             <Link
               href={localePath(lang, "/journal")}
-              className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
+              className="link-underline inline-flex items-center gap-1.5 text-sm text-stone transition-colors hover:text-ink"
             >
               ← {j.backToJournal}
             </Link>
             {article.draft && (
-              <span className="rounded-full border border-spring/40 bg-spring/10 px-2.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-widest text-spring">
+              <span className="rounded-full border border-spring/40 bg-spring/10 px-2.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-widest text-spring-deep">
                 {j.review.draftBadge}
               </span>
             )}
@@ -49,16 +49,16 @@ export function ArticleView({
             {article.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-spring/25 px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-wide text-spring"
+                className="rounded-full border border-spring/25 px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-wide text-spring-deep"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <h1 className="font-display mt-4 text-3xl font-medium leading-tight tracking-tight text-cream sm:text-[2.7rem]">
+          <h1 className="font-display mt-4 text-3xl font-medium leading-tight tracking-tight text-ink sm:text-[2.7rem]">
             {article.title}
           </h1>
-          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-cream/50">
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone/70">
             <span>{date}</span>
             <span aria-hidden>·</span>
             <span>

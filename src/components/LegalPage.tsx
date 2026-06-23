@@ -21,18 +21,18 @@ export function LegalPage({
 
   return (
     <main className="flex-1">
-      <header className="relative overflow-hidden bg-ink pt-28 pb-12 sm:pt-32">
+      <header className="relative overflow-hidden bg-cream pt-28 pb-12 sm:pt-32">
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
           <Link
             href={localePath(lang, "/")}
-            className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
+            className="link-underline inline-flex items-center gap-1.5 text-sm text-stone transition-colors hover:text-ink"
           >
             ← {home}
           </Link>
-          <h1 className="font-display mt-5 text-3xl font-medium leading-tight tracking-tight text-cream sm:text-[2.5rem]">
+          <h1 className="font-display mt-5 text-3xl font-medium leading-tight tracking-tight text-ink sm:text-[2.5rem]">
             {title}
           </h1>
-          <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-widest text-cream/40">
+          <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-widest text-stone/50">
             {updatedLabel} — {updated}
           </p>
         </div>

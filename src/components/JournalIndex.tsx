@@ -20,17 +20,17 @@ export function JournalIndex({
   return (
     <main className="flex-1">
       {/* dark hero band */}
-      <section className="relative overflow-hidden bg-ink pt-32 pb-16 sm:pt-36">
+      <section className="relative overflow-hidden bg-cream pt-32 pb-16 sm:pt-36">
         <div
           aria-hidden
           className="animate-float-slow pointer-events-none absolute -right-24 -top-16 size-[30rem] rounded-full bg-spring/10 blur-3xl"
         />
         <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
-          <p className="eyebrow text-spring">{j.eyebrow}</p>
-          <h1 className="font-display mt-4 text-4xl font-medium leading-[1.05] tracking-tight text-cream sm:text-5xl">
+          <p className="eyebrow text-spring-deep">{j.eyebrow}</p>
+          <h1 className="font-display mt-4 text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl">
             {j.title}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-cream/65 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-stone sm:text-lg">
             {j.intro}
           </p>
         </div>
