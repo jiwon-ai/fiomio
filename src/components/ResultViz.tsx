@@ -88,7 +88,7 @@ export function ResultViz({
       x.fillStyle = sp;
       x.fillRect(0, 0, 256, 256);
       const tn = x.createRadialGradient(210, 210, 6, 210, 210, 150);
-      tn.addColorStop(0, "rgba(170,205,118,0.5)");
+      tn.addColorStop(0, "rgba(46,176,127,0.5)");
       tn.addColorStop(1, "rgba(203,239,77,0)");
       x.fillStyle = tn;
       x.fillRect(0, 0, 256, 256);
@@ -122,7 +122,7 @@ export function ResultViz({
       // central node = your skin
       const core = new THREE.Mesh(
         new THREE.SphereGeometry(0.42, 48, 32),
-        glass("#aacd76", 0.05),
+        glass("#34b07a", 0.05),
       );
       root.add(core);
 
@@ -165,7 +165,7 @@ export function ResultViz({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0xaacd76, 0.5);
+      const rim = new THREE.DirectionalLight(0x34b07a, 0.5);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 

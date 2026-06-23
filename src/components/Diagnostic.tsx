@@ -285,12 +285,9 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                 </span>
                 {climate && (
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-                    <span className="text-stone">
-                      <span className="font-medium text-ink">
-                        {climate.city || displayPlace(loc) || d.climateCity} ·{" "}
-                        {climate[lang].label}
-                      </span>{" "}
-                      <span className="text-stone-2">· {climate[lang].detail}</span>
+                    <span className="font-medium text-ink">
+                      {climate.city || displayPlace(loc) || d.climateCity} ·{" "}
+                      {climate[lang].label}
                     </span>
                     <button
                       type="button"

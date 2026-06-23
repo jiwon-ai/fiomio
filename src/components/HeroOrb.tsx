@@ -115,7 +115,7 @@ export function HeroOrb({
       ectx.fillStyle = spot2;
       ectx.fillRect(0, 0, 256, 256);
       const tint = ectx.createRadialGradient(210, 210, 6, 210, 210, 150);
-      tint.addColorStop(0, "rgba(170,205,118,0.55)");
+      tint.addColorStop(0, "rgba(46,176,127,0.5)");
       tint.addColorStop(1, "rgba(203,239,77,0)");
       ectx.fillStyle = tint;
       ectx.fillRect(0, 0, 256, 256);
@@ -183,7 +183,7 @@ export function HeroOrb({
         ior: 1.5,
         clearcoat: 1,
         clearcoatRoughness: 0.06,
-        attenuationColor: new THREE.Color("#94bf66"),
+        attenuationColor: new THREE.Color("#1f9e63"),
         attenuationDistance: 0.85,
         envMapIntensity: 1.45,
         specularIntensity: 1,
@@ -198,7 +198,7 @@ export function HeroOrb({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0xaacd76, 0.6);
+      const rim = new THREE.DirectionalLight(0x34b07a, 0.6);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 
