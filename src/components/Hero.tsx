@@ -179,22 +179,22 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
 
             {/* Museum cartel (real wall-label format): auteur · titre, date ·
                 technique · acquisition · n° d'inventaire — left-aligned. */}
-            <figcaption className="mt-7 max-w-sm text-left sm:mt-9">
-              <span className="block font-display text-lg font-bold tracking-tight text-ink">
+            <figcaption className="ml-auto mt-6 max-w-[15rem] text-right sm:mt-8">
+              <span className="block font-display text-[0.8rem] font-medium tracking-tight text-stone">
                 Jiwon
               </span>
-              <span className="block font-editorial text-xl italic leading-snug text-ink/80">
+              <span className="block font-editorial text-base italic leading-snug text-ink/75">
                 {lang === "fr" ? "« Climat × Formule »" : "\u201cClimate \u00d7 Formula\u201d"}, 2026
               </span>
-              <span className="mt-2.5 block text-sm leading-snug text-stone/70">
+              <span className="mt-1.5 block text-[0.72rem] leading-snug text-stone/65">
                 {lang === "fr" ? "Rendu 3D temps réel \u00b7 WebGL" : "Real-time 3D render \u00b7 WebGL"}
               </span>
-              <span className="block text-sm leading-snug text-stone/70">
+              <span className="block text-[0.72rem] leading-snug text-stone/65">
                 {lang === "fr"
                   ? "Sérum génératif piloté par les données climatiques locales"
                   : "Generative serum driven by local climate data"}
               </span>
-              <span className="mt-1.5 block font-mono text-[0.78rem] tracking-wide text-stone/50">
+              <span className="mt-1 block font-mono text-[0.64rem] tracking-wide text-stone/45">
                 Inv. FIO·2026·01
               </span>
             </figcaption>
