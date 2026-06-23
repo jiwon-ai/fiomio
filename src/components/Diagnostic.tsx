@@ -11,6 +11,7 @@ import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
 import { productsForIngredients, yesstyleSearchUrl, type Product } from "@/lib/products";
+import { track } from "@/lib/track";
 import {
   runDiagnostic,
   type DiagnosticResult,
@@ -47,6 +48,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const [llmNote, setLlmNote] = useState<{ fr: string; en: string } | null>(null);
   const [llmLoading, setLlmLoading] = useState(false);
   const llmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startedRef = useRef(false);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // A skincare routine is used for months, not the delivery week — so the
@@ -75,6 +77,14 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       alive = false;
     };
   }, [applyClimate]);
+
+  // Fire "started" once, when the visitor makes their first selection.
+  useEffect(() => {
+    if (skinType && !startedRef.current) {
+      startedRef.current = true;
+      track("diagnostic_started");
+    }
+  }, [skinType]);
 
   // Clear any pending auto-advance when the step changes or on unmount.
   useEffect(() => {
@@ -117,6 +127,16 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
     setResult(r);
+    track("diagnostic_completed", {
+      skinType,
+      sensitive,
+      concerns: concerns.join(",") || "none",
+      activeUse,
+      gender,
+      city: cl.city ?? "",
+      season: cl.source === "season" ? cl.en.label : cl.chip.en,
+      recommended: r.recommendations.map((rec) => rec.ingredient.id).join(","),
+    });
     setLlmNote(null);
     llmTimer.current = setTimeout(() => setLlmLoading(true), 350);
     fetch("/api/recommend", {
@@ -174,6 +194,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   );
 
   const reset = () => {
+    startedRef.current = false;
     setResult(null);
     setLlmNote(null);
     setLlmLoading(false);
@@ -828,6 +849,9 @@ function ProductCard({
         href={buildAffiliateLink(p.url ?? yesstyleSearchUrl(p.searchQ))}
         target="_blank"
         rel="sponsored noopener noreferrer"
+        onClick={() =>
+          track("product_clicked", { brand: p.brand, name: p.name })
+        }
         className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
       >
         {seeProduct}

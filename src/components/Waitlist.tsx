@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Lang, Messages } from "@/lib/locale";
 import { getLocation, displayPlace } from "@/lib/geo";
+import { track } from "@/lib/track";
 import { Reveal } from "./ui/Reveal";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -63,6 +64,7 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
       setMessage(w.success);
       setEmail("");
       setCity("");
+      track("waitlist_submitted", { lang, hasCity: city.trim().length > 0 });
     } catch {
       setStatus("error");
       setMessage(w.errorGeneric);

@@ -3,6 +3,7 @@ import { Outfit, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteJsonLd } from "@/components/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
 
 // Sovrn Commerce (ex-Skimlinks) auto-affiliation. Loads only once the
 // publisher id is set (post-approval) — then all outbound merchant links
@@ -99,6 +100,7 @@ export default function RootLayout({
         </a>
         {children}
         <SiteJsonLd />
+        <Analytics />
         {SOVRN_ID ? (
           <Script
             id="sovrn-commerce"
