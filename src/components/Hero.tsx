@@ -3,12 +3,19 @@
 import { useEffect, useState } from "react";
 import type { Lang, Messages } from "@/lib/locale";
 import { getLocation, displayPlace } from "@/lib/geo";
+import dynamic from "next/dynamic";
 import { SkinConstellation } from "./SkinConstellation";
+
+const HeroOrb = dynamic(() => import("./HeroOrb").then((m) => m.HeroOrb), {
+  ssr: false,
+  loading: () => null,
+});
 
 export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   const h = t.hero;
 
   const [city, setCity] = useState<string | null>(null);
+  const [orbReady, setOrbReady] = useState(false);
   useEffect(() => {
     let alive = true;
     getLocation().then((loc) => {
@@ -105,8 +112,19 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               </span>
               <span className="font-mono text-[0.57rem] text-stone/30">Live Data</span>
             </div>
-            <div className="overflow-hidden rounded-2xl border border-ink/10 shadow-lg shadow-ink/8">
-              <SkinConstellation lang={lang} className="block h-auto w-full" />
+            <div className="relative w-full aspect-[6/7]">
+              {/* SVG renders instantly (and stays if WebGL is unavailable);
+                  the glossy 3D orb fades in over it once three.js lazy-loads. */}
+              <SkinConstellation
+                lang={lang}
+                className={`absolute inset-0 block h-full w-full transition-opacity duration-700 ${
+                  orbReady ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <HeroOrb
+                className="absolute inset-0 h-full w-full"
+                onReady={() => setOrbReady(true)}
+              />
             </div>
           </div>
         </div>
