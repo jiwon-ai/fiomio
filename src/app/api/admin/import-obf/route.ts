@@ -17,6 +17,26 @@ export const maxDuration = 60;
  */
 const OBF = "https://world.openbeautyfacts.org";
 
+// Cosmetic categories to sweep (OBF's beauty DB is small, so we cast wide).
+const CATEGORIES = [
+  "skin-care",
+  "face-care",
+  "moisturizers",
+  "serums",
+  "sunscreens",
+  "cleansers",
+  "toners",
+  "creams",
+  "face-masks",
+  "eye-contour",
+  "anti-aging",
+  "day-creams",
+  "night-creams",
+  "lip-care",
+  "hand-care",
+  "body-care",
+];
+
 function authed(req: Request): boolean {
   const importSecret = process.env.IMPORT_SECRET;
   const cronSecret = process.env.CRON_SECRET;
@@ -30,6 +50,23 @@ function authed(req: Request): boolean {
 
 const str = (v: unknown) => (typeof v === "string" ? v : "");
 
+async function fetchPage(category: string, page: number) {
+  const u =
+    `${OBF}/cgi/search.pl?action=process&json=1&page_size=100&page=${page}` +
+    `&sort_by=unique_scans_n&tagtype_0=categories&tag_contains_0=contains&tag_0=${encodeURIComponent(category)}` +
+    `&fields=code,product_name,product_name_en,brands,categories_tags,ingredients_text,ingredients_text_en,ingredients_text_fr`;
+  try {
+    const r = await fetch(u, {
+      headers: { "User-Agent": "Fiomio/1.0 (skincare data seed; hello@fiomio.io)" },
+    });
+    if (!r.ok) return [];
+    const d = (await r.json()) as { products?: Record<string, unknown>[] };
+    return d.products ?? [];
+  } catch {
+    return [];
+  }
+}
+
 async function importBatch(startPage: number, pages: number) {
   const supaUrl = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY ?? process.env.SUPABASE_ANON_KEY;
@@ -39,56 +76,42 @@ async function importBatch(startPage: number, pages: number) {
   const supabase = createClient(supaUrl, key);
 
   let imported = 0;
-  let lastPage = startPage;
-  for (let i = 0; i < pages; i++) {
-    const page = startPage + i;
-    lastPage = page;
-    const u =
-      `${OBF}/cgi/search.pl?action=process&json=1&page_size=100&page=${page}` +
-      `&sort_by=last_modified_t&tagtype_0=categories&tag_contains_0=contains&tag_0=skin-care` +
-      `&fields=code,product_name,product_name_en,brands,categories_tags,ingredients_text,ingredients_text_en,ingredients_text_fr`;
-    let prods: Record<string, unknown>[] = [];
-    try {
-      const r = await fetch(u, {
-        headers: { "User-Agent": "Fiomio/1.0 (skincare data seed; hello@fiomio.io)" },
-      });
-      if (!r.ok) break;
-      const d = (await r.json()) as { products?: Record<string, unknown>[] };
-      prods = d.products ?? [];
-    } catch {
-      break;
-    }
-    if (!prods.length) break;
-
-    const records = prods
-      .map((p) => {
-        const inciText =
-          str(p.ingredients_text_en) ||
-          str(p.ingredients_text) ||
-          str(p.ingredients_text_fr);
-        return {
-          barcode: str(p.code),
-          name: (str(p.product_name) || str(p.product_name_en)).slice(0, 160),
-          brand: str(p.brands).split(",")[0].trim().slice(0, 80) || null,
-          inci: inciText ? parseInciList(inciText) : [],
-          categories: Array.isArray(p.categories_tags)
-            ? (p.categories_tags as string[]).slice(0, 12)
-            : [],
-          source: "openbeautyfacts",
-          updated_at: new Date().toISOString(),
-        };
-      })
-      .filter((x) => x.barcode && x.inci.length >= 3);
-
-    if (records.length) {
-      const { error } = await supabase
-        .from("seed_products")
-        .upsert(records, { onConflict: "barcode" });
-      if (error) return { ok: false, error: error.message, imported };
-      imported += records.length;
+  let scanned = 0;
+  // Sweep every cosmetic category, `pages` pages each, dedup via upsert.
+  for (const category of CATEGORIES) {
+    for (let i = 0; i < pages; i++) {
+      const prods = await fetchPage(category, startPage + i);
+      if (!prods.length) break;
+      scanned += prods.length;
+      const records = prods
+        .map((p) => {
+          const inciText =
+            str(p.ingredients_text_en) ||
+            str(p.ingredients_text) ||
+            str(p.ingredients_text_fr);
+          return {
+            barcode: str(p.code),
+            name: (str(p.product_name) || str(p.product_name_en)).slice(0, 160),
+            brand: str(p.brands).split(",")[0].trim().slice(0, 80) || null,
+            inci: inciText ? parseInciList(inciText) : [],
+            categories: Array.isArray(p.categories_tags)
+              ? (p.categories_tags as string[]).slice(0, 12)
+              : [],
+            source: "openbeautyfacts",
+            updated_at: new Date().toISOString(),
+          };
+        })
+        .filter((x) => x.barcode && x.inci.length >= 3);
+      if (records.length) {
+        const { error } = await supabase
+          .from("seed_products")
+          .upsert(records, { onConflict: "barcode" });
+        if (error) return { ok: false, error: error.message, imported, scanned };
+        imported += records.length;
+      }
     }
   }
-  return { ok: true, imported, nextPage: lastPage + 1 };
+  return { ok: true, imported, scanned, nextPage: startPage + pages };
 }
 
 export async function GET(req: Request) {
@@ -97,7 +120,7 @@ export async function GET(req: Request) {
   }
   const url = new URL(req.url);
   const page = Math.max(1, parseInt(url.searchParams.get("page") || "1", 10) || 1);
-  const pages = Math.min(8, Math.max(1, parseInt(url.searchParams.get("pages") || "3", 10) || 3));
+  const pages = Math.min(5, Math.max(1, parseInt(url.searchParams.get("pages") || "2", 10) || 2));
   const res = await importBatch(page, pages);
   return NextResponse.json(res);
 }
