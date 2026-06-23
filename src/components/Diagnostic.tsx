@@ -137,6 +137,24 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       season: cl.source === "season" ? cl.en.label : cl.chip.en,
       recommended: r.recommendations.map((rec) => rec.ingredient.id).join(","),
     });
+    // Data flywheel — store the anonymous diagnostic (no email / no IP) so the
+    // engine improves from real usage. Fire-and-forget; never blocks results.
+    fetch("/api/diagnostic", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        skinType,
+        sensitive,
+        concerns,
+        activeUse,
+        gender,
+        pregnancy: preg,
+        city: cl.city ?? undefined,
+        season: cl.source === "season" ? cl.en.label : cl.chip.en,
+        recommended: r.recommendations.map((rec) => rec.ingredient.id),
+        lang,
+      }),
+    }).catch(() => {});
     setLlmNote(null);
     llmTimer.current = setTimeout(() => setLlmLoading(true), 350);
     fetch("/api/recommend", {
@@ -155,7 +173,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         if (llmTimer.current) clearTimeout(llmTimer.current);
         setLlmLoading(false);
       });
-  }, [skinType, sensitive, concerns, activeUse, gender, climate]);
+  }, [skinType, sensitive, concerns, activeUse, gender, climate, lang]);
 
   // Advance one step forward, honouring the male→skip-pregnancy and
   // last-step→results behaviour. Mirrors the manual "Continue" button.

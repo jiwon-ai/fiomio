@@ -397,7 +397,7 @@ export const fr = {
       },
       {
         q: "Mes données sont-elles en sécurité ?",
-        a: "Vos réponses au diagnostic restent dans votre navigateur. Votre e-mail n'est jamais revendu et la désinscription se fait en un clic.",
+        a: "Vos réponses au diagnostic sont anonymisées (sans e-mail, sans IP) pour améliorer nos recommandations — jamais liées à votre identité ni revendues. Votre e-mail, lui, n'est jamais revendu et la désinscription se fait en un clic.",
       },
       {
         q: "Est-ce un avis médical ?",
@@ -815,7 +815,7 @@ export const en: Messages = {
       },
       {
         q: "Is my data safe?",
-        a: "Your diagnostic answers stay in your browser. Your email is never resold and unsubscribing takes one click.",
+        a: "Your diagnostic answers are anonymized (no email, no IP) to improve our recommendations — never tied to your identity or resold. Your email is never resold either, and unsubscribing takes one click.",
       },
       {
         q: "Is this medical advice?",
