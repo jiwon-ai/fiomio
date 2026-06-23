@@ -52,6 +52,7 @@ export async function POST(req: Request) {
       // list; override with BREVO_LIST_ID env if you create a dedicated one.
       const listId = process.env.BREVO_LIST_ID || "2";
       const attributes: Record<string, string | number> = {};
+      attributes.LANG = entry.lang;
       if (city) attributes.CITY = city;
       if (lat !== undefined) attributes.LAT = lat;
       if (lon !== undefined) attributes.LON = lon;
