@@ -30,7 +30,58 @@ export type DiagnosticInput = {
   activeUse: ActiveUse;
   gender: Gender;
   pregnancy: Pregnancy;
+  /** ingredient ids the user has chosen to avoid (from their product log) */
+  avoidIds?: string[];
 };
+
+/** INCI aliases for actives whose label differs from their INCI name, used to
+ *  map a user's "avoid" tokens (from the product scanner) onto our actives. */
+const INCI_ALIASES: Record<string, string[]> = {
+  ceramides: ["ceramide"],
+  hyaluronic: ["hyaluronic acid", "sodium hyaluronate"],
+  centella: ["centella asiatica", "cica"],
+  madecassoside: ["madecassoside"],
+  panthenol: ["panthenol"],
+  squalane: ["squalane"],
+  snail: ["snail secretion filtrate", "snail mucin"],
+  vitaminc: ["ascorbic acid", "ascorbyl glucoside", "ethyl ascorbic acid", "ascorbyl phosphate", "vitamin c"],
+  azelaic: ["azelaic acid", "azeloyl"],
+  salicylic: ["salicylic acid", "bha"],
+  retinol: ["retinol", "retinal", "retinaldehyde"],
+  peptides: ["peptide", "palmitoyl"],
+  allantoin: ["allantoin"],
+  betaglucan: ["beta-glucan", "beta glucan"],
+  mugwort: ["artemisia", "mugwort"],
+  heartleaf: ["houttuynia cordata", "heartleaf"],
+  greentea: ["camellia sinensis", "green tea", "egcg"],
+  galactomyces: ["galactomyces"],
+  propolis: ["propolis"],
+  bakuchiol: ["bakuchiol"],
+  tranexamic: ["tranexamic acid"],
+  arbutin: ["arbutin"],
+  mandelic: ["mandelic acid"],
+  glycolic: ["glycolic acid"],
+  lactic: ["lactic acid"],
+  pha: ["gluconolactone", "pha"],
+  niacinamide: ["niacinamide"],
+};
+
+/** Map normalized avoid tokens (INCI) → our ingredient ids. */
+export function avoidedIngredientIds(avoidTokens: string[]): string[] {
+  const toks = avoidTokens
+    .map((t) => t.toLowerCase().trim())
+    .filter((t) => t.length > 2);
+  if (!toks.length) return [];
+  const ids: string[] = [];
+  for (const ing of INGREDIENTS) {
+    const hay = [ing.name.en.toLowerCase(), ...(INCI_ALIASES[ing.id] || [])];
+    const hit = toks.some((tok) =>
+      hay.some((h) => h === tok || tok.includes(h) || h.includes(tok)),
+    );
+    if (hit) ids.push(ing.id);
+  }
+  return ids;
+}
 
 export type Bi = { fr: string; en: string };
 
@@ -209,11 +260,13 @@ export function runDiagnostic(
   input: DiagnosticInput,
   climate: ClimateContext,
 ): DiagnosticResult {
-  // Pregnancy / conception: remove the actives best avoided before ranking.
-  const pool =
-    input.pregnancy !== "none"
-      ? INGREDIENTS.filter((ing) => !PREGNANCY_UNSAFE.includes(ing.id))
-      : INGREDIENTS;
+  // Pregnancy / conception + the user's personal avoid list: drop before ranking.
+  const avoid = new Set(input.avoidIds ?? []);
+  const pool = INGREDIENTS.filter(
+    (ing) =>
+      (input.pregnancy === "none" || !PREGNANCY_UNSAFE.includes(ing.id)) &&
+      !avoid.has(ing.id),
+  );
   const ranked = pool.map((ing) => {
     const { score, matched } = scoreIngredient(ing, input, climate);
     return { ingredient: ing, score, matched };
@@ -237,10 +290,23 @@ export function runDiagnostic(
     }
   }
 
+  const cautions = buildCautions(input, recommendations, climate);
+  if (avoid.size) {
+    const names = INGREDIENTS.filter((ing) => avoid.has(ing.id)).map(
+      (ing) => ing.name,
+    );
+    if (names.length) {
+      cautions.unshift({
+        fr: `D'après vos produits, on écarte : ${names.map((n) => n.fr).join(", ")}. Réintroduisez-les un par un si vous le souhaitez.`,
+        en: `Based on your products, we leave out: ${names.map((n) => n.en).join(", ")}. Reintroduce them one at a time if you wish.`,
+      });
+    }
+  }
+
   return {
     climate,
     recommendations,
-    cautions: buildCautions(input, recommendations, climate),
+    cautions: cautions.slice(0, 4),
     routine: buildRoutine(recommendations, climate),
   };
 }

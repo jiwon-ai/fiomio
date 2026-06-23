@@ -15,6 +15,7 @@ import { productsForIngredients, yesstyleSearchUrl, type Product } from "@/lib/p
 import { track } from "@/lib/track";
 import {
   runDiagnostic,
+  avoidedIngredientIds,
   type DiagnosticResult,
   type SkinType,
   type Gender,
@@ -150,7 +151,14 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         ? crypto.randomUUID()
         : `d_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     setDiagId(newDiagId);
-    const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg };
+    let avoidIds: string[] = [];
+    try {
+      const raw = localStorage.getItem("fiomio:avoid");
+      if (raw) avoidIds = avoidedIngredientIds(JSON.parse(raw));
+    } catch {
+      /* ignore */
+    }
+    const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg, avoidIds };
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
     setResult(r);
