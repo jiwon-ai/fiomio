@@ -31,11 +31,11 @@ export function Faq({ t }: { t: Messages }) {
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-white"
+                    className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left transition-colors hover:bg-white"
                   >
-                    <span className="text-sm font-medium text-ink">{item.q}</span>
+                    <span className="text-lg font-medium leading-snug text-ink">{item.q}</span>
                     <span
-                      className={`grid size-5 shrink-0 place-items-center text-spring-deep transition-transform duration-300 ${
+                      className={`grid size-6 shrink-0 place-items-center text-spring-deep transition-transform duration-300 ${
                         isOpen ? "rotate-45" : ""
                       }`}
                       aria-hidden
@@ -56,7 +56,7 @@ export function Faq({ t }: { t: Messages }) {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-stone">
+                      <p className="px-6 pb-6 text-base leading-relaxed text-stone">
                         {item.a}
                       </p>
                     </div>
