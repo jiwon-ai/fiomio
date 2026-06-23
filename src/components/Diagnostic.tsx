@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import type { Lang, Messages } from "@/lib/locale";
+import type { OrbClimate } from "./HeroOrb";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
@@ -18,6 +20,12 @@ import {
   type Pregnancy,
 } from "@/lib/diagnostic";
 import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
+
+// Lazy 3D centerpiece for the results — the climate-rendered "formula" drop.
+const ResultOrb = dynamic(() => import("./HeroOrb").then((m) => m.HeroOrb), {
+  ssr: false,
+  loading: () => null,
+});
 
 const TOTAL_STEPS = 6;
 const AUTO_ADVANCE_MS = 280;
@@ -288,7 +296,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} activeUse={activeUse} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} climate={climate} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -617,6 +625,7 @@ function Results({
   lang,
   result,
   activeUse,
+  climate,
   onReset,
   llmNote,
   llmLoading,
@@ -625,10 +634,18 @@ function Results({
   lang: "fr" | "en";
   result: DiagnosticResult;
   activeUse: ActiveUse | null;
+  climate?: ClimateContext | null;
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
 }) {
+  const orbClimate: OrbClimate | null = climate?.metrics
+    ? {
+        uv: climate.metrics.uv,
+        hr: climate.metrics.humidity,
+        temp: climate.metrics.tempC,
+      }
+    : null;
   const p = d.products;
   const recIds = result.recommendations.map((r) => r.ingredient.id);
   const products = productsForIngredients(recIds, 6);
@@ -637,6 +654,21 @@ function Results({
 
   return (
     <div>
+      {/* 3D centerpiece — the formula, rendered from your climate */}
+      <div className="mb-8 flex flex-col items-center text-center">
+        <div className="relative aspect-square w-36 sm:w-48">
+          <ResultOrb
+            className="absolute inset-0 h-full w-full"
+            climate={orbClimate}
+          />
+        </div>
+        <p className="mt-3 font-editorial text-base italic text-ink/70">
+          {lang === "fr"
+            ? "Votre formule, rendue depuis votre climat."
+            : "Your formula, rendered from your climate."}
+        </p>
+      </div>
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="eyebrow">{d.resultEyebrow}</p>

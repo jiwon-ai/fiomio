@@ -5,7 +5,7 @@ export function WhyDifferent({ t }: { t: Messages }) {
   const w = t.whyDifferent;
 
   return (
-    <section className="relative overflow-hidden bg-paper-2 py-28 sm:py-36">
+    <section className="relative overflow-hidden bg-paper-2 py-32 sm:py-44">
       <span
         aria-hidden
         className="pointer-events-none select-none absolute right-0 top-0 font-editorial leading-[0.82] tracking-[-0.04em] text-ink/[0.03]"

@@ -5,7 +5,7 @@ export function Problem({ t }: { t: Messages }) {
   const p = t.problem;
 
   return (
-    <section id="probleme" className="relative overflow-hidden bg-paper py-28 sm:py-36">
+    <section id="probleme" className="relative overflow-hidden bg-paper py-32 sm:py-44">
       {/* Ghost art number — subtle on light bg */}
       <span
         aria-hidden
