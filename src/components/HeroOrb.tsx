@@ -213,6 +213,7 @@ export function HeroOrb({
         tilt.x = (nx - 0.5) * 0.7;
         tilt.y = (ny - 0.5) * 0.7;
         hoverTarget = nx > -0.25 && nx < 1.25 && ny > -0.25 && ny < 1.25 ? 1 : 0;
+        wake();
       };
       const onLeave = () => {
         hoverTarget = 0;
@@ -236,11 +237,32 @@ export function HeroOrb({
       let shapeMelt = 0.4; // last melt the geometry was baked at
 
       let raf = 0;
-      let running = true;
+      let running = false;
+      let lastRender = 0;
+      let idleTimer: ReturnType<typeof setTimeout> | undefined;
       const start = performance.now();
 
-      const frame = () => {
+      // Spin while there's something to do, then auto-pause so the orb costs
+      // nothing on an idle page (keeps Total Blocking Time near zero). A
+      // pointer move or scroll-into-view wakes it again.
+      const wake = () => {
+        if (reduceMotion) return;
+        if (!running) {
+          running = true;
+          raf = requestAnimationFrame(frame);
+        }
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          running = false;
+          cancelAnimationFrame(raf);
+        }, 3500);
+      };
+
+      const frame = (now: number) => {
         if (!running) return;
+        raf = requestAnimationFrame(frame);
+        if (now - lastRender < 33) return; // cap ~30fps
+        lastRender = now;
         const t = (performance.now() - start) / 1000;
 
         // --- live climate → targets (defaults to mid when unknown) ---
@@ -282,7 +304,6 @@ export function HeroOrb({
         group.rotation.z += (tilt.x - group.rotation.z) * 0.05;
 
         renderer.render(scene, camera);
-        raf = requestAnimationFrame(frame);
       };
 
       if (reduceMotion) {
@@ -294,18 +315,18 @@ export function HeroOrb({
         applyShape(0, 0.03 + hN * 0.045, tN);
         renderer.render(scene, camera);
       } else {
-        raf = requestAnimationFrame(frame);
+        wake();
       }
       onReady?.();
 
       const io = new IntersectionObserver(
         ([entry]) => {
           if (reduceMotion) return;
-          if (entry.isIntersecting && !running) {
-            running = true;
-            raf = requestAnimationFrame(frame);
-          } else if (!entry.isIntersecting) {
+          if (entry.isIntersecting) {
+            wake();
+          } else {
             running = false;
+            if (idleTimer) clearTimeout(idleTimer);
             cancelAnimationFrame(raf);
           }
         },
@@ -317,16 +338,17 @@ export function HeroOrb({
         if (reduceMotion) return;
         if (document.hidden) {
           running = false;
+          if (idleTimer) clearTimeout(idleTimer);
           cancelAnimationFrame(raf);
-        } else if (!running) {
-          running = true;
-          raf = requestAnimationFrame(frame);
+        } else {
+          wake();
         }
       };
       document.addEventListener("visibilitychange", onVis);
 
       cleanup = () => {
         running = false;
+        if (idleTimer) clearTimeout(idleTimer);
         cancelAnimationFrame(raf);
         window.removeEventListener("pointermove", onMove);
         mount.removeEventListener("pointerleave", onLeave);
