@@ -1,5 +1,5 @@
 import { LegalPage } from "@/components/LegalPage";
-import type { Lang } from "@/lib/locale";
+import { localePath, type Lang } from "@/lib/locale";
 
 export function ConfidentialiteContent({ lang }: { lang: Lang }) {
 
@@ -15,7 +15,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
         <h2>Data controller</h2>
         <p>
           The data controller is the publisher of the site (see
-          <a href="/mentions-legales"> legal notice</a>), reachable at hello@fiomio.io.
+          <a href={localePath(lang, "/mentions-legales")}> legal notice</a>), reachable at hello@fiomio.io.
         </p>
 
         <h2>Data collected</h2>
@@ -90,7 +90,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
       <h2>Responsable du traitement</h2>
       <p>
         Le responsable du traitement est l&apos;éditeur du site (voir
-        <a href="/mentions-legales"> mentions légales</a>), joignable à
+        <a href={localePath(lang, "/mentions-legales")}> mentions légales</a>), joignable à
         hello@fiomio.io.
       </p>
 
