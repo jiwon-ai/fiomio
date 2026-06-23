@@ -131,7 +131,7 @@ export function HeroOrb({
 
       // --- the glass drop ---
       const RADIUS = 1.3;
-      const detail = isSmall ? 20 : 26;
+      const detail = isSmall ? 12 : 18;
       const geo = new THREE.IcosahedronGeometry(RADIUS, detail);
       const pos = geo.attributes.position as import("three").BufferAttribute;
       const nrm = geo.attributes.normal as import("three").BufferAttribute;
@@ -232,9 +232,8 @@ export function HeroOrb({
       // eased climate-driven params (start at neutral)
       let eRough = 0.08;
       let eKey = 1.2;
-      let eAmp = 0.05;
-      let eSpeed = 0.9;
       let eMelt = 0.4;
+      let shapeMelt = 0.4; // last melt the geometry was baked at
 
       let raf = 0;
       let running = true;
@@ -252,29 +251,30 @@ export function HeroOrb({
 
         const tgtRough = 0.13 - hN * 0.09; // humid = glossier (dewy)
         const tgtKey = 1.0 + uN * 0.8; // high UV = brighter, warmer glint
-        const tgtAmp = 0.03 + hN * 0.045 + tN * 0.03; // humid/hot = more fluid
-        const tgtSpeed = 0.7 + hN * 0.25; // humid = a touch livelier
         const tgtMelt = tN; // HOT = molten slime, COLD = firm round
 
         eRough += (tgtRough - eRough) * 0.04;
         eKey += (tgtKey - eKey) * 0.04;
-        eAmp += (tgtAmp - eAmp) * 0.04;
-        eSpeed += (tgtSpeed - eSpeed) * 0.04;
         eMelt += (tgtMelt - eMelt) * 0.04;
 
         material.roughness = eRough;
         key.intensity = eKey;
-        // warm the key light slightly as UV climbs (keeps green identity)
         key.color.setRGB(1, 1 - uN * 0.05, 1 - uN * 0.13);
 
-        hover += (hoverTarget - hover) * 0.06;
-        const pulse = reduceMotion ? 0 : 0.02 * Math.sin(t * 0.6);
-        const amp = eAmp + pulse + hover * 0.06;
-        if (!reduceMotion) applyShape(t * eSpeed, amp, eMelt);
+        // Rebuild geometry ONLY when the melt shape actually shifts — it eases
+        // to its target in ~1s then stops, so frames become rotate+render only
+        // (keeps the main thread free → low Total Blocking Time).
+        if (Math.abs(eMelt - shapeMelt) > 0.008) {
+          applyShape(0, 0.05, eMelt);
+          shapeMelt = eMelt;
+        }
 
-        const targetScale = 1 + hover * 0.06;
+        hover += (hoverTarget - hover) * 0.06;
+        // cheap "alive" feel without touching vertices: a soft breathing scale
+        const breathe = reduceMotion ? 0 : Math.sin(t * 0.9) * 0.006;
+        const targetScale = 1 + hover * 0.06 + breathe;
         group.scale.setScalar(
-          group.scale.x + (targetScale - group.scale.x) * 0.08,
+          group.scale.x + (targetScale - group.scale.x) * 0.1,
         );
 
         if (!reduceMotion) group.rotation.y += 0.0028 + hover * 0.004;
