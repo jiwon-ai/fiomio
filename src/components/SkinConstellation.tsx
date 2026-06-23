@@ -67,13 +67,13 @@ export function SkinConstellation({
     <svg viewBox="0 0 480 560" className={className} role="img" aria-label={`Profil lu comme une carte du ciel, données locales en direct${live.city ? ` pour ${live.city}` : ""}`}>
       <defs>
         <radialGradient id="fio-glow" cx="48%" cy="44%" r="60%">
-          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.20" />
-          <stop offset="55%" stopColor="#cbef4d" stopOpacity="0.05" />
-          <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
+          <stop offset="0%" stopColor="#acd6cd" stopOpacity="0.20" />
+          <stop offset="55%" stopColor="#acd6cd" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#acd6cd" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="fio-fglow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#cbef4d" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="#cbef4d" stopOpacity="0" />
+          <stop offset="0%" stopColor="#acd6cd" stopOpacity="0.16" />
+          <stop offset="100%" stopColor="#acd6cd" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="fio-skin" x1="0" y1="0" x2="0.45" y2="1">
           <stop offset="0%" stopColor="#e3fa7d" stopOpacity="0.22" />
@@ -81,7 +81,7 @@ export function SkinConstellation({
           <stop offset="100%" stopColor="#2f8f78" stopOpacity="0.10" />
         </linearGradient>
         <pattern id="fio-dotbg" width="24" height="24" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1" fill="#cbef4d" fillOpacity="0.05" />
+          <circle cx="2" cy="2" r="1" fill="#acd6cd" fillOpacity="0.05" />
         </pattern>
         <filter id="fio-grain" x="0" y="0" width="100%" height="100%">
           <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n" />
@@ -106,7 +106,7 @@ export function SkinConstellation({
           {/* film grain + faint face-wide constellation, clipped to the face */}
           <g clipPath="url(#fio-face)">
             <rect x="120" y="-30" width="400" height="620" filter="url(#fio-grain)" opacity="0.5" />
-            <g stroke="#cbef4d" strokeOpacity="0.15" strokeWidth="0.5">
+            <g stroke="#acd6cd" strokeOpacity="0.15" strokeWidth="0.5">
               <line x1="185" y1="95" x2="255" y2="80" /><line x1="255" y1="80" x2="330" y2="130" /><line x1="185" y1="95" x2="165" y2="185" /><line x1="255" y1="80" x2="240" y2="165" /><line x1="240" y1="165" x2="305" y2="205" /><line x1="165" y1="185" x2="240" y2="165" /><line x1="165" y1="185" x2="150" y2="265" /><line x1="305" y1="205" x2="300" y2="290" /><line x1="240" y1="165" x2="300" y2="290" /><line x1="150" y1="265" x2="180" y2="345" /><line x1="300" y1="290" x2="330" y2="360" /><line x1="180" y1="345" x2="195" y2="425" /><line x1="330" y1="360" x2="285" y2="440" /><line x1="195" y1="425" x2="160" y2="405" /><line x1="195" y1="425" x2="235" y2="500" /><line x1="285" y1="440" x2="235" y2="500" /><line x1="235" y1="500" x2="305" y2="505" /><line x1="285" y1="440" x2="305" y2="505" /><line x1="305" y1="205" x2="390" y2="250" /><line x1="330" y1="360" x2="420" y2="400" /><line x1="285" y1="440" x2="420" y2="400" /><line x1="330" y1="130" x2="305" y2="205" />
             </g>
             <g fill="#cdeaad">
@@ -121,7 +121,7 @@ export function SkinConstellation({
 
           {/* highlighted f constellation (lifted from the logo) */}
           <circle cx="255" cy="332" r="58" fill="url(#fio-fglow)" />
-          <g stroke="#cbef4d" strokeOpacity="0.18" strokeWidth="0.5">
+          <g stroke="#acd6cd" strokeOpacity="0.18" strokeWidth="0.5">
             <line x1="284.6" y1="306.1" x2="300" y2="290" />
             <line x1="225.4" y1="385.7" x2="195" y2="425" />
           </g>
@@ -130,7 +130,7 @@ export function SkinConstellation({
               <line x1="55" y1="29" x2="49.5" y2="16" /><line x1="49.5" y1="16" x2="38" y2="23" /><line x1="38" y1="23" x2="39.4" y2="34" /><line x1="39.4" y1="34" x2="43" y2="47" /><line x1="43" y1="47" x2="41.6" y2="64" /><line x1="41.6" y1="64" x2="35" y2="74" /><line x1="35" y1="74" x2="23" y2="72" /><line x1="27" y1="47" x2="43" y2="47" /><line x1="43" y1="47" x2="52" y2="44" />
             </g>
             <g fill="#f3ffce">
-              <circle cx="49.5" cy="16" r="3" fill="#cbef4d" fillOpacity="0.18" />
+              <circle cx="49.5" cy="16" r="3" fill="#acd6cd" fillOpacity="0.18" />
               <circle cx="55" cy="29" r="1.4"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite" /></circle>
               <circle cx="49.5" cy="16" r="1.8"><animate attributeName="opacity" values="0.6;1;0.6" dur="3.2s" begin="0.4s" repeatCount="indefinite" /></circle>
               <circle cx="38" cy="23" r="1.4" />
@@ -140,7 +140,7 @@ export function SkinConstellation({
               <circle cx="23" cy="72" r="1.5"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.7s" begin="0.6s" repeatCount="indefinite" /></circle>
               <circle cx="27" cy="47" r="1.4" /><circle cx="52" cy="44" r="1.4" />
             </g>
-            <circle cx="43" cy="47" r="5.5" fill="#cbef4d" fillOpacity="0.28">
+            <circle cx="43" cy="47" r="5.5" fill="#acd6cd" fillOpacity="0.28">
               <animate attributeName="r" values="4.5;7.5;4.5" dur="3s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.35;0.12;0.35" dur="3s" repeatCount="indefinite" />
             </circle>
@@ -148,16 +148,16 @@ export function SkinConstellation({
           </g>
 
           {/* live local readouts (UV / humidity / temperature) */}
-          <g stroke="#cbef4d" strokeOpacity="0.34" strokeWidth="0.8">
+          <g stroke="#acd6cd" strokeOpacity="0.34" strokeWidth="0.8">
             <line x1="60" y1="230" x2="165" y2="240" /><line x1="66" y1="360" x2="156" y2="360" /><line x1="60" y1="506" x2="200" y2="500" />
           </g>
-          <g fill="#cbef4d">
+          <g fill="#acd6cd">
             <circle cx="165" cy="240" r="2.4" /><circle cx="156" cy="360" r="2.4" /><circle cx="200" cy="500" r="2.4" />
             <circle cx="6" cy="226" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite" /></circle>
             <circle cx="6" cy="356" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.5s" repeatCount="indefinite" /></circle>
             <circle cx="6" cy="502" r="1.8"><animate attributeName="opacity" values="1;0.2;1" dur="1.4s" begin="0.9s" repeatCount="indefinite" /></circle>
           </g>
-          <g fontFamily="var(--font-mono), ui-monospace, monospace" letterSpacing="0.05em" fill="#cbef4d">
+          <g fontFamily="var(--font-mono), ui-monospace, monospace" letterSpacing="0.05em" fill="#acd6cd">
             <text x="14" y="230" fontSize="14">UV {uvT}</text>
             <text x="14" y="364" fontSize="14">HR {hrT}</text>
             <text x="14" y="506" fontSize="14">{tempT}</text>
@@ -165,17 +165,17 @@ export function SkinConstellation({
 
           {/* "you are here" header: the visitor's detected city, set apart from the data */}
           <g>
-            <circle cx="17" cy="50" r="2.2" fill="#cbef4d">
+            <circle cx="17" cy="50" r="2.2" fill="#acd6cd">
               <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite" />
             </circle>
-            <circle cx="17" cy="50" r="2.2" fill="none" stroke="#cbef4d" strokeOpacity="0.6">
+            <circle cx="17" cy="50" r="2.2" fill="none" stroke="#acd6cd" strokeOpacity="0.6">
               <animate attributeName="r" values="2.2;9" dur="2.8s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.6;0" dur="2.8s" repeatCount="indefinite" />
             </circle>
             <text x="28" y="55" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="12.5" letterSpacing="0.01em" fill="#9fc0aa">
               {intro}
             </text>
-            <text x="15" y="82" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="23" fontWeight="600" fill="#cbef4d">
+            <text x="15" y="82" fontFamily="var(--font-sans), system-ui, sans-serif" fontSize="23" fontWeight="600" fill="#acd6cd">
               {prep} {cityT}
             </text>
           </g>
@@ -190,7 +190,7 @@ export function SkinConstellation({
         </g>
       </g>
 
-      <rect x="0.5" y="0.5" width="479" height="559" rx="24" fill="none" stroke="#cbef4d" strokeOpacity="0.15" />
+      <rect x="0.5" y="0.5" width="479" height="559" rx="24" fill="none" stroke="#acd6cd" strokeOpacity="0.15" />
     </svg>
   );
 }

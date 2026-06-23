@@ -3,7 +3,7 @@
 <desc>La glass skin vient de trois leviers : une surface lisse (exfoliation, levier n1), de l'eau retenue (humectants), et une barriere intacte (ceramides, niacinamide).</desc>
 <rect x="4" y="4" width="672" height="364" rx="20" fill="#f6f7f2" stroke="#dde2d6" stroke-width="1.5"/>
 <g font-family="ui-sans-serif, system-ui, sans-serif">
-<circle cx="46" cy="50" r="5" fill="#cbef4d">
+<circle cx="46" cy="50" r="5" fill="#acd6cd">
 <animate attributeName="opacity" values="1;0.4;1" dur="2.4s" repeatCount="indefinite"/>
 </circle>
 <text x="60" y="55" font-size="13" letter-spacing="0.16em" fill="#5d6f64" font-family="ui-monospace, monospace">HYPE × DONNÉES</text>
@@ -12,8 +12,8 @@
 <g opacity="0">
 <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.2s" fill="freeze"/>
 <animateTransform attributeName="transform" type="translate" from="20 0" to="0 0" dur="0.5s" begin="0.2s" fill="freeze"/>
-<circle cx="62" cy="158" r="19" fill="#cbef4d"/>
-<circle cx="62" cy="158" r="19" fill="none" stroke="#cbef4d" stroke-opacity="0.7">
+<circle cx="62" cy="158" r="19" fill="#acd6cd"/>
+<circle cx="62" cy="158" r="19" fill="none" stroke="#acd6cd" stroke-opacity="0.7">
 <animate attributeName="r" values="19;27" dur="2.6s" begin="1s" repeatCount="indefinite"/>
 <animate attributeName="stroke-opacity" values="0.7;0" dur="2.6s" begin="1s" repeatCount="indefinite"/>
 </circle>
@@ -43,7 +43,7 @@
 <line x1="540" y1="130" x2="540" y2="340" stroke="#dde2d6" stroke-width="1.5"/>
 <text x="566" y="150" font-size="13" fill="#5d6f64" font-family="ui-monospace, monospace">REFLET</text>
 <path d="M566 175 H636" stroke="#0f2b31" stroke-width="2.5"/>
-<g stroke="#cbef4d" stroke-width="2.5" stroke-linecap="round">
+<g stroke="#acd6cd" stroke-width="2.5" stroke-linecap="round">
 <path d="M576 198 l8 -16"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0s" repeatCount="indefinite"/></path>
 <path d="M596 198 l8 -16"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.3s" repeatCount="indefinite"/></path>
 <path d="M616 198 l8 -16"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></path>

@@ -71,7 +71,7 @@ export function buildSeasonalEmail(
     <tr><td align="center">
       <table role="presentation" width="540" cellpadding="0" cellspacing="0" style="max-width:540px;width:100%;background:#fbfbf6;border:1px solid #e3e7dd;border-radius:16px;overflow:hidden;">
         <tr><td style="padding:28px 32px 8px;">
-          <div style="font:700 22px/1 Arial,Helvetica,sans-serif;color:#0f2b31;letter-spacing:-0.5px;">fiomio<span style="color:#cbef4d;">.</span></div>
+          <div style="font:700 22px/1 Arial,Helvetica,sans-serif;color:#0f2b31;letter-spacing:-0.5px;">fiomio<span style="color:#acd6cd;">.</span></div>
         </td></tr>
         <tr><td style="padding:8px 32px 0;">
           <div style="font:600 11px/1 Arial,Helvetica,sans-serif;color:#2f6b4f;text-transform:uppercase;letter-spacing:2px;">${label} · ${where}</div>
@@ -83,7 +83,7 @@ export function buildSeasonalEmail(
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${items}</table>
         </td></tr>
         <tr><td style="padding:18px 32px 28px;">
-          <a href="${SITE}/#diagnostic" style="display:inline-block;background:#cbef4d;color:#0f2b31;font:600 14px Arial,Helvetica,sans-serif;text-decoration:none;padding:12px 22px;border-radius:999px;">${ctaLabel} →</a>
+          <a href="${SITE}/#diagnostic" style="display:inline-block;background:#acd6cd;color:#0f2b31;font:600 14px Arial,Helvetica,sans-serif;text-decoration:none;padding:12px 22px;border-radius:999px;">${ctaLabel} →</a>
           <p style="font:400 11px/1.5 Arial,Helvetica,sans-serif;color:#88938d;margin:20px 0 0;">${unsub}</p>
         </td></tr>
       </table>

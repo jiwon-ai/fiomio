@@ -26,14 +26,14 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 14,
-            color: "#cbef4d",
+            color: "#acd6cd",
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
             fontFamily: "monospace",
           }}
         >
-          <div style={{ width: 10, height: 10, borderRadius: 99, background: "#cbef4d" }} />
+          <div style={{ width: 10, height: 10, borderRadius: 99, background: "#acd6cd" }} />
           Diagnostic peau × météo de votre ville
         </div>
 
@@ -51,7 +51,7 @@ export default function OpengraphImage() {
           >
             <div style={{ display: "flex" }}>La K-beauty décodée</div>
             <div style={{ display: "flex" }}>
-              pour&nbsp;<span style={{ color: "#cbef4d" }}>votre peau</span>.
+              pour&nbsp;<span style={{ color: "#acd6cd" }}>votre peau</span>.
             </div>
           </div>
           <div
@@ -90,7 +90,7 @@ export default function OpengraphImage() {
             }}
           >
             fiomio
-            <div style={{ width: 15, height: 15, borderRadius: 99, background: "#cbef4d", marginBottom: 8 }} />
+            <div style={{ width: 15, height: 15, borderRadius: 99, background: "#acd6cd", marginBottom: 8 }} />
           </div>
           <div>fiomio.io</div>
         </div>
