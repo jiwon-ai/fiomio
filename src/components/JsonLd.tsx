@@ -1,7 +1,5 @@
 import { dictionaries, type Lang } from "@/lib/locale";
 
-const fr = dictionaries.fr;
-
 const SITE_URL = "https://fiomio.io";
 
 /**
