@@ -131,9 +131,10 @@ export function HeroOrb({
 
       // --- the glass drop ---
       const RADIUS = 1.3;
-      const detail = isSmall ? 16 : 22;
+      const detail = isSmall ? 20 : 26;
       const geo = new THREE.IcosahedronGeometry(RADIUS, detail);
       const pos = geo.attributes.position as import("three").BufferAttribute;
+      const nrm = geo.attributes.normal as import("three").BufferAttribute;
       const count = pos.count;
       const dirs = new Float32Array(count * 3);
       const tmp = new THREE.Vector3();
@@ -159,10 +160,17 @@ export function HeroOrb({
           const r = RADIUS * (1 + amp * field(x * 1.5, y * 1.5, z * 1.5, t));
           const bottom = Math.max(0, -y); // 0 at top → 1 at the base
           const widen = 1 + 0.32 * melt * bottom;
-          pos.setXYZ(i, x * r * widen, y * r * squashY - sink, z * r * widen);
+          const px = x * r * widen;
+          const py = y * r * squashY - sink;
+          const pz = z * r * widen;
+          pos.setXYZ(i, px, py, pz);
+          // smooth radial normals → seam-free shading (no faceting), and far
+          // cheaper than computeVertexNormals (helps low-end phones)
+          const inv = 1 / (Math.hypot(px, py, pz) || 1);
+          nrm.setXYZ(i, px * inv, py * inv, pz * inv);
         }
         pos.needsUpdate = true;
-        geo.computeVertexNormals();
+        nrm.needsUpdate = true;
       };
       applyShape(0, 0.05, 0.4);
 
