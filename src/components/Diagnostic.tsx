@@ -693,19 +693,14 @@ function Results({
 
   return (
     <div>
-      {/* 3D centerpiece — the formula, rendered from your climate */}
-      <div className="mb-8 flex flex-col items-center text-center">
-        <div className="relative aspect-square w-56 sm:w-72">
+      {/* 3D centerpiece — small, artistic; no caption */}
+      <div className="mb-6 flex justify-center">
+        <div className="relative aspect-square w-36 sm:w-44">
           <ResultViz
             className="absolute inset-0 h-full w-full"
             count={result.recommendations.length}
           />
         </div>
-        <p className="mt-3 font-editorial text-base italic text-ink/70">
-          {lang === "fr"
-            ? "Vos actifs prioritaires, pour la saison qui vient."
-            : "Your priority actives, for the season ahead."}
-        </p>
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

@@ -39,9 +39,12 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   }, []);
   useEffect(() => {
     let alive = true;
-    getLocation().then((loc) => {
-      if (!alive || !loc) return;
-      const place = displayPlace(loc);
+    getLocation().then((loc0) => {
+      if (!alive) return;
+      // Fall back to Paris so the live readout always shows something,
+      // even when IP geolocation is blocked (public Wi-Fi, ad-blockers).
+      const loc = loc0 ?? { city: "Paris", lat: 48.8566, lon: 2.3522 };
+      const place = displayPlace(loc) || loc.city;
       if (place) setCity(place);
       // live local climate → drives the reactive orb + readout
       fetch(
