@@ -179,7 +179,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
 
             {/* Museum cartel (real wall-label format): auteur · titre, date ·
                 technique · acquisition · n° d'inventaire — left-aligned. */}
-            <figcaption className="ml-auto mt-6 max-w-[15rem] text-right sm:mt-8">
+            <figcaption className="ml-auto mt-6 max-w-[15rem] text-left sm:mt-8">
               <span className="block font-display text-[0.82rem] font-medium tracking-tight text-stone">
                 Jiwon
               </span>
