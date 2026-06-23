@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Lang } from "@/lib/locale";
 import { localePath } from "@/lib/locale";
 import { allIngredientsSorted, ingredientSlug, TRAIT_LABEL } from "@/lib/ingredient-pages";
+import type { ConcernKey } from "@/lib/ingredients";
+import { CONCERN_TITLE, CONCERN_SLUG } from "@/lib/concerns";
 
 export function IngredientsIndex({ lang }: { lang: Lang }) {
   const L = (fr: string, en: string) => (lang === "fr" ? fr : en);
@@ -27,6 +29,19 @@ export function IngredientsIndex({ lang }: { lang: Lang }) {
             "What each active does, who it suits, in which climate, and what not to mix it with. Not a list: a useful read.",
           )}
         </p>
+
+        <div className="mt-8">
+          <p className="font-mono text-[0.7rem] uppercase tracking-widest text-stone-2">
+            {L("Parcourir par préoccupation", "Browse by concern")}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {(Object.keys(CONCERN_TITLE) as ConcernKey[]).map((k) => (
+              <Link key={k} href={localePath(lang, `/concerns/${CONCERN_SLUG[k]}`)} className="rounded-full border border-line bg-white px-3.5 py-1.5 text-sm text-ink transition-colors hover:border-spring-deep hover:text-spring-deep">
+                {CONCERN_TITLE[k][lang]}
+              </Link>
+            ))}
+          </div>
+        </div>
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2">
           {items.map((ing) => (

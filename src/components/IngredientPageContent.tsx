@@ -14,6 +14,7 @@ import {
   PREGNANCY_UNSAFE,
 } from "@/lib/ingredient-pages";
 import { productsForIngredients, yesstyleSearchUrl } from "@/lib/products";
+import { CONCERN_SLUG } from "@/lib/concerns";
 import { buildAffiliateLink } from "@/lib/affiliates";
 
 export function IngredientPageContent({
@@ -107,9 +108,12 @@ export function IngredientPageContent({
             <ul className="mt-4 flex flex-col gap-3">
               {targets.map(({ k, v }) => (
                 <li key={k} className="flex items-center gap-4">
-                  <span className="w-32 shrink-0 text-sm font-medium text-ink">
+                  <Link
+                    href={localePath(lang, `/concerns/${CONCERN_SLUG[k]}`)}
+                    className="w-32 shrink-0 text-sm font-medium text-ink transition-colors hover:text-spring-deep"
+                  >
                     {CONCERN_LABEL[k][lang]}
-                  </span>
+                  </Link>
                   <span className="flex flex-1 gap-1">
                     {[1, 2, 3].map((n) => (
                       <span

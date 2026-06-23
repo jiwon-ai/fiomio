@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/articles";
 import { allIngredientSlugs } from "@/lib/ingredient-pages";
+import { allConcernSlugs } from "@/lib/concerns";
 
 const BASE = "https://fiomio.io";
 
@@ -15,6 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const ingSlugs = allIngredientSlugs();
+  const concernSlugs = allConcernSlugs();
+  const frConcern = concernSlugs.map((slug) => ({ url: `${BASE}/concerns/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 }));
+  const enConcern = concernSlugs.map((slug) => ({ url: `${BASE}/en/concerns/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 }));
   const frIng = ingSlugs.map((slug) => ({
     url: `${BASE}/ingredients/${slug}`,
     lastModified: new Date(),
@@ -66,6 +70,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...frIng,
+    { url: `${BASE}/concerns`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    ...frConcern,
     ...frArticles,
     // English (/en) mirror
     { url: `${BASE}/en`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
@@ -98,6 +104,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     ...enIng,
+    { url: `${BASE}/en/concerns`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
+    ...enConcern,
     ...enArticles,
   ];
 }
