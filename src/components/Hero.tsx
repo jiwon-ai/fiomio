@@ -111,16 +111,16 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#diagnostic"
-                className="spring-glow inline-flex items-center justify-center gap-2 rounded-full bg-spring px-6 py-3.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5"
+                className="spring-glow group inline-flex items-center justify-center gap-2 rounded-full bg-spring-deep px-7 py-4 text-[0.95rem] font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink"
               >
                 {h.ctaPrimary}
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
               <a
                 href="#rejoindre"
-                className="inline-flex items-center justify-center rounded-full border border-ink/15 px-6 py-3.5 text-sm font-medium text-stone transition-colors hover:border-ink/35 hover:text-ink"
+                className="inline-flex items-center justify-center rounded-full border border-ink/25 px-7 py-4 text-[0.95rem] font-medium text-ink transition-colors hover:border-ink/50 hover:bg-ink hover:text-cream"
               >
                 {h.ctaSecondary}
               </a>

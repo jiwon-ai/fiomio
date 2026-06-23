@@ -154,7 +154,7 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="spring-glow inline-flex h-13 items-center justify-center rounded-full bg-spring px-6 py-3.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
+                  className="spring-glow inline-flex h-13 items-center justify-center rounded-full bg-spring-deep px-7 text-[0.95rem] font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink disabled:translate-y-0 disabled:opacity-70"
                 >
                   {status === "sending" ? w.sending : w.button}
                 </button>
