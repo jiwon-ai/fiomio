@@ -95,6 +95,20 @@ const INCI_ALIASES: Record<string, string[]> = {
   calendula: ["calendula officinalis", "calendula"],
   snowmushroom: ["tremella fuciformis", "snow mushroom"],
   betaine: ["betaine"],
+  linoleic: ["linoleic acid", "linoleic"],
+  honey: ["honey", "mel", "mel extract"],
+  clay: ["kaolin", "bentonite", "clay"],
+  charcoal: ["charcoal", "charbon"],
+  sulfur: ["sulfur", "sulphur"],
+  algae: ["algae", "laminaria", "kelp"],
+  retinal: ["retinal", "retinaldehyde"],
+  argan: ["argania spinosa", "argan oil"],
+  exosome: ["exosome", "exosomes"],
+  seabuckthorn: ["hippophae", "sea buckthorn"],
+  ginkgo: ["ginkgo biloba", "ginkgo"],
+  enzyme: ["papain", "bromelain", "fruit enzyme"],
+  edelweiss: ["leontopodium alpinum", "edelweiss"],
+  willowbark: ["salix", "willow bark"],
 };
 
 /** Map our ingredient ids → the INCI tokens (name + aliases) used to match
