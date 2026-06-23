@@ -25,9 +25,9 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
     { href: `${homePrefix}/#probleme`, label: t.nav.problem },
     { href: `${homePrefix}/#solution`, label: t.nav.solution },
     { href: `${homePrefix}/#diagnostic`, label: t.nav.diagnostic },
-    { href: localePath(lang, "/journal"), label: t.nav.journal },
     { href: localePath(lang, "/ingredients"), label: t.nav.ingredients },
     { href: localePath(lang, "/mes-produits"), label: t.nav.products },
+    { href: localePath(lang, "/journal"), label: t.nav.journal },
     { href: localePath(lang, "/marques"), label: t.nav.brands },
   ];
 
