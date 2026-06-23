@@ -31,7 +31,7 @@ export async function GET(req: Request) {
     }
   }
 
-  const climate = await fetchClimate(lat, lon, city);
+  const climate = await fetchClimate(lat, lon, city, 0, 9);
   if (!climate) {
     return NextResponse.json({ ok: false }, { status: 502 });
   }

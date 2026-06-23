@@ -108,7 +108,7 @@ export const fr = {
   solution: {
     eyebrow: "Comment ça marche",
     title: "On ne décode pas une étiquette. On vous dit quoi mettre, et pourquoi.",
-    intro: "Trois informations suffisent. Pas seulement quoi appliquer — pourquoi.",
+    intro: "Quatre informations suffisent. Pas seulement quoi appliquer — pourquoi.",
     steps: [
       {
         n: "01",
@@ -117,11 +117,16 @@ export const fr = {
       },
       {
         n: "02",
+        title: "Vos préoccupations",
+        body: "Rougeurs, éclat, anti-âge : ce que vous visez vraiment.",
+      },
+      {
+        n: "03",
         title: "Données climatiques",
         body: "Humidité, saison locale — la variable que les autres ignorent.",
       },
       {
-        n: "03",
+        n: "04",
         title: "Analyse d'actifs",
         body: "Les actifs décodés et pondérés, pas listés.",
       },
@@ -558,7 +563,7 @@ export const en: Messages = {
   solution: {
     eyebrow: "How it works",
     title: "We don't decode a label. We tell you what to apply, and why.",
-    intro: "Three inputs are enough. Not just what to apply — why.",
+    intro: "Four inputs are enough. Not just what to apply — why.",
     steps: [
       {
         n: "01",
@@ -567,11 +572,16 @@ export const en: Messages = {
       },
       {
         n: "02",
+        title: "Your concerns",
+        body: "Redness, glow, anti-aging: what you actually want.",
+      },
+      {
+        n: "03",
         title: "Climate data",
         body: "Humidity, local season — the variable others ignore.",
       },
       {
-        n: "03",
+        n: "04",
         title: "Active analysis",
         body: "Actives decoded and weighted, not just listed.",
       },

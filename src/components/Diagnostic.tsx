@@ -7,7 +7,7 @@ import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
 import { DiagIcon } from "./diagnostic/icons";
-import { seasonFallbackClimate, deriveClimate, type ClimateContext } from "@/lib/climate";
+import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
 import { getSeasonInfo } from "@/lib/season";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
@@ -58,34 +58,23 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   // 7-day forecast.
   // Season NAME (months-ahead framing) + the city's REAL current weather so the
   // readout & engine reflect THIS location — Greenland ≠ Paris.
+  // A skincare routine is used across full days and the coming weeks, not a
+  // single moment — so we read the city's DAILY aggregates over the next ~10
+  // days (daily-max UV, mean temp/humidity), not the instantaneous reading.
+  // That's why 4 a.m. in Seoul still shows the summer daytime picture, not UV 0.
   const applyClimate = useCallback((l: Loc | null) => {
     const city = l ? displayPlace(l) || l.city : undefined;
     setClimate(seasonFallbackClimate(new Date(), city, l?.lat)); // instant estimate
     const lat = l?.lat ?? 48.8566;
     const lon = l?.lon ?? 2.3522;
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-        `&current=temperature_2m,relative_humidity_2m,uv_index,precipitation&timezone=auto`,
-    )
+    const url =
+      `/api/forecast?lat=${lat}&lon=${lon}` +
+      (city ? `&city=${encodeURIComponent(city)}` : "");
+    fetch(url)
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        const c = d?.current;
-        if (!c || typeof c.temperature_2m !== "number") return;
-        const today = new Date().toISOString().slice(0, 10);
-        const real = deriveClimate(
-          {
-            tempC: c.temperature_2m,
-            humidity:
-              typeof c.relative_humidity_2m === "number"
-                ? c.relative_humidity_2m
-                : 60,
-            uv: typeof c.uv_index === "number" ? c.uv_index : 0,
-            precipMm: typeof c.precipitation === "number" ? c.precipitation : 0,
-          },
-          today,
-          today,
-          city,
-        );
+      .then((data) => {
+        if (!data?.ok || !data.climate) return;
+        const real = data.climate as ClimateContext;
         const season = getSeasonInfo(new Date(), l?.lat);
         setClimate({
           ...real,
