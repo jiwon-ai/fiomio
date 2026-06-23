@@ -166,7 +166,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
                   orbReady ? "opacity-0" : "opacity-100"
                 }`}
               >
-                <div className="aspect-square w-[72%] rounded-full bg-[radial-gradient(circle_at_36%_30%,#f2ffce,#cbef4d_60%,#93c93f)] blur-[1px]" />
+                <div className="aspect-square w-[72%] rounded-full bg-[radial-gradient(circle_at_36%_30%,#e9f5f0,#acd6cd_60%,#73b8ab)] blur-[1px]" />
               </div>
               {canLoadOrb && (
                 <HeroOrb
