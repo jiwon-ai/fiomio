@@ -13,6 +13,7 @@ export const runtime = "nodejs";
  * else a generic webhook, else a no-op. Always returns ok.
  */
 type Body = {
+  diagId?: string;
   skinType?: string;
   sensitive?: boolean;
   concerns?: string[];
@@ -41,6 +42,7 @@ export async function POST(req: Request) {
 
   // anonymous record — deliberately no email / no IP
   const record = {
+    diag_id: str(body.diagId, 40),
     skin_type: str(body.skinType, 20),
     sensitive: typeof body.sensitive === "boolean" ? body.sensitive : null,
     concerns: arr(body.concerns),

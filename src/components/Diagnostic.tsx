@@ -49,6 +49,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const [llmLoading, setLlmLoading] = useState(false);
   const llmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startedRef = useRef(false);
+  const [diagId, setDiagId] = useState("");
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // A skincare routine is used for months, not the delivery week — so the
@@ -123,6 +124,11 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const showResults = useCallback((preg: Pregnancy) => {
     if (!skinType || sensitive === null || !activeUse || !gender) return;
     setPregnancy(preg);
+    const newDiagId =
+      typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `d_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    setDiagId(newDiagId);
     const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg };
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
@@ -143,6 +149,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        diagId: newDiagId,
         skinType,
         sensitive,
         concerns,
@@ -335,7 +342,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} activeUse={activeUse} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} diagId={diagId} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -664,6 +671,7 @@ function Results({
   lang,
   result,
   activeUse,
+  diagId,
   onReset,
   llmNote,
   llmLoading,
@@ -672,6 +680,7 @@ function Results({
   lang: "fr" | "en";
   result: DiagnosticResult;
   activeUse: ActiveUse | null;
+  diagId: string;
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
@@ -826,7 +835,68 @@ function Results({
         </a>
       </div>
 
+      <FeedbackWidget
+        d={d}
+        lang={lang}
+        diagId={diagId}
+        recommended={result.recommendations.map((rec) => rec.ingredient.id)}
+      />
+
       <p className="mt-5 text-xs leading-relaxed text-stone-2">{d.disclaimer}</p>
+    </div>
+  );
+}
+
+/* ---------------- Feedback (outcome loop) ---------------- */
+
+function FeedbackWidget({
+  d,
+  lang,
+  diagId,
+  recommended,
+}: {
+  d: DDict;
+  lang: "fr" | "en";
+  diagId: string;
+  recommended: string[];
+}) {
+  const [sent, setSent] = useState(false);
+  const submit = (helpful: boolean) => {
+    setSent(true);
+    track("feedback_given", { helpful });
+    fetch("/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ diagId, helpful, recommended, lang }),
+    }).catch(() => {});
+  };
+  return (
+    <div className="mt-8 rounded-xl border border-line bg-cream px-5 py-4">
+      {sent ? (
+        <p className="flex items-center gap-2 text-sm font-medium text-ink">
+          <span aria-hidden>✓</span> {d.fbThanks}
+        </p>
+      ) : (
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm font-medium text-ink">{d.fbTitle}</p>
+          <div className="flex shrink-0 gap-2">
+            <button
+              type="button"
+              onClick={() => submit(true)}
+              className="rounded-full bg-spring px-4 py-2 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5"
+            >
+              {d.fbYes}
+            </button>
+            <button
+              type="button"
+              onClick={() => submit(false)}
+              className="rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-stone transition-colors hover:border-ink/30 hover:text-ink"
+            >
+              {d.fbNo}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -217,6 +217,10 @@ export const fr = {
       "Le produit complet associera ces actifs à des produits réels, à votre budget et à la météo en temps réel.",
     disclaimer:
       "Aperçu éducatif à but informatif, ne remplace pas un avis dermatologique. Introduisez un nouvel actif progressivement et faites un test de tolérance.",
+    fbTitle: "Cette sélection vous paraît juste ?",
+    fbYes: "Oui, ça me parle",
+    fbNo: "Pas vraiment",
+    fbThanks: "Merci — chaque retour affine nos recommandations.",
 
     products: {
       gapTitle: "Ce qui manque à votre routine",
@@ -663,6 +667,10 @@ export const en: Messages = {
       "The full product will pair these actives with real products, your budget and live weather.",
     disclaimer:
       "Educational preview for information only, not a substitute for dermatological advice. Introduce any new active gradually and patch-test first.",
+    fbTitle: "Does this selection feel right?",
+    fbYes: "Yes, it resonates",
+    fbNo: "Not really",
+    fbThanks: "Thanks — every reply sharpens our recommendations.",
 
     products: {
       gapTitle: "What your routine is missing",
