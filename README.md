@@ -1,105 +1,120 @@
 # Fiomio — Intelligence skincare adaptative
 
 > **Korean Insider × Paris Observer.**
-> La K-beauty décodée pour votre peau, votre ville et votre saison — une
+> La K-beauty décodée pour votre peau, votre ville et votre saison : une
 > recommandation personnalisée et *expliquée*, pas une liste de best-sellers.
 
-Landing page + démo interactive du moteur de recommandation Fiomio.
-Bilingue **FR / EN** (français par défaut, cible : Parisiennes 25–35 ans).
+Plateforme de recommandation skincare. Un diagnostic gratuit croise le profil
+cutané, le **climat local** et une base d'**actifs K-beauty décodés** pour
+proposer des ingrédients argumentés. Bilingue **FR / EN** (FR par défaut).
+Cible : Parisiennes 25–35 ans, extensible à toute l'Europe.
+
+Site : **https://fiomio.io**
 
 ---
 
 ## Stack
 
 - **Next.js 16** (App Router) · **React 19** · **TypeScript**
-- **Tailwind CSS v4** (design tokens en CSS-first via `@theme`)
-- Polices : **Fraunces** (display) · **Inter** (texte) · **Geist Mono** (labels)
-- i18n maison léger (contexte React, FR/EN, persistance localStorage)
-- Aucune dépendance lourde — déploiement statique/edge sur **Vercel**
+- **Tailwind CSS v4** (design tokens CSS-first via `@theme`)
+- Polices : **Outfit** (display/sans) · **Cormorant Garamond** (éditorial)
+- Couleur signature : **céladon de Goryeo** (`#ACD6CD`, profond `#316B62`)
+- 3D temps réel : **three.js** (orbe « sérum » réactif au climat, lazy-load)
+- Données : **Supabase** (stockage anonyme) · **Brevo** (e-mail / newsletter)
+- Météo / géo : **Open-Meteo** · Données produit : **Open Beauty Facts**
+- Déploiement **Vercel** (edge + cron)
+
+## Fonctionnalités
+
+- **Diagnostic explicable** — moteur de scoring transparent (`src/lib/diagnostic.ts`)
+  qui croise peau × préoccupations × climat de la semaine de livraison et
+  renvoie des actifs avec *raison*, *cautions* et logique de routine.
+- **Réactif au climat** — météo locale réelle (Open-Meteo), repli saisonnier
+  hémisphère-aware ; chaque recommandation est reliée aux conditions de la ville.
+- **Élimination d'ingrédients** (`/mes-produits`) — scan code-barres, recherche
+  ou saisie/OCR des produits utilisés, notés 👍/👎. Le moteur isole les
+  ingrédients suspects via **lift** (et non fréquence brute) + pondération
+  des **allergènes/irritants documentés**, puis les écarte du diagnostic.
+- **SEO programmatique** — une page par actif (`/ingredients/[slug]`) et par
+  préoccupation (`/concerns/[slug]`), FR + EN, avec **FAQ + JSON-LD**, climat
+  idéal, maillage interne actifs ↔ préoccupations, sitemap auto.
+- **Data flywheel** — diagnostics et scans stockés **anonymement** (sans e-mail,
+  sans IP) pour améliorer le moteur ; jeu de données ingrédient × résultat propriétaire.
+- **Liste d'attente** (Brevo, avec ville/coordonnées) + **newsletter saisonnière**
+  automatisée (cron hebdomadaire).
+- **B2B** — page `/marques` (demande agrégée et anonymisée, rapports de marché).
+- **Conformité** — RGPD, analytics sans cookie (Vercel), liens d'affiliation signalés.
+
+## Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` · `/en` | Landing + démo du diagnostic |
+| `/ingredients` · `/ingredients/[slug]` | Encyclopédie des 72 actifs (FR/EN) |
+| `/concerns` · `/concerns/[slug]` | Hubs par préoccupation (8) |
+| `/mes-produits` | Scan & élimination d'ingrédients |
+| `/journal` · `/journal/[slug]` | Tests & contenu éditorial |
+| `/marques` | Offre B2B (données de marché) |
+| `/mentions-legales` · `/confidentialite` | Légal · RGPD |
+
+## API (`src/app/api`)
+
+| Route | Rôle |
+|-------|------|
+| `forecast` | Météo/climat agrégé pour la fenêtre de livraison |
+| `recommend` | Note personnalisée (couche LLM optionnelle) |
+| `diagnostic` | Persistance anonyme des diagnostics |
+| `feedback` | Boucle de résultat (recommandation utile ou non) |
+| `scan` | Persistance anonyme des produits scannés |
+| `products/search` · `products/barcode` | Lookup dans la base produit propriétaire |
+| `waitlist` | Inscription → Brevo (crée les attributs ville auto) |
+| `cron/seasonal-newsletter` | Newsletter saisonnière (Vercel Cron) |
+| `admin/import-obf` · `admin/import-feed` | Import produits (Open Beauty Facts / flux d'affiliation) |
+
+## Données
+
+- **72 actifs** curatés et pondérés (`src/lib/ingredients.ts`) : efficacité par
+  préoccupation, traits, douceur, timing, conflits — bilingue.
+- **136 produits** K-beauty réels mappés aux actifs (`src/lib/products.ts`).
+- Moteur INCI : normalisation, allergènes, **lift** (`src/lib/inci.ts`).
+- Base **seed_products** (Supabase) pré-remplie depuis Open Beauty Facts.
+
+### Tables Supabase
+
+```sql
+-- diagnostics : profils anonymes (sans e-mail / IP)
+-- product_scans : produits scannés + verdict (anonyme)
+create table if not exists seed_products (
+  barcode text primary key, name text, brand text,
+  inci text[], categories text[], source text,
+  updated_at timestamptz default now()
+);
+```
 
 ## Démarrer
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev          # http://localhost:3000
+npm run build        # build de production
 ```
 
-Build de production :
+## Variables d'environnement
 
-```bash
-npm run build && npm start
-```
+| Variable | Usage |
+|----------|-------|
+| `SUPABASE_URL` · `SUPABASE_SERVICE_KEY` | Stockage (diagnostics, scans, seed) |
+| `BREVO_API_KEY` · `BREVO_LIST_ID` | Liste d'attente & newsletter |
+| `CRON_SECRET` | Auth des crons Vercel |
+| `IMPORT_SECRET` | Auth des routes d'import produit |
+| `NEXT_PUBLIC_AFF_*` | Tags d'affiliation (YesStyle, iHerb, Stylevana, Amazon) |
+| `OPENAI`/LLM (optionnel) | Note personnalisée enrichie |
 
-## Structure
+## Déploiement
 
-```
-src/
-├─ app/
-│  ├─ layout.tsx            # polices, SEO/metadata, <LangProvider>
-│  ├─ page.tsx              # assemble les sections
-│  ├─ globals.css           # design system (tokens @theme, utilitaires)
-│  ├─ icon.svg              # favicon (auto-détecté)
-│  ├─ opengraph-image.tsx   # carte de partage générée (1200×630)
-│  ├─ sitemap.ts · robots.ts
-│  └─ api/waitlist/route.ts # capture e-mail (webhook ou fichier local)
-├─ components/              # Nav, Hero, Diagnostic, Waitlist, Footer, …
-│  └─ SkinConstellation.tsx # visuel "données sur la peau" (SVG animé)
-└─ lib/
-   ├─ i18n.tsx · messages.ts   # dictionnaire bilingue FR/EN
-   ├─ ingredients.ts           # base de connaissances des actifs K-beauty
-   ├─ season.ts                # modèle climatique de Paris (saison → biais)
-   └─ diagnostic.ts            # moteur de scoring (peau × climat × actifs)
-```
-
-## Le moteur de diagnostic
-
-`lib/diagnostic.ts` est un modèle de scoring **transparent** (pas une boîte
-noire) — un aperçu de la couche contextuelle que le produit complet
-approfondira. Il croise :
-
-1. **Profil cutané** — type de peau + réactivité
-2. **Climat de Paris** — la saison courante est détectée et biaise les actifs
-   (hiver → réparation/hydratation ; été → antioxydants/contrôle du sébum)
-3. **Préoccupations** — pondérées par ordre de priorité
-4. **Actifs déjà utilisés** — conflits (ex. rétinol + acide) et synergies
-   (rétinol → on renforce la réparation de la barrière)
-
-Sortie : 3 actifs classés, chacun **avec sa raison**, plus une logique de
-routine et des précautions. Pour enrichir : éditez `lib/ingredients.ts`
-(ajout d'actifs) et les règles de `lib/diagnostic.ts`.
-
-## Liste d'attente (capture e-mail)
-
-`POST /api/waitlist` accepte `{ email, lang, source }` et :
-
-- **forwarde vers `WAITLIST_WEBHOOK_URL`** si défini (Google Sheet, Zapier,
-  Formspree, Resend… — tout endpoint POST JSON) ;
-- sinon, écrit dans `./data/waitlist.json` en dev local.
-
-> ⚠️ Le système de fichiers est en lecture seule sur Vercel : **définissez
-> `WAITLIST_WEBHOOK_URL` avant le lancement** pour ne perdre aucun lead.
-> Voir `.env.example`.
-
-## Déploiement (Vercel)
-
-1. `git push` vers `github.com/jiwon-ai/fiomio`
-2. Sur [vercel.com](https://vercel.com) → *New Project* → importez le repo
-   (Next.js détecté automatiquement, aucune config requise)
-3. Ajoutez la variable d'env `WAITLIST_WEBHOOK_URL`
-4. *Domains* → reliez **fiomio.io** (le domaine est déjà actif)
-
-## À faire ensuite (pistes)
-
-- Brancher la météo/qualité de l'air de Paris en temps réel (au lieu de la
-  saison estimée) — la vraie « variable climat ».
-- Associer chaque actif recommandé à des **produits réels** + liens affiliés
-  (le flux de revenu B2C, monnayable dès le jour 1).
-- Pages SEO par actif (niacinamide, cica, rétinol, céramides…).
-- Photographie sous licence pour les sections éditoriales (les visuels
-  actuels sont 100 % CSS/SVG, sans dépendance à des images tierces).
-- Mentions légales / politique de confidentialité (RGPD).
+Déploiement automatique sur **Vercel** à chaque push sur `main`. Crons définis
+dans `vercel.json` (newsletter hebdomadaire, import produit quotidien).
 
 ---
 
-© Fiomio — conçu entre Paris et Séoul. Information éducative sur les
-ingrédients cosmétiques ; ne constitue pas un avis dermatologique.
+© 2026 Fiomio. Conçu entre Paris et Séoul.
