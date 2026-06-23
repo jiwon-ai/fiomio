@@ -28,7 +28,6 @@ export type DiagnosticInput = {
   sensitive: boolean;
   concerns: ConcernKey[];
   activeUse: ActiveUse;
-  ageRange: AgeRange;
   gender: Gender;
   pregnancy: Pregnancy;
 };
@@ -101,14 +100,6 @@ function scoreIngredient(
 
   // 3. Skin-type affinity
   if (ing.loves.includes(input.skinType)) score += 0.8;
-
-  // 3b. Age: a gentle anti-aging bias for 35+ (firming actives weigh more)
-  if (
-    (input.ageRange === "a35_44" || input.ageRange === "a45p") &&
-    ing.traits.includes("firming")
-  ) {
-    score += 0.6;
-  }
 
   // 4. Sensitivity — bias toward gentle, penalize potent
   if (input.sensitive) {

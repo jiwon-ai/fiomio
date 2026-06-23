@@ -14,13 +14,12 @@ import {
   runDiagnostic,
   type DiagnosticResult,
   type SkinType,
-  type AgeRange,
   type Gender,
   type Pregnancy,
 } from "@/lib/diagnostic";
 import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
 
-const TOTAL_STEPS = 7;
+const TOTAL_STEPS = 6;
 const AUTO_ADVANCE_MS = 280;
 
 export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
@@ -34,7 +33,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const [sensitive, setSensitive] = useState<boolean | null>(null);
   const [concerns, setConcerns] = useState<ConcernKey[]>([]);
   const [activeUse, setActiveUse] = useState<ActiveUse | null>(null);
-  const [ageRange, setAgeRange] = useState<AgeRange | null>(null);
   const [gender, setGender] = useState<Gender | null>(null);
   const [pregnancy, setPregnancy] = useState<Pregnancy | null>(null);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
@@ -99,16 +97,15 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     if (step === 1) return sensitive !== null;
     if (step === 2) return concerns.length >= 1;
     if (step === 3) return activeUse !== null;
-    if (step === 4) return ageRange !== null;
-    if (step === 5) return gender !== null;
-    if (step === 6) return pregnancy !== null;
+    if (step === 4) return gender !== null;
+    if (step === 5) return pregnancy !== null;
     return false;
-  }, [step, skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy]);
+  }, [step, skinType, sensitive, concerns, activeUse, gender, pregnancy]);
 
   const showResults = useCallback((preg: Pregnancy) => {
-    if (!skinType || sensitive === null || !activeUse || !ageRange || !gender) return;
+    if (!skinType || sensitive === null || !activeUse || !gender) return;
     setPregnancy(preg);
-    const input = { skinType, sensitive, concerns, activeUse, ageRange, gender, pregnancy: preg };
+    const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg };
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
     setResult(r);
@@ -130,14 +127,14 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         if (llmTimer.current) clearTimeout(llmTimer.current);
         setLlmLoading(false);
       });
-  }, [skinType, sensitive, concerns, activeUse, ageRange, gender, climate]);
+  }, [skinType, sensitive, concerns, activeUse, gender, climate]);
 
   // Advance one step forward, honouring the male→skip-pregnancy and
   // last-step→results behaviour. Mirrors the manual "Continue" button.
   const advance = useCallback(
     (currentGender: Gender | null, currentPregnancy: Pregnancy | null) => {
       if (step < TOTAL_STEPS - 1) {
-        if (step === 5 && currentGender === "male") {
+        if (step === 4 && currentGender === "male") {
           showResults("none" as Pregnancy);
           return;
         }
@@ -179,7 +176,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     setSensitive(null);
     setConcerns([]);
     setActiveUse(null);
-    setAgeRange(null);
     setGender(null);
     setPregnancy(null);
   };
@@ -267,7 +263,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   skinTypes={t.skinTypes}
                   concernsList={t.concerns}
                   activesList={t.actives}
-                  ageRangesList={t.ageRanges}
                   gendersList={t.genders}
                   pregnancyList={t.pregnancyOptions}
                   climate={climate}
@@ -280,8 +275,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   toggleConcern={toggleConcern}
                   activeUse={activeUse}
                   setActiveUse={setActiveUse}
-                  ageRange={ageRange}
-                  setAgeRange={setAgeRange}
                   gender={gender}
                   setGender={setGender}
                   pregnancy={pregnancy}
@@ -315,7 +308,6 @@ function Questionnaire(props: {
   skinTypes: Messages["skinTypes"];
   concernsList: Messages["concerns"];
   activesList: Messages["actives"];
-  ageRangesList: Messages["ageRanges"];
   gendersList: Messages["genders"];
   pregnancyList: Messages["pregnancyOptions"];
   climate: ClimateContext | null;
@@ -328,8 +320,6 @@ function Questionnaire(props: {
   toggleConcern: (k: ConcernKey) => void;
   activeUse: ActiveUse | null;
   setActiveUse: (a: ActiveUse) => void;
-  ageRange: AgeRange | null;
-  setAgeRange: (a: AgeRange) => void;
   gender: Gender | null;
   setGender: (g: Gender) => void;
   pregnancy: Pregnancy | null;
@@ -345,7 +335,6 @@ function Questionnaire(props: {
     skinTypes,
     concernsList,
     activesList,
-    ageRangesList,
     gendersList,
     pregnancyList,
     climate,
@@ -358,8 +347,6 @@ function Questionnaire(props: {
     toggleConcern,
     activeUse,
     setActiveUse,
-    ageRange,
-    setAgeRange,
     gender,
     setGender,
     pregnancy,
@@ -370,8 +357,8 @@ function Questionnaire(props: {
     onNext,
   } = props;
 
-  const titles = [d.q1Title, d.q2Title, d.q3Title, d.q4Title, d.q5Title, d.q6Title, d.q7Title];
-  const helps = [d.q1Help, d.q2Help, d.q3Help, d.q4Help, d.q5Help, d.q6Help, d.q7Help];
+  const titles = [d.q1Title, d.q2Title, d.q3Title, d.q4Title, d.q6Title, d.q7Title];
+  const helps = [d.q1Help, d.q2Help, d.q3Help, d.q4Help, d.q6Help, d.q7Help];
 
   return (
     <div>
@@ -483,24 +470,6 @@ function Questionnaire(props: {
 
         {step === 4 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {ageRangesList.map((a) => (
-              <IconCard
-                key={a.key}
-                icon={a.key}
-                selected={ageRange === a.key}
-                onClick={() => {
-                  setAgeRange(a.key as AgeRange);
-                  scheduleAdvance();
-                }}
-                title={a.label}
-                desc={"desc" in a ? (a as { desc: string }).desc : undefined}
-              />
-            ))}
-          </div>
-        )}
-
-        {step === 5 && (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {gendersList.map((g) => (
               <IconCard
                 key={g.key}
@@ -516,7 +485,7 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {step === 6 && (
+        {step === 5 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {pregnancyList.map((p) => (
               <IconCard
@@ -571,7 +540,7 @@ function Questionnaire(props: {
               : "cursor-not-allowed bg-line text-stone-2"
           }`}
         >
-          {step === TOTAL_STEPS - 1 || (step === 5 && gender === "male") ? d.seeResults : d.next}
+          {step === TOTAL_STEPS - 1 || (step === 4 && gender === "male") ? d.seeResults : d.next}
         </button>
       </div>
     </div>
