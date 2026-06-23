@@ -297,8 +297,8 @@ export const fr = {
 
   waitlist: {
     eyebrow: "Rejoindre",
-    title: "Soyez les premières à lire votre peau avec Fiomio.",
-    body: "Inscrivez-vous pour l'accès anticipé. Vous recevrez votre diagnostic complet et votre routine personnalisée au lancement, sans spam, désinscription en un clic.",
+    title: "On anticipe ce dont votre peau aura besoin.",
+    body: "Analyste de données, je croise votre peau, votre ville et la saison qui arrive pour vous envoyer la bonne reco, au bon moment. Accès anticipé, sans spam, désinscription en un clic.",
     placeholder: "votre@email.com",
     button: "Rejoindre la liste",
     sending: "Envoi…",
@@ -713,8 +713,8 @@ export const en: Messages = {
 
   waitlist: {
     eyebrow: "Join",
-    title: "Be the first to read your skin with Fiomio.",
-    body: "Sign up for early access. You'll get your full diagnostic and personalized routine at launch, no spam, one-click unsubscribe.",
+    title: "We anticipate what your skin will need.",
+    body: "A data analyst crosses your skin, your city and the season ahead to send you the right pick, at the right time. Early access, no spam, one-click unsubscribe.",
     placeholder: "you@email.com",
     button: "Join the list",
     sending: "Sending…",
