@@ -20,6 +20,8 @@ export type Product = {
   name: string;
   /** short, brand-led YesStyle query (full names are too exact to match) */
   searchQ: string;
+  /** exact YesStyle product page (verified); when absent, searchQ is used */
+  url?: string;
   ingredientIds: string[];
   concerns?: ConcernKey[];
   category:
@@ -40,6 +42,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: "cosrx-snail-96",
+    url: "https://www.yesstyle.com/en/cosrx-advanced-snail-96-mucin-power-essence-100ml/info.html/pid.1052684695",
     brand: "COSRX",
     name: "Advanced Snail 96 Mucin Power Essence",
     searchQ: "COSRX Snail 96 Essence",
@@ -53,6 +56,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "anua-heartleaf-77",
+    url: "https://www.yesstyle.com/en/anua-heartleaf-77-soothing-toner-250ml/info.html/pid.1134551762",
     brand: "Anua",
     name: "Heartleaf 77% Soothing Toner",
     searchQ: "Anua Heartleaf 77 Toner",
@@ -66,6 +70,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "skin1004-centella-ampoule",
+    url: "https://www.yesstyle.com/en/skin-1004-madagascar-centella-ampoule-55ml/info.html/pid.1121970671",
     brand: "SKIN1004",
     name: "Madagascar Centella Ampoule",
     searchQ: "SKIN1004 Centella Ampoule",
@@ -79,6 +84,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "purito-centella-serum",
+    url: "https://www.yesstyle.com/en/purito-centella-unscented-serum-60ml-pcr-bottle/info.html/pid.1104612292",
     brand: "PURITO",
     name: "Centella Unscented Serum",
     searchQ: "PURITO Centella Unscented Serum",
@@ -92,6 +98,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "boj-glow-deep-serum",
+    url: "https://www.yesstyle.com/en/beauty-of-joseon-glow-deep-serum-30ml/info.html/pid.1103112976",
     brand: "Beauty of Joseon",
     name: "Glow Deep Serum: Rice + Alpha Arbutin",
     searchQ: "Beauty of Joseon Glow Deep Serum",
@@ -105,6 +112,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "boj-revive-serum",
+    url: "https://www.yesstyle.com/en/beauty-of-joseon-revive-serum/info.html/pid.1106273718",
     brand: "Beauty of Joseon",
     name: "Revive Serum: Ginseng + Snail Mucin",
     searchQ: "Beauty of Joseon Revive Serum",
@@ -118,6 +126,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "boj-relief-sun",
+    url: "https://www.yesstyle.com/en/beauty-of-joseon-relief-sun-rice-probiotics-50ml/info.html/pid.1107744417",
     brand: "Beauty of Joseon",
     name: "Relief Sun: Rice + Probiotics SPF50+",
     searchQ: "Beauty of Joseon Relief Sun",
@@ -131,6 +140,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "boj-glow-serum",
+    url: "https://www.yesstyle.com/en/beauty-of-joseon-glow-serum-30ml/info.html/pid.1089210994",
     brand: "Beauty of Joseon",
     name: "Glow Serum: Propolis + Niacinamide",
     searchQ: "Beauty of Joseon Propolis Niacinamide Serum",
@@ -144,6 +154,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "numbuzin-no3",
+    url: "https://www.yesstyle.com/en/numbuzin-no-3-skin-softening-serum-50ml/info.html/pid.1136288384",
     brand: "Numbuzin",
     name: "No.3 Skin Softening Serum",
     searchQ: "Numbuzin No.3 Serum",
@@ -157,6 +168,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "isntree-ha-toner",
+    url: "https://www.yesstyle.com/en/isntree-hyaluronic-acid-toner-200ml/info.html/pid.1113252153",
     brand: "Isntree",
     name: "Hyaluronic Acid Toner",
     searchQ: "Isntree Hyaluronic Acid Toner",
@@ -170,6 +182,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "torriden-dive-in-serum",
+    url: "https://www.yesstyle.com/en/torriden-dive-in-low-molecule-hyaluronic-acid-serum-renewed-50ml/info.html/pid.1115692618",
     brand: "Torriden",
     name: "DIVE-IN Low Molecular Hyaluronic Acid Serum",
     searchQ: "Torriden Dive-In Serum",
@@ -183,6 +196,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "aestura-atobarrier365",
+    url: "https://www.yesstyle.com/en/aestura-ato-barrier-365-cream-80ml/info.html/pid.1128134342",
     brand: "Aestura",
     name: "Atobarrier365 Cream",
     searchQ: "Aestura Atobarrier365 Cream",
@@ -196,6 +210,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "drjart-ceramidin-cream",
+    url: "https://www.yesstyle.com/en/dr-jart-ceramidin-skin-barrier-moisturizing-cream-50ml/info.html/pid.1123469827",
     brand: "Dr.Jart+",
     name: "Ceramidin Cream",
     searchQ: "Dr.Jart Ceramidin Cream",
@@ -210,8 +225,9 @@ export const PRODUCTS: Product[] = [
   {
     id: "somebymi-retinol",
     brand: "SOME BY MI",
-    name: "Retinol Intense Advanced Triple Action Serum",
+    name: "Retinol Intense Reactivating Serum",
     searchQ: "Some By Mi Retinol Intense Serum",
+    url: "https://www.yesstyle.com/en/some-by-mi-retinol-intense-reactivating-serum-2023-version-30ml/info.html/pid.1126717155",
     ingredientIds: ["retinol"],
     concerns: ["aging"],
     category: "serum",
@@ -221,20 +237,22 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    id: "naturium-vitc",
-    brand: "Naturium",
-    name: "Vitamin C Complex Serum",
-    searchQ: "Naturium Vitamin C Complex Serum",
+    id: "goodal-vitc",
+    brand: "Goodal",
+    name: "Green Tangerine Vita C Dark Spot Serum",
+    searchQ: "Goodal Green Tangerine Vita C",
+    url: "https://www.yesstyle.com/en/goodal-green-tangerine-vita-c-dark-spot-care-serum-40ml/info.html/pid.1112714085",
     ingredientIds: ["vitaminc"],
     concerns: ["dullness", "pigmentation"],
     category: "serum",
     blurb: {
-      fr: "Sérum vitamine C : bouclier antioxydant et éclat du matin.",
-      en: "Vitamin C serum: antioxidant shield and morning glow.",
+      fr: "Vitamine C de tangerine verte : éclat et atténuation des taches.",
+      en: "Green-tangerine vitamin C: glow and dark-spot fading.",
     },
   },
   {
     id: "cosrx-aha-bha-toner",
+    url: "https://www.yesstyle.com/en/cosrx-aha-bha-clarifying-treatment-toner-150ml/info.html/pid.1052684721",
     brand: "COSRX",
     name: "AHA/BHA Clarifying Treatment Toner",
     searchQ: "COSRX AHA BHA Clarifying Toner",
@@ -248,6 +266,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "cosrx-bha-blackhead",
+    url: "https://www.yesstyle.com/en/cosrx-bha-blackhead-power-liquid/info.html/pid.1052684693",
     brand: "COSRX",
     name: "BHA Blackhead Power Liquid",
     searchQ: "COSRX BHA Blackhead Power Liquid",
@@ -261,6 +280,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "isntree-mugwort",
+    url: "https://www.yesstyle.com/en/isntree-spot-saver-mugwort-ampoule-50ml/info.html/pid.1075256548",
     brand: "Isntree",
     name: "Spot Saver Mugwort Ampoule",
     searchQ: "Isntree Mugwort Ampoule",
@@ -274,6 +294,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "roundlab-dokdo-toner",
+    url: "https://www.yesstyle.com/en/round-lab-1025-dokdo-toner-200ml/info.html/pid.1074112897",
     brand: "Round Lab",
     name: "1025 Dokdo Toner",
     searchQ: "Round Lab Dokdo Toner",
@@ -287,6 +308,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "roundlab-mugwort-cream",
+    url: "https://www.yesstyle.com/en/round-lab-mugwort-calming-cream-80ml/info.html/pid.1086574611",
     brand: "Round Lab",
     name: "Mugwort Calming Cream",
     searchQ: "Round Lab Mugwort Cream",
@@ -300,6 +322,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "mixsoon-bean-essence",
+    url: "https://www.yesstyle.com/en/mixsoon-bean-essence-50ml/info.html/pid.1105987458",
     brand: "Mixsoon",
     name: "Bean Essence",
     searchQ: "Mixsoon Bean Essence",
@@ -313,6 +336,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "abib-heartleaf-toner",
+    url: "https://www.yesstyle.com/en/abib-heartleaf-calming-toner-skin-booster-200ml/info.html/pid.1095458670",
     brand: "Abib",
     name: "Heartleaf Essence Calming Toner",
     searchQ: "Abib Heartleaf Toner",
@@ -326,6 +350,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "axisy-dark-spot-serum",
+    url: "https://www.yesstyle.com/en/axis-y-dark-spot-correcting-glow-serum-50ml/info.html/pid.1078919512",
     brand: "AXIS-Y",
     name: "Dark Spot Correcting Glow Serum",
     searchQ: "AXIS-Y Dark Spot Correcting Serum",
@@ -339,6 +364,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "klairs-vitc-drop",
+    url: "https://www.yesstyle.com/en/dear-klairs-freshly-juiced-vitamin-drop-35ml/info.html/pid.1060708173",
     brand: "Dear, Klairs",
     name: "Freshly Juiced Vitamin Drop",
     searchQ: "Klairs Freshly Juiced Vitamin Drop",

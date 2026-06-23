@@ -834,7 +834,7 @@ function ProductCard({
         {p.blurb[lang]}
       </p>
       <a
-        href={buildAffiliateLink(yesstyleSearchUrl(p.searchQ))}
+        href={buildAffiliateLink(p.url ?? yesstyleSearchUrl(p.searchQ))}
         target="_blank"
         rel="sponsored noopener noreferrer"
         className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
