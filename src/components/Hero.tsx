@@ -26,11 +26,6 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
     type IdleWin = Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
     };
-    // Skip the heavy WebGL orb on phones/low-power screens — they keep the
-    // lightweight CSS placeholder. The orb is a desktop enhancement.
-    if (!window.matchMedia("(min-width: 768px) and (pointer: fine)").matches) {
-      return;
-    }
     const win = window as IdleWin;
     let to: ReturnType<typeof setTimeout> | undefined;
     if (win.requestIdleCallback) {

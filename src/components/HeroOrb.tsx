@@ -131,7 +131,7 @@ export function HeroOrb({
 
       // --- the glass drop ---
       const RADIUS = 1.3;
-      const detail = isSmall ? 12 : 18;
+      const detail = isSmall ? 20 : 26;
       const geo = new THREE.IcosahedronGeometry(RADIUS, detail);
       const pos = geo.attributes.position as import("three").BufferAttribute;
       const nrm = geo.attributes.normal as import("three").BufferAttribute;
@@ -213,7 +213,6 @@ export function HeroOrb({
         tilt.x = (nx - 0.5) * 0.7;
         tilt.y = (ny - 0.5) * 0.7;
         hoverTarget = nx > -0.25 && nx < 1.25 && ny > -0.25 && ny < 1.25 ? 1 : 0;
-        wake();
       };
       const onLeave = () => {
         hoverTarget = 0;
@@ -233,36 +232,16 @@ export function HeroOrb({
       // eased climate-driven params (start at neutral)
       let eRough = 0.08;
       let eKey = 1.2;
+      let eAmp = 0.05;
+      let eSpeed = 0.9;
       let eMelt = 0.4;
-      let shapeMelt = 0.4; // last melt the geometry was baked at
 
       let raf = 0;
-      let running = false;
-      let lastRender = 0;
-      let idleTimer: ReturnType<typeof setTimeout> | undefined;
+      let running = true;
       const start = performance.now();
 
-      // Spin while there's something to do, then auto-pause so the orb costs
-      // nothing on an idle page (keeps Total Blocking Time near zero). A
-      // pointer move or scroll-into-view wakes it again.
-      const wake = () => {
-        if (reduceMotion) return;
-        if (!running) {
-          running = true;
-          raf = requestAnimationFrame(frame);
-        }
-        if (idleTimer) clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => {
-          running = false;
-          cancelAnimationFrame(raf);
-        }, 3500);
-      };
-
-      const frame = (now: number) => {
+      const frame = () => {
         if (!running) return;
-        raf = requestAnimationFrame(frame);
-        if (now - lastRender < 33) return; // cap ~30fps
-        lastRender = now;
         const t = (performance.now() - start) / 1000;
 
         // --- live climate → targets (defaults to mid when unknown) ---
@@ -273,30 +252,29 @@ export function HeroOrb({
 
         const tgtRough = 0.13 - hN * 0.09; // humid = glossier (dewy)
         const tgtKey = 1.0 + uN * 0.8; // high UV = brighter, warmer glint
+        const tgtAmp = 0.03 + hN * 0.045 + tN * 0.03; // humid/hot = more fluid
+        const tgtSpeed = 0.7 + hN * 0.25; // humid = a touch livelier
         const tgtMelt = tN; // HOT = molten slime, COLD = firm round
 
         eRough += (tgtRough - eRough) * 0.04;
         eKey += (tgtKey - eKey) * 0.04;
+        eAmp += (tgtAmp - eAmp) * 0.04;
+        eSpeed += (tgtSpeed - eSpeed) * 0.04;
         eMelt += (tgtMelt - eMelt) * 0.04;
 
         material.roughness = eRough;
         key.intensity = eKey;
+        // warm the key light slightly as UV climbs (keeps green identity)
         key.color.setRGB(1, 1 - uN * 0.05, 1 - uN * 0.13);
 
-        // Rebuild geometry ONLY when the melt shape actually shifts — it eases
-        // to its target in ~1s then stops, so frames become rotate+render only
-        // (keeps the main thread free → low Total Blocking Time).
-        if (Math.abs(eMelt - shapeMelt) > 0.008) {
-          applyShape(0, 0.05, eMelt);
-          shapeMelt = eMelt;
-        }
-
         hover += (hoverTarget - hover) * 0.06;
-        // cheap "alive" feel without touching vertices: a soft breathing scale
-        const breathe = reduceMotion ? 0 : Math.sin(t * 0.9) * 0.006;
-        const targetScale = 1 + hover * 0.06 + breathe;
+        const pulse = reduceMotion ? 0 : 0.02 * Math.sin(t * 0.6);
+        const amp = eAmp + pulse + hover * 0.06;
+        if (!reduceMotion) applyShape(t * eSpeed, amp, eMelt);
+
+        const targetScale = 1 + hover * 0.06;
         group.scale.setScalar(
-          group.scale.x + (targetScale - group.scale.x) * 0.1,
+          group.scale.x + (targetScale - group.scale.x) * 0.08,
         );
 
         if (!reduceMotion) group.rotation.y += 0.0028 + hover * 0.004;
@@ -304,6 +282,7 @@ export function HeroOrb({
         group.rotation.z += (tilt.x - group.rotation.z) * 0.05;
 
         renderer.render(scene, camera);
+        raf = requestAnimationFrame(frame);
       };
 
       if (reduceMotion) {
@@ -315,18 +294,18 @@ export function HeroOrb({
         applyShape(0, 0.03 + hN * 0.045, tN);
         renderer.render(scene, camera);
       } else {
-        wake();
+        raf = requestAnimationFrame(frame);
       }
       onReady?.();
 
       const io = new IntersectionObserver(
         ([entry]) => {
           if (reduceMotion) return;
-          if (entry.isIntersecting) {
-            wake();
-          } else {
+          if (entry.isIntersecting && !running) {
+            running = true;
+            raf = requestAnimationFrame(frame);
+          } else if (!entry.isIntersecting) {
             running = false;
-            if (idleTimer) clearTimeout(idleTimer);
             cancelAnimationFrame(raf);
           }
         },
@@ -338,17 +317,16 @@ export function HeroOrb({
         if (reduceMotion) return;
         if (document.hidden) {
           running = false;
-          if (idleTimer) clearTimeout(idleTimer);
           cancelAnimationFrame(raf);
-        } else {
-          wake();
+        } else if (!running) {
+          running = true;
+          raf = requestAnimationFrame(frame);
         }
       };
       document.addEventListener("visibilitychange", onVis);
 
       cleanup = () => {
         running = false;
-        if (idleTimer) clearTimeout(idleTimer);
         cancelAnimationFrame(raf);
         window.removeEventListener("pointermove", onMove);
         mount.removeEventListener("pointerleave", onLeave);

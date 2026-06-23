@@ -703,8 +703,8 @@ function Results({
         </div>
         <p className="mt-3 font-editorial text-base italic text-ink/70">
           {lang === "fr"
-            ? "Votre formule, rendue depuis votre climat."
-            : "Your formula, rendered from your climate."}
+            ? "Vos actifs prioritaires, pour la saison qui vient."
+            : "Your priority actives, for the season ahead."}
         </p>
       </div>
 
