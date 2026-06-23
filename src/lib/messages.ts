@@ -298,7 +298,7 @@ export const fr = {
   waitlist: {
     eyebrow: "Rejoindre",
     title: "On anticipe ce dont votre peau aura besoin.",
-    body: "Analyste de données, je croise votre peau, votre ville et la saison qui arrive pour vous envoyer la bonne reco, au bon moment. Accès anticipé, sans spam, désinscription en un clic.",
+    body: "Analyste de données, je lis votre peau et le climat de votre ville pour anticiper ce dont vous aurez besoin — et vous l\u2019envoyer avant que la saison ne change, pas après. Sans spam, désinscription en un clic.",
     placeholder: "votre@email.com",
     cityPlaceholder: "Votre ville",
     cityHint: "Détecté automatiquement — corrigez-le pour des conseils adaptés à votre ville.",
@@ -716,7 +716,7 @@ export const en: Messages = {
   waitlist: {
     eyebrow: "Join",
     title: "We anticipate what your skin will need.",
-    body: "A data analyst crosses your skin, your city and the season ahead to send you the right pick, at the right time. Early access, no spam, one-click unsubscribe.",
+    body: "A data analyst reading your skin and your city\u2019s climate to anticipate what you\u2019ll need — and send it before the season turns, not after. No spam, one-click unsubscribe.",
     placeholder: "you@email.com",
     cityPlaceholder: "Your city",
     cityHint: "Auto-detected — fix it for advice tuned to your city.",
