@@ -2,10 +2,9 @@ import { LegalPage } from "@/components/LegalPage";
 import { localePath, type Lang } from "@/lib/locale";
 
 export function ConfidentialiteContent({ lang }: { lang: Lang }) {
-
   if (lang === "en") {
     return (
-      <LegalPage lang={lang} title="Privacy policy" updated="June 15, 2026">
+      <LegalPage lang={lang} title="Privacy policy" updated="June 23, 2026">
         <p>
           Fiomio attaches great importance to protecting your privacy. This policy
           explains what data we collect, why, and what your rights are, in accordance with
@@ -18,40 +17,41 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
           <a href={localePath(lang, "/mentions-legales")}> legal notice</a>), reachable at hello@fiomio.io.
         </p>
 
-        <h2>Data collected</h2>
-        <p>We only collect the data you provide voluntarily:</p>
+        <h2>Data we collect</h2>
         <ul>
-          <li>
-            <strong>Email address</strong>, when you join the waitlist or subscribe to the
-            newsletter.
-          </li>
-          <li>
-            <strong>Diagnostic answers</strong> (skin type, concerns, city), processed in
-            your browser to generate the recommendation; they are not linked to your
-            identity nor stored on our servers in the current version.
-          </li>
+          <li><strong>Email address</strong> — when you join the waitlist or subscribe to the newsletter.</li>
+          <li><strong>City and approximate location</strong> — auto-detected from your IP and editable, or chosen by you, so we can tailor the newsletter to your local climate and season. Stored alongside your email only if you subscribe.</li>
+          <li><strong>Anonymous diagnostic data</strong> — your answers (skin type, concerns, chosen actives, city, season) and the actives we recommend are stored in <strong>anonymized</strong> form, <strong>without your email and without your IP address</strong>, to improve the quality of our recommendation engine.</li>
+          <li><strong>Anonymous feedback</strong> — whether a recommendation felt right, stored without any identifier.</li>
+          <li><strong>Cookieless audience measurement</strong> — aggregate visit statistics that use no cookies and do not identify you.</li>
         </ul>
 
         <h2>Purposes and legal basis</h2>
         <ul>
-          <li>Sending you early access and the newsletter, legal basis: your <strong>consent</strong>.</li>
-          <li>Improving the service and the content, legitimate interest, on aggregated and anonymous data.</li>
+          <li>Sending you early access and the seasonal newsletter — legal basis: your <strong>consent</strong> (given when you sign up).</li>
+          <li>Improving our recommendation engine from anonymized diagnostic and feedback data — <strong>legitimate interest</strong>.</li>
+          <li>Producing <strong>aggregated, anonymized</strong> market insights and reports that may be shared or sold to skincare brands — legitimate interest. These contain <strong>no individual data</strong> and never identify you.</li>
         </ul>
+
+        <h2>Recipients and processors</h2>
+        <p>Your personal data is never sold. We rely on the following processors, bound to protect it under the GDPR:</p>
+        <ul>
+          <li><strong>Brevo</strong> — storing contacts and sending emails.</li>
+          <li><strong>Vercel</strong> — hosting and cookieless analytics.</li>
+          <li><strong>Supabase</strong> — storing the anonymized diagnostic data.</li>
+          <li><strong>Open-Meteo</strong> — weather and city lookup (no personal data that could identify you is sent).</li>
+        </ul>
+        <p>Brands only ever receive <strong>aggregated, anonymized</strong> insights, never your personal data.</p>
 
         <h2>Retention period</h2>
         <p>
-          Your email address is kept until you unsubscribe, then deleted within a
-          reasonable time. You can unsubscribe at any time via the link in every email.
-        </p>
-
-        <h2>Recipients</h2>
-        <p>
-          Your data is never sold. It may be processed by our technical subcontractors
-          (hosting, email sending service), bound to protect it in accordance with the GDPR.
+          Your email and city are kept until you unsubscribe, then deleted within a
+          reasonable time. Anonymized diagnostic data, being non-identifying, may be kept to
+          improve the service. You can unsubscribe at any time via the link in every email.
         </p>
 
         <h2>Your rights</h2>
-        <p>You have the following rights over your data at any time:</p>
+        <p>You have the following rights over your personal data at any time:</p>
         <ul>
           <li>right of access, rectification and erasure;</li>
           <li>right to portability and to restriction of processing;</li>
@@ -59,15 +59,15 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
         </ul>
         <p>
           To exercise them, write to <a href="mailto:hello@fiomio.io">hello@fiomio.io</a>.
-          You may also lodge a complaint with the CNIL (cnil.fr).
+          You may also lodge a complaint with the CNIL (cnil.fr). Note that anonymized data
+          cannot be linked back to you and therefore cannot be individually retrieved.
         </p>
 
         <h2>Cookies</h2>
         <p>
-          The site does not use advertising cookies or third-party trackers for profiling.
-          Only elements strictly necessary for the site to function properly may be used. If
-          audience-measurement tools were added in the future, your consent would be obtained
-          beforehand.
+          The site uses no advertising cookies and no third-party profiling trackers. Our
+          audience measurement is cookieless. Only elements strictly necessary for the site
+          to function may be used.
         </p>
 
         <h2>Contact</h2>
@@ -79,7 +79,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
   }
 
   return (
-    <LegalPage lang={lang} title="Politique de confidentialité" updated="15 juin 2026">
+    <LegalPage lang={lang} title="Politique de confidentialité" updated="23 juin 2026">
       <p>
         Fiomio attache une grande importance à la protection de votre vie privée.
         Cette politique explique quelles données nous collectons, pourquoi, et
@@ -94,43 +94,42 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
         hello@fiomio.io.
       </p>
 
-      <h2>Données collectées</h2>
-      <p>Nous collectons uniquement les données que vous nous transmettez volontairement :</p>
+      <h2>Données que nous collectons</h2>
       <ul>
-        <li>
-          <strong>Adresse e-mail</strong>, lorsque vous rejoignez la liste d&apos;attente
-          ou vous abonnez à la newsletter.
-        </li>
-        <li>
-          <strong>Réponses au diagnostic</strong> (type de peau, préoccupations,
-          ville), traitées dans votre navigateur pour générer la recommandation ;
-          elles ne sont pas associées à votre identité ni conservées sur nos
-          serveurs dans la version actuelle.
-        </li>
+        <li><strong>Adresse e-mail</strong> — lorsque vous rejoignez la liste d&apos;attente ou vous abonnez à la newsletter.</li>
+        <li><strong>Ville et localisation approximative</strong> — détectée automatiquement à partir de votre IP et modifiable, ou choisie par vous, afin d&apos;adapter la newsletter au climat et à la saison de votre ville. Conservée avec votre e-mail uniquement si vous vous inscrivez.</li>
+        <li><strong>Données de diagnostic anonymes</strong> — vos réponses (type de peau, préoccupations, actifs utilisés, ville, saison) et les actifs recommandés sont conservés de façon <strong>anonymisée</strong>, <strong>sans votre e-mail et sans votre adresse IP</strong>, pour améliorer la qualité de notre moteur de recommandation.</li>
+        <li><strong>Retours anonymes</strong> — si une recommandation vous a semblé juste, enregistré sans aucun identifiant.</li>
+        <li><strong>Mesure d&apos;audience sans cookie</strong> — des statistiques de visite agrégées, sans cookie et qui ne vous identifient pas.</li>
       </ul>
 
       <h2>Finalités et base légale</h2>
       <ul>
-        <li>Vous envoyer l&apos;accès anticipé et la newsletter, base légale : votre <strong>consentement</strong>.</li>
-        <li>Améliorer le service et le contenu, intérêt légitime, sur données agrégées et anonymes.</li>
+        <li>Vous envoyer l&apos;accès anticipé et la newsletter saisonnière — base légale : votre <strong>consentement</strong> (donné lors de l&apos;inscription).</li>
+        <li>Améliorer notre moteur de recommandation à partir de données de diagnostic et de retours anonymisés — <strong>intérêt légitime</strong>.</li>
+        <li>Produire des analyses et rapports de marché <strong>agrégés et anonymisés</strong>, susceptibles d&apos;être partagés ou vendus à des marques de soin — intérêt légitime. Ils ne contiennent <strong>aucune donnée individuelle</strong> et ne vous identifient jamais.</li>
       </ul>
+
+      <h2>Destinataires et sous-traitants</h2>
+      <p>Vos données personnelles ne sont jamais vendues. Nous faisons appel aux sous-traitants suivants, engagés à les protéger conformément au RGPD :</p>
+      <ul>
+        <li><strong>Brevo</strong> — stockage des contacts et envoi des e-mails.</li>
+        <li><strong>Vercel</strong> — hébergement et mesure d&apos;audience sans cookie.</li>
+        <li><strong>Supabase</strong> — stockage des données de diagnostic anonymisées.</li>
+        <li><strong>Open-Meteo</strong> — météo et recherche de ville (aucune donnée personnelle permettant de vous identifier n&apos;est transmise).</li>
+      </ul>
+      <p>Les marques ne reçoivent que des analyses <strong>agrégées et anonymisées</strong>, jamais vos données personnelles.</p>
 
       <h2>Durée de conservation</h2>
       <p>
-        Votre adresse e-mail est conservée jusqu&apos;à votre désinscription, puis
-        supprimée dans un délai raisonnable. Vous pouvez vous désinscrire à tout
-        moment via le lien présent dans chaque e-mail.
-      </p>
-
-      <h2>Destinataires</h2>
-      <p>
-        Vos données ne sont jamais vendues. Elles peuvent être traitées par nos
-        sous-traitants techniques (hébergement, service d&apos;envoi d&apos;e-mails),
-        engagés à les protéger conformément au RGPD.
+        Votre e-mail et votre ville sont conservés jusqu&apos;à votre désinscription, puis
+        supprimés dans un délai raisonnable. Les données de diagnostic anonymisées, n&apos;étant
+        pas identifiantes, peuvent être conservées pour améliorer le service. Vous pouvez
+        vous désinscrire à tout moment via le lien présent dans chaque e-mail.
       </p>
 
       <h2>Vos droits</h2>
-      <p>Vous disposez à tout moment des droits suivants sur vos données :</p>
+      <p>Vous disposez à tout moment des droits suivants sur vos données personnelles :</p>
       <ul>
         <li>droit d&apos;accès, de rectification et d&apos;effacement ;</li>
         <li>droit à la portabilité et à la limitation du traitement ;</li>
@@ -139,15 +138,15 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
       <p>
         Pour les exercer, écrivez à <a href="mailto:hello@fiomio.io">hello@fiomio.io</a>.
         Vous pouvez également introduire une réclamation auprès de la CNIL (cnil.fr).
+        Les données anonymisées ne pouvant être reliées à vous, elles ne peuvent pas être
+        retrouvées individuellement.
       </p>
 
       <h2>Cookies</h2>
       <p>
-        Le site n&apos;utilise pas de cookies publicitaires ni de traceurs tiers à
-        des fins de profilage. Seuls des éléments strictement nécessaires au bon
-        fonctionnement du site peuvent être utilisés. Si des outils de mesure
-        d&apos;audience étaient ajoutés à l&apos;avenir, votre consentement serait
-        recueilli au préalable.
+        Le site n&apos;utilise pas de cookies publicitaires ni de traceurs tiers de
+        profilage. Notre mesure d&apos;audience est sans cookie. Seuls des éléments
+        strictement nécessaires au bon fonctionnement du site peuvent être utilisés.
       </p>
 
       <h2>Contact</h2>
