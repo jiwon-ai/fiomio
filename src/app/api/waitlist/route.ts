@@ -6,6 +6,34 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// One-time (per warm instance) creation of the custom contact attributes in
+// Brevo so CITY/LAT/LON/LANG are accepted and stored. Creating an attribute
+// that already exists returns 400 — safely ignored. Idempotent.
+let attrsEnsured = false;
+async function ensureBrevoAttributes(key: string) {
+  if (attrsEnsured) return;
+  const defs: Array<[string, "text" | "float"]> = [
+    ["CITY", "text"],
+    ["LANG", "text"],
+    ["LAT", "float"],
+    ["LON", "float"],
+  ];
+  await Promise.all(
+    defs.map(([name, type]) =>
+      fetch(`https://api.brevo.com/v3/contacts/attributes/normal/${name}`, {
+        method: "POST",
+        headers: {
+          "api-key": key,
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({ type }),
+      }).catch(() => {}),
+    ),
+  );
+  attrsEnsured = true;
+}
+
 type Payload = {
   email?: string;
   lang?: string;
@@ -75,6 +103,7 @@ export async function POST(req: Request) {
           }),
         });
 
+      await ensureBrevoAttributes(brevoKey);
       let res = await postContact(true);
       // 201 created / 204 updated are both res.ok. A 400 "duplicate_parameter"
       // just means the email is already on file → still a success for our UX.
@@ -84,7 +113,10 @@ export async function POST(req: Request) {
         // lose the signup — retry without attributes (create the "CITY" text
         // attribute in Brevo to start segmenting by city).
         if (/attribute/i.test(txt) && Object.keys(attributes).length) {
-          res = await postContact(false);
+          // attributes weren't defined yet — create them, then retry WITH them
+          attrsEnsured = false;
+          await ensureBrevoAttributes(brevoKey);
+          res = await postContact(true);
           if (!res.ok) {
             const t2 = await res.text().catch(() => "");
             if (!t2.includes("duplicate_parameter")) {
