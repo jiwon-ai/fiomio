@@ -7,7 +7,7 @@ import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
 import { DiagIcon } from "./diagnostic/icons";
 import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
-import { detectLocation, type Loc, type GeoResult } from "@/lib/geo";
+import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
 import { productsForIngredients, yesstyleSearchUrl, type Product } from "@/lib/products";
 import {
@@ -45,7 +45,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
 
   const loadForecast = useCallback((l: Loc | null) => {
     const url = l
-      ? `/api/forecast?lat=${l.lat}&lon=${l.lon}&city=${encodeURIComponent(l.city)}`
+      ? `/api/forecast?lat=${l.lat}&lon=${l.lon}&city=${encodeURIComponent(displayPlace(l) || l.city)}`
       : "/api/forecast";
     fetch(url)
       .then((r) => (r.ok ? r.json() : null))
@@ -220,7 +220,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                     </span>
                     <span className="text-stone">
                       <span className="font-medium text-ink">
-                        {climate.city || loc?.city || d.climateCity} ·{" "}
+                        {climate.city || displayPlace(loc) || d.climateCity} ·{" "}
                         {climate[lang].label}
                       </span>{" "}
                       <span className="text-stone-2">· {climate[lang].detail}</span>

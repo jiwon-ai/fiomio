@@ -7,7 +7,7 @@
    All keyless, client-callable.
    ============================================================ */
 
-export type Loc = { city: string; lat: number; lon: number; country?: string };
+export type Loc = { city: string; lat: number; lon: number; country?: string; region?: string };
 
 /** Auto-detect the visitor's city from their IP (no permission prompt).
  *  Tries two keyless providers; on Vercel the API route also reads the
@@ -24,6 +24,7 @@ export async function detectLocation(): Promise<Loc | null> {
           lat: d.latitude,
           lon: d.longitude,
           country: d.country_code,
+          region: d.region || undefined,
         };
       }
     }
@@ -41,6 +42,7 @@ export async function detectLocation(): Promise<Loc | null> {
           lat: d.latitude,
           lon: d.longitude,
           country: d.country_code,
+          region: d.region || undefined,
         };
       }
     }
@@ -55,6 +57,16 @@ let _locPromise: Promise<Loc | null> | null = null;
 export function getLocation(): Promise<Loc | null> {
   if (!_locPromise) _locPromise = detectLocation();
   return _locPromise;
+}
+
+/** Broad, privacy-friendly place label for display.
+ *  On public Wi-Fi, IP geolocation often resolves to a small ISP town
+ *  (e.g. "Milly-la-Forêt" near Paris). We show the wider region instead
+ *  (e.g. "Île-de-France"), which stays correct for the user's climate.
+ *  The precise lat/lon is still used for the forecast — only the LABEL widens. */
+export function displayPlace(loc: Loc | null): string {
+  if (!loc) return "";
+  return loc.region || loc.city || "";
 }
 
 export type GeoResult = {

@@ -8,7 +8,7 @@
    their own local numbers. Falls back to Paris if detection fails. */
 
 import { useEffect, useState } from "react";
-import { getLocation } from "@/lib/geo";
+import { getLocation, displayPlace } from "@/lib/geo";
 import type { Lang } from "@/lib/locale";
 
 const PARIS = { city: "Paris", lat: 48.8566, lon: 2.3522 };
@@ -29,7 +29,7 @@ export function SkinConstellation({
     (async () => {
       let loc = await getLocation();
       if (!loc || typeof loc.lat !== "number") loc = PARIS;
-      const city = loc.city || PARIS.city;
+      const city = displayPlace(loc) || PARIS.city;
       try {
         const res = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}` +
