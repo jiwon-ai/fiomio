@@ -12,10 +12,11 @@ export const PRODUCTS_DRAFT = true;
 /** Concise, high-match query: brand + the first 2 meaningful words of the name
  *  (drops form words/numbers that make YesStyle search return nothing). */
 function shortQuery(brand: string, name: string): string {
+  const b = brand.toLowerCase();
   const toks = name
     .replace(/[^A-Za-z0-9\s]/g, " ")
     .split(/\s+/)
-    .filter((t) => /[A-Za-z]/.test(t))
+    .filter((t) => /[A-Za-z]/.test(t) && t.toLowerCase() !== b)
     .slice(0, 2);
   return [brand, ...toks].filter(Boolean).join(" ").trim();
 }
