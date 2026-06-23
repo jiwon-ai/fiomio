@@ -14,7 +14,35 @@ export const fr = {
     diagnostic: "Diagnostic",
     market: "Le marché",
     journal: "Journal",
+    brands: "Pour les marques",
     cta: "Rejoindre",
+  },
+
+  brands: {
+    eyebrow: "Pour les marques",
+    title: "Ce que votre cliente veut vraiment, avant qu'elle ne le dise.",
+    intro:
+      "Fiomio agrège, de façon anonyme, la demande réelle en soin : profils de peau, préoccupations, climat et actifs recherchés — par ville et par saison. Une lecture du marché que les chiffres de vente seuls ne donnent pas.",
+    items: [
+      {
+        title: "Rapports de marché",
+        body: "Tendances trimestrielles de la demande, par région, saison et préoccupation cutanée.",
+      },
+      {
+        title: "Données sous licence",
+        body: "Signaux de demande anonymisés pour orienter vos formulations et vos lancements.",
+      },
+      {
+        title: "Visibilité signalée",
+        body: "Un espace clairement étiqueté — jamais une recommandation achetée. Nos tests restent indépendants.",
+      },
+    ],
+    privacy:
+      "Données 100 % anonymisées et agrégées. Aucune donnée individuelle, conforme au RGPD.",
+    ctaTitle: "Parlons-en.",
+    ctaBody:
+      "Vous êtes une marque et souhaitez comprendre la demande K-beauty en Europe ?",
+    ctaButton: "Nous contacter",
   },
 
   hero: {
@@ -433,7 +461,34 @@ export const en: Messages = {
     diagnostic: "Diagnostic",
     market: "The market",
     journal: "Journal",
+    brands: "For brands",
     cta: "Join",
+  },
+
+  brands: {
+    eyebrow: "For brands",
+    title: "What your customer actually wants, before she says it.",
+    intro:
+      "Fiomio anonymously aggregates real skincare demand: skin profiles, concerns, climate and the actives people search for — by city and by season. A read on the market that sales figures alone can't give.",
+    items: [
+      {
+        title: "Market reports",
+        body: "Quarterly demand trends, by region, season and skin concern.",
+      },
+      {
+        title: "Licensed data",
+        body: "Anonymized demand signals to guide your formulations and launches.",
+      },
+      {
+        title: "Labeled visibility",
+        body: "A clearly marked space — never a bought recommendation. Our tests stay independent.",
+      },
+    ],
+    privacy:
+      "100% anonymized and aggregated data. No individual data, GDPR-compliant.",
+    ctaTitle: "Let's talk.",
+    ctaBody: "A brand wanting to understand K-beauty demand in Europe?",
+    ctaButton: "Contact us",
   },
 
   hero: {

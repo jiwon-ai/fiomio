@@ -13,6 +13,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
     { href: `${home === "/" ? "" : home}/#solution`, label: t.nav.solution },
     { href: `${home === "/" ? "" : home}/#diagnostic`, label: t.nav.diagnostic },
     { href: localePath(lang, "/journal"), label: t.nav.journal },
+    { href: localePath(lang, "/marques"), label: t.nav.brands },
     { href: `${home === "/" ? "" : home}/#rejoindre`, label: t.nav.cta },
   ];
 
