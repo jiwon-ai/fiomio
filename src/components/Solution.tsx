@@ -45,7 +45,7 @@ export function Solution({ t }: { t: Messages }) {
                 <h3 className="font-display mt-4 text-base font-semibold text-ink">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone">
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-stone">
                   {step.body}
                 </p>
               </div>

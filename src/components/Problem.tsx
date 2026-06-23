@@ -44,7 +44,7 @@ export function Problem({ t }: { t: Messages }) {
               as="li"
               key={i}
               delay={i * 80}
-              className="group grid grid-cols-[2.5rem_1fr] gap-6 border-t border-line py-8 transition-colors hover:border-spring-deep/30 sm:grid-cols-[3.5rem_1fr]"
+              className="group grid grid-cols-[2.5rem_1fr] gap-6 border-t border-line py-10 transition-colors hover:border-spring-deep/30 sm:grid-cols-[3.5rem_1fr]"
             >
               <span className="font-mono text-xs text-spring-deep/60 pt-[0.2rem]">
                 0{i + 1}
@@ -53,7 +53,7 @@ export function Problem({ t }: { t: Messages }) {
                 <h3 className="font-display text-lg font-semibold text-ink">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-[0.92rem] leading-relaxed text-stone">
+                <p className="mt-2 text-base leading-relaxed text-stone">
                   {item.body}
                 </p>
               </div>

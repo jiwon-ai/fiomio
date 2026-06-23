@@ -56,24 +56,23 @@ export const fr = {
   problem: {
     eyebrow: "Le vrai problème",
     title: "Trop de produits coréens. Aucun repère pour votre peau.",
-    intro:
-      "Vous achetez une essence parce qu'elle cartonne sur TikTok, sans savoir si elle est faite pour vous. Voilà pourquoi c'est si frustrant.",
+    intro: "Vous achetez à l\u2019aveugle, guidée par les tendances.",
     items: [
       {
         title: "Offre saturée",
-        body: "Des milliers de références coréennes arrivent sans filtre adapté au contexte local, une paralysie décisionnelle plutôt qu'un choix éclairé.",
+        body: "Des milliers de références, aucun filtre pour votre contexte.",
       },
       {
         title: "Routines inadaptées",
-        body: "La routine coréenne en dix étapes ne correspond ni au rythme ni aux contraintes de temps d'une vie active.",
+        body: "Dix étapes qui ne tiennent pas dans une vie active.",
       },
       {
         title: "Écart climatique Corée / votre ville",
-        body: "Humidité, pollution, dureté de l'eau, chauffage : tout change selon l'endroit. Une formule pensée pour le climat humide de la Corée peut tomber à plat là où vous vivez.",
+        body: "Une formule pensée pour Séoul tombe à plat là où vous vivez.",
       },
       {
         title: "Personne ne regarde votre peau",
-        body: "Les marques vendent une image et un joli flacon. Personne ne relie ça à votre peau, votre ville et la saison. Résultat : vous testez à l'aveugle, et votre argent finit en flacons à moitié vides.",
+        body: "Les marques vendent un flacon, jamais un lien avec VOTRE peau.",
       },
     ],
   },
@@ -81,32 +80,29 @@ export const fr = {
   solution: {
     eyebrow: "Comment ça marche",
     title: "On ne décode pas une étiquette. On vous dit quoi mettre, et pourquoi.",
-    intro:
-      "Trois informations suffisent pour une recommandation personnalisée et expliquée. Pas seulement quoi appliquer, mais pourquoi ce soin convient à votre peau, dans ce climat, à cette saison.",
+    intro: "Trois informations suffisent. Pas seulement quoi appliquer — pourquoi.",
     steps: [
       {
         n: "01",
         title: "Profil cutané",
-        body: "Type de peau, sensibilités et habitudes de routine, la variabilité individuelle.",
+        body: "Type de peau, sensibilités, habitudes.",
       },
       {
         n: "02",
         title: "Données climatiques",
-        body: "Humidité, pollution, saison locale, la variable absente de tous les outils concurrents.",
+        body: "Humidité, saison locale — la variable que les autres ignorent.",
       },
       {
         n: "03",
         title: "Analyse d'actifs",
-        body: "Les actifs K-beauty sont décodés et pondérés, pas seulement listés.",
+        body: "Les actifs décodés et pondérés, pas listés.",
       },
     ],
     resultLabel: "Recommandation",
     resultTitle: "Des actifs adaptés, avec une explication.",
-    resultBody:
-      "Une logique de soin cohérente et justifiée, l'explicabilité qui construit la confiance dans un marché où l'influence en manque.",
+    resultBody: "Une logique justifiée. L\u2019explicabilité qui crée la confiance.",
     differentiatorLabel: "Différenciation",
-    differentiator:
-      "La plupart des applis se contentent de décoder une étiquette. Fiomio va plus loin : elle croise votre peau, le climat local et la saison pour vous dire quoi appliquer, et surtout pourquoi.",
+    differentiator: "Les autres décodent une étiquette. Fiomio croise peau × climat × saison — et dit pourquoi.",
   },
 
   whyDifferent: {
@@ -478,24 +474,23 @@ export const en: Messages = {
   problem: {
     eyebrow: "The real problem",
     title: "Too many Korean products. No compass for your skin.",
-    intro:
-      "You buy an essence because it's blowing up on TikTok, with no idea whether it's right for you. That's why it feels so frustrating.",
+    intro: "You buy blindly, led by trends.",
     items: [
       {
         title: "Saturated supply",
-        body: "Thousands of Korean references arrive with no filter for the local context, decision paralysis rather than informed choice.",
+        body: "Thousands of products, no filter for your context.",
       },
       {
         title: "Ill-fitting routines",
-        body: "The ten-step Korean routine matches neither the rhythm nor the time constraints of a busy working life.",
+        body: "Ten steps that don\u2019t fit a busy life.",
       },
       {
         title: "Korea / your city climate gap",
-        body: "Humidity, pollution, water hardness, heating: everything changes from place to place. A formula made for Korea's humid climate can fall short where you actually live.",
+        body: "A formula made for Seoul falls short where you live.",
       },
       {
         title: "No one looks at your skin",
-        body: "Brands sell you an image and a pretty bottle. No one connects that to your skin, your city and the season. So you test blindly, and your money ends up in half-used bottles.",
+        body: "Brands sell a bottle, never a link to YOUR skin.",
       },
     ],
   },
@@ -503,32 +498,29 @@ export const en: Messages = {
   solution: {
     eyebrow: "How it works",
     title: "We don't decode a label. We tell you what to apply, and why.",
-    intro:
-      "Three pieces of info are enough for a personalized and explained recommendation. Not just what to apply, but why this care suits your skin, in this climate, this season.",
+    intro: "Three inputs are enough. Not just what to apply — why.",
     steps: [
       {
         n: "01",
         title: "Skin profile",
-        body: "Skin type, sensitivities and routine habits, individual variability.",
+        body: "Skin type, sensitivities, habits.",
       },
       {
         n: "02",
         title: "Climate data",
-        body: "Humidity, pollution, local season, the variable missing from every competing tool.",
+        body: "Humidity, local season — the variable others ignore.",
       },
       {
         n: "03",
         title: "Active analysis",
-        body: "K-beauty actives are decoded and weighted, not merely listed.",
+        body: "Actives decoded and weighted, not just listed.",
       },
     ],
     resultLabel: "Recommendation",
     resultTitle: "Fitting actives, with an explanation.",
-    resultBody:
-      "A coherent, justified skincare logic, the explainability that builds trust in a market where influence falls short.",
+    resultBody: "A justified logic. The explainability that builds trust.",
     differentiatorLabel: "Differentiation",
-    differentiator:
-      "Most apps just decode a label. Fiomio goes further: it crosses your skin, your local climate and the season to tell you what to apply, and above all, why.",
+    differentiator: "Others decode a label. Fiomio crosses skin × climate × season — and tells you why.",
   },
 
   whyDifferent: {
