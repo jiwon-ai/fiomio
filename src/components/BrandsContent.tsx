@@ -9,10 +9,6 @@ export function BrandsContent({ lang }: { lang: Lang }) {
   return (
     <main className="flex-1">
       <section className="relative overflow-hidden bg-cream pb-24 pt-36 sm:pb-32 sm:pt-44">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
-        />
         <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-12">
           <p className="eyebrow text-spring-deep">{b.eyebrow}</p>
           <h1

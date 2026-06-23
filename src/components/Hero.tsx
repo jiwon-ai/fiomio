@@ -79,10 +79,6 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
       className="relative overflow-hidden bg-cream"
       style={{ minHeight: "100svh" }}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 dot-grid opacity-50"
-      />
 
       <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col justify-center px-6 pb-16 pt-32 sm:px-12">
         {/* Eyebrow */}

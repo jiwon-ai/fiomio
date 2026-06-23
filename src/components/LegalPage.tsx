@@ -22,7 +22,6 @@ export function LegalPage({
   return (
     <main className="flex-1">
       <header className="relative overflow-hidden bg-ink pt-28 pb-12 sm:pt-32">
-        <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-dark opacity-50" />
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
           <Link
             href={localePath(lang, "/")}

@@ -264,9 +264,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                 </span>
                 {climate && (
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-                    <span aria-hidden className="text-base">
-                      {climate.emoji}
-                    </span>
                     <span className="text-stone">
                       <span className="font-medium text-ink">
                         {climate.city || displayPlace(loc) || d.climateCity} ·{" "}
@@ -288,7 +285,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                 <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.68rem] uppercase tracking-wider text-stone-2">
                   {climate.source === "forecast" ? (
                     <>
-                      <span aria-hidden>📦</span>
+                      <svg aria-hidden width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/></svg>
                       <span>
                         {d.deliveryAround} {fmtDate(climate.deliveryFrom)} –{" "}
                         {fmtDate(climate.deliveryTo)}
@@ -869,7 +866,7 @@ function FeedbackWidget({
     <div className="mt-8 rounded-xl border border-line bg-cream px-5 py-4">
       {sent ? (
         <p className="flex items-center gap-2 text-sm font-medium text-ink">
-          <span aria-hidden>✓</span> {d.fbThanks}
+          <svg aria-hidden width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12l5 5L20 6"/></svg> {d.fbThanks}
         </p>
       ) : (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

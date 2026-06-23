@@ -106,10 +106,6 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
       id="rejoindre"
       className="relative overflow-hidden bg-paper py-28 sm:py-36"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 dot-grid opacity-60"
-      />
       <div className="relative z-10 mx-auto max-w-xl px-6 text-center sm:px-10">
         <Reveal>
           <p className="eyebrow">{w.eyebrow}</p>
@@ -170,7 +166,10 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
                     aria-hidden
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone/50"
                   >
-                    📍
+                    <svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z" />
+                      <circle cx="12" cy="11" r="2" />
+                    </svg>
                   </span>
                   <label htmlFor="wl-city" className="sr-only">
                     {w.cityPlaceholder}

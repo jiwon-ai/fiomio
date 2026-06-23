@@ -25,7 +25,6 @@ export function JournalIndex({
           aria-hidden
           className="animate-float-slow pointer-events-none absolute -right-24 -top-16 size-[30rem] rounded-full bg-spring/10 blur-3xl"
         />
-        <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-dark opacity-60" />
         <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow text-spring">{j.eyebrow}</p>
           <h1 className="font-display mt-4 text-4xl font-medium leading-[1.05] tracking-tight text-cream sm:text-5xl">

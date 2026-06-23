@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Geist_Mono, Cormorant_Garamond } from "next/font/google";
+import { Outfit, Cormorant_Garamond } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteJsonLd } from "@/components/JsonLd";
@@ -13,12 +13,6 @@ const SOVRN_ID = process.env.NEXT_PUBLIC_SOVRN_ID;
 
 const outfit = Outfit({
   variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-mono-geist",
   subsets: ["latin"],
   display: "swap",
 });
@@ -92,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${outfit.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${outfit.variable} ${cormorant.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://ipwho.is" crossOrigin="" />
