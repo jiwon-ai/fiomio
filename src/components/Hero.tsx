@@ -178,20 +178,25 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               )}
             </div>
 
-            {/* Museum cartel -- sits clearly below the work, like a wall label */}
-            <figcaption className="mt-7 text-right sm:mt-9">
-              <span className="flex items-center justify-end gap-1.5 font-mono text-[0.5rem] uppercase tracking-[0.22em] text-stone/45">
-                Jiwon
-                <span className="size-1 rounded-full bg-spring" aria-hidden />
-                2026
+            {/* Museum cartel (real wall-label format): auteur · titre, date ·
+                technique · acquisition · n° d'inventaire — left-aligned. */}
+            <figcaption className="mt-7 max-w-xs text-left sm:mt-9">
+              <span className="block font-display text-sm font-bold tracking-tight text-ink">
+                Jiwon Yi
               </span>
-              <span className="mt-1 block font-editorial text-base italic leading-tight text-ink/75">
-                {lang === "fr" ? "Climat × Formule" : "Climate × Formula"}
+              <span className="block font-editorial text-base italic leading-snug text-ink/80">
+                {lang === "fr" ? "« Climat × Formule »" : "\u201cClimate \u00d7 Formula\u201d"}, 2026
               </span>
-              <span className="mt-1 block text-[0.6rem] leading-snug text-stone/55">
+              <span className="mt-2 block text-[0.62rem] leading-snug text-stone/70">
+                {lang === "fr" ? "Rendu 3D temps réel \u00b7 WebGL" : "Real-time 3D render \u00b7 WebGL"}
+              </span>
+              <span className="block text-[0.62rem] leading-snug text-stone/70">
                 {lang === "fr"
-                  ? "Rendu 3D temps réel · la texture du soin réagit au climat de votre ville."
-                  : "Real-time 3D render · the formula’s texture responds to your city’s climate."}
+                  ? "Sérum génératif piloté par les données climatiques locales"
+                  : "Generative serum driven by local climate data"}
+              </span>
+              <span className="mt-1 block font-mono text-[0.58rem] tracking-wide text-stone/45">
+                Inv. FIO\u00b72026\u00b701
               </span>
             </figcaption>
           </div>
