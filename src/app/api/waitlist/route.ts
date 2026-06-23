@@ -6,7 +6,14 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type Payload = { email?: string; lang?: string; source?: string };
+type Payload = {
+  email?: string;
+  lang?: string;
+  source?: string;
+  city?: string;
+  lat?: number;
+  lon?: number;
+};
 
 export async function POST(req: Request) {
   let body: Payload;
@@ -21,10 +28,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "invalid_email" }, { status: 422 });
   }
 
+  const city = (body.city ?? "").trim().slice(0, 80) || undefined;
+  const lat = typeof body.lat === "number" ? body.lat : undefined;
+  const lon = typeof body.lon === "number" ? body.lon : undefined;
+
   const entry = {
     email,
     lang: body.lang === "en" ? "en" : "fr",
     source: body.source ?? "landing",
+    city,
+    lat,
+    lon,
     at: new Date().toISOString(),
   };
 
@@ -37,24 +51,46 @@ export async function POST(req: Request) {
       // Default to list 2 ("Votre première liste") so signups always land in a
       // list; override with BREVO_LIST_ID env if you create a dedicated one.
       const listId = process.env.BREVO_LIST_ID || "2";
-      const res = await fetch("https://api.brevo.com/v3/contacts", {
-        method: "POST",
-        headers: {
-          "api-key": brevoKey,
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          updateEnabled: true, // 204 instead of error if already a contact
-          ...(listId ? { listIds: [Number(listId)] } : {}),
-        }),
-      });
+      const attributes: Record<string, string | number> = {};
+      if (city) attributes.CITY = city;
+      if (lat !== undefined) attributes.LAT = lat;
+      if (lon !== undefined) attributes.LON = lon;
+
+      const postContact = (withAttrs: boolean) =>
+        fetch("https://api.brevo.com/v3/contacts", {
+          method: "POST",
+          headers: {
+            "api-key": brevoKey,
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            updateEnabled: true, // 204 instead of error if already a contact
+            ...(listId ? { listIds: [Number(listId)] } : {}),
+            ...(withAttrs && Object.keys(attributes).length
+              ? { attributes }
+              : {}),
+          }),
+        });
+
+      let res = await postContact(true);
       // 201 created / 204 updated are both res.ok. A 400 "duplicate_parameter"
       // just means the email is already on file → still a success for our UX.
       if (!res.ok) {
         const txt = await res.text().catch(() => "");
-        if (!txt.includes("duplicate_parameter")) {
+        // If the CITY/LAT/LON attributes aren't defined in Brevo yet, don't
+        // lose the signup — retry without attributes (create the "CITY" text
+        // attribute in Brevo to start segmenting by city).
+        if (/attribute/i.test(txt) && Object.keys(attributes).length) {
+          res = await postContact(false);
+          if (!res.ok) {
+            const t2 = await res.text().catch(() => "");
+            if (!t2.includes("duplicate_parameter")) {
+              throw new Error(`brevo ${res.status} ${t2}`);
+            }
+          }
+        } else if (!txt.includes("duplicate_parameter")) {
           throw new Error(`brevo ${res.status} ${txt}`);
         }
       }

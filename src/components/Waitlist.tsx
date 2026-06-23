@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Lang, Messages } from "@/lib/locale";
+import { getLocation, displayPlace } from "@/lib/geo";
 import { Reveal } from "./ui/Reveal";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -11,8 +12,28 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
   const w = t.waitlist;
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const coords = useRef<{ lat: number; lon: number } | null>(null);
+  const cityEdited = useRef(false);
+
+  // Pre-fill the city from the auto-detected location (editable). Keeps the
+  // newsletter hyper-local without forcing the user to type their city.
+  useEffect(() => {
+    let alive = true;
+    getLocation().then((loc) => {
+      if (!alive || !loc) return;
+      coords.current = { lat: loc.lat, lon: loc.lon };
+      if (!cityEdited.current) {
+        const place = displayPlace(loc) || loc.city;
+        if (place) setCity(place);
+      }
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -27,12 +48,21 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, lang, source: "landing" }),
+        body: JSON.stringify({
+          email,
+          lang,
+          source: "landing",
+          city: city.trim() || undefined,
+          ...(coords.current && !cityEdited.current
+            ? { lat: coords.current.lat, lon: coords.current.lon }
+            : {}),
+        }),
       });
       if (!res.ok) throw new Error("bad status");
       setStatus("success");
       setMessage(w.success);
       setEmail("");
+      setCity("");
     } catch {
       setStatus("error");
       setMessage(w.errorGeneric);
@@ -100,6 +130,37 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
                 {status === "sending" ? w.sending : w.button}
               </button>
             </form>
+          )}
+
+          {status !== "success" && (
+            <div className="mx-auto mt-3 flex max-w-md flex-col items-stretch gap-1.5 text-left">
+              <div className="relative">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone/50"
+                >
+                  📍
+                </span>
+                <label htmlFor="wl-city" className="sr-only">
+                  {w.cityPlaceholder}
+                </label>
+                <input
+                  id="wl-city"
+                  type="text"
+                  autoComplete="address-level2"
+                  value={city}
+                  onChange={(e) => {
+                    cityEdited.current = true;
+                    setCity(e.target.value);
+                  }}
+                  placeholder={w.cityPlaceholder}
+                  className="h-11 w-full rounded-full border border-line bg-white pl-10 pr-5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
+                />
+              </div>
+              <p className="px-1 text-[0.72rem] leading-snug text-stone/55">
+                {w.cityHint}
+              </p>
+            </div>
           )}
 
           {status === "error" && (
