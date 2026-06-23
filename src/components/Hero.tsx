@@ -94,8 +94,8 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
           {/* Left: headline + CTA */}
           <div>
             <h1
-              className="font-display font-medium leading-[1.0] tracking-tight text-ink"
-              style={{ fontSize: "clamp(2.8rem, 7vw, 6.2rem)" }}
+              className="font-display font-medium leading-[1.02] tracking-tight text-ink [overflow-wrap:break-word]"
+              style={{ fontSize: "clamp(2.3rem, 7vw, 6.2rem)" }}
             >
               {h.titleLead}{" "}
               <em className="not-italic text-spring-deep">{h.titleEmph}</em>
@@ -111,7 +111,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#diagnostic"
-                className="spring-glow group inline-flex items-center justify-center gap-2 rounded-full bg-spring-deep px-7 py-4 text-[0.95rem] font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink"
+                className="spring-glow group inline-flex w-full items-center justify-center gap-2 rounded-full bg-spring-deep px-7 py-4 text-[0.95rem] font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink sm:w-auto"
               >
                 {h.ctaPrimary}
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform group-hover:translate-x-0.5">
@@ -120,7 +120,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               </a>
               <a
                 href="#rejoindre"
-                className="inline-flex items-center justify-center rounded-full border border-ink/25 px-7 py-4 text-[0.95rem] font-medium text-ink transition-colors hover:border-ink/50 hover:bg-ink hover:text-cream"
+                className="inline-flex w-full items-center justify-center rounded-full border border-ink/25 px-7 py-4 text-[0.95rem] font-medium text-ink transition-colors hover:border-ink/50 hover:bg-ink hover:text-cream sm:w-auto"
               >
                 {h.ctaSecondary}
               </a>

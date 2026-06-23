@@ -98,7 +98,7 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body className="min-h-full flex flex-col bg-paper text-ink">
+      <body className="min-h-full flex flex-col overflow-x-hidden bg-paper text-ink">
         <a href="#main-content" className="skip-link">
           Aller au contenu
         </a>
