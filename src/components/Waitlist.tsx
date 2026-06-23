@@ -226,7 +226,7 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
             <p className="mt-3 text-sm text-red-500">{message}</p>
           )}
 
-          <p className="mt-5 font-mono text-[0.62rem] uppercase tracking-widest text-stone/45">
+          <p className="mx-auto mt-5 max-w-sm text-balance font-mono text-[0.62rem] uppercase leading-relaxed tracking-wider text-stone/45">
             {w.countNote} · {w.privacy}
           </p>
         </Reveal>
