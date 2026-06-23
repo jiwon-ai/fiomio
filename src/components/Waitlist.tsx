@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Lang, Messages } from "@/lib/locale";
-import { getLocation, displayPlace } from "@/lib/geo";
+import {
+  getLocation,
+  displayPlace,
+  geocodeCity,
+  type GeoResult,
+} from "@/lib/geo";
 import { track } from "@/lib/track";
 import { Reveal } from "./ui/Reveal";
 
@@ -14,27 +19,50 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
   const w = t.waitlist;
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
+  const [results, setResults] = useState<GeoResult[]>([]);
+  const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  // coords match the current city text when known (detected or picked), else null
   const coords = useRef<{ lat: number; lon: number } | null>(null);
-  const cityEdited = useRef(false);
 
-  // Pre-fill the city from the auto-detected location (editable). Keeps the
-  // newsletter hyper-local without forcing the user to type their city.
+  // Pre-fill the city from the auto-detected location (editable).
   useEffect(() => {
     let alive = true;
     getLocation().then((loc) => {
       if (!alive || !loc) return;
       coords.current = { lat: loc.lat, lon: loc.lon };
-      if (!cityEdited.current) {
-        const place = displayPlace(loc) || loc.city;
-        if (place) setCity(place);
-      }
+      setCity((prev) => prev || displayPlace(loc) || loc.city || "");
     });
     return () => {
       alive = false;
     };
   }, []);
+
+  // Autocomplete: only search when the user is typing (no coords yet).
+  useEffect(() => {
+    if (city.trim().length < 2 || coords.current) {
+      setResults([]);
+      return;
+    }
+    let alive = true;
+    const id = setTimeout(() => {
+      geocodeCity(city, lang).then((r) => {
+        if (alive) setResults(r);
+      });
+    }, 250);
+    return () => {
+      alive = false;
+      clearTimeout(id);
+    };
+  }, [city, lang]);
+
+  const pickCity = (r: GeoResult) => {
+    coords.current = { lat: r.lat, lon: r.lon };
+    setCity(r.name);
+    setResults([]);
+    setOpen(false);
+  };
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -54,7 +82,7 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
           lang,
           source: "landing",
           city: city.trim() || undefined,
-          ...(coords.current && !cityEdited.current
+          ...(coords.current
             ? { lat: coords.current.lat, lon: coords.current.lon }
             : {}),
         }),
@@ -64,6 +92,8 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
       setMessage(w.success);
       setEmail("");
       setCity("");
+      coords.current = null;
+      setResults([]);
       track("waitlist_submitted", { lang, hasCity: city.trim().length > 0 });
     } catch {
       setStatus("error");
@@ -103,66 +133,93 @@ export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
               <span className="text-sm font-medium text-ink">{message}</span>
             </div>
           ) : (
-            <form
-              onSubmit={onSubmit}
-              className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row"
-              noValidate
-            >
-              <label htmlFor="wl-email" className="sr-only">
-                {w.placeholder}
-              </label>
-              <input
-                id="wl-email"
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (status === "error") setStatus("idle");
-                }}
-                placeholder={w.placeholder}
-                className="h-13 flex-1 rounded-full border border-line bg-white px-5 py-3.5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
-              />
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="spring-glow inline-flex h-13 items-center justify-center rounded-full bg-spring px-6 py-3.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
+            <>
+              <form
+                onSubmit={onSubmit}
+                className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row"
+                noValidate
               >
-                {status === "sending" ? w.sending : w.button}
-              </button>
-            </form>
-          )}
-
-          {status !== "success" && (
-            <div className="mx-auto mt-3 flex max-w-md flex-col items-stretch gap-1.5 text-left">
-              <div className="relative">
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone/50"
-                >
-                  📍
-                </span>
-                <label htmlFor="wl-city" className="sr-only">
-                  {w.cityPlaceholder}
+                <label htmlFor="wl-email" className="sr-only">
+                  {w.placeholder}
                 </label>
                 <input
-                  id="wl-city"
-                  type="text"
-                  autoComplete="address-level2"
-                  value={city}
+                  id="wl-email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  value={email}
                   onChange={(e) => {
-                    cityEdited.current = true;
-                    setCity(e.target.value);
+                    setEmail(e.target.value);
+                    if (status === "error") setStatus("idle");
                   }}
-                  placeholder={w.cityPlaceholder}
-                  className="h-11 w-full rounded-full border border-line bg-white pl-10 pr-5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
+                  placeholder={w.placeholder}
+                  className="h-13 flex-1 rounded-full border border-line bg-white px-5 py-3.5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
                 />
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="spring-glow inline-flex h-13 items-center justify-center rounded-full bg-spring px-6 py-3.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
+                >
+                  {status === "sending" ? w.sending : w.button}
+                </button>
+              </form>
+
+              <div className="mx-auto mt-3 flex max-w-md flex-col items-stretch gap-1.5 text-left">
+                <div className="relative">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone/50"
+                  >
+                    📍
+                  </span>
+                  <label htmlFor="wl-city" className="sr-only">
+                    {w.cityPlaceholder}
+                  </label>
+                  <input
+                    id="wl-city"
+                    type="text"
+                    role="combobox"
+                    aria-expanded={open && results.length > 0}
+                    aria-controls="wl-city-list"
+                    aria-autocomplete="list"
+                    autoComplete="off"
+                    value={city}
+                    onChange={(e) => {
+                      coords.current = null; // typing = unknown coords until picked
+                      setCity(e.target.value);
+                      setOpen(true);
+                    }}
+                    onFocus={() => results.length > 0 && setOpen(true)}
+                    onBlur={() => setTimeout(() => setOpen(false), 150)}
+                    placeholder={w.cityPlaceholder}
+                    className="h-11 w-full rounded-full border border-line bg-white pl-10 pr-5 text-sm text-ink placeholder:text-stone/50 outline-none transition-colors focus:border-spring-deep/40 focus:ring-2 focus:ring-spring/20"
+                  />
+                  {open && results.length > 0 && (
+                    <ul id="wl-city-list" className="absolute z-30 mt-1.5 max-h-64 w-full overflow-auto rounded-2xl border border-line bg-white py-1 text-left shadow-[0_18px_50px_-24px_rgba(15,43,49,0.45)]">
+                      {results.map((r, i) => (
+                        <li key={`${r.name}-${i}`}>
+                          <button
+                            type="button"
+                            onMouseDown={(ev) => ev.preventDefault()}
+                            onClick={() => pickCity(r)}
+                            className="flex w-full items-baseline gap-2 px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-cream"
+                          >
+                            <span className="font-medium">{r.name}</span>
+                            <span className="text-xs text-stone-2">
+                              {r.admin1 ? `${r.admin1} · ` : ""}
+                              {r.country}
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <p className="px-1 text-[0.72rem] leading-snug text-stone/55">
+                  {w.cityHint}
+                </p>
               </div>
-              <p className="px-1 text-[0.72rem] leading-snug text-stone/55">
-                {w.cityHint}
-              </p>
-            </div>
+            </>
           )}
 
           {status === "error" && (
