@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Lang, Messages } from "@/lib/locale";
-import { getLocation } from "@/lib/geo";
+import { getLocation, displayPlace } from "@/lib/geo";
 import { SkinConstellation } from "./SkinConstellation";
 
 export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
@@ -12,7 +12,10 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   useEffect(() => {
     let alive = true;
     getLocation().then((loc) => {
-      if (alive && loc?.city) setCity(loc.city);
+      if (alive && loc) {
+        const place = displayPlace(loc);
+        if (place) setCity(place);
+      }
     });
     return () => {
       alive = false;
