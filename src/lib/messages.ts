@@ -111,15 +111,15 @@ export const fr = {
     items: [
       {
         title: "On lit votre peau, pas les tendances",
-        body: "Pas de produit star imposé. Une recommandation construite à partir de votre type de peau et de vos vraies préoccupations.",
+        body: "Bâtie sur votre peau et vos vraies préoccupations, pas un produit star.",
       },
       {
         title: "Le climat, pas seulement les ingrédients",
-        body: "La météo de votre ville au moment où vous recevrez vos soins change ce qui fonctionne. On en tient compte, personne d'autre ne le fait.",
+        body: "La météo de votre ville change ce qui marche. Personne d'autre ne le fait.",
       },
       {
         title: "On vous dit toujours pourquoi",
-        body: "Chaque conseil est expliqué. Vous comprenez ce que vous mettez sur votre peau, et pourquoi ça lui convient.",
+        body: "Chaque conseil expliqué — vous savez ce que vous appliquez, et pourquoi.",
       },
     ],
   },
@@ -339,20 +339,19 @@ export const fr = {
   engagement: {
     eyebrow: "Notre engagement",
     title: "Les marques achètent de la visibilité. Jamais notre avis.",
-    intro:
-      "Vous recoupez les recommandations avant d'acheter ? Nous aussi. Voici nos règles, les mêmes que vous appliqueriez.",
+    intro: "Nos règles, les mêmes que vous appliqueriez.",
     items: [
       {
         title: "On ne vend jamais notre avis",
-        body: "Aucune marque ne peut acheter une recommandation, une note ou une place dans un classement.",
+        body: "Aucune marque n'achète une reco, une note ou un classement.",
       },
       {
         title: "Transparence sur l'argent",
-        body: "Les liens d'affiliation sont signalés : on touche une commission seulement si vous achetez, jamais en échange d'un avis favorable.",
+        body: "Commission seulement si vous achetez — jamais pour un avis favorable.",
       },
       {
         title: "La publicité est étiquetée",
-        body: "Un espace sponsorisé est indiqué clairement, noir sur blanc, et séparé de nos tests.",
+        body: "Tout espace sponsorisé est clairement indiqué, séparé de nos tests.",
       },
       {
         title: "On dit aussi ce qui ne marche pas",
@@ -370,7 +369,7 @@ export const fr = {
     transparence: "Comment on gagne de l'argent",
     founderEyebrow: "Le mot de la fondatrice",
     founderNote:
-      "À Paris, mes amies me demandaient souvent : « Toi qui es coréenne, conseille-moi une crème coréenne. » Et là, j'hésitais. Parce qu'un soin adoré à Séoul peut ne rien donner sur une peau parisienne : l'eau, le chauffage, l'air, l'hiver sec, tout change. Je n'avais pas envie de recommander à l'aveugle. Analyste de données et passionnée de cosmétique, j'ai fini par appliquer mon métier à ce que j'aime : croiser votre peau, votre ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né de cette hésitation. Des recommandations expliquées, vérifiables, jamais sponsorisées.",
+      "À Paris, mes amies me disaient : « Toi qui es coréenne, conseille-moi une crème. » J\u2019hésitais — un soin adoré à Séoul peut ne rien donner sur une peau parisienne : l\u2019eau, le chauffage, l\u2019air sec, tout change. Analyste de données et passionnée de cosmétique, j\u2019ai appliqué mon métier à ce que j\u2019aime : croiser votre peau, votre ville et la saison. Fiomio est né de cette hésitation.",
     founderSign: "Jiwon, fondatrice",
   },
 
@@ -529,15 +528,15 @@ export const en: Messages = {
     items: [
       {
         title: "We read your skin, not the trends",
-        body: "No hero product forced on you. A recommendation built from your skin type and your real concerns.",
+        body: "Built from your skin and real concerns, not a hero product.",
       },
       {
         title: "The climate, not just the ingredients",
-        body: "Your city's weather when your products arrive changes what works. We factor it in, no one else does.",
+        body: "Your city's weather changes what works. No one else factors it in.",
       },
       {
         title: "We always tell you why",
-        body: "Every tip is explained. You understand what you put on your skin, and why it suits it.",
+        body: "Every tip explained — you know what you apply, and why.",
       },
     ],
   },
@@ -756,20 +755,19 @@ export const en: Messages = {
   engagement: {
     eyebrow: "Our promise",
     title: "Brands can buy visibility. Never our verdict.",
-    intro:
-      "You fact-check recommendations before buying? So do we. Here are our rules, the same ones you'd apply.",
+    intro: "Our rules, the same ones you\u2019d apply.",
     items: [
       {
         title: "We never sell our verdict",
-        body: "No brand can buy a recommendation, a score, or a place in a ranking.",
+        body: "No brand buys a recommendation, a score or a ranking.",
       },
       {
         title: "Transparent about money",
-        body: "Affiliate links are flagged: we earn a commission only if you buy, never in exchange for a favorable review.",
+        body: "We earn only if you buy — never for a favorable review.",
       },
       {
         title: "Advertising is labeled",
-        body: "Any sponsored space is clearly marked and kept separate from our tests.",
+        body: "Any sponsored space is clearly marked, separate from our tests.",
       },
       {
         title: "We also say what doesn't work",
@@ -787,7 +785,7 @@ export const en: Messages = {
     transparence: "How we make money",
     founderEyebrow: "From the founder",
     founderNote:
-      "In Paris, my friends would often ask me: “You're Korean, recommend me a Korean cream.” And I would hesitate. Because a product adored in Seoul can do nothing for Parisian skin: the water, the heating, the air, the dry winter, everything changes. I didn't want to recommend blindly. A data analyst and a cosmetics lover, I ended up applying my craft to what I love: crossing your skin, your city and the season to understand what actually works. Fiomio was born from that hesitation. Recommendations that are explained, verifiable, and never sponsored.",
+      "In Paris, friends kept asking: \u201cYou\u2019re Korean, recommend me a cream.\u201d I\u2019d hesitate \u2014 a product adored in Seoul can do nothing for Parisian skin: the water, the heating, the dry air, everything changes. A data analyst and cosmetics lover, I applied my craft to what I love: crossing your skin, your city and the season. Fiomio was born from that hesitation.",
     founderSign: "Jiwon, founder",
   },
 
