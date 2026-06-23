@@ -193,6 +193,26 @@ export const fr = {
       "Le produit complet associera ces actifs à des produits réels, à votre budget et à la météo en temps réel.",
     disclaimer:
       "Aperçu éducatif à but informatif, ne remplace pas un avis dermatologique. Introduisez un nouvel actif progressivement et faites un test de tolérance.",
+
+    products: {
+      gapTitle: "Ce qui manque à votre routine",
+      gapIntro:
+        "Votre profil appelle des actifs ciblés que vous n'utilisez pas encore. Voici le manque à combler.",
+      gapIntroNone:
+        "Vous n'avez pas encore d'actif fort dans votre routine : ces trois actifs sont les premiers à intégrer, en douceur.",
+      sectionTitle: "Des produits pour combler ce manque",
+      sectionIntro:
+        "Des exemples de produits K-beauty reconnus, associés à vos actifs prioritaires.",
+      matchLabel: "Actif",
+      seeProduct: "Voir le produit",
+      affiliateNote:
+        "Liens affiliés signalés — une commission possible, sans surcoût, jamais en échange d'un avis.",
+      comingTitle: "Au lancement, des correspondances précises",
+      comingBody:
+        "Vous recevrez des produits choisis pour votre peau, votre ville et votre budget — pas une liste de best-sellers.",
+      joinCta: "Rejoindre la liste",
+      draftNote: "Sélection d'exemples — catalogue en cours de constitution.",
+    },
   },
 
   // Labels for the diagnostic options (values map to engine keys)
@@ -595,6 +615,26 @@ export const en: Messages = {
       "The full product will pair these actives with real products, your budget and live weather.",
     disclaimer:
       "Educational preview for information only, not a substitute for dermatological advice. Introduce any new active gradually and patch-test first.",
+
+    products: {
+      gapTitle: "What your routine is missing",
+      gapIntro:
+        "Your profile calls for targeted actives you're not using yet. Here's the gap to fill.",
+      gapIntroNone:
+        "You don't have a strong active in your routine yet: these three are the first to add, gently.",
+      sectionTitle: "Products to fill the gap",
+      sectionIntro:
+        "A few well-known K-beauty products, matched to your priority actives.",
+      matchLabel: "Active",
+      seeProduct: "See product",
+      affiliateNote:
+        "Affiliate links disclosed — a possible commission, at no extra cost, never in exchange for a review.",
+      comingTitle: "At launch, precise matches",
+      comingBody:
+        "You'll get products chosen for your skin, your city and your budget — not a list of best-sellers.",
+      joinCta: "Join the list",
+      draftNote: "Sample selection — catalogue still being assembled.",
+    },
   },
 
   skinTypes: [

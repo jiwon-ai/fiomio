@@ -5,8 +5,11 @@ import type { Lang, Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
+import { DiagIcon } from "./diagnostic/icons";
 import { seasonFallbackClimate, type ClimateContext } from "@/lib/climate";
 import { detectLocation, type Loc, type GeoResult } from "@/lib/geo";
+import { buildAffiliateLink } from "@/lib/affiliates";
+import { productsForIngredients, type Product } from "@/lib/products";
 import {
   runDiagnostic,
   type DiagnosticResult,
@@ -18,6 +21,7 @@ import {
 import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
 
 const TOTAL_STEPS = 7;
+const AUTO_ADVANCE_MS = 280;
 
 export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const d = t.diagnostic;
@@ -37,6 +41,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const [llmNote, setLlmNote] = useState<{ fr: string; en: string } | null>(null);
   const [llmLoading, setLlmLoading] = useState(false);
   const llmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadForecast = useCallback((l: Loc | null) => {
     const url = l
@@ -65,6 +70,13 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       alive = false;
     };
   }, [loadForecast]);
+
+  // Clear any pending auto-advance when the step changes or on unmount.
+  useEffect(() => {
+    return () => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    };
+  }, [step]);
 
   const selectCity = (r: GeoResult) => {
     const l: Loc = { city: r.name, lat: r.lat, lon: r.lon, country: r.country };
@@ -121,24 +133,48 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       });
   }, [skinType, sensitive, concerns, activeUse, ageRange, gender, climate]);
 
-  const handleNext = () => {
-    if (step < TOTAL_STEPS - 1) {
-      // Male users skip the pregnancy question — not relevant
-      if (step === 5 && gender === "male") {
-        showResults("none" as Pregnancy);
+  // Advance one step forward, honouring the male→skip-pregnancy and
+  // last-step→results behaviour. Mirrors the manual "Continue" button.
+  const advance = useCallback(
+    (currentGender: Gender | null, currentPregnancy: Pregnancy | null) => {
+      if (step < TOTAL_STEPS - 1) {
+        if (step === 5 && currentGender === "male") {
+          showResults("none" as Pregnancy);
+          return;
+        }
+        setStep((s) => s + 1);
         return;
       }
-      setStep((s) => s + 1);
-      return;
-    }
-    if (pregnancy) showResults(pregnancy);
+      if (currentPregnancy) showResults(currentPregnancy);
+    },
+    [step, showResults],
+  );
+
+  const handleNext = () => {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    advance(gender, pregnancy);
   };
+
+  // Schedule an auto-advance for single-select steps after a selection.
+  const scheduleAdvance = useCallback(
+    (nextGender?: Gender, nextPregnancy?: Pregnancy) => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+      advanceTimer.current = setTimeout(() => {
+        advance(
+          nextGender ?? gender,
+          nextPregnancy ?? pregnancy,
+        );
+      }, AUTO_ADVANCE_MS);
+    },
+    [advance, gender, pregnancy],
+  );
 
   const reset = () => {
     setResult(null);
     setLlmNote(null);
     setLlmLoading(false);
     if (llmTimer.current) clearTimeout(llmTimer.current);
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setStep(0);
     setSkinType(null);
     setSensitive(null);
@@ -252,11 +288,15 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   pregnancy={pregnancy}
                   setPregnancy={setPregnancy}
                   canAdvance={canAdvance}
-                  onBack={() => setStep((s) => Math.max(0, s - 1))}
+                  scheduleAdvance={scheduleAdvance}
+                  onBack={() => {
+                    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+                    setStep((s) => Math.max(0, s - 1));
+                  }}
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -296,6 +336,7 @@ function Questionnaire(props: {
   pregnancy: Pregnancy | null;
   setPregnancy: (p: Pregnancy) => void;
   canAdvance: boolean;
+  scheduleAdvance: (nextGender?: Gender, nextPregnancy?: Pregnancy) => void;
   onBack: () => void;
   onNext: () => void;
 }) {
@@ -325,6 +366,7 @@ function Questionnaire(props: {
     pregnancy,
     setPregnancy,
     canAdvance,
+    scheduleAdvance,
     onBack,
     onNext,
   } = props;
@@ -360,10 +402,14 @@ function Questionnaire(props: {
         {step === 0 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {skinTypes.map((s) => (
-              <OptionCard
+              <IconCard
                 key={s.key}
+                icon={s.key}
                 selected={skinType === s.key}
-                onClick={() => setSkinType(s.key as SkinType)}
+                onClick={() => {
+                  setSkinType(s.key as SkinType);
+                  scheduleAdvance();
+                }}
                 title={s.label}
                 desc={s.desc}
               />
@@ -373,53 +419,62 @@ function Questionnaire(props: {
 
         {step === 1 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <OptionCard
+            <IconCard
+              icon="true"
               selected={sensitive === true}
-              onClick={() => setSensitive(true)}
+              onClick={() => {
+                setSensitive(true);
+                scheduleAdvance();
+              }}
               title={d.sensitiveYes}
             />
-            <OptionCard
+            <IconCard
+              icon="false"
               selected={sensitive === false}
-              onClick={() => setSensitive(false)}
+              onClick={() => {
+                setSensitive(false);
+                scheduleAdvance();
+              }}
               title={d.sensitiveNo}
             />
           </div>
         )}
 
         {step === 2 && (
-          <div className="mt-6 flex flex-wrap gap-2.5">
-            {concernsList.map((c) => {
-              const on = concerns.includes(c.key as ConcernKey);
-              const full = concerns.length >= 3 && !on;
-              return (
-                <button
-                  key={c.key}
-                  type="button"
-                  onClick={() => toggleConcern(c.key as ConcernKey)}
-                  disabled={full}
-                  aria-pressed={on}
-                  className={`rounded-full border px-4 py-2 text-sm transition-all ${
-                    on
-                      ? "border-spring-deep bg-spring/15 font-medium text-moss"
-                      : full
-                        ? "cursor-not-allowed border-line text-stone-2/50"
-                        : "border-line bg-white text-ink/75 hover:border-spring-deep/50"
-                  }`}
-                >
-                  {c.label}
-                </button>
-              );
-            })}
+          <div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {concernsList.map((c) => {
+                const on = concerns.includes(c.key as ConcernKey);
+                const full = concerns.length >= 3 && !on;
+                return (
+                  <IconCard
+                    key={c.key}
+                    icon={c.key}
+                    selected={on}
+                    disabled={full}
+                    onClick={() => toggleConcern(c.key as ConcernKey)}
+                    title={c.label}
+                  />
+                );
+              })}
+            </div>
+            <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-wider text-stone-2">
+              {concerns.length}/3
+            </p>
           </div>
         )}
 
         {step === 3 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {activesList.map((a) => (
-              <OptionCard
+              <IconCard
                 key={a.key}
+                icon={a.key}
                 selected={activeUse === a.key}
-                onClick={() => setActiveUse(a.key as ActiveUse)}
+                onClick={() => {
+                  setActiveUse(a.key as ActiveUse);
+                  scheduleAdvance();
+                }}
                 title={a.label}
                 desc={"desc" in a ? (a as { desc: string }).desc : undefined}
               />
@@ -430,10 +485,14 @@ function Questionnaire(props: {
         {step === 4 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {ageRangesList.map((a) => (
-              <OptionCard
+              <IconCard
                 key={a.key}
+                icon={a.key}
                 selected={ageRange === a.key}
-                onClick={() => setAgeRange(a.key as AgeRange)}
+                onClick={() => {
+                  setAgeRange(a.key as AgeRange);
+                  scheduleAdvance();
+                }}
                 title={a.label}
                 desc={"desc" in a ? (a as { desc: string }).desc : undefined}
               />
@@ -444,10 +503,14 @@ function Questionnaire(props: {
         {step === 5 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {gendersList.map((g) => (
-              <OptionCard
+              <IconCard
                 key={g.key}
+                icon={g.key}
                 selected={gender === g.key}
-                onClick={() => setGender(g.key as Gender)}
+                onClick={() => {
+                  setGender(g.key as Gender);
+                  scheduleAdvance(g.key as Gender);
+                }}
                 title={g.label}
               />
             ))}
@@ -457,10 +520,14 @@ function Questionnaire(props: {
         {step === 6 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {pregnancyList.map((p) => (
-              <OptionCard
+              <IconCard
                 key={p.key}
+                icon={p.key}
                 selected={pregnancy === p.key}
-                onClick={() => setPregnancy(p.key as Pregnancy)}
+                onClick={() => {
+                  setPregnancy(p.key as Pregnancy);
+                  scheduleAdvance(undefined, p.key as Pregnancy);
+                }}
                 title={p.label}
                 desc={p.desc}
               />
@@ -512,13 +579,17 @@ function Questionnaire(props: {
   );
 }
 
-function OptionCard({
+function IconCard({
+  icon,
   selected,
+  disabled,
   onClick,
   title,
   desc,
 }: {
+  icon: string;
   selected: boolean;
+  disabled?: boolean;
   onClick: () => void;
   title: string;
   desc?: string;
@@ -527,16 +598,28 @@ function OptionCard({
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-pressed={selected}
-      className={`group flex items-center justify-between gap-3 rounded-xl border px-4 py-4 text-left transition-all ${
+      className={`group flex items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spring-deep/50 focus-visible:ring-offset-2 focus-visible:ring-offset-cream sm:px-5 ${
         selected
           ? "border-spring-deep bg-spring/10"
-          : "border-line bg-white hover:border-spring-deep/40 hover:bg-cream"
+          : disabled
+            ? "cursor-not-allowed border-line bg-white/50 opacity-50"
+            : "border-line bg-white hover:-translate-y-0.5 hover:border-spring-deep/40 hover:bg-cream"
       }`}
     >
-      <span>
+      <span
+        className={`grid size-12 shrink-0 place-items-center rounded-xl transition-colors duration-200 ${
+          selected
+            ? "bg-spring text-spring-ink"
+            : "bg-spring/10 text-spring-deep group-hover:bg-spring/20"
+        }`}
+      >
+        <DiagIcon name={icon} className="block [&_svg]:size-7" />
+      </span>
+      <span className="min-w-0 flex-1">
         <span className="block font-medium text-ink">{title}</span>
-        {desc && <span className="mt-0.5 block text-xs text-stone">{desc}</span>}
+        {desc && <span className="mt-0.5 block text-xs leading-snug text-stone">{desc}</span>}
       </span>
       <span
         className={`grid size-5 shrink-0 place-items-center rounded-full border transition-colors ${
@@ -565,6 +648,7 @@ function Results({
   d,
   lang,
   result,
+  activeUse,
   onReset,
   llmNote,
   llmLoading,
@@ -572,10 +656,17 @@ function Results({
   d: DDict;
   lang: "fr" | "en";
   result: DiagnosticResult;
+  activeUse: ActiveUse | null;
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
 }) {
+  const p = d.products;
+  const recIds = result.recommendations.map((r) => r.ingredient.id);
+  const products = productsForIngredients(recIds, 6);
+  const recNames = result.recommendations.map((r) => r.ingredient.name[lang]).join(" · ");
+  const gapIntro = activeUse === "none" ? p.gapIntroNone : p.gapIntro;
+
   return (
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -593,6 +684,16 @@ function Results({
         >
           ↻ {d.restart}
         </button>
+      </div>
+
+      {/* (a) routine-gap framing */}
+      <div className="mt-6 rounded-xl border border-spring-deep/25 bg-spring/8 px-5 py-4">
+        <p className="font-mono text-[0.65rem] uppercase tracking-widest text-spring-deep">
+          {p.gapTitle}
+        </p>
+        <p className="mt-1.5 text-[0.92rem] leading-relaxed text-ink/85">
+          {gapIntro} <span className="font-medium text-ink">{recNames}.</span>
+        </p>
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
@@ -654,24 +755,93 @@ function Results({
         </div>
       )}
 
-      {/* CTA → waitlist */}
+      {/* (b) product matches */}
+      {products.length > 0 && (
+        <div className="mt-8">
+          <h4 className="font-display text-xl font-semibold text-ink">
+            {p.sectionTitle}
+          </h4>
+          <p className="mt-1 text-sm text-stone">{p.sectionIntro}</p>
+
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((prod) => (
+              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} />
+            ))}
+          </div>
+
+          {/* (c) affiliate transparency */}
+          <p className="mt-4 font-mono text-[0.66rem] leading-relaxed text-stone-2">
+            {p.affiliateNote}
+          </p>
+          <p className="mt-1 font-mono text-[0.66rem] italic leading-relaxed text-stone-2">
+            {p.draftNote}
+          </p>
+        </div>
+      )}
+
+      {/* (d) coming + waitlist CTA */}
       <div className="mt-7 flex flex-col items-start gap-4 rounded-xl border border-spring-deep/30 bg-spring/8 p-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-display text-lg font-semibold text-ink">
-            {d.ctaAfterTitle}
+            {p.comingTitle}
           </p>
-          <p className="mt-1 text-sm text-stone">{d.ctaAfterBody}</p>
+          <p className="mt-1 text-sm text-stone">{p.comingBody}</p>
         </div>
         <a
           href="#rejoindre"
           className="inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
         >
-          {lang === "fr" ? "Rejoindre la liste" : "Join the list"}
+          {p.joinCta}
           <span aria-hidden>→</span>
         </a>
       </div>
 
       <p className="mt-5 text-xs leading-relaxed text-stone-2">{d.disclaimer}</p>
+    </div>
+  );
+}
+
+function ProductCard({
+  lang,
+  p,
+  matchLabel,
+  seeProduct,
+}: {
+  lang: "fr" | "en";
+  p: Product;
+  matchLabel: string;
+  seeProduct: string;
+}) {
+  return (
+    <div className="lab-frame flex flex-col rounded-xl bg-cream p-5">
+      <span className="font-mono text-[0.62rem] uppercase tracking-widest text-stone-2">
+        {p.brand}
+      </span>
+      <h5 className="font-display mt-1 text-base font-semibold leading-snug text-ink">
+        {p.name}
+      </h5>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {p.ingredientIds.slice(0, 2).map((id) => (
+          <span
+            key={id}
+            className="rounded-full bg-spring/12 px-2.5 py-0.5 text-[0.68rem] font-medium text-moss"
+          >
+            {matchLabel}: {id}
+          </span>
+        ))}
+      </div>
+      <p className="mt-3 flex-1 text-[0.86rem] leading-relaxed text-ink/75">
+        {p.blurb[lang]}
+      </p>
+      <a
+        href={buildAffiliateLink(p.url)}
+        target="_blank"
+        rel="sponsored noopener noreferrer"
+        className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
+      >
+        {seeProduct}
+        <span aria-hidden>→</span>
+      </a>
     </div>
   );
 }
