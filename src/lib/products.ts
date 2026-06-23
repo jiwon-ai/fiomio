@@ -9,8 +9,8 @@ export const PRODUCTS_DRAFT = true;
 
 /** Build a YesStyle search URL for a product (a configured affiliate partner).
  *  YesStyle's canonical search path is /en/list.html?q=… (verified). Spaces → "+". */
-export function yesstyleSearchUrl(brand: string, name: string): string {
-  const q = encodeURIComponent(`${brand} ${name}`).replace(/%20/g, "+");
+export function yesstyleSearchUrl(query: string): string {
+  const q = encodeURIComponent(query).replace(/%20/g, "+");
   return `https://www.yesstyle.com/en/list.html?q=${q}`;
 }
 
@@ -18,6 +18,8 @@ export type Product = {
   id: string;
   brand: string;
   name: string;
+  /** short, brand-led YesStyle query (full names are too exact to match) */
+  searchQ: string;
   ingredientIds: string[];
   concerns?: ConcernKey[];
   category:
@@ -33,13 +35,14 @@ export type Product = {
 };
 
 /* Real, well-known K-beauty products mapped to our active ids.
-   Links are built at render time via yesstyleSearchUrl(brand, name) →
+   Links are built at render time via yesstyleSearchUrl(searchQ) →
    buildAffiliateLink(), so they always resolve and carry our affiliate tag. */
 export const PRODUCTS: Product[] = [
   {
     id: "cosrx-snail-96",
     brand: "COSRX",
     name: "Advanced Snail 96 Mucin Power Essence",
+    searchQ: "COSRX Snail 96 Essence",
     ingredientIds: ["snail"],
     concerns: ["dehydration", "barrier"],
     category: "essence",
@@ -52,6 +55,7 @@ export const PRODUCTS: Product[] = [
     id: "anua-heartleaf-77",
     brand: "Anua",
     name: "Heartleaf 77% Soothing Toner",
+    searchQ: "Anua Heartleaf 77 Toner",
     ingredientIds: ["heartleaf", "centella"],
     concerns: ["redness", "acne"],
     category: "toner",
@@ -64,6 +68,7 @@ export const PRODUCTS: Product[] = [
     id: "skin1004-centella-ampoule",
     brand: "SKIN1004",
     name: "Madagascar Centella Ampoule",
+    searchQ: "SKIN1004 Centella Ampoule",
     ingredientIds: ["centella"],
     concerns: ["redness", "barrier"],
     category: "serum",
@@ -76,6 +81,7 @@ export const PRODUCTS: Product[] = [
     id: "purito-centella-serum",
     brand: "PURITO",
     name: "Centella Unscented Serum",
+    searchQ: "PURITO Centella Unscented Serum",
     ingredientIds: ["centella", "panthenol"],
     concerns: ["redness", "barrier"],
     category: "serum",
@@ -88,6 +94,7 @@ export const PRODUCTS: Product[] = [
     id: "boj-glow-deep-serum",
     brand: "Beauty of Joseon",
     name: "Glow Deep Serum: Rice + Alpha Arbutin",
+    searchQ: "Beauty of Joseon Glow Deep Serum",
     ingredientIds: ["niacinamide", "arbutin"],
     concerns: ["dullness", "pigmentation"],
     category: "serum",
@@ -100,6 +107,7 @@ export const PRODUCTS: Product[] = [
     id: "boj-revive-serum",
     brand: "Beauty of Joseon",
     name: "Revive Serum: Ginseng + Snail Mucin",
+    searchQ: "Beauty of Joseon Revive Serum",
     ingredientIds: ["snail", "propolis"],
     concerns: ["dehydration", "barrier"],
     category: "serum",
@@ -112,6 +120,7 @@ export const PRODUCTS: Product[] = [
     id: "boj-relief-sun",
     brand: "Beauty of Joseon",
     name: "Relief Sun: Rice + Probiotics SPF50+",
+    searchQ: "Beauty of Joseon Relief Sun",
     ingredientIds: ["greentea"],
     concerns: ["barrier"],
     category: "sunscreen",
@@ -124,6 +133,7 @@ export const PRODUCTS: Product[] = [
     id: "boj-glow-serum",
     brand: "Beauty of Joseon",
     name: "Glow Serum: Propolis + Niacinamide",
+    searchQ: "Beauty of Joseon Propolis Niacinamide Serum",
     ingredientIds: ["propolis", "niacinamide"],
     concerns: ["dullness", "acne"],
     category: "serum",
@@ -135,7 +145,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "numbuzin-no3",
     brand: "Numbuzin",
-    name: "No.3 Skin Brightening Serum",
+    name: "No.3 Skin Softening Serum",
+    searchQ: "Numbuzin No.3 Serum",
     ingredientIds: ["niacinamide", "galactomyces"],
     concerns: ["dullness", "pigmentation"],
     category: "serum",
@@ -148,6 +159,7 @@ export const PRODUCTS: Product[] = [
     id: "isntree-ha-toner",
     brand: "Isntree",
     name: "Hyaluronic Acid Toner",
+    searchQ: "Isntree Hyaluronic Acid Toner",
     ingredientIds: ["hyaluronic"],
     concerns: ["dehydration"],
     category: "toner",
@@ -160,6 +172,7 @@ export const PRODUCTS: Product[] = [
     id: "torriden-dive-in-serum",
     brand: "Torriden",
     name: "DIVE-IN Low Molecular Hyaluronic Acid Serum",
+    searchQ: "Torriden Dive-In Serum",
     ingredientIds: ["hyaluronic", "betaglucan"],
     concerns: ["dehydration", "barrier"],
     category: "serum",
@@ -172,6 +185,7 @@ export const PRODUCTS: Product[] = [
     id: "aestura-atobarrier365",
     brand: "Aestura",
     name: "Atobarrier365 Cream",
+    searchQ: "Aestura Atobarrier365 Cream",
     ingredientIds: ["ceramides", "panthenol"],
     concerns: ["barrier", "dehydration"],
     category: "moisturizer",
@@ -184,6 +198,7 @@ export const PRODUCTS: Product[] = [
     id: "drjart-ceramidin-cream",
     brand: "Dr.Jart+",
     name: "Ceramidin Cream",
+    searchQ: "Dr.Jart Ceramidin Cream",
     ingredientIds: ["ceramides"],
     concerns: ["barrier", "dehydration"],
     category: "moisturizer",
@@ -196,6 +211,7 @@ export const PRODUCTS: Product[] = [
     id: "somebymi-retinol",
     brand: "SOME BY MI",
     name: "Retinol Intense Advanced Triple Action Serum",
+    searchQ: "Some By Mi Retinol Intense Serum",
     ingredientIds: ["retinol"],
     concerns: ["aging"],
     category: "serum",
@@ -208,6 +224,7 @@ export const PRODUCTS: Product[] = [
     id: "naturium-vitc",
     brand: "Naturium",
     name: "Vitamin C Complex Serum",
+    searchQ: "Naturium Vitamin C Complex Serum",
     ingredientIds: ["vitaminc"],
     concerns: ["dullness", "pigmentation"],
     category: "serum",
@@ -220,6 +237,7 @@ export const PRODUCTS: Product[] = [
     id: "cosrx-aha-bha-toner",
     brand: "COSRX",
     name: "AHA/BHA Clarifying Treatment Toner",
+    searchQ: "COSRX AHA BHA Clarifying Toner",
     ingredientIds: ["glycolic", "salicylic"],
     concerns: ["pores", "acne"],
     category: "toner",
@@ -232,6 +250,7 @@ export const PRODUCTS: Product[] = [
     id: "cosrx-bha-blackhead",
     brand: "COSRX",
     name: "BHA Blackhead Power Liquid",
+    searchQ: "COSRX BHA Blackhead Power Liquid",
     ingredientIds: ["salicylic"],
     concerns: ["pores", "acne"],
     category: "treatment",
@@ -244,6 +263,7 @@ export const PRODUCTS: Product[] = [
     id: "isntree-mugwort",
     brand: "Isntree",
     name: "Spot Saver Mugwort Ampoule",
+    searchQ: "Isntree Mugwort Ampoule",
     ingredientIds: ["mugwort"],
     concerns: ["redness", "acne"],
     category: "serum",
@@ -256,6 +276,7 @@ export const PRODUCTS: Product[] = [
     id: "roundlab-dokdo-toner",
     brand: "Round Lab",
     name: "1025 Dokdo Toner",
+    searchQ: "Round Lab Dokdo Toner",
     ingredientIds: ["panthenol", "betaglucan"],
     concerns: ["dehydration", "barrier"],
     category: "toner",
@@ -268,6 +289,7 @@ export const PRODUCTS: Product[] = [
     id: "roundlab-mugwort-cream",
     brand: "Round Lab",
     name: "Mugwort Calming Cream",
+    searchQ: "Round Lab Mugwort Cream",
     ingredientIds: ["mugwort", "centella"],
     concerns: ["redness", "barrier"],
     category: "moisturizer",
@@ -280,6 +302,7 @@ export const PRODUCTS: Product[] = [
     id: "mixsoon-bean-essence",
     brand: "Mixsoon",
     name: "Bean Essence",
+    searchQ: "Mixsoon Bean Essence",
     ingredientIds: ["galactomyces", "niacinamide"],
     concerns: ["dullness", "dehydration"],
     category: "essence",
@@ -292,6 +315,7 @@ export const PRODUCTS: Product[] = [
     id: "abib-heartleaf-toner",
     brand: "Abib",
     name: "Heartleaf Essence Calming Toner",
+    searchQ: "Abib Heartleaf Toner",
     ingredientIds: ["heartleaf", "allantoin"],
     concerns: ["redness", "barrier"],
     category: "toner",
@@ -304,6 +328,7 @@ export const PRODUCTS: Product[] = [
     id: "axisy-dark-spot-serum",
     brand: "AXIS-Y",
     name: "Dark Spot Correcting Glow Serum",
+    searchQ: "AXIS-Y Dark Spot Correcting Serum",
     ingredientIds: ["niacinamide", "squalane"],
     concerns: ["pigmentation", "dullness"],
     category: "serum",
@@ -316,6 +341,7 @@ export const PRODUCTS: Product[] = [
     id: "klairs-vitc-drop",
     brand: "Dear, Klairs",
     name: "Freshly Juiced Vitamin Drop",
+    searchQ: "Klairs Freshly Juiced Vitamin Drop",
     ingredientIds: ["vitaminc"],
     concerns: ["dullness", "pigmentation"],
     category: "serum",
