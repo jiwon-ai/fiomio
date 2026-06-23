@@ -50,11 +50,6 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   }, []);
   const eyebrowCity = city || (lang === "en" ? "your city" : "votre ville");
 
-  const stats = [
-    { v: h.statMarketValue, l: h.statMarketLabel },
-    { v: h.statTrustValue, l: h.statTrustLabel },
-    { v: h.statActivesValue, l: h.statActivesLabel },
-  ];
 
   return (
     <section
@@ -181,18 +176,30 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
           </div>
         </div>
 
-        {/* Stats strip */}
+        {/* Customer reassurance (not investor/market data) */}
         <div className="mt-16 border-t border-line pt-7">
-          <dl className="flex flex-wrap gap-x-10 gap-y-5">
-            {stats.map((s, i) => (
-              <div key={i}>
-                <dt className="font-display text-2xl font-semibold text-ink">{s.v}</dt>
-                <dd className="mt-1 text-[0.68rem] uppercase tracking-widest text-stone/50">
-                  {s.l}
-                </dd>
-              </div>
+          <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-stone">
+            {(lang === "fr"
+              ? [
+                  "Diagnostic gratuit en 2 minutes",
+                  "Sans compte, sans spam",
+                  "Sans influence \u2014 jamais sponsoris\u00e9",
+                ]
+              : [
+                  "Free 2-minute diagnostic",
+                  "No account, no spam",
+                  "Independent \u2014 never sponsored",
+                ]
+            ).map((item) => (
+              <li key={item} className="inline-flex items-center gap-2">
+                <span
+                  className="size-1.5 rounded-full bg-spring-deep"
+                  aria-hidden
+                />
+                {item}
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
       </div>
     </section>
