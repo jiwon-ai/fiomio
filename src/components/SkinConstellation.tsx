@@ -9,14 +9,19 @@
 
 import { useEffect, useState } from "react";
 import { getLocation } from "@/lib/geo";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
 
 const PARIS = { city: "Paris", lat: 48.8566, lon: 2.3522 };
 
 type Live = { city: string; uv: number | null; hr: number | null; temp: number | null };
 
-export function SkinConstellation({ className = "" }: { className?: string }) {
-  const { lang } = useLang();
+export function SkinConstellation({
+  lang,
+  className = "",
+}: {
+  lang: Lang;
+  className?: string;
+}) {
   const [live, setLive] = useState<Live>({ city: "", uv: null, hr: null, temp: null });
 
   useEffect(() => {

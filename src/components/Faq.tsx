@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 
-export function Faq() {
-  const { t } = useLang();
+export function Faq({ t }: { t: Messages }) {
   const f = t.faq;
   const [open, setOpen] = useState<number | null>(0);
 

@@ -1,14 +1,11 @@
-"use client";
-
 import { LegalPage } from "@/components/LegalPage";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
 
-export function ConfidentialiteContent() {
-  const { lang } = useLang();
+export function ConfidentialiteContent({ lang }: { lang: Lang }) {
 
   if (lang === "en") {
     return (
-      <LegalPage title="Privacy policy" updated="June 15, 2026">
+      <LegalPage lang={lang} title="Privacy policy" updated="June 15, 2026">
         <p>
           Fiomio attaches great importance to protecting your privacy. This policy
           explains what data we collect, why, and what your rights are, in accordance with
@@ -82,7 +79,7 @@ export function ConfidentialiteContent() {
   }
 
   return (
-    <LegalPage title="Politique de confidentialité" updated="15 juin 2026">
+    <LegalPage lang={lang} title="Politique de confidentialité" updated="15 juin 2026">
       <p>
         Fiomio attache une grande importance à la protection de votre vie privée.
         Cette politique explique quelles données nous collectons, pourquoi, et

@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Outfit, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { LangProvider } from "@/lib/i18n";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
 import { SiteJsonLd } from "@/components/JsonLd";
 
 // Sovrn Commerce (ex-Skimlinks) auto-affiliation. Loads only once the
@@ -62,7 +59,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
     languages: {
       fr: SITE_URL,
-      en: `${SITE_URL}/?lang=en`,
+      en: `${SITE_URL}/en`,
       "x-default": SITE_URL,
     },
   },
@@ -100,11 +97,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Aller au contenu
         </a>
-        <LangProvider>
-          <Nav />
-          <div id="main-content">{children}</div>
-          <Footer />
-        </LangProvider>
+        {children}
         <SiteJsonLd />
         {SOVRN_ID ? (
           <Script

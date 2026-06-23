@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function MentionsLegales() {
-  return <MentionsContent />;
+  return <MentionsContent lang="fr" />;
 }

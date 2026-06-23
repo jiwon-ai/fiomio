@@ -1,14 +1,11 @@
-"use client";
-
 import { LegalPage } from "@/components/LegalPage";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
 
-export function MentionsContent() {
-  const { lang } = useLang();
+export function MentionsContent({ lang }: { lang: Lang }) {
 
   if (lang === "en") {
     return (
-      <LegalPage title="Legal notice" updated="June 15, 2026">
+      <LegalPage lang={lang} title="Legal notice" updated="June 15, 2026">
         <p>
           In accordance with article 6 of French law no. 2004-575 of 21 June 2004 on
           confidence in the digital economy (LCEN), this legal notice is made available
@@ -71,7 +68,7 @@ export function MentionsContent() {
   }
 
   return (
-    <LegalPage title="Mentions légales" updated="15 juin 2026">
+    <LegalPage lang={lang} title="Mentions légales" updated="15 juin 2026">
       <p>
         Conformément à l&apos;article 6 de la loi n° 2004-575 du 21 juin 2004 pour la
         confiance dans l&apos;économie numérique (LCEN), les présentes mentions légales

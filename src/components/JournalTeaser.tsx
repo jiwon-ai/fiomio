@@ -1,11 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
+import { localePath } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 
-export function JournalTeaser() {
-  const { t } = useLang();
+export function JournalTeaser({ lang, t }: { lang: Lang; t: Messages }) {
   const j = t.journalTeaser;
 
   return (
@@ -26,7 +24,7 @@ export function JournalTeaser() {
               </p>
             </div>
             <Link
-              href="/journal"
+              href={localePath(lang, "/journal")}
               className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5 sm:self-auto"
             >
               {j.cta}

@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
+import { localePath } from "@/lib/locale";
 import { Wordmark } from "./Wordmark";
 import { LangToggle } from "./LangToggle";
 
-export function Nav() {
-  const { t } = useLang();
+export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -17,11 +17,14 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const home = localePath(lang, "/");
+  const homePrefix = home === "/" ? "" : home;
+
   const links = [
-    { href: "/#probleme", label: t.nav.problem },
-    { href: "/#solution", label: t.nav.solution },
-    { href: "/#diagnostic", label: t.nav.diagnostic },
-    { href: "/journal", label: t.nav.journal },
+    { href: `${homePrefix}/#probleme`, label: t.nav.problem },
+    { href: `${homePrefix}/#solution`, label: t.nav.solution },
+    { href: `${homePrefix}/#diagnostic`, label: t.nav.diagnostic },
+    { href: localePath(lang, "/journal"), label: t.nav.journal },
   ];
 
   return (
@@ -33,7 +36,7 @@ export function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-12">
-        <Link href="/" aria-label="Fiomio — accueil">
+        <Link href={home} aria-label="Fiomio — accueil">
           <Wordmark />
         </Link>
 
@@ -51,9 +54,9 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-3 sm:gap-4">
-          <LangToggle />
+          <LangToggle lang={lang} />
           <Link
-            href="/#rejoindre"
+            href={`${homePrefix}/#rejoindre`}
             className="rounded-full bg-spring px-4 py-2 text-sm font-medium text-spring-ink transition-transform hover:-translate-y-0.5 hover:bg-spring/90"
           >
             {t.nav.cta}

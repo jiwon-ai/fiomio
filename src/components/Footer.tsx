@@ -1,20 +1,19 @@
-"use client";
-
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
+import { localePath } from "@/lib/locale";
 import { Wordmark } from "./Wordmark";
 import { LangToggle } from "./LangToggle";
 
-export function Footer() {
-  const { t } = useLang();
+export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
   const f = t.footer;
   const year = new Date().getFullYear();
+  const home = localePath(lang, "/");
 
   const navLinks = [
-    { href: "/#probleme", label: t.nav.problem },
-    { href: "/#solution", label: t.nav.solution },
-    { href: "/#diagnostic", label: t.nav.diagnostic },
-    { href: "/journal", label: t.nav.journal },
-    { href: "/#rejoindre", label: t.nav.cta },
+    { href: `${home === "/" ? "" : home}/#probleme`, label: t.nav.problem },
+    { href: `${home === "/" ? "" : home}/#solution`, label: t.nav.solution },
+    { href: `${home === "/" ? "" : home}/#diagnostic`, label: t.nav.diagnostic },
+    { href: localePath(lang, "/journal"), label: t.nav.journal },
+    { href: `${home === "/" ? "" : home}/#rejoindre`, label: t.nav.cta },
   ];
 
   return (
@@ -68,7 +67,7 @@ export function Footer() {
             <ul className="mt-5 space-y-3">
               <li>
                 <a
-                  href="/mentions-legales"
+                  href={localePath(lang, "/mentions-legales")}
                   className="link-underline text-sm font-light text-cream/40 hover:text-cream/75"
                 >
                   {f.legalNotice}
@@ -76,7 +75,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="/confidentialite"
+                  href={localePath(lang, "/confidentialite")}
                   className="link-underline text-sm font-light text-cream/40 hover:text-cream/75"
                 >
                   {f.privacy}
@@ -92,7 +91,7 @@ export function Footer() {
               </li>
             </ul>
             <div className="mt-6">
-              <LangToggle onDark />
+              <LangToggle lang={lang} onDark />
             </div>
           </div>
         </div>

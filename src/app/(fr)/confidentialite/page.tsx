@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Confidentialite() {
-  return <ConfidentialiteContent />;
+  return <ConfidentialiteContent lang="fr" />;
 }

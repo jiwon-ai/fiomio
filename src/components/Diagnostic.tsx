@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
@@ -19,8 +19,7 @@ import type { ConcernKey, ActiveUse } from "@/lib/ingredients";
 
 const TOTAL_STEPS = 7;
 
-export function Diagnostic() {
-  const { lang, t } = useLang();
+export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const d = t.diagnostic;
 
   const [climate, setClimate] = useState<ClimateContext | null>(null);
@@ -54,6 +53,7 @@ export function Diagnostic() {
   // Seasonal estimate instantly, then the live forecast for the user's
   // own location (IP-detected) and the delivery window.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setClimate(seasonFallbackClimate());
     let alive = true;
     detectLocation().then((l) => {
@@ -268,17 +268,17 @@ export function Diagnostic() {
 
 /* ---------------- Questionnaire ---------------- */
 
-type DDict = ReturnType<typeof useLang>["t"]["diagnostic"];
+type DDict = Messages["diagnostic"];
 
 function Questionnaire(props: {
   step: number;
   d: DDict;
-  skinTypes: ReturnType<typeof useLang>["t"]["skinTypes"];
-  concernsList: ReturnType<typeof useLang>["t"]["concerns"];
-  activesList: ReturnType<typeof useLang>["t"]["actives"];
-  ageRangesList: ReturnType<typeof useLang>["t"]["ageRanges"];
-  gendersList: ReturnType<typeof useLang>["t"]["genders"];
-  pregnancyList: ReturnType<typeof useLang>["t"]["pregnancyOptions"];
+  skinTypes: Messages["skinTypes"];
+  concernsList: Messages["concerns"];
+  activesList: Messages["actives"];
+  ageRangesList: Messages["ageRanges"];
+  gendersList: Messages["genders"];
+  pregnancyList: Messages["pregnancyOptions"];
   climate: ClimateContext | null;
   lang: "fr" | "en";
   skinType: SkinType | null;
@@ -597,7 +597,7 @@ function Results({
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         {result.recommendations.map((rec, i) => (
-          <IngredientCard key={rec.ingredient.id} rec={rec} rank={i + 1} />
+          <IngredientCard key={rec.ingredient.id} lang={lang} rec={rec} rank={i + 1} />
         ))}
       </div>
 

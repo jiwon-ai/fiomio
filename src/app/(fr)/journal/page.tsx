@@ -16,5 +16,5 @@ export const metadata: Metadata = {
 
 export default function JournalPage() {
   const articles = getAllArticles();
-  return <JournalIndex articles={articles} />;
+  return <JournalIndex lang="fr" articles={articles} />;
 }

@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
 import { getLocation } from "@/lib/geo";
 import { SkinConstellation } from "./SkinConstellation";
 
-export function Hero() {
-  const { t, lang } = useLang();
+export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   const h = t.hero;
 
   const [city, setCity] = useState<string | null>(null);
@@ -104,7 +103,7 @@ export function Hero() {
               <span className="font-mono text-[0.57rem] text-stone/30">Live Data</span>
             </div>
             <div className="overflow-hidden rounded-2xl border border-ink/10 shadow-lg shadow-ink/8">
-              <SkinConstellation className="block h-auto w-full" />
+              <SkinConstellation lang={lang} className="block h-auto w-full" />
             </div>
           </div>
         </div>

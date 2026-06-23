@@ -1,20 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
+import { localePath, getDictionary } from "@/lib/locale";
 import { NewsletterInline } from "./NewsletterInline";
 import { ArticleCard } from "./ArticleCard";
 import { ProductCard, PhotoGallery, ProsCons } from "./ReviewBlocks";
 import type { Article, ArticleMeta } from "@/lib/articles";
 
 export function ArticleView({
+  lang,
   article,
   related,
 }: {
+  lang: Lang;
   article: Article;
   related: ArticleMeta[];
 }) {
-  const { lang, t } = useLang();
+  const t = getDictionary(lang);
   const j = t.journal;
   const date = article.date
     ? new Date(`${article.date}T00:00:00`).toLocaleDateString(
@@ -31,7 +34,7 @@ export function ArticleView({
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
           <div className="flex items-center gap-3">
             <Link
-              href="/journal"
+              href={localePath(lang, "/journal")}
               className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
             >
               ← {j.backToJournal}
@@ -73,27 +76,29 @@ export function ArticleView({
       {/* body */}
       <article className="bg-paper py-14 sm:py-16">
         <div className="mx-auto max-w-2xl px-5 sm:px-8">
-          {article.product && <ProductCard product={article.product} />}
-          {article.photos.length > 0 && <PhotoGallery photos={article.photos} />}
+          {article.product && <ProductCard lang={lang} product={article.product} />}
+          {article.photos.length > 0 && (
+            <PhotoGallery lang={lang} photos={article.photos} />
+          )}
           <div
             className="article-prose"
             dangerouslySetInnerHTML={{ __html: article.html }}
           />
-          <ProsCons pros={article.pros} cons={article.cons} />
+          <ProsCons lang={lang} pros={article.pros} cons={article.cons} />
         </div>
       </article>
 
       {/* newsletter + related */}
       <section className="bg-paper-2 py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <NewsletterInline />
+          <NewsletterInline lang={lang} t={t} />
 
           {related.length > 0 && (
             <div className="mt-14">
               <p className="eyebrow">{j.backToJournal}</p>
               <div className="mt-5 grid gap-6 sm:grid-cols-2">
                 {related.map((a) => (
-                  <ArticleCard key={a.slug} a={a} />
+                  <ArticleCard key={a.slug} lang={lang} a={a} />
                 ))}
               </div>
             </div>

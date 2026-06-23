@@ -1,13 +1,20 @@
 "use client";
 
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
+import { getDictionary } from "@/lib/locale";
 import { ArticleCard } from "./ArticleCard";
 import { NewsletterInline } from "./NewsletterInline";
 import { Reveal } from "./ui/Reveal";
 import type { ArticleMeta } from "@/lib/articles";
 
-export function JournalIndex({ articles }: { articles: ArticleMeta[] }) {
-  const { t } = useLang();
+export function JournalIndex({
+  lang,
+  articles,
+}: {
+  lang: Lang;
+  articles: ArticleMeta[];
+}) {
+  const t = getDictionary(lang);
   const j = t.journal;
 
   return (
@@ -37,7 +44,7 @@ export function JournalIndex({ articles }: { articles: ArticleMeta[] }) {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((a, i) => (
                 <Reveal key={a.slug} delay={i * 70}>
-                  <ArticleCard a={a} />
+                  <ArticleCard lang={lang} a={a} />
                 </Reveal>
               ))}
             </div>
@@ -46,7 +53,7 @@ export function JournalIndex({ articles }: { articles: ArticleMeta[] }) {
           )}
 
           <div className="mt-14">
-            <NewsletterInline />
+            <NewsletterInline lang={lang} t={t} />
           </div>
         </div>
       </section>

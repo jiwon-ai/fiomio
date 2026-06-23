@@ -1,10 +1,7 @@
-"use client";
-
-import { useLang } from "@/lib/i18n";
+import type { Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 
-export function Problem() {
-  const { t } = useLang();
+export function Problem({ t }: { t: Messages }) {
   const p = t.problem;
 
   return (

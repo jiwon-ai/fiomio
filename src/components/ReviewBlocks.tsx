@@ -1,6 +1,7 @@
 "use client";
 
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
+import { getDictionary } from "@/lib/locale";
 import { buildAffiliateLink } from "@/lib/affiliates";
 import type { ProductInfo, Photo } from "@/lib/articles";
 
@@ -20,8 +21,14 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-export function ProductCard({ product }: { product: ProductInfo }) {
-  const { t } = useLang();
+export function ProductCard({
+  lang,
+  product,
+}: {
+  lang: Lang;
+  product: ProductInfo;
+}) {
+  const t = getDictionary(lang);
   const r = t.journal.review;
 
   return (
@@ -92,8 +99,14 @@ export function ProductCard({ product }: { product: ProductInfo }) {
   );
 }
 
-export function PhotoGallery({ photos }: { photos: Photo[] }) {
-  const { t } = useLang();
+export function PhotoGallery({
+  lang,
+  photos,
+}: {
+  lang: Lang;
+  photos: Photo[];
+}) {
+  const t = getDictionary(lang);
   if (!photos.length) return null;
 
   return (
@@ -129,8 +142,16 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
   );
 }
 
-export function ProsCons({ pros, cons }: { pros: string[]; cons: string[] }) {
-  const { t } = useLang();
+export function ProsCons({
+  lang,
+  pros,
+  cons,
+}: {
+  lang: Lang;
+  pros: string[];
+  cons: string[];
+}) {
+  const t = getDictionary(lang);
   const r = t.journal.review;
   if (!pros.length && !cons.length) return null;
 

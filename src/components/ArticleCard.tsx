@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
+import { localePath, getDictionary } from "@/lib/locale";
 import type { ArticleMeta } from "@/lib/articles";
 
 const ACCENT: Record<ArticleMeta["accent"], string> = {
@@ -10,8 +11,8 @@ const ACCENT: Record<ArticleMeta["accent"], string> = {
   sage: "bg-sage",
 };
 
-export function ArticleCard({ a }: { a: ArticleMeta }) {
-  const { lang, t } = useLang();
+export function ArticleCard({ lang, a }: { lang: Lang; a: ArticleMeta }) {
+  const t = getDictionary(lang);
   const date = a.date
     ? new Date(`${a.date}T00:00:00`).toLocaleDateString(
         lang === "fr" ? "fr-FR" : "en-US",
@@ -21,7 +22,7 @@ export function ArticleCard({ a }: { a: ArticleMeta }) {
 
   return (
     <Link
-      href={`/journal/${a.slug}`}
+      href={localePath(lang, `/journal/${a.slug}`)}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-cream transition-colors hover:border-spring-deep/40"
     >
       <div className={`h-1.5 ${ACCENT[a.accent]}`} />

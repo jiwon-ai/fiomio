@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Lang } from "@/lib/locale";
+import { localePath } from "@/lib/locale";
 
 export function LegalPage({
+  lang,
   title,
   updated,
   children,
 }: {
+  lang: Lang;
   title: string;
   updated: string;
   children: ReactNode;
 }) {
-  const { lang } = useLang();
   const home = lang === "en" ? "Home" : "Accueil";
   const updatedLabel = lang === "en" ? "Last updated" : "Dernière mise à jour";
 
@@ -23,7 +25,7 @@ export function LegalPage({
         <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-dark opacity-50" />
         <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
           <Link
-            href="/"
+            href={localePath(lang, "/")}
             className="link-underline inline-flex items-center gap-1.5 text-sm text-cream/60 transition-colors hover:text-cream"
           >
             ← {home}

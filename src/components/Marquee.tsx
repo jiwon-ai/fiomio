@@ -1,9 +1,6 @@
-"use client";
+import type { Messages } from "@/lib/locale";
 
-import { useLang } from "@/lib/i18n";
-
-export function Marquee() {
-  const { t } = useLang();
+export function Marquee({ t }: { t: Messages }) {
   const items = t.marquee;
   const loop = [...items, ...items];
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
+import { getDictionary } from "@/lib/locale";
 import type { Recommendation } from "@/lib/diagnostic";
 
 const TIMING: Record<string, { fr: string; en: string }> = {
@@ -10,13 +11,15 @@ const TIMING: Record<string, { fr: string; en: string }> = {
 };
 
 export function IngredientCard({
+  lang,
   rec,
   rank,
 }: {
+  lang: Lang;
   rec: Recommendation;
   rank: number;
 }) {
-  const { lang, t } = useLang();
+  const t: Messages = getDictionary(lang);
   const d = t.diagnostic;
   const ing = rec.ingredient;
   const chips = rec.matched[lang];

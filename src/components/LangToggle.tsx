@@ -1,9 +1,28 @@
 "use client";
 
-import { useLang } from "@/lib/i18n";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { Lang } from "@/lib/locale";
 
-export function LangToggle({ onDark = false }: { onDark?: boolean }) {
-  const { lang, setLang } = useLang();
+export function LangToggle({
+  lang,
+  onDark = false,
+}: {
+  lang: Lang;
+  onDark?: boolean;
+}) {
+  const pathname = usePathname() ?? "/";
+
+  // Strip a leading "/en" to recover the canonical FR path.
+  const frPath =
+    pathname === "/en"
+      ? "/"
+      : pathname.startsWith("/en/")
+        ? pathname.slice(3)
+        : pathname;
+  const enPath = frPath === "/" ? "/en" : `/en${frPath}`;
+
+  const hrefFor = (l: Lang) => (l === "fr" ? frPath : enPath);
 
   const base =
     "px-2 py-1 text-[0.7rem] font-mono uppercase tracking-widest rounded transition-colors";
@@ -28,14 +47,13 @@ export function LangToggle({ onDark = false }: { onDark?: boolean }) {
               /
             </span>
           )}
-          <button
-            type="button"
-            onClick={() => setLang(l)}
-            aria-pressed={lang === l}
+          <Link
+            href={hrefFor(l)}
+            aria-current={lang === l ? "true" : undefined}
             className={`${base} ${lang === l ? activeCls : idleCls}`}
           >
             {l}
-          </button>
+          </Link>
         </span>
       ))}
     </div>

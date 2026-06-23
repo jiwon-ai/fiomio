@@ -1,10 +1,7 @@
-"use client";
-
-import { useLang } from "@/lib/i18n";
+import type { Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 
-export function WhyDifferent() {
-  const { t } = useLang();
+export function WhyDifferent({ t }: { t: Messages }) {
   const w = t.whyDifferent;
 
   return (

@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
 import { Reveal } from "./ui/Reveal";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function Waitlist() {
-  const { lang, t } = useLang();
+export function Waitlist({ lang, t }: { lang: Lang; t: Messages }) {
   const w = t.waitlist;
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");

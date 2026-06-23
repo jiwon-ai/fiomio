@@ -1,4 +1,6 @@
-import { fr } from "@/lib/messages";
+import { dictionaries, type Lang } from "@/lib/locale";
+
+const fr = dictionaries.fr;
 
 const SITE_URL = "https://fiomio.io";
 
@@ -44,12 +46,12 @@ export function SiteJsonLd() {
   );
 }
 
-export function FaqJsonLd() {
+export function FaqJsonLd({ lang }: { lang: Lang }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${SITE_URL}/#faq`,
-    mainEntity: fr.faq.items.map((item) => ({
+    mainEntity: dictionaries[lang].faq.items.map((item) => ({
       "@type": "Question",
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },

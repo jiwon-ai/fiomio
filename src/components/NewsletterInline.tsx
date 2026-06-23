@@ -1,13 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useLang } from "@/lib/i18n";
+import type { Lang, Messages } from "@/lib/locale";
 
 type Status = "idle" | "sending" | "success" | "error";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function NewsletterInline() {
-  const { lang, t } = useLang();
+export function NewsletterInline({ lang, t }: { lang: Lang; t: Messages }) {
   const j = t.journal;
   const w = t.waitlist;
   const [email, setEmail] = useState("");
