@@ -6,6 +6,8 @@ import { getLocation, displayPlace } from "@/lib/geo";
 import dynamic from "next/dynamic";
 import { SkinConstellation } from "./SkinConstellation";
 
+import type { OrbClimate } from "./HeroOrb";
+
 const HeroOrb = dynamic(() => import("./HeroOrb").then((m) => m.HeroOrb), {
   ssr: false,
   loading: () => null,
@@ -15,14 +17,33 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   const h = t.hero;
 
   const [city, setCity] = useState<string | null>(null);
+  const [climate, setClimate] = useState<OrbClimate | null>(null);
   const [orbReady, setOrbReady] = useState(false);
   useEffect(() => {
     let alive = true;
     getLocation().then((loc) => {
-      if (alive && loc) {
-        const place = displayPlace(loc);
-        if (place) setCity(place);
-      }
+      if (!alive || !loc) return;
+      const place = displayPlace(loc);
+      if (place) setCity(place);
+      // live local climate → drives the reactive orb + readout
+      fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}` +
+          `&current=temperature_2m,relative_humidity_2m,uv_index&timezone=auto`,
+      )
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (!alive || !d?.current) return;
+          const c = d.current;
+          setClimate({
+            uv: typeof c.uv_index === "number" ? c.uv_index : null,
+            hr:
+              typeof c.relative_humidity_2m === "number"
+                ? c.relative_humidity_2m
+                : null,
+            temp: typeof c.temperature_2m === "number" ? c.temperature_2m : null,
+          });
+        })
+        .catch(() => {});
     });
     return () => {
       alive = false;
@@ -106,11 +127,23 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
 
           {/* Right: SkinConstellation */}
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
-            <div className="mb-3 flex items-center justify-between">
+            <div className="mb-3 flex items-center justify-between gap-2">
               <span className="font-mono text-[0.57rem] uppercase tracking-[0.25em] text-stone/40">
-                Skin Analysis
+                {city ?? "Skin Analysis"}
               </span>
-              <span className="font-mono text-[0.57rem] text-stone/30">Live Data</span>
+              <span className="font-mono text-[0.57rem] tracking-wider text-stone/45">
+                {climate
+                  ? [
+                      climate.uv != null ? `UV ${Math.round(climate.uv)}` : null,
+                      climate.hr != null ? `HR ${Math.round(climate.hr)}%` : null,
+                      climate.temp != null
+                        ? `${Math.round(climate.temp)}°C`
+                        : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")
+                  : "Live Data"}
+              </span>
             </div>
             <div className="relative w-full aspect-[6/7]">
               {/* SVG renders instantly (and stays if WebGL is unavailable);
@@ -123,6 +156,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               />
               <HeroOrb
                 className="absolute inset-0 h-full w-full"
+                climate={climate}
                 onReady={() => setOrbReady(true)}
               />
             </div>
