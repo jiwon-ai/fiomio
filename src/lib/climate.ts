@@ -174,8 +174,12 @@ export function deriveClimate(
 }
 
 /** Seasonal fallback when the live forecast can't be reached. */
-export function seasonFallbackClimate(date?: Date, city?: string): ClimateContext {
-  const s = getSeasonInfo(date);
+export function seasonFallbackClimate(
+  date?: Date,
+  city?: string,
+  lat?: number,
+): ClimateContext {
+  const s = getSeasonInfo(date, lat);
   return {
     source: "season",
     emoji: s.emoji,

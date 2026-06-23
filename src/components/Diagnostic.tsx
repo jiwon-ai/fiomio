@@ -43,20 +43,19 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const llmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const loadForecast = useCallback((l: Loc | null) => {
-    const url = l
-      ? `/api/forecast?lat=${l.lat}&lon=${l.lon}&city=${encodeURIComponent(displayPlace(l) || l.city)}`
-      : "/api/forecast";
-    fetch(url)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (data?.ok && data.climate) setClimate(data.climate);
-      })
-      .catch(() => {});
+  // A skincare routine is used for months, not the delivery week — so the
+  // context is the SEASON at the user's location (hemisphere-aware), not a
+  // 7-day forecast.
+  const applyClimate = useCallback((l: Loc | null) => {
+    setClimate(
+      seasonFallbackClimate(
+        new Date(),
+        l ? displayPlace(l) || l.city : undefined,
+        l?.lat,
+      ),
+    );
   }, []);
 
-  // Seasonal estimate instantly, then the live forecast for the user's
-  // own location (IP-detected) and the delivery window.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setClimate(seasonFallbackClimate());
@@ -64,12 +63,12 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     detectLocation().then((l) => {
       if (!alive) return;
       if (l) setLoc(l);
-      loadForecast(l);
+      applyClimate(l);
     });
     return () => {
       alive = false;
     };
-  }, [loadForecast]);
+  }, [applyClimate]);
 
   // Clear any pending auto-advance when the step changes or on unmount.
   useEffect(() => {
@@ -82,7 +81,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     const l: Loc = { city: r.name, lat: r.lat, lon: r.lon, country: r.country };
     setLoc(l);
     setCityOpen(false);
-    loadForecast(l);
+    applyClimate(l);
   };
 
   const toggleConcern = (key: ConcernKey) => {

@@ -90,15 +90,28 @@ export const SEASONS: Record<Season, SeasonInfo> = {
   },
 };
 
-/** Northern-hemisphere meteorological seasons (Paris). */
-export function getParisSeason(date: Date = new Date()): Season {
+/** Meteorological season for a given date and latitude.
+ *  Northern hemisphere by default; flips by six months below the equator,
+ *  so a visitor in Sydney in June correctly gets winter, not summer. */
+export function getSeason(date: Date = new Date(), lat?: number): Season {
   const m = date.getMonth(); // 0 = Jan
-  if (m === 11 || m <= 1) return "winter";
-  if (m <= 4) return "spring";
-  if (m <= 7) return "summer";
-  return "autumn";
+  let s: Season;
+  if (m === 11 || m <= 1) s = "winter";
+  else if (m <= 4) s = "spring";
+  else if (m <= 7) s = "summer";
+  else s = "autumn";
+  if (typeof lat === "number" && lat < 0) {
+    const flip: Record<Season, Season> = {
+      winter: "summer",
+      summer: "winter",
+      spring: "autumn",
+      autumn: "spring",
+    };
+    s = flip[s];
+  }
+  return s;
 }
 
-export function getSeasonInfo(date?: Date): SeasonInfo {
-  return SEASONS[getParisSeason(date)];
+export function getSeasonInfo(date?: Date, lat?: number): SeasonInfo {
+  return SEASONS[getSeason(date, lat)];
 }
