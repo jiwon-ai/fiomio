@@ -122,12 +122,12 @@ export function ResultViz({
       // central node = your skin
       const core = new THREE.Mesh(
         new THREE.SphereGeometry(0.42, 48, 32),
-        glass("#6e9e8c", 0.05),
+        glass("#7fb098", 0.05),
       );
       root.add(core);
 
       // ringed actives
-      const tints = ["#7fb0a0", "#6e9e8c", "#8fbcad", "#5f9485", "#a3c8bb"];
+      const tints = ["#7fb098", "#92c0a8", "#6aa085", "#a6cdb9", "#5f9477"];
       const orbiters: import("three").Mesh[] = [];
       const linePts: number[] = [];
       const R = 1.7;
@@ -155,7 +155,7 @@ export function ResultViz({
       const lines = new THREE.LineSegments(
         lineGeo,
         new THREE.LineBasicMaterial({
-          color: new THREE.Color("#34655a"),
+          color: new THREE.Color("#2f6b52"),
           transparent: true,
           opacity: 0.28,
         }),
@@ -165,7 +165,7 @@ export function ResultViz({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0x6e9e8c, 0.5);
+      const rim = new THREE.DirectionalLight(0x7fb098, 0.5);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 
