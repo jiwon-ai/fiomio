@@ -183,7 +183,7 @@ export function HeroOrb({
         ior: 1.5,
         clearcoat: 1,
         clearcoatRoughness: 0.06,
-        attenuationColor: new THREE.Color("#4f9d77"),
+        attenuationColor: new THREE.Color("#6fb093"),
         attenuationDistance: 0.85,
         envMapIntensity: 1.45,
         specularIntensity: 1,
@@ -198,7 +198,7 @@ export function HeroOrb({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0x73ba98, 0.6);
+      const rim = new THREE.DirectionalLight(0xa7c8b8, 0.6);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 
