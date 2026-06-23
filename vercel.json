@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/seasonal-newsletter",
       "schedule": "0 8 * * 1"
+    },
+    {
+      "path": "/api/admin/import-obf",
+      "schedule": "0 4 * * *"
     }
   ]
 }
