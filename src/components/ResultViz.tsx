@@ -155,7 +155,7 @@ export function ResultViz({
       const lines = new THREE.LineSegments(
         lineGeo,
         new THREE.LineBasicMaterial({
-          color: new THREE.Color("#2f6b52"),
+          color: new THREE.Color("#316b62"),
           transparent: true,
           opacity: 0.28,
         }),

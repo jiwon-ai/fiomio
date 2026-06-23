@@ -9,7 +9,7 @@ import {
   CONCERN_SLUG,
   ingredientsForConcern,
 } from "@/lib/concerns";
-import { PRODUCTS, yesstyleSearchUrl } from "@/lib/products";
+import { PRODUCTS, productSearchUrl } from "@/lib/products";
 import { buildAffiliateLink } from "@/lib/affiliates";
 
 export function ConcernPageContent({
@@ -88,7 +88,7 @@ export function ConcernPageContent({
               {products.map((p) => (
                 <a
                   key={p.id}
-                  href={buildAffiliateLink(p.url ?? yesstyleSearchUrl(p.searchQ))}
+                  href={buildAffiliateLink(productSearchUrl(p))}
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="lab-frame flex flex-col rounded-xl bg-paper p-5 transition-colors hover:border-spring-deep/40"

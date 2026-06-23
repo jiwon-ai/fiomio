@@ -13,7 +13,7 @@ import {
   CONFLICT_TXT,
   PREGNANCY_UNSAFE,
 } from "@/lib/ingredient-pages";
-import { productsForIngredients, yesstyleSearchUrl } from "@/lib/products";
+import { productsForIngredients, productSearchUrl } from "@/lib/products";
 import { CONCERN_SLUG } from "@/lib/concerns";
 import { buildAffiliateLink } from "@/lib/affiliates";
 
@@ -214,7 +214,7 @@ export function IngredientPageContent({
               {products.map((p) => (
                 <a
                   key={p.id}
-                  href={buildAffiliateLink(p.url ?? yesstyleSearchUrl(p.searchQ))}
+                  href={buildAffiliateLink(productSearchUrl(p))}
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="lab-frame flex flex-col rounded-xl bg-paper p-5 transition-colors hover:border-spring-deep/40"

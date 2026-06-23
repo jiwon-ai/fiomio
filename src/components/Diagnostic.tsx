@@ -11,7 +11,7 @@ import { seasonFallbackClimate, ingredientClimateReason, type ClimateContext } f
 import { getSeasonInfo } from "@/lib/season";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
-import { productsForIngredients, yesstyleSearchUrl, type Product } from "@/lib/products";
+import { productsForIngredients, productSearchUrl, searchUrlForName, type Product } from "@/lib/products";
 import { track } from "@/lib/track";
 import {
   runDiagnostic,
@@ -890,9 +890,7 @@ function Results({
             {dbProducts.map((prod) => (
               <li key={prod.barcode}>
                 <a
-                  href={buildAffiliateLink(
-                    yesstyleSearchUrl(`${prod.brand ?? ""} ${prod.name}`.trim()),
-                  )}
+                  href={buildAffiliateLink(searchUrlForName(prod.brand, prod.name))}
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="flex items-center justify-between gap-2 rounded-lg border border-line bg-cream px-4 py-2.5 text-sm transition-colors hover:border-spring-deep/40"
@@ -1067,7 +1065,7 @@ function ProductCard({
         {p.blurb[lang]}
       </p>
       <a
-        href={buildAffiliateLink(p.url ?? yesstyleSearchUrl(p.searchQ))}
+        href={buildAffiliateLink(productSearchUrl(p))}
         target="_blank"
         rel="sponsored noopener noreferrer"
         onClick={() =>

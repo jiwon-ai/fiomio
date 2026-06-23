@@ -9,9 +9,28 @@ export const PRODUCTS_DRAFT = true;
 
 /** Build a YesStyle search URL for a product (a configured affiliate partner).
  *  YesStyle's canonical search path is /en/list.html?q=… (verified). Spaces → "+". */
+/** Concise, high-match query: brand + the first 2 meaningful words of the name
+ *  (drops form words/numbers that make YesStyle search return nothing). */
+function shortQuery(brand: string, name: string): string {
+  const toks = name
+    .replace(/[^A-Za-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((t) => /[A-Za-z]/.test(t))
+    .slice(0, 2);
+  return [brand, ...toks].filter(Boolean).join(" ").trim();
+}
+
 export function yesstyleSearchUrl(query: string): string {
   const q = encodeURIComponent(query).replace(/%20/g, "+");
   return `https://www.yesstyle.com/en/list.html?q=${q}`;
+}
+
+export function productSearchUrl(p: Product): string {
+  return p.url ?? yesstyleSearchUrl(shortQuery(p.brand, p.name));
+}
+
+export function searchUrlForName(brand: string | undefined, name: string): string {
+  return yesstyleSearchUrl(shortQuery(brand ?? "", name));
 }
 
 export type Product = {
