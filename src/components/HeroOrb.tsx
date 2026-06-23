@@ -99,7 +99,7 @@ export function HeroOrb({
       const ectx = envCanvas.getContext("2d")!;
       const grad = ectx.createLinearGradient(0, 0, 0, 256);
       grad.addColorStop(0, "#ffffff");
-      grad.addColorStop(0.4, "#f1f7e8");
+      grad.addColorStop(0.4, "#eef4f0");
       grad.addColorStop(0.72, "#aebfa9");
       grad.addColorStop(1, "#4f5a55");
       ectx.fillStyle = grad;
@@ -115,8 +115,8 @@ export function HeroOrb({
       ectx.fillStyle = spot2;
       ectx.fillRect(0, 0, 256, 256);
       const tint = ectx.createRadialGradient(210, 210, 6, 210, 210, 150);
-      tint.addColorStop(0, "rgba(46,176,127,0.5)");
-      tint.addColorStop(1, "rgba(203,239,77,0)");
+      tint.addColorStop(0, "rgba(110,158,140,0.55)");
+      tint.addColorStop(1, "rgba(110,158,140,0)");
       ectx.fillStyle = tint;
       ectx.fillRect(0, 0, 256, 256);
 
@@ -175,7 +175,7 @@ export function HeroOrb({
       applyShape(0, 0.05, 0.4);
 
       const material = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#f6ffe0"),
+        color: new THREE.Color("#eef6f1"),
         metalness: 0,
         roughness: 0.08,
         transmission: 1,
@@ -183,7 +183,7 @@ export function HeroOrb({
         ior: 1.5,
         clearcoat: 1,
         clearcoatRoughness: 0.06,
-        attenuationColor: new THREE.Color("#1f9e63"),
+        attenuationColor: new THREE.Color("#4f8a76"),
         attenuationDistance: 0.85,
         envMapIntensity: 1.45,
         specularIntensity: 1,
@@ -198,7 +198,7 @@ export function HeroOrb({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0x34b07a, 0.6);
+      const rim = new THREE.DirectionalLight(0x6e9e8c, 0.6);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 

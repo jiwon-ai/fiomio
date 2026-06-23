@@ -77,7 +77,7 @@ export function ResultViz({
       const x = c.getContext("2d")!;
       const g = x.createLinearGradient(0, 0, 0, 256);
       g.addColorStop(0, "#ffffff");
-      g.addColorStop(0.45, "#eef4e6");
+      g.addColorStop(0.45, "#eef4f0");
       g.addColorStop(0.75, "#aebfa9");
       g.addColorStop(1, "#54605b");
       x.fillStyle = g;
@@ -88,8 +88,8 @@ export function ResultViz({
       x.fillStyle = sp;
       x.fillRect(0, 0, 256, 256);
       const tn = x.createRadialGradient(210, 210, 6, 210, 210, 150);
-      tn.addColorStop(0, "rgba(46,176,127,0.5)");
-      tn.addColorStop(1, "rgba(203,239,77,0)");
+      tn.addColorStop(0, "rgba(110,158,140,0.55)");
+      tn.addColorStop(1, "rgba(110,158,140,0)");
       x.fillStyle = tn;
       x.fillRect(0, 0, 256, 256);
       const envTex = new THREE.CanvasTexture(c);
@@ -103,7 +103,7 @@ export function ResultViz({
 
       const glass = (tint: string, rough = 0.08) =>
         new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color("#f4ffd6"),
+          color: new THREE.Color("#ecf5ef"),
           metalness: 0,
           roughness: rough,
           transmission: 1,
@@ -122,12 +122,12 @@ export function ResultViz({
       // central node = your skin
       const core = new THREE.Mesh(
         new THREE.SphereGeometry(0.42, 48, 32),
-        glass("#34b07a", 0.05),
+        glass("#6e9e8c", 0.05),
       );
       root.add(core);
 
       // ringed actives
-      const tints = ["#9bd64a", "#7fc06b", "#b6e84f", "#86cf7e", "#a9e24c"];
+      const tints = ["#7fb0a0", "#6e9e8c", "#8fbcad", "#5f9485", "#a3c8bb"];
       const orbiters: import("three").Mesh[] = [];
       const linePts: number[] = [];
       const R = 1.7;
@@ -155,7 +155,7 @@ export function ResultViz({
       const lines = new THREE.LineSegments(
         lineGeo,
         new THREE.LineBasicMaterial({
-          color: new THREE.Color("#2f6b4f"),
+          color: new THREE.Color("#34655a"),
           transparent: true,
           opacity: 0.28,
         }),
@@ -165,7 +165,7 @@ export function ResultViz({
       const key = new THREE.DirectionalLight(0xffffff, 1.2);
       key.position.set(3, 4, 5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0x34b07a, 0.5);
+      const rim = new THREE.DirectionalLight(0x6e9e8c, 0.5);
       rim.position.set(-4, -2, -3);
       scene.add(rim);
 
