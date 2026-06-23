@@ -9,8 +9,6 @@ import {
   CONCERN_SLUG,
   ingredientsForConcern,
 } from "@/lib/concerns";
-import { PRODUCTS, productSearchUrl } from "@/lib/products";
-import { buildAffiliateLink } from "@/lib/affiliates";
 
 export function ConcernPageContent({
   lang,
@@ -23,7 +21,6 @@ export function ConcernPageContent({
   const home = localePath(lang, "/");
   const concernsHome = localePath(lang, "/concerns");
   const ings = ingredientsForConcern(ck);
-  const products = PRODUCTS.filter((p) => p.concerns?.includes(ck)).slice(0, 6);
   const others = (Object.keys(CONCERN_TITLE) as ConcernKey[]).filter((k) => k !== ck);
 
   const ld = {
@@ -79,32 +76,6 @@ export function ConcernPageContent({
           </section>
         )}
 
-        {products.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-semibold text-ink">
-              {L("Produits ciblés", "Targeted products")}
-            </h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              {products.map((p) => (
-                <a
-                  key={p.id}
-                  href={buildAffiliateLink(productSearchUrl(p))}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
-                  className="lab-frame flex flex-col rounded-xl bg-paper p-5 transition-colors hover:border-spring-deep/40"
-                >
-                  <span className="font-mono text-[0.62rem] uppercase tracking-widest text-stone-2">{p.brand}</span>
-                  <span className="font-display mt-1 text-base font-semibold leading-snug text-ink">{p.name}</span>
-                  <span className="mt-2 flex-1 text-[0.86rem] leading-relaxed text-ink/75">{p.blurb[lang]}</span>
-                  <span className="mt-3 text-sm font-medium text-spring-deep">{L("Voir le produit", "See the product")} →</span>
-                </a>
-              ))}
-            </div>
-            <p className="mt-3 font-mono text-[0.66rem] text-stone-2">
-              {L("Liens affiliés signalés : une commission possible, sans surcoût.", "Affiliate links disclosed: a possible commission, at no extra cost.")}
-            </p>
-          </section>
-        )}
 
         <section className="mt-12 flex flex-col items-start gap-4 rounded-2xl border border-spring-deep/25 bg-spring/8 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>

@@ -13,9 +13,7 @@ import {
   CONFLICT_TXT,
   PREGNANCY_UNSAFE,
 } from "@/lib/ingredient-pages";
-import { productsForIngredients, productSearchUrl } from "@/lib/products";
 import { CONCERN_SLUG } from "@/lib/concerns";
-import { buildAffiliateLink } from "@/lib/affiliates";
 
 export function IngredientPageContent({
   lang,
@@ -31,7 +29,6 @@ export function IngredientPageContent({
   const targets = Object.entries(ing.targets)
     .map(([k, v]) => ({ k: k as keyof typeof CONCERN_LABEL, v: v ?? 0 }))
     .sort((a, b) => b.v - a.v);
-  const products = productsForIngredients([ing.id], 6);
   const climate = climateFit(ing, lang);
   const faqs = ingredientFaqs(ing, lang);
 
@@ -201,45 +198,6 @@ export function IngredientPageContent({
                 </li>
               )}
             </ul>
-          </section>
-        )}
-
-        {/* products */}
-        {products.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-semibold text-ink">
-              {L("Produits avec cet actif", "Products with this active")}
-            </h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              {products.map((p) => (
-                <a
-                  key={p.id}
-                  href={buildAffiliateLink(productSearchUrl(p))}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
-                  className="lab-frame flex flex-col rounded-xl bg-paper p-5 transition-colors hover:border-spring-deep/40"
-                >
-                  <span className="font-mono text-[0.62rem] uppercase tracking-widest text-stone-2">
-                    {p.brand}
-                  </span>
-                  <span className="font-display mt-1 text-base font-semibold leading-snug text-ink">
-                    {p.name}
-                  </span>
-                  <span className="mt-2 flex-1 text-[0.86rem] leading-relaxed text-ink/75">
-                    {p.blurb[lang]}
-                  </span>
-                  <span className="mt-3 text-sm font-medium text-spring-deep">
-                    {L("Voir le produit", "See the product")} →
-                  </span>
-                </a>
-              ))}
-            </div>
-            <p className="mt-3 font-mono text-[0.66rem] text-stone-2">
-              {L(
-                "Liens affiliés signalés : une commission possible, sans surcoût.",
-                "Affiliate links disclosed: a possible commission, at no extra cost.",
-              )}
-            </p>
           </section>
         )}
 
