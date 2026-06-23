@@ -82,6 +82,19 @@ const INCI_ALIASES: Record<string, string[]> = {
   sheabutter: ["butyrospermum parkii", "shea butter"],
 };
 
+/** Map our ingredient ids → the INCI tokens (name + aliases) used to match
+ *  products in seed_products (Postgres array overlap). */
+export function inciTokensForIds(ids: string[]): string[] {
+  const set = new Set<string>();
+  for (const id of ids) {
+    const ing = INGREDIENTS.find((i) => i.id === id);
+    if (!ing) continue;
+    set.add(ing.name.en.toLowerCase());
+    for (const a of INCI_ALIASES[id] ?? []) set.add(a.toLowerCase());
+  }
+  return Array.from(set);
+}
+
 /** Map normalized avoid tokens (INCI) → our ingredient ids. */
 export function avoidedIngredientIds(avoidTokens: string[]): string[] {
   const toks = avoidTokens

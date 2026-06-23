@@ -710,6 +710,20 @@ function Results({
 }) {
   const p = d.products;
   const recIds = result.recommendations.map((r) => r.ingredient.id);
+  const [dbProducts, setDbProducts] = useState<
+    { barcode: string; name: string; brand?: string }[]
+  >([]);
+  useEffect(() => {
+    const ids = recIds.join(",");
+    if (!ids) return;
+    fetch(`/api/products/by-ingredients?ids=${encodeURIComponent(ids)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d2) => {
+        if (d2?.results) setDbProducts(d2.results);
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
   const products = productsForIngredients(recIds, 6);
   const recNames = result.recommendations.map((r) => r.ingredient.name[lang]).join(" · ");
   const gapIntro = activeUse === "none" ? p.gapIntroNone : p.gapIntro;
@@ -861,6 +875,43 @@ function Results({
           </p>
           <p className="mt-1 font-mono text-[0.66rem] italic leading-relaxed text-stone-2">
             {p.draftNote}
+          </p>
+        </div>
+      )}
+
+      {dbProducts.length > 0 && (
+        <div className="mt-6">
+          <p className="font-mono text-[0.65rem] uppercase tracking-widest text-stone-2">
+            {lang === "fr"
+              ? "Plus de produits avec ces actifs"
+              : "More products with these actives"}
+          </p>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dbProducts.map((prod) => (
+              <li key={prod.barcode}>
+                <a
+                  href={buildAffiliateLink(
+                    yesstyleSearchUrl(`${prod.brand ?? ""} ${prod.name}`.trim()),
+                  )}
+                  target="_blank"
+                  rel="sponsored noopener noreferrer"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-line bg-cream px-4 py-2.5 text-sm transition-colors hover:border-spring-deep/40"
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate font-medium text-ink">{prod.name}</span>
+                    {prod.brand && (
+                      <span className="block truncate text-xs text-stone-2">{prod.brand}</span>
+                    )}
+                  </span>
+                  <span aria-hidden className="shrink-0 text-spring-deep">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 font-mono text-[0.62rem] text-stone-2">
+            {lang === "fr"
+              ? "Base produits Fiomio · liens affiliés signalés."
+              : "Fiomio product database · affiliate links disclosed."}
           </p>
         </div>
       )}
