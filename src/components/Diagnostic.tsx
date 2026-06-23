@@ -731,9 +731,6 @@ function Results({
   const top = result.recommendations[0];
   const cl = result.climate;
   const cityLabel = cl.city || (lang === "fr" ? "votre ville" : "your city");
-  const metricLine = cl.metrics
-    ? `${Math.round(cl.metrics.tempC)}\u00b0 \u00b7 ${Math.round(cl.metrics.humidity)}% \u00b7 UV ${Math.round(cl.metrics.uv)}`
-    : "";
   const topReason = top ? ingredientClimateReason(top.ingredient, cl, lang) : "";
 
   return (
@@ -756,9 +753,6 @@ function Results({
             <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-spring-deep">
               <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.4" /></svg>
               {cityLabel} · {cl[lang].label}
-              {metricLine && (
-                <span className="font-sans normal-case tracking-normal text-stone/70">· {metricLine}</span>
-              )}
             </p>
             {top && (
               <>
