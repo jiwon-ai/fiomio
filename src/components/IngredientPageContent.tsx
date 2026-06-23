@@ -9,17 +9,12 @@ import {
   TRAIT_LABEL,
   SKIN_LABEL,
   climateFit,
+  ingredientFaqs,
+  CONFLICT_TXT,
+  PREGNANCY_UNSAFE,
 } from "@/lib/ingredient-pages";
 import { productsForIngredients, yesstyleSearchUrl } from "@/lib/products";
 import { buildAffiliateLink } from "@/lib/affiliates";
-
-const PREGNANCY_UNSAFE = ["retinol", "salicylic", "arbutin"];
-
-const CONFLICT_TXT: Record<string, { fr: string; en: string }> = {
-  retinoid: { fr: "rétinoïdes", en: "retinoids" },
-  exfoliant: { fr: "acides exfoliants (AHA/BHA)", en: "exfoliating acids (AHA/BHA)" },
-  vitc: { fr: "vitamine C", en: "vitamin C" },
-};
 
 export function IngredientPageContent({
   lang,
@@ -37,6 +32,7 @@ export function IngredientPageContent({
     .sort((a, b) => b.v - a.v);
   const products = productsForIngredients([ing.id], 6);
   const climate = climateFit(ing, lang);
+  const faqs = ingredientFaqs(ing, lang);
 
   const topConcern = targets[0]?.k;
   const related = INGREDIENTS.filter(
@@ -63,6 +59,20 @@ export function IngredientPageContent({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
       />
       <div className="mx-auto max-w-3xl px-6 sm:px-10">
         <nav className="font-mono text-[0.68rem] uppercase tracking-widest text-stone-2">
@@ -253,6 +263,23 @@ export function IngredientPageContent({
             <span aria-hidden>→</span>
           </Link>
         </section>
+
+        {/* FAQ */}
+        {faqs.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-semibold text-ink">
+              {L("Questions fréquentes", "Frequently asked questions")}
+            </h2>
+            <dl className="mt-5 divide-y divide-line overflow-hidden rounded-xl border border-line bg-paper">
+              {faqs.map((f, i) => (
+                <div key={i} className="px-5 py-4">
+                  <dt className="text-[0.98rem] font-medium text-ink">{f.q}</dt>
+                  <dd className="mt-1.5 text-[0.92rem] leading-relaxed text-ink/75">{f.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         {/* related */}
         {related.length > 0 && (

@@ -92,9 +92,20 @@ export function ProductScanner({ lang }: { lang: Lang }) {
 
   useEffect(() => () => stopScan(), [stopScan]);
 
+  async function ownBarcode(code: string): Promise<OBFProduct | null> {
+    try {
+      const r = await fetch(`/api/products/barcode?code=${encodeURIComponent(code)}`);
+      if (!r.ok) return null;
+      const d = (await r.json()) as { product: OBFProduct | null };
+      return d.product;
+    } catch {
+      return null;
+    }
+  }
+
   async function lookupBarcode(code: string) {
     setNotice(sc.scanning);
-    const p = await fetchByBarcode(code);
+    const p = (await ownBarcode(code)) ?? (await fetchByBarcode(code));
     if (p && p.inci.length) {
       setPending(p);
       setNotice("");
@@ -135,7 +146,17 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     if (query.trim().length < 2) return;
     setSearching(true);
     setResults([]);
-    const r = await searchByName(query.trim());
+    let r: OBFProduct[] = [];
+    try {
+      const res = await fetch(`/api/products/search?q=${encodeURIComponent(query.trim())}`);
+      if (res.ok) {
+        const d = (await res.json()) as { results: OBFProduct[] };
+        r = d.results ?? [];
+      }
+    } catch {
+      /* ignore */
+    }
+    if (!r.length) r = await searchByName(query.trim()); // fallback to Open Beauty Facts
     setResults(r.filter((p) => p.inci.length));
     setSearching(false);
   }

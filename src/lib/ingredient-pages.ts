@@ -93,3 +93,64 @@ export function climateFit(ing: Ingredient, lang: "fr" | "en"): string[] {
   if (!out.length) add("Toutes saisons", "All seasons");
   return out;
 }
+
+export const PREGNANCY_UNSAFE = ["retinol", "salicylic", "arbutin"];
+
+export const CONFLICT_TXT: Record<string, { fr: string; en: string }> = {
+  retinoid: { fr: "rétinoïdes", en: "retinoids" },
+  exfoliant: { fr: "acides exfoliants (AHA/BHA)", en: "exfoliating acids (AHA/BHA)" },
+  vitc: { fr: "vitamine C", en: "vitamin C" },
+};
+
+/** Per-ingredient FAQ, generated from the active's own data (specific, not
+ *  generic) so each page is eligible for FAQ rich results. */
+export function ingredientFaqs(
+  ing: Ingredient,
+  lang: "fr" | "en",
+): { q: string; a: string }[] {
+  const L = (fr: string, en: string) => (lang === "fr" ? fr : en);
+  const name = ing.name[lang];
+  const concerns = Object.entries(ing.targets)
+    .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0))
+    .map(([k]) => CONCERN_LABEL[k as ConcernKey][lang]);
+  const skins = ing.loves.map((sk) => SKIN_LABEL[sk][lang].toLowerCase()).join(", ");
+  const conflicts = (ing.conflictsWith ?? [])
+    .map((c) => CONFLICT_TXT[c]?.[lang])
+    .filter(Boolean) as string[];
+
+  const faqs: { q: string; a: string }[] = [];
+  faqs.push({ q: L(`À quoi sert ${name} ?`, `What does ${name} do?`), a: ing.why[lang] });
+  if (concerns.length)
+    faqs.push({
+      q: L(`${name} aide pour quoi ?`, `What does ${name} help with?`),
+      a: L(
+        `Principalement : ${concerns.slice(0, 3).join(", ")}. Convient surtout aux peaux ${skins}.`,
+        `Mainly: ${concerns.slice(0, 3).join(", ")}. Best for ${skins} skin.`,
+      ),
+    });
+  faqs.push({
+    q: L(`Quand et comment utiliser ${name} ?`, `When and how to use ${name}?`),
+    a: ing.howToUse[lang],
+  });
+  faqs.push({
+    q: L(`Peut-on associer ${name} à d'autres actifs ?`, `Can I combine ${name} with other actives?`),
+    a: conflicts.length
+      ? L(
+          `Évitez de le cumuler le même soir avec : ${conflicts.join(", ")}. Introduisez un actif à la fois.`,
+          `Avoid stacking it on the same night with: ${conflicts.join(", ")}. Introduce one active at a time.`,
+        )
+      : L(
+          "Il se marie bien avec la plupart des actifs. Introduisez tout de même un nouvel actif à la fois.",
+          "It pairs well with most actives. Still, introduce one new active at a time.",
+        ),
+  });
+  if (PREGNANCY_UNSAFE.includes(ing.id))
+    faqs.push({
+      q: L(`${name} est-il sûr pendant la grossesse ?`, `Is ${name} safe during pregnancy?`),
+      a: L(
+        "Par précaution, il vaut mieux l'éviter pendant la grossesse ou un projet de grossesse. Demandez conseil à votre médecin.",
+        "As a precaution, it's best avoided during pregnancy or when trying to conceive. Ask your doctor.",
+      ),
+    });
+  return faqs;
+}
