@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { Lang, Messages } from "@/lib/locale";
 import { getLocation, displayPlace } from "@/lib/geo";
 import dynamic from "next/dynamic";
-import { SkinConstellation } from "./SkinConstellation";
 
 import type { OrbClimate } from "./HeroOrb";
 
@@ -125,7 +124,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
             </div>
           </div>
 
-          {/* Right: SkinConstellation */}
+          {/* Right: live climate-reactive orb + cartel */}
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
             <div className="mb-3 flex items-center justify-between gap-2">
               <span className="font-mono text-[0.57rem] uppercase tracking-[0.25em] text-stone/40">
@@ -146,40 +145,39 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               </span>
             </div>
             <div className="relative w-full aspect-[6/7]">
-              {/* SVG renders instantly (and stays if WebGL is unavailable);
-                  the glossy 3D orb fades in over it once three.js lazy-loads. */}
-              <SkinConstellation
-                lang={lang}
-                className={`absolute inset-0 block h-full w-full transition-opacity duration-700 ${
+              {/* Instant CSS placeholder in the orb's own colour -> the 3D orb
+                  crossfades in seamlessly (no detailed image swapping first). */}
+              <div
+                aria-hidden
+                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
                   orbReady ? "opacity-0" : "opacity-100"
                 }`}
-              />
+              >
+                <div className="aspect-square w-[72%] rounded-full bg-[radial-gradient(circle_at_36%_30%,#f2ffce,#cbef4d_60%,#93c93f)] blur-[1px]" />
+              </div>
               <HeroOrb
                 className="absolute inset-0 h-full w-full"
                 climate={climate}
                 onReady={() => setOrbReady(true)}
               />
-
-              {/* Museum cartel — this hero IS a piece: a serum whose texture
-                  is rendered live from your city's climate. */}
-              <figcaption className="pointer-events-none absolute bottom-1 right-1 max-w-[68%] text-right sm:bottom-2 sm:right-2">
-                <span className="flex items-center justify-end gap-1.5 font-mono text-[0.5rem] uppercase tracking-[0.22em] text-stone/45">
-                  Jiwon
-                  <span className="size-1 rounded-full bg-spring" aria-hidden />
-                  2026
-                </span>
-                <span className="mt-1 block font-editorial text-[0.95rem] italic leading-tight text-ink/75 sm:text-base">
-                  {lang === "fr"
-                    ? "\u00ab\u00a0Votre ciel, votre formule\u00a0\u00bb"
-                    : "\u201cYour sky, your formula\u201d"}
-                </span>
-                <span className="mt-1 block text-[0.58rem] leading-snug text-stone/55 sm:text-[0.62rem]">
-                  {lang === "fr"
-                    ? "Rendu 3D temps r\u00e9el \u00b7 la texture du soin r\u00e9agit \u00e0 l\u2019UV, l\u2019humidit\u00e9 et la temp\u00e9rature de votre ville."
-                    : "Real-time 3D render \u00b7 the formula\u2019s texture responds to your city\u2019s UV, humidity and temperature."}
-                </span>
-              </figcaption>
             </div>
+
+            {/* Museum cartel -- sits clearly below the work, like a wall label */}
+            <figcaption className="mt-7 text-right sm:mt-9">
+              <span className="flex items-center justify-end gap-1.5 font-mono text-[0.5rem] uppercase tracking-[0.22em] text-stone/45">
+                Jiwon
+                <span className="size-1 rounded-full bg-spring" aria-hidden />
+                2026
+              </span>
+              <span className="mt-1 block font-editorial text-base italic leading-tight text-ink/75">
+                {lang === "fr" ? "Climat × Formule" : "Climate × Formula"}
+              </span>
+              <span className="mt-1 block text-[0.6rem] leading-snug text-stone/55">
+                {lang === "fr"
+                  ? "Rendu 3D temps réel · la texture du soin réagit au climat de votre ville."
+                  : "Real-time 3D render · the formula’s texture responds to your city’s climate."}
+              </span>
+            </figcaption>
           </div>
         </div>
 
