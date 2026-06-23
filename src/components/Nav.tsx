@@ -37,7 +37,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-12">
         <Link href={home} aria-label="Fiomio — accueil">
-          <Wordmark />
+          <Wordmark className="text-[2rem]" />
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
