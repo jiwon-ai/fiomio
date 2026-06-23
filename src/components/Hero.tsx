@@ -18,6 +18,25 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
   const [city, setCity] = useState<string | null>(null);
   const [climate, setClimate] = useState<OrbClimate | null>(null);
   const [orbReady, setOrbReady] = useState(false);
+  const [canLoadOrb, setCanLoadOrb] = useState(false);
+
+  // Defer the heavy 3D (three.js) until the browser is idle so it never
+  // competes with first interactivity (keeps Total Blocking Time low).
+  useEffect(() => {
+    type IdleWin = Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    };
+    const win = window as IdleWin;
+    let to: ReturnType<typeof setTimeout> | undefined;
+    if (win.requestIdleCallback) {
+      win.requestIdleCallback(() => setCanLoadOrb(true), { timeout: 2500 });
+    } else {
+      to = setTimeout(() => setCanLoadOrb(true), 1500);
+    }
+    return () => {
+      if (to) clearTimeout(to);
+    };
+  }, []);
   useEffect(() => {
     let alive = true;
     getLocation().then((loc) => {
@@ -150,11 +169,13 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               >
                 <div className="aspect-square w-[72%] rounded-full bg-[radial-gradient(circle_at_36%_30%,#f2ffce,#cbef4d_60%,#93c93f)] blur-[1px]" />
               </div>
-              <HeroOrb
-                className="absolute inset-0 h-full w-full"
-                climate={climate}
-                onReady={() => setOrbReady(true)}
-              />
+              {canLoadOrb && (
+                <HeroOrb
+                  className="absolute inset-0 h-full w-full"
+                  climate={climate}
+                  onReady={() => setOrbReady(true)}
+                />
+              )}
             </div>
 
             {/* Museum cartel -- sits clearly below the work, like a wall label */}

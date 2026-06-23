@@ -94,6 +94,16 @@ export default function RootLayout({
       lang="fr"
       className={`${outfit.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://ipwho.is" crossOrigin="" />
+        <link rel="preconnect" href="https://ipapi.co" crossOrigin="" />
+        <link rel="preconnect" href="https://api.open-meteo.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://geocoding-api.open-meteo.com"
+          crossOrigin=""
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <a href="#main-content" className="skip-link">
           Aller au contenu
