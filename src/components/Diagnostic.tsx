@@ -143,6 +143,34 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     return false;
   }, [step, skinType, sensitive, concerns, activeUse, gender, pregnancy]);
 
+  const [useAff, setUseAff] = useState(true);
+  const [hasAff, setHasAff] = useState(false);
+  useEffect(() => {
+    try {
+      const a = localStorage.getItem("fiomio:avoid");
+      const pr = localStorage.getItem("fiomio:prefer");
+      const has = (a && JSON.parse(a).length) || (pr && JSON.parse(pr).length);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (has) setHasAff(true);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+  const readAffinityIds = useCallback((on: boolean) => {
+    if (!on) return { avoidIds: [] as string[], preferIds: [] as string[] };
+    let avoidIds: string[] = [];
+    let preferIds: string[] = [];
+    try {
+      const a = localStorage.getItem("fiomio:avoid");
+      if (a) avoidIds = avoidedIngredientIds(JSON.parse(a));
+      const pr = localStorage.getItem("fiomio:prefer");
+      if (pr) preferIds = avoidedIngredientIds(JSON.parse(pr));
+    } catch {
+      /* ignore */
+    }
+    return { avoidIds, preferIds };
+  }, []);
+
   const showResults = useCallback((preg: Pregnancy) => {
     if (!skinType || sensitive === null || !activeUse || !gender) return;
     setPregnancy(preg);
@@ -151,16 +179,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         ? crypto.randomUUID()
         : `d_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     setDiagId(newDiagId);
-    let avoidIds: string[] = [];
-    let preferIds: string[] = [];
-    try {
-      const rawAvoid = localStorage.getItem("fiomio:avoid");
-      if (rawAvoid) avoidIds = avoidedIngredientIds(JSON.parse(rawAvoid));
-      const rawPrefer = localStorage.getItem("fiomio:prefer");
-      if (rawPrefer) preferIds = avoidedIngredientIds(JSON.parse(rawPrefer));
-    } catch {
-      /* ignore */
-    }
+    const { avoidIds, preferIds } = readAffinityIds(useAff);
     const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg, avoidIds, preferIds };
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
@@ -212,7 +231,22 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         if (llmTimer.current) clearTimeout(llmTimer.current);
         setLlmLoading(false);
       });
-  }, [skinType, sensitive, concerns, activeUse, gender, climate, lang]);
+  }, [skinType, sensitive, concerns, activeUse, gender, climate, lang, readAffinityIds, useAff]);
+
+  const toggleAff = useCallback(
+    (on: boolean) => {
+      setUseAff(on);
+      if (!skinType || sensitive === null || !activeUse || !gender) return;
+      const { avoidIds, preferIds } = readAffinityIds(on);
+      const cl = climate ?? seasonFallbackClimate();
+      const r = runDiagnostic(
+        { skinType, sensitive, concerns, activeUse, gender, pregnancy: pregnancy ?? "none", avoidIds, preferIds },
+        cl,
+      );
+      setResult(r);
+    },
+    [skinType, sensitive, activeUse, gender, concerns, pregnancy, climate, readAffinityIds],
+  );
 
   // Advance one step forward, honouring the male→skip-pregnancy and
   // last-step→results behaviour. Mirrors the manual "Continue" button.
@@ -368,7 +402,7 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   onNext={handleNext}
                 />
               ) : (
-                <Results d={d} lang={lang} result={result} activeUse={activeUse} diagId={diagId} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} diagId={diagId} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} hasAff={hasAff} useAff={useAff} onToggleAff={toggleAff} />
               )}
             </div>
           </div>
@@ -701,6 +735,9 @@ function Results({
   onReset,
   llmNote,
   llmLoading,
+  hasAff,
+  useAff,
+  onToggleAff,
 }: {
   d: DDict;
   lang: "fr" | "en";
@@ -710,6 +747,9 @@ function Results({
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
+  hasAff: boolean;
+  useAff: boolean;
+  onToggleAff: (on: boolean) => void;
 }) {
   const p = d.products;
   const recIds = result.recommendations.map((r) => r.ingredient.id);
@@ -733,6 +773,23 @@ function Results({
           ↻ {d.restart}
         </button>
       </div>
+
+      {hasAff && (
+        <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-spring-deep/25 bg-spring/8 px-4 py-2.5">
+          <span className="text-sm font-medium text-ink">{d.affLabel}</span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={useAff}
+            onClick={() => onToggleAff(!useAff)}
+            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+              useAff ? "bg-spring-deep text-cream" : "border border-line bg-white text-stone"
+            }`}
+          >
+            {useAff ? d.affOn : d.affOff}
+          </button>
+        </div>
+      )}
 
       {/* VERDICT HERO \u2014 concrete: your city + climate, the #1 active big, the reason */}
       <div className="mt-3 overflow-hidden rounded-2xl border border-spring-deep/20 bg-spring/8">

@@ -57,6 +57,7 @@ export function ProductScanner({ lang }: { lang: Lang }) {
   const controlsRef = useRef<ScanControls | null>(null);
 
   const [applied, setApplied] = useState(false);
+  const [pickIdx, setPickIdx] = useState<number | null>(null);
 
   // load / persist
   useEffect(() => {
@@ -150,6 +151,7 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     if (query.trim().length < 2) return;
     setSearching(true);
     setResults([]);
+    setPickIdx(null);
     const q = query.trim();
     const curated: OBFProduct[] = searchCurated(q); // curated K-beauty first
     let api: OBFProduct[] = [];
@@ -230,6 +232,7 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     setNotice("");
     setQuery("");
     setResults([]);
+    setPickIdx(null);
     setMName("");
     setMInci("");
     setApplied(false);
@@ -238,6 +241,18 @@ export function ProductScanner({ lang }: { lang: Lang }) {
 
   function remove(id: string) {
     setProducts((prev) => prev.filter((p) => p.id !== id));
+    setApplied(false);
+  }
+
+  function clearAll() {
+    setProducts([]);
+    try {
+      localStorage.removeItem(LS_PRODUCTS);
+      localStorage.removeItem(LS_AVOID);
+      localStorage.removeItem(LS_PREFER);
+    } catch {
+      /* ignore */
+    }
     setApplied(false);
   }
 
@@ -346,12 +361,16 @@ export function ProductScanner({ lang }: { lang: Lang }) {
               {results.length > 0 && (
                 <ul className="mt-3 divide-y divide-line overflow-hidden rounded-xl border border-line bg-white">
                   {results.map((p, i) => (
-                    <li key={i} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-                      <span className="flex min-w-0 items-center gap-3">
+                    <li key={i}>
+                      <button
+                        type="button"
+                        onClick={() => setPickIdx(pickIdx === i ? null : i)}
+                        className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-cream"
+                      >
                         <span className="grid size-9 shrink-0 place-items-center rounded bg-spring/15 text-[0.6rem] font-semibold text-spring-deep">
                           INCI
                         </span>
-                        <span className="min-w-0">
+                        <span className="min-w-0 flex-1">
                           <span className="block truncate text-sm font-medium text-ink">{p.name}</span>
                           <span className="block truncate text-xs text-stone-2">
                             {[p.brand, sc.inciCount.replace("{n}", String(p.inci.length))]
@@ -359,23 +378,28 @@ export function ProductScanner({ lang }: { lang: Lang }) {
                               .join(" · ")}
                           </span>
                         </span>
-                      </span>
-                      <span className="flex shrink-0 gap-2">
-                        <button
-                          type="button"
-                          onClick={() => logProduct(p, "good")}
-                          className="rounded-full border border-spring-deep/40 bg-white px-3 py-1.5 text-xs font-medium text-spring-deep transition-colors hover:bg-spring/10"
-                        >
-                          {sc.good}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => logProduct(p, "bad")}
-                          className="rounded-full bg-ink px-3 py-1.5 text-xs font-semibold text-cream transition-transform hover:-translate-y-0.5"
-                        >
-                          {sc.bad}
-                        </button>
-                      </span>
+                        <span className="shrink-0 text-xs font-medium text-spring-deep">
+                          {pickIdx === i ? "✕" : `${sc.evaluate} →`}
+                        </span>
+                      </button>
+                      {pickIdx === i && (
+                        <div className="flex gap-2 px-4 pb-3">
+                          <button
+                            type="button"
+                            onClick={() => logProduct(p, "good")}
+                            className="rounded-full border border-spring-deep/40 bg-white px-4 py-2 text-sm font-medium text-spring-deep transition-colors hover:bg-spring/10"
+                          >
+                            {sc.good}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => logProduct(p, "bad")}
+                            className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
+                          >
+                            {sc.bad}
+                          </button>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -460,9 +484,20 @@ export function ProductScanner({ lang }: { lang: Lang }) {
 
         {/* log */}
         <div className="mt-8">
-          <h2 className="font-mono text-[0.7rem] uppercase tracking-widest text-stone-2">
-            {sc.logTitle}
-          </h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="font-mono text-[0.7rem] uppercase tracking-widest text-stone-2">
+              {sc.logTitle}
+            </h2>
+            {products.length > 0 && (
+              <button
+                type="button"
+                onClick={clearAll}
+                className="text-xs font-medium text-stone-2 underline-offset-2 transition-colors hover:text-ink hover:underline"
+              >
+                ↻ {sc.resetAll}
+              </button>
+            )}
+          </div>
           {products.length === 0 ? (
             <p className="mt-3 text-sm text-stone">{sc.empty}</p>
           ) : (
