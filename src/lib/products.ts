@@ -4,6 +4,8 @@
 // pages later if desired.
 
 import type { ConcernKey } from "@/lib/ingredients";
+import { INGREDIENTS } from "@/lib/ingredients";
+import { normalizeInci } from "@/lib/inci";
 
 export const PRODUCTS_DRAFT = true;
 
@@ -1462,4 +1464,33 @@ export function productsForIngredients(ids: string[], max = 6): Product[] {
     }
   }
   return out;
+}
+
+
+/** Map each active id to its primary INCI token (for the scanner). */
+const ID_INCI: Record<string, string> = (() => {
+  const m: Record<string, string> = {};
+  for (const ing of INGREDIENTS) m[ing.id] = normalizeInci(ing.name.en);
+  return m;
+})();
+
+/** Search the curated K-beauty catalogue by brand/name. Returns a scanner-ready
+ *  shape (INCI derived from the product's hero actives) so famous products
+ *  (Beauty of Joseon, innisfree, COSRX…) are findable even if absent from OBF. */
+export function searchCurated(
+  q: string,
+): { name: string; brand?: string; inci: string[] }[] {
+  const ql = q.toLowerCase().trim();
+  if (ql.length < 2) return [];
+  const terms = ql.split(/\s+/).filter(Boolean);
+  return PRODUCTS.filter((p) => {
+    const hay = `${p.brand} ${p.name}`.toLowerCase();
+    return terms.every((t) => hay.includes(t));
+  })
+    .slice(0, 8)
+    .map((p) => ({
+      name: `${p.brand} ${p.name}`,
+      brand: p.brand,
+      inci: p.ingredientIds.map((id) => ID_INCI[id]).filter(Boolean),
+    }));
 }

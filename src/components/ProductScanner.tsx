@@ -17,6 +17,7 @@ import {
   searchByName,
   type OBFProduct,
 } from "@/lib/openbeautyfacts";
+import { searchCurated } from "@/lib/products";
 
 const LS_PRODUCTS = "fiomio:products";
 const LS_AVOID = "fiomio:avoid";
@@ -149,18 +150,29 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     if (query.trim().length < 2) return;
     setSearching(true);
     setResults([]);
-    let r: OBFProduct[] = [];
+    const q = query.trim();
+    const curated: OBFProduct[] = searchCurated(q); // curated K-beauty first
+    let api: OBFProduct[] = [];
     try {
-      const res = await fetch(`/api/products/search?q=${encodeURIComponent(query.trim())}`);
+      const res = await fetch(`/api/products/search?q=${encodeURIComponent(q)}`);
       if (res.ok) {
         const d = (await res.json()) as { results: OBFProduct[] };
-        r = d.results ?? [];
+        api = d.results ?? [];
       }
     } catch {
       /* ignore */
     }
-    if (!r.length) r = await searchByName(query.trim()); // fallback to Open Beauty Facts
-    setResults(r.filter((p) => p.inci.length));
+    let obf: OBFProduct[] = [];
+    if (curated.length + api.length < 6) obf = await searchByName(q);
+    const seen = new Set<string>();
+    const merged: OBFProduct[] = [];
+    for (const prod of [...curated, ...api, ...obf]) {
+      const k = prod.name.toLowerCase();
+      if (seen.has(k) || !prod.inci.length) continue;
+      seen.add(k);
+      merged.push(prod);
+    }
+    setResults(merged.slice(0, 12));
     setSearching(false);
   }
 
@@ -188,14 +200,14 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     });
   }
 
-  function confirm(verdict: "good" | "bad") {
-    if (!pending) return;
+  function logProduct(prod: OBFProduct, verdict: "good" | "bad") {
+    if (!prod || !prod.inci.length) return;
     const entry: LoggedProduct = {
       id: uid(),
-      name: pending.name,
-      brand: pending.brand,
-      barcode: pending.barcode,
-      inci: pending.inci,
+      name: prod.name,
+      brand: prod.brand,
+      barcode: prod.barcode,
+      inci: prod.inci,
       verdict,
       at: new Date().toISOString(),
     };
@@ -334,26 +346,36 @@ export function ProductScanner({ lang }: { lang: Lang }) {
               {results.length > 0 && (
                 <ul className="mt-3 divide-y divide-line overflow-hidden rounded-xl border border-line bg-white">
                   {results.map((p, i) => (
-                    <li key={i}>
-                      <button
-                        type="button"
-                        onClick={() => setPending(p)}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-cream"
-                      >
+                    <li key={i} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                      <span className="flex min-w-0 items-center gap-3">
                         <span className="grid size-9 shrink-0 place-items-center rounded bg-spring/15 text-[0.6rem] font-semibold text-spring-deep">
                           INCI
                         </span>
                         <span className="min-w-0">
-                          <span className="block truncate text-sm font-medium text-ink">
-                            {p.name}
-                          </span>
+                          <span className="block truncate text-sm font-medium text-ink">{p.name}</span>
                           <span className="block truncate text-xs text-stone-2">
                             {[p.brand, sc.inciCount.replace("{n}", String(p.inci.length))]
                               .filter(Boolean)
                               .join(" · ")}
                           </span>
                         </span>
-                      </button>
+                      </span>
+                      <span className="flex shrink-0 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => logProduct(p, "good")}
+                          className="rounded-full border border-spring-deep/40 bg-white px-3 py-1.5 text-xs font-medium text-spring-deep transition-colors hover:bg-spring/10"
+                        >
+                          {sc.good}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => logProduct(p, "bad")}
+                          className="rounded-full bg-ink px-3 py-1.5 text-xs font-semibold text-cream transition-transform hover:-translate-y-0.5"
+                        >
+                          {sc.bad}
+                        </button>
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -419,14 +441,14 @@ export function ProductScanner({ lang }: { lang: Lang }) {
               <div className="mt-2 flex gap-2">
                 <button
                   type="button"
-                  onClick={() => confirm("good")}
+                  onClick={() => pending && logProduct(pending, "good")}
                   className="rounded-full border border-spring-deep/40 bg-white px-4 py-2 text-sm font-medium text-spring-deep transition-colors hover:bg-spring/10"
                 >
                   {sc.good}
                 </button>
                 <button
                   type="button"
-                  onClick={() => confirm("bad")}
+                  onClick={() => pending && logProduct(pending, "bad")}
                   className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
                 >
                   {sc.bad}
