@@ -745,7 +745,7 @@ function Results({
                 <p className="mt-5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-stone-2">
                   {d.topActiveLabel}
                 </p>
-                <h3 className="font-display mt-1 text-3xl font-semibold leading-[1.04] text-ink sm:text-[2.6rem]">
+                <h3 className="font-sans mt-1 text-3xl font-semibold leading-[1.04] text-ink sm:text-[2.6rem]">
                   {top.ingredient.name[lang]}
                 </h3>
                 <p className="mt-3 max-w-lg text-[0.98rem] leading-relaxed text-ink/85">
@@ -993,7 +993,7 @@ function ProductCard({
       <span className="font-mono text-[0.62rem] uppercase tracking-widest text-stone-2">
         {p.brand}
       </span>
-      <h5 className="font-display mt-1 text-base font-semibold leading-snug text-ink">
+      <h5 className="font-sans mt-1 text-base font-semibold leading-snug text-ink">
         {p.name}
       </h5>
       <div className="mt-2 flex flex-wrap gap-1.5">

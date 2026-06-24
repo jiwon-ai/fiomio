@@ -99,7 +99,7 @@ export function IngredientCard({
           <TraitIcon traits={ing.traits} />
         </span>
         <div className="min-w-0">
-          <h4 className="font-display text-xl font-semibold leading-tight text-ink">
+          <h4 className="font-sans text-xl font-semibold leading-tight text-ink">
             {ing.name[lang]}
           </h4>
           <p className="text-sm text-stone-2">{ing.tag[lang]}</p>

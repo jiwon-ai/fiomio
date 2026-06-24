@@ -87,7 +87,7 @@ export function IngredientPageContent({
           {ing.traits.map((t) => TRAIT_LABEL[t][lang]).slice(0, 3).join(" · ")}
         </p>
         <h1
-          className="font-display mt-3 font-semibold leading-tight tracking-tight text-ink"
+          className="font-sans mt-3 font-semibold leading-tight tracking-tight text-ink"
           style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
         >
           {ing.name[lang]}

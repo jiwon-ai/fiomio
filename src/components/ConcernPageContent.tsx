@@ -62,7 +62,7 @@ export function ConcernPageContent({
                   className="lab-frame flex items-center justify-between gap-3 rounded-xl bg-paper p-4 transition-colors hover:border-spring-deep/40"
                 >
                   <span className="min-w-0">
-                    <span className="block truncate font-display text-base font-semibold text-ink">{ing.name[lang]}</span>
+                    <span className="block truncate font-sans text-base font-semibold text-ink">{ing.name[lang]}</span>
                     <span className="block truncate text-sm text-stone-2">{ing.tag[lang]}</span>
                   </span>
                   <span className="flex shrink-0 gap-1">

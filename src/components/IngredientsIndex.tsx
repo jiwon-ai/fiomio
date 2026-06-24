@@ -50,7 +50,7 @@ export function IngredientsIndex({ lang }: { lang: Lang }) {
               href={localePath(lang, `/ingredients/${ingredientSlug(ing)}`)}
               className="lab-frame flex flex-col rounded-xl bg-paper p-5 transition-colors hover:border-spring-deep/40"
             >
-              <span className="font-display text-lg font-semibold leading-snug text-ink">
+              <span className="font-sans text-lg font-semibold leading-snug text-ink">
                 {ing.name[lang]}
               </span>
               <span className="mt-0.5 text-sm text-stone-2">{ing.tag[lang]}</span>

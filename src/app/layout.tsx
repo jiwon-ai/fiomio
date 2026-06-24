@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Sora, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteJsonLd } from "@/components/JsonLd";
@@ -11,10 +11,10 @@ import { Analytics } from "@vercel/analytics/next";
 // in the Vercel env (e.g. "123456X1700000").
 const SOVRN_ID = process.env.NEXT_PUBLIC_SOVRN_ID;
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${sora.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://ipwho.is" crossOrigin="" />
