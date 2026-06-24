@@ -4,7 +4,7 @@ import { localePath, type Lang } from "@/lib/locale";
 export function ConfidentialiteContent({ lang }: { lang: Lang }) {
   if (lang === "en") {
     return (
-      <LegalPage lang={lang} title="Privacy policy" updated="June 23, 2026">
+      <LegalPage lang={lang} title="Privacy policy" updated="June 24, 2026">
         <p>
           Fiomio attaches great importance to protecting your privacy. This policy
           explains what data we collect, why, and what your rights are, in accordance with
@@ -23,25 +23,27 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
           <li><strong>City and approximate location</strong>, auto-detected from your IP and editable, or chosen by you, so we can tailor the newsletter to your local climate and season. Stored alongside your email only if you subscribe.</li>
           <li><strong>Anonymous diagnostic data</strong>, your answers (skin type, concerns, chosen actives, city, season) and the actives we recommend are stored in <strong>anonymized</strong> form, <strong>without your email and without your IP address</strong>, to improve the quality of our recommendation engine.</li>
           <li><strong>Anonymous feedback</strong>, whether a recommendation felt right, stored without any identifier.</li>
-          <li><strong>Cookieless audience measurement</strong>, aggregate visit statistics that use no cookies and do not identify you.</li>
+          <li><strong>Account data</strong>, if you create an account: your email address (used to sign you in), the diagnostic results you choose to save, and your skin tracking check-ins (the scores and notes you log). This data is linked to your account.</li>
+        <li><strong>Cookieless audience measurement</strong>, aggregate visit statistics that use no cookies and do not identify you.</li>
         </ul>
 
         <h2>Purposes and legal basis</h2>
         <ul>
           <li>Sending you early access and the seasonal newsletter, legal basis: your <strong>consent</strong> (given when you sign up).</li>
+          <li>Providing the account features you opt into, saving your results and tracking your skin over time, legal basis: your <strong>consent</strong> and the performance of the service you requested.</li>
           <li>Improving our recommendation engine from anonymized diagnostic and feedback data, <strong>legitimate interest</strong>.</li>
           <li>Producing <strong>aggregated, anonymized</strong> market insights and reports that may be shared or sold to skincare brands, legitimate interest. These contain <strong>no individual data</strong> and never identify you.</li>
         </ul>
 
         <h2>Recipients and processors</h2>
-        <p>Your personal data is never sold. The only recipient of personal data is our email provider (Brevo, based in the EU), used to manage the waitlist and the newsletter. Our other providers receive no data that identifies you: hosting and cookieless analytics receive no identifying data, weather lookup receives none, and diagnostic data is anonymized. A full list of our processors is available on request.</p>
+        <p>Your personal data is never sold. The only recipient of personal data is our email provider (Brevo, based in the EU), used to manage the waitlist and the newsletter. Our other providers receive no data that identifies you: hosting and cookieless analytics receive no identifying data, weather lookup receives none, and diagnostic data is anonymized. If you create an account, your account data (email, saved results, skin check-ins) is stored by our database and authentication provider (Supabase). It is never sold and never shared with brands. A full list of our processors is available on request.</p>
         <p>Brands only ever receive <strong>aggregated, anonymized</strong> insights, never your personal data.</p>
 
         <h2>Retention period</h2>
         <p>
           Your email and city are kept until you unsubscribe, then deleted within a
           reasonable time. Anonymized diagnostic data, being non-identifying, may be kept to
-          improve the service. You can unsubscribe at any time via the link in every email.
+          improve the service. If you create an account, your account data and skin tracking are kept while your account is active and deleted when you delete your account or on request. You can unsubscribe at any time via the link in every email.
         </p>
 
         <h2>Your rights</h2>
@@ -73,7 +75,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
   }
 
   return (
-    <LegalPage lang={lang} title="Politique de confidentialité" updated="23 juin 2026">
+    <LegalPage lang={lang} title="Politique de confidentialité" updated="24 juin 2026">
       <p>
         Fiomio attache une grande importance à la protection de votre vie privée.
         Cette politique explique quelles données nous collectons, pourquoi, et
@@ -94,25 +96,27 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
         <li><strong>Ville et localisation approximative</strong>, détectée automatiquement à partir de votre IP et modifiable, ou choisie par vous, afin d&apos;adapter la newsletter au climat et à la saison de votre ville. Conservée avec votre e-mail uniquement si vous vous inscrivez.</li>
         <li><strong>Données de diagnostic anonymes</strong>, vos réponses (type de peau, préoccupations, actifs utilisés, ville, saison) et les actifs recommandés sont conservés de façon <strong>anonymisée</strong>, <strong>sans votre e-mail et sans votre adresse IP</strong>, pour améliorer la qualité de notre moteur de recommandation.</li>
         <li><strong>Retours anonymes</strong>, si une recommandation vous a semblé juste, enregistré sans aucun identifiant.</li>
+        <li><strong>Données de compte</strong>, si vous créez un compte : votre adresse e-mail (pour vous connecter), les résultats de diagnostic que vous choisissez d&apos;enregistrer, et vos relevés de suivi de peau (les notes que vous saisissez). Ces données sont liées à votre compte.</li>
         <li><strong>Mesure d&apos;audience sans cookie</strong>, des statistiques de visite agrégées, sans cookie et qui ne vous identifient pas.</li>
       </ul>
 
       <h2>Finalités et base légale</h2>
       <ul>
         <li>Vous envoyer l&apos;accès anticipé et la newsletter saisonnière, base légale : votre <strong>consentement</strong> (donné lors de l&apos;inscription).</li>
+        <li>Fournir les fonctionnalités de compte auxquelles vous adhérez, enregistrer vos résultats et suivre votre peau dans le temps, base légale : votre <strong>consentement</strong> et l&apos;exécution du service demandé.</li>
         <li>Améliorer notre moteur de recommandation à partir de données de diagnostic et de retours anonymisés, <strong>intérêt légitime</strong>.</li>
         <li>Produire des analyses et rapports de marché <strong>agrégés et anonymisés</strong>, susceptibles d&apos;être partagés ou vendus à des marques de soin, intérêt légitime. Ils ne contiennent <strong>aucune donnée individuelle</strong> et ne vous identifient jamais.</li>
       </ul>
 
       <h2>Destinataires et sous-traitants</h2>
-      <p>Vos données personnelles ne sont jamais vendues. Le seul destinataire de données personnelles est notre prestataire e-mail (Brevo, situé dans l&apos;UE), pour gérer la liste d&apos;attente et la newsletter. Nos autres prestataires ne reçoivent aucune donnée permettant de vous identifier : l&apos;hébergement et la mesure d&apos;audience sans cookie n&apos;en reçoivent aucune, la recherche météo non plus, et les données de diagnostic sont anonymisées. La liste complète de nos prestataires est disponible sur demande.</p>
+      <p>Vos données personnelles ne sont jamais vendues. Le seul destinataire de données personnelles est notre prestataire e-mail (Brevo, situé dans l&apos;UE), pour gérer la liste d&apos;attente et la newsletter. Nos autres prestataires ne reçoivent aucune donnée permettant de vous identifier : l&apos;hébergement et la mesure d&apos;audience sans cookie n&apos;en reçoivent aucune, la recherche météo non plus, et les données de diagnostic sont anonymisées. Si vous créez un compte, vos données de compte (e-mail, résultats enregistrés, relevés de peau) sont stockées par notre prestataire de base de données et d&apos;authentification (Supabase). Elles ne sont jamais vendues ni partagées avec des marques. La liste complète de nos prestataires est disponible sur demande.</p>
       <p>Les marques ne reçoivent que des analyses <strong>agrégées et anonymisées</strong>, jamais vos données personnelles.</p>
 
       <h2>Durée de conservation</h2>
       <p>
         Votre e-mail et votre ville sont conservés jusqu&apos;à votre désinscription, puis
         supprimés dans un délai raisonnable. Les données de diagnostic anonymisées, n&apos;étant
-        pas identifiantes, peuvent être conservées pour améliorer le service. Vous pouvez
+        pas identifiantes, peuvent être conservées pour améliorer le service. Si vous créez un compte, vos données de compte et votre suivi de peau sont conservés tant que votre compte est actif et supprimés lorsque vous supprimez votre compte ou sur demande. Vous pouvez
         vous désinscrire à tout moment via le lien présent dans chaque e-mail.
       </p>
 
