@@ -212,7 +212,7 @@ export const fr = {
   journalTeaser: {
     eyebrow: "Le journal",
     title: "Des tests produits honnêtes. Vraies photos, vrai avis.",
-    body: "On teste, on décode, on note sans complaisance. Recevez chaque semaine les secrets d'une insider coréenne : les cosmétiques qui valent vraiment le coup, la skincare à rapporter de Séoul, et nos derniers tests.",
+    body: "On teste, on décode, on note sans complaisance. Recevez chaque semaine nos sélections : les cosmétiques qui valent vraiment le coup, la skincare à rapporter de Séoul, et nos derniers tests.",
     cta: "Voir le journal",
   },
 
@@ -388,7 +388,7 @@ export const fr = {
     axisY: "Global → Ancrage local + climat",
     others: ["Yuka", "INCI Beauty", "INCIdecoder", "BeautyDecoded"],
     fiomioPoints: [
-      "Korean insider + Paris observer",
+      "Recommandation expliquée, jamais une simple liste",
       "Donnée climatique locale intégrée",
       "Analyse d'actifs K-beauty spécialisée",
     ],
@@ -414,13 +414,13 @@ export const fr = {
     eyebrow: "Le journal",
     title: "Le secret coréen",
     intro:
-      "Chaque semaine, les secrets d'une insider coréenne : quels cosmétiques coréens valent le coup, où shopper la skincare en Corée, et comment l'adapter à votre peau et votre climat. Décodé, jamais survendu.",
+      "Chaque semaine, nos sélections K-beauty : quels cosmétiques coréens valent le coup, où shopper la skincare en Corée, et comment l'adapter à votre peau et votre climat. Décodé, jamais survendu.",
     readMore: "Lire l'article",
     minRead: "min de lecture",
     backToJournal: "Le journal",
     by: "par",
     newsletterEyebrow: "Le secret coréen",
-    newsletterTitle: "Recevez les secrets d'une insider coréenne, chaque semaine",
+    newsletterTitle: "Recevez nos sélections K-beauty, chaque semaine",
     newsletterBody:
       "Le climat de la semaine + un conseil d'expert adapté à votre peau. Pas de spam, désinscription en un clic.",
     newsletterButton: "S'abonner",
@@ -732,7 +732,7 @@ export const en: Messages = {
   journalTeaser: {
     eyebrow: "The journal",
     title: "Honest product tests. Real photos, real verdicts.",
-    body: "We test, we decode, we score without flattery. Every week, get a Korean insider's secrets: the cosmetics worth it, the skincare to bring back from Seoul, and our latest reviews.",
+    body: "We test, we decode, we score without flattery. Every week, get our picks: the cosmetics worth it, the skincare to bring back from Seoul, and our latest reviews.",
     cta: "See the journal",
   },
 
@@ -907,7 +907,7 @@ export const en: Messages = {
     axisY: "Global → Local anchoring + climate",
     others: ["Yuka", "INCI Beauty", "INCIdecoder", "BeautyDecoded"],
     fiomioPoints: [
-      "Korean insider + Paris observer",
+      "Explained recommendation, never just a list",
       "Local climate data, integrated",
       "Specialized K-beauty active analysis",
     ],
@@ -933,13 +933,13 @@ export const en: Messages = {
     eyebrow: "The journal",
     title: "The Korean secret",
     intro:
-      "Every week, a Korean insider's secrets: which Korean cosmetics are worth it, where to shop skincare in Korea, and how to adapt it to your skin and climate. Decoded, never oversold.",
+      "Every week, our K-beauty picks: which Korean cosmetics are worth it, where to shop skincare in Korea, and how to adapt it to your skin and climate. Decoded, never oversold.",
     readMore: "Read the article",
     minRead: "min read",
     backToJournal: "The journal",
     by: "by",
     newsletterEyebrow: "The Korean secret",
-    newsletterTitle: "Get a Korean insider's secrets, every week",
+    newsletterTitle: "Get our K-beauty picks, every week",
     newsletterBody:
       "The week's climate + an expert tip tailored to your skin. No spam, one-click unsubscribe.",
     newsletterButton: "Subscribe",
