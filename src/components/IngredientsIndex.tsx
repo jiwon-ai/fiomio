@@ -30,6 +30,12 @@ export function IngredientsIndex({ lang }: { lang: Lang }) {
           )}
         </p>
 
+        <p className="mt-4">
+          <Link href={localePath(lang, "/guide-k-beauty")} className="link-underline text-sm font-medium text-spring-deep">
+            {L("Nouveau en K-beauty ? Lire le guide complet →", "New to K-beauty? Read the complete guide →")}
+          </Link>
+        </p>
+
         <div className="mt-8">
           <p className="font-mono text-[0.7rem] uppercase tracking-widest text-stone-2">
             {L("Parcourir par préoccupation", "Browse by concern")}

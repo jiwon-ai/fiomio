@@ -53,6 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    { url: `${BASE}/guide-k-beauty`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/a-propos`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/contact`, changeFrequency: "yearly", priority: 0.3 },
     {
@@ -89,6 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    { url: `${BASE}/en/guide-k-beauty`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/en/a-propos`, changeFrequency: "monthly", priority: 0.4 },
     { url: `${BASE}/en/contact`, changeFrequency: "yearly", priority: 0.2 },
     {
