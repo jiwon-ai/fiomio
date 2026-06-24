@@ -183,7 +183,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               <span className="block font-display text-[0.82rem] font-medium tracking-tight text-stone">
                 Jiwon
               </span>
-              <span className="mt-1 block font-editorial text-lg italic leading-snug text-ink/80">
+              <span className="mt-1 block font-editorial text-[0.95rem] italic leading-snug text-ink/80">
                 {lang === "fr" ? "« Climat × Formule »" : "\u201cClimate \u00d7 Formula\u201d"}, 2026
               </span>
               <span className="mt-2.5 block text-[0.75rem] leading-snug text-stone/65">
