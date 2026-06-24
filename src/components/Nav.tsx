@@ -22,8 +22,6 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
   const homePrefix = home === "/" ? "" : home;
 
   const links = [
-    { href: `${homePrefix}/#probleme`, label: t.nav.problem },
-    { href: `${homePrefix}/#solution`, label: t.nav.solution },
     { href: `${homePrefix}/#diagnostic`, label: t.nav.diagnostic },
     { href: localePath(lang, "/ingredients"), label: t.nav.ingredients },
     { href: localePath(lang, "/mes-produits"), label: t.nav.products },
@@ -51,7 +49,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="link-underline text-sm text-stone transition-colors hover:text-ink"
+                className="link-underline whitespace-nowrap text-sm text-stone transition-colors hover:text-ink"
               >
                 {l.label}
               </Link>
@@ -60,7 +58,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
           <li>
             <Link
               href={localePath(lang, "/compte")}
-              className="inline-flex items-center gap-1.5 border-l border-line pl-5 text-sm font-semibold text-ink transition-colors hover:text-spring-deep"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap border-l border-line pl-5 text-sm font-semibold text-ink transition-colors hover:text-spring-deep"
             >
               <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
               {t.nav.account}
