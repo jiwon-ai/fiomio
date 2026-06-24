@@ -793,6 +793,10 @@ function Results({
   const cl = result.climate;
   const cityLabel = cl.city || (lang === "fr" ? "votre ville" : "your city");
   const topReason = top ? ingredientClimateReason(top.ingredient, cl, lang) : "";
+  const topProduct =
+    products.find((pr) => top && pr.ingredientIds.includes(top.ingredient.id)) ??
+    products[0] ??
+    null;
 
   return (
     <div>
@@ -827,7 +831,7 @@ function Results({
                   {topReason}
                 </p>
                 <div className="mt-5">
-                  <ShareButton d={d} text={topReason} />
+                  <ShareButton d={d} activeName={top.ingredient.name[lang]} reason={topReason} product={topProduct} />
                 </div>
               </>
             )}
@@ -965,11 +969,31 @@ function Results({
 
 /* ---------------- Share (virality) ---------------- */
 
-function ShareButton({ d, text }: { d: DDict; text: string }) {
+function ShareButton({
+  d,
+  activeName,
+  reason,
+  product,
+}: {
+  d: DDict;
+  activeName: string;
+  reason: string;
+  product: Product | null;
+}) {
   const [done, setDone] = useState(false);
+  const buildShareText = () => {
+    const lines = [`${activeName} : ${reason}`];
+    if (product) {
+      const buyUrl = buildAffiliateLink(productSearchUrl(product));
+      lines.push(`${d.shareMyProduct} : ${product.brand} ${product.name}\n${buyUrl}`);
+    }
+    lines.push(`${d.shareDoDiagnostic} :`);
+    return lines.join("\n\n");
+  };
   const onShare = async () => {
     const url = "https://fiomio.io";
-    track("result_shared", {});
+    const text = buildShareText();
+    track("result_shared", { hasProduct: product ? 1 : 0 });
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({ title: "Fiomio", text, url });
