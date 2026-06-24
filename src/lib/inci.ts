@@ -45,12 +45,16 @@ export function parseInciList(text: string): string[] {
 
 /** ubiquitous bases that should never be flagged as a personal trigger */
 const STOPLIST = new Set([
-  "water",
-  "aqua",
-  "eau",
-  "glycerin",
-  "glycerine",
-  "aqua/water/eau",
+  "water", "aqua", "eau", "glycerin", "glycerine", "aqua/water/eau",
+  // functional excipients / solvents / texturizers — not meaningful "affinities"
+  "butylene glycol", "propylene glycol", "pentylene glycol", "dipropylene glycol",
+  "xanthan gum", "carbomer", "dimethicone", "cyclopentasiloxane", "cyclohexasiloxane",
+  "ethylhexylglycerin", "caprylyl glycol", "1 2-hexanediol", "hexanediol",
+  "sodium hydroxide", "potassium hydroxide", "citric acid", "sodium citrate",
+  "disodium edta", "tetrasodium edta", "sodium chloride", "sodium benzoate",
+  "potassium sorbate", "phenoxyethanol", "chlorphenesin", "triethanolamine",
+  "polysorbate 20", "polysorbate 60", "peg-100 stearate", "glyceryl stearate",
+  "cetearyl alcohol", "cetyl alcohol", "stearyl alcohol", "fragrance/parfum",
 ]);
 
 /** Documented irritants / common contact allergens (26 EU fragrance allergens,

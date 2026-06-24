@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Lang } from "@/lib/locale";
-import { getDictionary } from "@/lib/locale";
+import { getDictionary, localePath } from "@/lib/locale";
 import { track } from "@/lib/track";
 import {
   analyzeSuspects,
@@ -526,17 +526,30 @@ export function ProductScanner({ lang }: { lang: Lang }) {
 
             <div className="mt-7 flex flex-col gap-3 border-t border-cream/15 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm font-semibold text-cream">{sc.applyTitle}</p>
-                <p className="mt-0.5 text-xs text-cream/60">{sc.applyBody}</p>
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-cream">
+                  {applied && (
+                    <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12l5 5L20 6" /></svg>
+                  )}
+                  {applied ? sc.applied : sc.applyTitle}
+                </p>
+                <p className="mt-0.5 text-xs text-cream/60">{applied ? sc.appliedBody : sc.applyBody}</p>
               </div>
-              <button
-                type="button"
-                onClick={applyAffinities}
-                disabled={applied}
-                className="shrink-0 rounded-full bg-spring px-5 py-2.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:opacity-70"
-              >
-                {applied ? sc.applied : sc.applyCta}
-              </button>
+              {applied ? (
+                <a
+                  href={`${localePath(lang, "/")}#diagnostic`}
+                  className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-spring px-5 py-2.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5"
+                >
+                  {sc.applyGoCta} <span aria-hidden>→</span>
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={applyAffinities}
+                  className="shrink-0 rounded-full bg-spring px-5 py-2.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5"
+                >
+                  {sc.applyCta}
+                </button>
+              )}
             </div>
           </div>
         ) : products.length > 0 ? (

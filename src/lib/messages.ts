@@ -63,6 +63,8 @@ export const fr = {
     applyBody: "Fiomio mettra en avant vos alliés et écartera les ingrédients à surveiller.",
     applyCta: "Appliquer",
     applied: "Appliqué à votre diagnostic",
+    appliedBody: "Votre prochain diagnostic en tiendra compte.",
+    applyGoCta: "Faire mon diagnostic",
     disclaimer: "Information éducative, pas un avis médical. Une réaction peut venir d'un autre facteur (concentration, association, mode de vie).",
   },
 
@@ -571,6 +573,8 @@ export const en: Messages = {
     applyBody: "Fiomio will favour your allies and steer the watch-list ingredients out.",
     applyCta: "Apply",
     applied: "Applied to your diagnostic",
+    appliedBody: "Your next diagnostic will take it into account.",
+    applyGoCta: "Take the diagnostic",
     disclaimer: "Educational information, not medical advice. A reaction can come from another factor (concentration, combination, lifestyle).",
   },
 
