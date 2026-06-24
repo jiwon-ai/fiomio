@@ -99,7 +99,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
           </div>
         </div>
 
-        <p className="mt-12 max-w-2xl text-xs font-light leading-relaxed text-cream/22">
+        <p className="mt-12 text-xs font-light leading-relaxed text-cream/22">
           {f.disclaimer}
         </p>
 
