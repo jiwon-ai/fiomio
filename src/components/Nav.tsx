@@ -27,7 +27,6 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
     { href: `${homePrefix}/#diagnostic`, label: t.nav.diagnostic },
     { href: localePath(lang, "/ingredients"), label: t.nav.ingredients },
     { href: localePath(lang, "/mes-produits"), label: t.nav.products },
-    { href: localePath(lang, "/compte"), label: t.nav.account },
     { href: localePath(lang, "/journal"), label: t.nav.journal },
     { href: localePath(lang, "/marques"), label: t.nav.brands },
   ];
@@ -58,6 +57,15 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href={localePath(lang, "/compte")}
+              className="inline-flex items-center gap-1.5 border-l border-line pl-5 text-sm font-semibold text-ink transition-colors hover:text-spring-deep"
+            >
+              <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
+              {t.nav.account}
+            </Link>
+          </li>
         </ul>
 
         <div className="flex items-center gap-3 sm:gap-4">
@@ -100,6 +108,16 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={localePath(lang, "/compte")}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 rounded-lg px-3 py-3 text-base font-semibold text-ink transition-colors hover:bg-spring/10"
+              >
+                <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
+                {t.nav.account}
+              </Link>
+            </li>
             <li className="mt-2">
               <Link
                 href={`${homePrefix}/#rejoindre`}
