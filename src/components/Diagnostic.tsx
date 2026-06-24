@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import type { Lang, Messages } from "@/lib/locale";
+import { localePath, type Lang, type Messages } from "@/lib/locale";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import { Reveal } from "./ui/Reveal";
 import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
@@ -797,6 +798,12 @@ function Results({
     products.find((pr) => top && pr.ingredientIds.includes(top.ingredient.id)) ??
     products[0] ??
     null;
+  const savePayload = {
+    city: cl.city ?? null,
+    season: cl[lang].label,
+    topActive: top ? top.ingredient.name[lang] : null,
+    actives: recNames,
+  };
 
   return (
     <div>
@@ -830,8 +837,9 @@ function Results({
                 <p className="mt-3 max-w-lg text-[0.98rem] leading-relaxed text-ink/85">
                   {topReason}
                 </p>
-                <div className="mt-5">
+                <div className="mt-5 flex flex-wrap items-center gap-3">
                   <ShareButton d={d} activeName={top.ingredient.name[lang]} reason={topReason} product={topProduct} />
+                  <SaveResultButton d={d} lang={lang} payload={savePayload} />
                 </div>
               </>
             )}
@@ -964,6 +972,50 @@ function Results({
 
       <p className="mt-5 text-xs leading-relaxed text-stone-2">{d.disclaimer}</p>
     </div>
+  );
+}
+
+/* ---------------- Save result (account) ---------------- */
+
+function SaveResultButton({
+  d,
+  lang,
+  payload,
+}: {
+  d: DDict;
+  lang: Lang;
+  payload: Record<string, unknown>;
+}) {
+  const [done, setDone] = useState(false);
+  const onSave = async () => {
+    const sb = getSupabaseBrowser();
+    if (sb) {
+      const { data } = await sb.auth.getSession();
+      if (data.session) {
+        await sb.from("saved_diagnostics").insert({ result: payload, lang });
+        setDone(true);
+        return;
+      }
+    }
+    try {
+      localStorage.setItem(
+        "fiomio:pendingSave",
+        JSON.stringify({ result: payload, lang }),
+      );
+    } catch {
+      /* ignore */
+    }
+    window.location.href = localePath(lang, "/compte");
+  };
+  return (
+    <button
+      type="button"
+      onClick={onSave}
+      className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 bg-white px-4 py-2 text-sm font-semibold text-ink transition-colors hover:-translate-y-0.5 hover:border-ink/40"
+    >
+      <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h14v16l-7-4-7 4z" /></svg>
+      {done ? d.saveResultDone : d.saveResult}
+    </button>
   );
 }
 
