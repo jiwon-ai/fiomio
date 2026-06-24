@@ -8,6 +8,7 @@ import { IngredientCard } from "./IngredientCard";
 import { CitySearch } from "./CitySearch";
 import { DiagIcon } from "./diagnostic/icons";
 import { seasonFallbackClimate, ingredientClimateReason, type ClimateContext } from "@/lib/climate";
+import { getIngredient } from "@/lib/ingredients";
 import { getSeasonInfo } from "@/lib/season";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
@@ -145,17 +146,26 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
 
   const [useAff, setUseAff] = useState(true);
   const [hasAff, setHasAff] = useState(false);
+  const [affAvoid, setAffAvoid] = useState<string[]>([]);
+  const [affPrefer, setAffPrefer] = useState<string[]>([]);
   useEffect(() => {
     try {
       const a = localStorage.getItem("fiomio:avoid");
       const pr = localStorage.getItem("fiomio:prefer");
-      const has = (a && JSON.parse(a).length) || (pr && JSON.parse(pr).length);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (has) setHasAff(true);
+      const avoidIds = a ? avoidedIngredientIds(JSON.parse(a)) : [];
+      const preferIds = pr ? avoidedIngredientIds(JSON.parse(pr)) : [];
+      const names = (ids: string[]) =>
+        ids.map((id) => getIngredient(id)?.name[lang]).filter(Boolean) as string[];
+      if (avoidIds.length || preferIds.length) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setHasAff(true);
+        setAffAvoid(names(avoidIds));
+        setAffPrefer(names(preferIds));
+      }
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [lang]);
   const readAffinityIds = useCallback((on: boolean) => {
     if (!on) return { avoidIds: [] as string[], preferIds: [] as string[] };
     let avoidIds: string[] = [];
@@ -233,20 +243,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
       });
   }, [skinType, sensitive, concerns, activeUse, gender, climate, lang, readAffinityIds, useAff]);
 
-  const toggleAff = useCallback(
-    (on: boolean) => {
-      setUseAff(on);
-      if (!skinType || sensitive === null || !activeUse || !gender) return;
-      const { avoidIds, preferIds } = readAffinityIds(on);
-      const cl = climate ?? seasonFallbackClimate();
-      const r = runDiagnostic(
-        { skinType, sensitive, concerns, activeUse, gender, pregnancy: pregnancy ?? "none", avoidIds, preferIds },
-        cl,
-      );
-      setResult(r);
-    },
-    [skinType, sensitive, activeUse, gender, concerns, pregnancy, climate, readAffinityIds],
-  );
 
   // Advance one step forward, honouring the male→skip-pregnancy and
   // last-step→results behaviour. Mirrors the manual "Continue" button.
@@ -371,7 +367,44 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
 
             <div className="p-5 sm:p-8">
               {!result ? (
-                <Questionnaire
+                <>
+                  {step === 0 && hasAff && (
+                    <div className="mb-6 rounded-xl border border-spring-deep/25 bg-spring/8 p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-sm font-medium text-ink">{d.affLabel}</span>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked={useAff}
+                          onClick={() => setUseAff((v) => !v)}
+                          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                            useAff ? "bg-spring-deep text-cream" : "border border-line bg-white text-stone"
+                          }`}
+                        >
+                          {useAff ? d.affOn : d.affOff}
+                        </button>
+                      </div>
+                      <p className="mt-1.5 text-xs leading-relaxed text-stone">
+                        {useAff && (affAvoid.length > 0 || affPrefer.length > 0) ? (
+                          <>
+                            {affAvoid.length > 0 && (
+                              <>
+                                {d.affExclude} : {affAvoid.join(", ")}.{" "}
+                              </>
+                            )}
+                            {affPrefer.length > 0 && (
+                              <>
+                                {d.affFavor} : {affPrefer.join(", ")}.
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          d.affOffHint
+                        )}
+                      </p>
+                    </div>
+                  )}
+                  <Questionnaire
                   step={step}
                   d={d}
                   skinTypes={t.skinTypes}
@@ -400,9 +433,10 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                     setStep((s) => Math.max(0, s - 1));
                   }}
                   onNext={handleNext}
-                />
+                  />
+                </>
               ) : (
-                <Results d={d} lang={lang} result={result} activeUse={activeUse} diagId={diagId} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} hasAff={hasAff} useAff={useAff} onToggleAff={toggleAff} />
+                <Results d={d} lang={lang} result={result} activeUse={activeUse} diagId={diagId} onReset={reset} llmNote={llmNote} llmLoading={llmLoading} />
               )}
             </div>
           </div>
@@ -735,9 +769,6 @@ function Results({
   onReset,
   llmNote,
   llmLoading,
-  hasAff,
-  useAff,
-  onToggleAff,
 }: {
   d: DDict;
   lang: "fr" | "en";
@@ -747,9 +778,6 @@ function Results({
   onReset: () => void;
   llmNote: { fr: string; en: string } | null;
   llmLoading: boolean;
-  hasAff: boolean;
-  useAff: boolean;
-  onToggleAff: (on: boolean) => void;
 }) {
   const p = d.products;
   const recIds = result.recommendations.map((r) => r.ingredient.id);
@@ -773,23 +801,6 @@ function Results({
           ↻ {d.restart}
         </button>
       </div>
-
-      {hasAff && (
-        <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-spring-deep/25 bg-spring/8 px-4 py-2.5">
-          <span className="text-sm font-medium text-ink">{d.affLabel}</span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={useAff}
-            onClick={() => onToggleAff(!useAff)}
-            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
-              useAff ? "bg-spring-deep text-cream" : "border border-line bg-white text-stone"
-            }`}
-          >
-            {useAff ? d.affOn : d.affOff}
-          </button>
-        </div>
-      )}
 
       {/* VERDICT HERO \u2014 concrete: your city + climate, the #1 active big, the reason */}
       <div className="mt-3 overflow-hidden rounded-2xl border border-spring-deep/20 bg-spring/8">
