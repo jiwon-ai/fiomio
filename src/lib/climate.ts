@@ -201,17 +201,17 @@ export function ingredientClimateReason(
   climate: ClimateContext,
   lang: "fr" | "en",
 ): string {
-  const city = climate.city || (lang === "fr" ? "votre ville" : "your city");
   const m = climate.metrics;
   const uv = m ? Math.round(m.uv) : null;
   const hum = m ? Math.round(m.humidity) : null;
   const temp = m ? Math.round(m.tempC) : null;
+  const highUV = uv != null && uv >= 6;
+  const dry = hum != null && hum < 45;
+  const humid = hum != null && hum > 65;
+  const cold = temp != null && temp < 10;
   const t = new Set(ing.traits);
   const name = ing.name[lang];
-  const dryWord = lang === "fr" ? "sec" : "dry";
-  const uvTxt = uv != null ? (lang === "fr" ? `UV indice ${uv}` : `UV index ${uv}`) : (lang === "fr" ? "les UV" : "UV exposure");
-  const humTxt = hum != null ? `${hum}%` : (lang === "fr" ? "l'humidité" : "the humidity");
-  const tempTxt = temp != null ? `${temp}°` : "";
+  const fr = lang === "fr";
 
   const primary: TraitKey | "generic" =
     (t.has("antioxidant") && "antioxidant") ||
@@ -227,41 +227,41 @@ export function ingredientClimateReason(
 
   switch (primary) {
     case "antioxidant":
-      return lang === "fr"
-        ? `À ${city}, ${uvTxt} : ${name} neutralise le stress oxydatif et protège l'éclat.`
-        : `In ${city}, ${uvTxt}: ${name} neutralizes oxidative stress and protects radiance.`;
+      return fr
+        ? `${name} neutralise le stress oxydatif${highUV ? " des UV" : ""} et protège l'éclat.`
+        : `${name} neutralizes oxidative stress${highUV ? " from UV" : ""} and protects radiance.`;
     case "brightening":
-      return lang === "fr"
-        ? `À ${city}, ${uvTxt} : ${name} cible les taches et ravive l'éclat.`
-        : `In ${city}, ${uvTxt}: ${name} targets dark spots and revives glow.`;
+      return fr
+        ? `${name} cible les taches et unifie le teint.`
+        : `${name} targets dark spots and evens the tone.`;
     case "hydrating":
-      return lang === "fr"
-        ? `À ${city}, ${humTxt} d'humidité : ${name} capte et retient l'eau dans la peau.`
-        : `In ${city}, ${humTxt} humidity: ${name} pulls and holds water in the skin.`;
+      return fr
+        ? `${name} capte et retient l'eau dans la peau${dry ? ", contre l'air sec" : ""}.`
+        : `${name} pulls and holds water in the skin${dry ? ", against dry air" : ""}.`;
     case "barrier":
     case "occlusive":
-      return lang === "fr"
-        ? `À ${city}, l'air ${dryWord} fragilise la barrière : ${name} la reconstruit et scelle l'eau.`
-        : `In ${city}, ${dryWord} air weakens the barrier: ${name} rebuilds it and seals water in.`;
+      return fr
+        ? `${name} reconstruit la barrière${dry || cold ? " fragilisée par l'air sec et le froid" : ""} et limite la perte d'eau.`
+        : `${name} rebuilds the barrier${dry || cold ? " weakened by dry, cold air" : ""} and limits water loss.`;
     case "oilControl":
-      return lang === "fr"
-        ? `À ${city}, ${tempTxt} ${humTxt} : ${name} régule le sébum sans décaper.`.replace("  ", " ")
-        : `In ${city}, ${tempTxt} ${humTxt}: ${name} regulates sebum without stripping.`.replace("  ", " ");
+      return fr
+        ? `${name} régule le sébum${humid ? ", accentué par la chaleur humide," : ""} sans décaper.`
+        : `${name} regulates sebum${humid ? ", heightened by humid heat," : ""} without stripping.`;
     case "exfoliating":
-      return lang === "fr"
-        ? `À ${city}, ${humTxt} d'humidité : ${name} désincruste les pores en douceur.`
-        : `In ${city}, ${humTxt} humidity: ${name} gently clears congested pores.`;
+      return fr
+        ? `${name} désincruste les pores et lisse le grain de peau.`
+        : `${name} clears congested pores and smooths skin texture.`;
     case "soothing":
-      return lang === "fr"
-        ? `Pour la réactivité accentuée par le climat de ${city} : ${name} apaise rougeurs et inconfort.`
-        : `For reactivity heightened by ${city}'s climate: ${name} calms redness and discomfort.`;
+      return fr
+        ? `${name} apaise rougeurs et inconfort des peaux réactives.`
+        : `${name} calms redness and discomfort in reactive skin.`;
     case "firming":
-      return lang === "fr"
-        ? `À ${city}, ${uvTxt} accélère le vieillissement : ${name} raffermit et lisse.`
-        : `In ${city}, ${uvTxt} speeds aging: ${name} firms and smooths.`;
+      return fr
+        ? `${name} raffermit et lisse, contre les signes de l'âge.`
+        : `${name} firms and smooths, against signs of aging.`;
     default:
-      return lang === "fr"
-        ? `Choisi pour votre peau et le climat de ${city}.`
-        : `Chosen for your skin and ${city}'s climate.`;
+      return fr
+        ? `${name} : choisi pour votre profil cutané et la saison.`
+        : `${name}: chosen for your skin profile and the season.`;
   }
 }
