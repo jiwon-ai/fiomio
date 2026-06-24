@@ -272,11 +272,11 @@
   margin-top: 0;
 }
 .article-prose h2 {
-  font-family: var(--font-editorial);
-  font-weight: 400;
-  font-size: 2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.7rem;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-top: 2.2em;
   color: var(--color-ink);
 }
