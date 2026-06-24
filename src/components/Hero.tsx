@@ -95,7 +95,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
           <div>
             <h1
               className="font-display font-medium leading-[1.02] tracking-tight text-ink [overflow-wrap:break-word]"
-              style={{ fontSize: "clamp(2.3rem, 7vw, 6.2rem)" }}
+              style={{ fontSize: "clamp(2.1rem, 5vw, 4.4rem)" }}
             >
               {h.titleLead}{" "}
               <em className="not-italic text-spring-deep">{h.titleEmph}</em>
@@ -103,7 +103,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               <span className="text-[#5f9485]">{h.titleEmph2}</span>
             </h1>
 
-            <p className="mt-8 max-w-md text-base leading-relaxed text-stone">
+            <p className="mt-7 max-w-lg text-lg leading-relaxed text-stone">
               {h.subtitle}
             </p>
 
