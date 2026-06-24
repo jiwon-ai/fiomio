@@ -6,7 +6,7 @@
 Plateforme de recommandation skincare. Un diagnostic gratuit croise le profil
 cutané, le **climat local** et une base d'**actifs K-beauty décodés** pour
 proposer des ingrédients argumentés. Bilingue **FR / EN** (FR par défaut, EN sous `/en`).
-Cible de départ : Parisiennes 25-35 ans, extensible à toute l'Europe.
+Cible : utilisateurs européens anglophones et francophones, 24-45 ans.
 
 Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
 
