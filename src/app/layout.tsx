@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteJsonLd } from "@/components/JsonLd";
@@ -11,16 +11,10 @@ import { Analytics } from "@vercel/analytics/next";
 // in the Vercel env (e.g. "123456X1700000").
 const SOVRN_ID = process.env.NEXT_PUBLIC_SOVRN_ID;
 
-const sora = Sora({
-  variable: "--font-sora",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -85,7 +79,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${sora.variable} ${inter.variable} h-full antialiased`}
+      className={`${geist.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://ipwho.is" crossOrigin="" />
