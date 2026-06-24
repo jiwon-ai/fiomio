@@ -96,6 +96,26 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
             <div className="mt-6">
               <LangToggle lang={lang} onDark />
             </div>
+
+            <div className="mt-8">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cream/25">
+                {f.social}
+              </p>
+              <div className="mt-3 flex gap-2.5">
+                <span aria-label="Instagram" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:text-cream/80">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+                </span>
+                <span aria-label="YouTube" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:text-cream/80">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden><rect x="2.5" y="5.5" width="19" height="13" rx="4" /><path d="M10.5 9.2l4.5 2.8-4.5 2.8z" fill="currentColor" stroke="none" /></svg>
+                </span>
+                <span aria-label="TikTok" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:text-cream/80">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46" /><path d="M14 4.5c.4 2.3 2.2 3.9 4.5 4" /></svg>
+                </span>
+                <span aria-label="X" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:text-cream/80">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.96 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zM17.08 19.77h1.83L7.08 4.13H5.12z" /></svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
