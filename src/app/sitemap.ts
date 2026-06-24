@@ -53,6 +53,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    { url: `${BASE}/a-propos`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/contact`, changeFrequency: "yearly", priority: 0.3 },
     {
       url: `${BASE}/mentions-legales`,
       changeFrequency: "yearly",
@@ -87,6 +89,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    { url: `${BASE}/en/a-propos`, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${BASE}/en/contact`, changeFrequency: "yearly", priority: 0.2 },
     {
       url: `${BASE}/en/mentions-legales`,
       changeFrequency: "yearly",

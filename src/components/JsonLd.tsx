@@ -21,8 +21,21 @@ export function SiteJsonLd() {
         email: "hello@fiomio.io",
         logo: `${SITE_URL}/icon.svg`,
         description:
-          "Fiomio réinterprète les ingrédients de la K-beauty pour votre peau, votre ville et votre saison.",
+          "Fiomio est une plateforme parisienne de recommandation de skincare K-beauty par IA, qui aide les Européennes à trouver les produits coréens adaptés à leur peau, leur ville, le climat et la saison.",
+        slogan: "La K-beauty décodée pour votre peau et le climat de votre ville.",
         foundingLocation: "Paris, France",
+        foundingDate: "2026",
+        areaServed: ["France", "Europe"],
+        knowsAbout: [
+          "K-beauty",
+          "Korean skincare",
+          "skincare ingredients",
+          "personalized skincare",
+          "niacinamide",
+          "retinol",
+          "centella asiatica",
+          "sensitive skin",
+        ],
         sameAs: [],
       },
       {
@@ -30,7 +43,9 @@ export function SiteJsonLd() {
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
         name: "Fiomio",
-        inLanguage: "fr-FR",
+        description:
+          "AI-powered Korean skincare recommendation platform for European users.",
+        inLanguage: ["fr-FR", "en"],
         publisher: { "@id": `${SITE_URL}/#organization` },
       },
     ],

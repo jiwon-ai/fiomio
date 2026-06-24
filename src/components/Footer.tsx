@@ -14,6 +14,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
     { href: `${home === "/" ? "" : home}/#diagnostic`, label: t.nav.diagnostic },
     { href: localePath(lang, "/journal"), label: t.nav.journal },
     { href: localePath(lang, "/marques"), label: t.nav.brands },
+    { href: localePath(lang, "/a-propos"), label: t.footer.about },
     { href: `${home === "/" ? "" : home}/#rejoindre`, label: t.nav.cta },
   ];
 
@@ -84,7 +85,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
               </li>
               <li>
                 <a
-                  href="mailto:hello@fiomio.io"
+                  href={localePath(lang, "/contact")}
                   className="link-underline text-sm font-light text-cream/40 hover:text-cream/75"
                 >
                   {f.contact} : hello@fiomio.io
