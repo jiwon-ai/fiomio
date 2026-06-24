@@ -152,13 +152,16 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         : `d_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     setDiagId(newDiagId);
     let avoidIds: string[] = [];
+    let preferIds: string[] = [];
     try {
-      const raw = localStorage.getItem("fiomio:avoid");
-      if (raw) avoidIds = avoidedIngredientIds(JSON.parse(raw));
+      const rawAvoid = localStorage.getItem("fiomio:avoid");
+      if (rawAvoid) avoidIds = avoidedIngredientIds(JSON.parse(rawAvoid));
+      const rawPrefer = localStorage.getItem("fiomio:prefer");
+      if (rawPrefer) preferIds = avoidedIngredientIds(JSON.parse(rawPrefer));
     } catch {
       /* ignore */
     }
-    const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg, avoidIds };
+    const input = { skinType, sensitive, concerns, activeUse, gender, pregnancy: preg, avoidIds, preferIds };
     const cl = climate ?? seasonFallbackClimate();
     const r = runDiagnostic(input, cl);
     setResult(r);

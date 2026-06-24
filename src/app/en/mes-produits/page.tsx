@@ -4,7 +4,7 @@ import { ProductScanner } from "@/components/ProductScanner";
 const SITE_URL = "https://fiomio.io";
 
 export const metadata: Metadata = {
-  title: "My products · ingredients to avoid",
+  title: "Affinities · your compatible ingredients",
   description:
     "Scan the cosmetics you've used and say whether your skin reacted well. Fiomio surfaces the ingredients linked to your bad experiences, to avoid.",
   alternates: {

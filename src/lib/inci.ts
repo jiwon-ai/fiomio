@@ -158,3 +158,49 @@ export function analyzeSuspects(
   suspects.sort((a, b) => b.score - a.score);
   return suspects.slice(0, 6);
 }
+
+export type Ally = {
+  inci: string;
+  label: string;
+  goodCount: number;
+  badCount: number;
+  totalGood: number;
+  score: number;
+};
+
+/** Surface the ingredients that AGREE with the user's skin: present in
+ *  well-tolerated products, more than in the badly-tolerated ones. */
+export function analyzeAllies(
+  products: LoggedProduct[],
+  lang: "fr" | "en",
+): Ally[] {
+  const good = products.filter((p) => p.verdict === "good");
+  const bad = products.filter((p) => p.verdict === "bad");
+  const totalGood = good.length;
+  const totalBad = bad.length;
+  if (totalGood === 0) return [];
+
+  const goodCount = new Map<string, number>();
+  const badCount = new Map<string, number>();
+  for (const p of good)
+    for (const ing of Array.from(new Set(p.inci)))
+      if (!STOPLIST.has(ing)) goodCount.set(ing, (goodCount.get(ing) || 0) + 1);
+  for (const p of bad)
+    for (const ing of Array.from(new Set(p.inci)))
+      if (!STOPLIST.has(ing)) badCount.set(ing, (badCount.get(ing) || 0) + 1);
+
+  void lang;
+  const allies: Ally[] = [];
+  for (const [ing, gc] of Array.from(goodCount.entries())) {
+    if (KNOWN_IRRITANTS[ing]) continue; // a known irritant is never an "ally"
+    if (gc < 2) continue; // needs to appear in >=2 well-tolerated products
+    const bc = badCount.get(ing) || 0;
+    const goodRate = gc / totalGood;
+    const badRate = totalBad ? bc / totalBad : 0;
+    const lift = (goodRate + 0.05) / (badRate + 0.05);
+    if (lift < 1.3) continue; // must be clearly more common in the good set
+    allies.push({ inci: ing, label: titleCase(ing), goodCount: gc, badCount: bc, totalGood, score: goodRate * lift });
+  }
+  allies.sort((a, b) => b.score - a.score);
+  return allies.slice(0, 6);
+}

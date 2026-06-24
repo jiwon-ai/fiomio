@@ -6,9 +6,11 @@ import { getDictionary } from "@/lib/locale";
 import { track } from "@/lib/track";
 import {
   analyzeSuspects,
+  analyzeAllies,
   parseInciList,
   type LoggedProduct,
   type Suspect,
+  type Ally,
 } from "@/lib/inci";
 import {
   fetchByBarcode,
@@ -18,6 +20,7 @@ import {
 
 const LS_PRODUCTS = "fiomio:products";
 const LS_AVOID = "fiomio:avoid";
+const LS_PREFER = "fiomio:prefer";
 
 type Mode = "scan" | "search" | "manual";
 type ScanControls = { stop: () => void };
@@ -78,7 +81,7 @@ export function ProductScanner({ lang }: { lang: Lang }) {
   }, [products]);
 
   const suspects: Suspect[] = analyzeSuspects(products, lang);
-  const badCount = products.filter((p) => p.verdict === "bad").length;
+  const allies: Ally[] = analyzeAllies(products, lang);
 
   const stopScan = useCallback(() => {
     try {
@@ -226,15 +229,15 @@ export function ProductScanner({ lang }: { lang: Lang }) {
     setApplied(false);
   }
 
-  function applyAvoid() {
-    const avoid = suspects.map((s) => s.inci);
+  function applyAffinities() {
     try {
-      localStorage.setItem(LS_AVOID, JSON.stringify(avoid));
+      localStorage.setItem(LS_AVOID, JSON.stringify(suspects.map((s) => s.inci)));
+      localStorage.setItem(LS_PREFER, JSON.stringify(allies.map((a) => a.inci)));
     } catch {
       /* ignore */
     }
     setApplied(true);
-    track("avoid_applied", { count: avoid.length });
+    track("affinities_applied", { prefer: allies.length, avoid: suspects.length });
   }
 
   return (
@@ -475,56 +478,75 @@ export function ProductScanner({ lang }: { lang: Lang }) {
           )}
         </div>
 
-        {/* results */}
-        {badCount >= 1 && (
+        {/* affinities profile */}
+        {allies.length > 0 || suspects.length > 0 ? (
           <div className="mt-8 rounded-2xl bg-ink p-6 text-cream sm:p-8">
-            <p className="font-mono text-[0.7rem] uppercase tracking-widest text-spring">
-              {sc.resultsTitle}
-            </p>
-            {suspects.length > 0 ? (
-              <>
+            {allies.length > 0 && (
+              <section>
+                <p className="font-mono text-[0.7rem] uppercase tracking-widest text-spring">
+                  {sc.alliesTitle}
+                </p>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/75">
+                  {sc.alliesIntro}
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-2.5">
+                  {allies.map((a) => (
+                    <li key={a.inci} className="rounded-xl border border-spring/30 bg-spring/10 px-3.5 py-2.5">
+                      <span className="block text-sm font-semibold text-cream">{a.label}</span>
+                      <span className="mt-0.5 block text-[0.7rem] text-cream/55">
+                        {sc.alliesSeenIn.replace("{g}", String(a.goodCount)).replace("{tg}", String(a.totalGood))}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {suspects.length > 0 && (
+              <section className={allies.length > 0 ? "mt-7 border-t border-cream/15 pt-7" : ""}>
+                <p className="font-mono text-[0.7rem] uppercase tracking-widest text-cream/70">
+                  {sc.resultsTitle}
+                </p>
                 <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/75">
                   {sc.resultsIntro}
                 </p>
                 <ul className="mt-5 flex flex-wrap gap-2.5">
                   {suspects.map((s) => (
-                    <li
-                      key={s.inci}
-                      className="rounded-xl border border-cream/15 bg-cream/5 px-3.5 py-2.5"
-                    >
-                      <span className="block text-sm font-semibold text-cream">
-                        {s.label}
-                      </span>
+                    <li key={s.inci} className="rounded-xl border border-cream/15 bg-cream/5 px-3.5 py-2.5">
+                      <span className="block text-sm font-semibold text-cream">{s.label}</span>
                       <span className="mt-0.5 block text-[0.7rem] text-cream/55">
                         {s.knownIrritant ? sc.irritant + " · " : ""}
-                        {sc.seenIn
-                          .replace("{b}", String(s.badCount))
-                          .replace("{tb}", String(s.totalBad))}
+                        {sc.seenIn.replace("{b}", String(s.badCount)).replace("{tb}", String(s.totalBad))}
                       </span>
                     </li>
                   ))}
                 </ul>
-
-                <div className="mt-6 flex flex-col gap-3 border-t border-cream/15 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-cream">{sc.applyTitle}</p>
-                    <p className="mt-0.5 text-xs text-cream/60">{sc.applyBody}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={applyAvoid}
-                    disabled={applied}
-                    className="shrink-0 rounded-full bg-spring px-5 py-2.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:opacity-70"
-                  >
-                    {applied ? sc.applied : sc.applyCta}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <p className="mt-2 text-sm text-cream/70">{sc.needMore}</p>
+              </section>
             )}
+
+            <div className="mt-7 flex flex-col gap-3 border-t border-cream/15 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-cream">{sc.applyTitle}</p>
+                <p className="mt-0.5 text-xs text-cream/60">{sc.applyBody}</p>
+              </div>
+              <button
+                type="button"
+                onClick={applyAffinities}
+                disabled={applied}
+                className="shrink-0 rounded-full bg-spring px-5 py-2.5 text-sm font-semibold text-spring-ink transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+              >
+                {applied ? sc.applied : sc.applyCta}
+              </button>
+            </div>
           </div>
-        )}
+        ) : products.length > 0 ? (
+          <div className="mt-8 rounded-2xl bg-ink p-6 text-cream sm:p-8">
+            <p className="font-mono text-[0.7rem] uppercase tracking-widest text-spring">
+              {sc.resultsTitle}
+            </p>
+            <p className="mt-2 text-sm text-cream/70">{sc.needMore}</p>
+          </div>
+        ) : null}
 
         <p className="mt-6 text-xs leading-relaxed text-stone-2">{sc.disclaimer}</p>
       </div>

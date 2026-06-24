@@ -32,6 +32,8 @@ export type DiagnosticInput = {
   pregnancy: Pregnancy;
   /** ingredient ids the user has chosen to avoid (from their product log) */
   avoidIds?: string[];
+  /** ingredient ids that suit the user (their 'allies'), given a score boost */
+  preferIds?: string[];
 };
 
 /** INCI aliases for actives whose label differs from their INCI name, used to
@@ -325,9 +327,14 @@ export function runDiagnostic(
       (input.pregnancy === "none" || !PREGNANCY_UNSAFE.includes(ing.id)) &&
       !avoid.has(ing.id),
   );
+  const prefer = new Set(input.preferIds ?? []);
   const ranked = pool.map((ing) => {
     const { score, matched } = scoreIngredient(ing, input, climate);
-    return { ingredient: ing, score, matched };
+    return {
+      ingredient: ing,
+      score: prefer.has(ing.id) ? score + 2 : score,
+      matched,
+    };
   }).sort((a, b) => b.score - a.score);
 
   // Top 3 with a light diversity guard: at most one "exfoliating" pick.
