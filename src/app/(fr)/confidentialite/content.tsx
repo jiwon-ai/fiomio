@@ -34,13 +34,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
         </ul>
 
         <h2>Recipients and processors</h2>
-        <p>Your personal data is never sold. We rely on the following processors, bound to protect it under the GDPR:</p>
-        <ul>
-          <li><strong>Brevo</strong>, storing contacts and sending emails.</li>
-          <li><strong>Vercel</strong>, hosting and cookieless analytics.</li>
-          <li><strong>Supabase</strong>, storing the anonymized diagnostic data.</li>
-          <li><strong>Open-Meteo</strong>, weather and city lookup (no personal data that could identify you is sent).</li>
-        </ul>
+        <p>Your personal data is never sold. The only recipient of personal data is our email provider (Brevo, based in the EU), used to manage the waitlist and the newsletter. Our other providers receive no data that identifies you: hosting and cookieless analytics receive no identifying data, weather lookup receives none, and diagnostic data is anonymized. A full list of our processors is available on request.</p>
         <p>Brands only ever receive <strong>aggregated, anonymized</strong> insights, never your personal data.</p>
 
         <h2>Retention period</h2>
@@ -111,13 +105,7 @@ export function ConfidentialiteContent({ lang }: { lang: Lang }) {
       </ul>
 
       <h2>Destinataires et sous-traitants</h2>
-      <p>Vos données personnelles ne sont jamais vendues. Nous faisons appel aux sous-traitants suivants, engagés à les protéger conformément au RGPD :</p>
-      <ul>
-        <li><strong>Brevo</strong>, stockage des contacts et envoi des e-mails.</li>
-        <li><strong>Vercel</strong>, hébergement et mesure d&apos;audience sans cookie.</li>
-        <li><strong>Supabase</strong>, stockage des données de diagnostic anonymisées.</li>
-        <li><strong>Open-Meteo</strong>, météo et recherche de ville (aucune donnée personnelle permettant de vous identifier n&apos;est transmise).</li>
-      </ul>
+      <p>Vos données personnelles ne sont jamais vendues. Le seul destinataire de données personnelles est notre prestataire e-mail (Brevo, situé dans l&apos;UE), pour gérer la liste d&apos;attente et la newsletter. Nos autres prestataires ne reçoivent aucune donnée permettant de vous identifier : l&apos;hébergement et la mesure d&apos;audience sans cookie n&apos;en reçoivent aucune, la recherche météo non plus, et les données de diagnostic sont anonymisées. La liste complète de nos prestataires est disponible sur demande.</p>
       <p>Les marques ne reçoivent que des analyses <strong>agrégées et anonymisées</strong>, jamais vos données personnelles.</p>
 
       <h2>Durée de conservation</h2>
