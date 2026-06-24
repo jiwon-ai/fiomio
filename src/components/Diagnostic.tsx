@@ -150,18 +150,22 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const [affPrefer, setAffPrefer] = useState<string[]>([]);
   useEffect(() => {
     try {
-      const a = localStorage.getItem("fiomio:avoid");
-      const pr = localStorage.getItem("fiomio:prefer");
-      const avoidIds = a ? avoidedIngredientIds(JSON.parse(a)) : [];
-      const preferIds = pr ? avoidedIngredientIds(JSON.parse(pr)) : [];
-      const names = (ids: string[]) =>
-        ids.map((id) => getIngredient(id)?.name[lang]).filter(Boolean) as string[];
-      if (avoidIds.length || preferIds.length) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setHasAff(true);
-        setAffAvoid(names(avoidIds));
-        setAffPrefer(names(preferIds));
-      }
+      const rawAvoid = JSON.parse(localStorage.getItem("fiomio:avoid") || "[]") as string[];
+      const rawPrefer = JSON.parse(localStorage.getItem("fiomio:prefer") || "[]") as string[];
+      if (!rawAvoid.length && !rawPrefer.length) return;
+      const tc = (t: string) => t.replace(/\b\w/g, (c) => c.toUpperCase());
+      const label = (tokens: string[]) =>
+        tokens
+          .map((t) => {
+            const ids = avoidedIngredientIds([t]);
+            const ing = ids.length ? getIngredient(ids[0]) : undefined;
+            return ing ? ing.name[lang] : tc(t);
+          })
+          .slice(0, 8);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHasAff(true);
+      setAffAvoid(label(rawAvoid));
+      setAffPrefer(label(rawPrefer));
     } catch {
       /* ignore */
     }
