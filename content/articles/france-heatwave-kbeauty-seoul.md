@@ -10,6 +10,8 @@ type: "guide"
 draft: false
 ---
 
+*Note: the Fiomio journal is in a test phase. The content and visuals are still evolving.*
+
 France is living through one of its earliest and most intense heatwaves on record: 23 and 24 June 2026 were the hottest days ever measured in the country, with peaks of 40 to 42 C and up to 58 departments under red alert. Before we talk skin, the essential part: a heatwave is first a health risk. Drink water, stay cool, check on vulnerable people. Skincare comes after.
 
 That said, here is something useful: Seoul has faced extreme summers for far longer. Korea hit 39.6 C in 2018, dozens of tropical nights in a row, and repeated long, humid heatwaves. As a result, K-beauty built real know-how for skin under heat. Here is what you can borrow.
@@ -21,6 +23,12 @@ In high heat, a rich cream can suffocate the skin and add shine. The Korean appr
 ## 2. Soothe: the cica culture
 
 Heat, sweat, sun and air conditioning leave skin red and reactive. Korea popularised soothing care with centella (cica), mugwort, aloe and green tea. A cica gel or cream calms heat-stressed skin far better than a standard moisturiser.
+
+## The Korean move: cool that soothes
+
+A very common Korean summer habit: keep your toner or soothing mist (aloe, centella) in the fridge. On heated skin, sweep it on with a soaked cotton pad to gently cleanse and calm, or spritz the chilled mist. The cold cuts the feeling of heat, de-puffs and soothes on the spot. Simple, cheap, effective.
+
+![Photo coming](/journal/canicule-cica-frais.svg)
 
 ## 3. Sun protection, non-negotiable
 

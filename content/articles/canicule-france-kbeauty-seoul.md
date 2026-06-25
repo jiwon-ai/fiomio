@@ -10,6 +10,8 @@ type: "guide"
 draft: false
 ---
 
+*Note : le journal Fiomio est en phase de test. Le contenu et les visuels évoluent encore.*
+
 La France vit l'une de ses canicules les plus précoces et les plus intenses : les 23 et 24 juin 2026 ont été les journées les plus chaudes jamais mesurées dans le pays, avec des pointes de 40 à 42 °C et jusqu'à 58 départements en vigilance rouge. Avant de parler peau, l'essentiel : une canicule est d'abord un risque sanitaire. Buvez de l'eau, restez au frais, surveillez les personnes fragiles. Le soin de la peau vient après.
 
 Cela dit, il y a une chose utile à savoir : Séoul affronte des étés extrêmes depuis bien plus longtemps. La Corée a connu 39,6 °C en 2018, des dizaines de nuits tropicales d'affilée, et des canicules longues et humides à répétition. Résultat, la K-beauty a développé un vrai savoir-faire pour les peaux soumises à la chaleur. Voici ce qu'on peut lui emprunter.
@@ -21,6 +23,12 @@ En pleine chaleur, une crème riche peut étouffer la peau et accentuer les bril
 ## 2. Apaiser : la culture du cica
 
 Chaleur, sueur, soleil et climatisation rendent la peau rouge et réactive. La Corée a popularisé les soins apaisants à la centella (cica), à l'armoise, à l'aloe ou au thé vert. Un gel ou une crème cica calme une peau échauffée bien mieux qu'un soin classique.
+
+## Le geste coréen : du frais qui apaise
+
+Une habitude très répandue en Corée l'été : garder son toner ou sa brume apaisante (aloe, centella) au réfrigérateur. Sur une peau échauffée, passez-en avec un coton imbibé pour nettoyer en douceur et calmer, ou vaporisez la brume bien fraîche. Le froid coupe la sensation de chaleur, dégonfle et apaise sur le moment. Simple, peu coûteux, efficace.
+
+![Photo à venir](/journal/canicule-cica-frais.svg)
 
 ## 3. La protection solaire, non négociable
 
