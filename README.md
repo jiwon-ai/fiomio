@@ -44,6 +44,15 @@ Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
   préoccupations, pages À propos et Contact pour l'E-E-A-T.
 - **Données structurées** : Organization, WebSite, AboutPage, FAQPage,
   BreadcrumbList en JSON-LD.
+- **Comptes et suivi de peau** (`/compte`) : connexion par lien magique e-mail
+  (Supabase Auth) ou Google. Une fois connecté, l'utilisateur enregistre ses
+  résultats et suit l'état de sa peau dans le temps (check-ins). Le diagnostic
+  anonyme reste ouvert, sans compte. Donnée identifiée minimale, RGPD.
+- **Signaux de demande** (indépendants de l'affiliation) : clics produits au
+  moment du résultat et recherches Affinités enregistrés anonymement
+  (`/api/signal`), pour savoir ce que les gens veulent acheter et ce qu'il faut
+  ajouter au catalogue. Snapshot climat (température, humidité, UV) joint aux
+  diagnostics et aux clics.
 - **Data flywheel** : diagnostics et scans stockés **anonymement** (sans e-mail,
   sans IP) pour améliorer le moteur. Jeu de données ingrédient et résultat propriétaire.
 - **Liste d'attente** (Brevo, avec ville) et **newsletter saisonnière**
@@ -68,6 +77,8 @@ Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
 | `/concerns` · `/concerns/[slug]` | Hubs par préoccupation (8) |
 | `/guide-k-beauty` | Page pilier, guide complet K-beauty |
 | `/mes-produits` | Affinités, analyse à deux faces de vos produits |
+| `/compte` | Mon espace : connexion, résultats enregistrés, suivi de peau |
+| `/admin/capture` | Outil interne de capture produit (clé) |
 | `/journal` · `/journal/[slug]` | Tests et contenu éditorial |
 | `/a-propos` · `/contact` | À propos et contact (E-E-A-T) |
 | `/marques` | Offre B2B (données de marché) |
@@ -82,25 +93,31 @@ Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
 | `diagnostic` | Persistance anonyme des diagnostics |
 | `feedback` | Boucle de résultat (recommandation utile ou non) |
 | `scan` | Persistance anonyme des produits scannés |
-| `products/search` · `products/barcode` | Lookup dans la base produit propriétaire |
+| `products/search` · `products/barcode` | Lookup base propre ; le code-barres bascule sur Open Beauty Facts si absent |
+| `signal` | Signaux anonymes : clics produits et recherches Affinités |
 | `waitlist` | Inscription vers Brevo (crée les attributs ville auto) |
 | `cron/seasonal-newsletter` | Newsletter saisonnière (Vercel Cron) |
-| `admin/import-obf` · `admin/import-feed` | Import produits (Open Beauty Facts, flux d'affiliation) |
+| `admin/import-obf` · `admin/import-feed` | Import produits (OBF par catégories ou marques K-beauty, flux d'affiliation) |
+| `admin/add-product` · `admin/add-photo` | Ajout manuel produit et photos (clé), depuis l'app compagnon |
 
 ## Données
 
 - **72 actifs** curatés et pondérés (`src/lib/ingredients.ts`) : efficacité par
   préoccupation, traits, douceur, timing, conflits. Bilingue.
-- **195 produits** K-beauty réels mappés aux actifs (`src/lib/products.ts`),
+- **293 produits** K-beauty réels mappés aux actifs (`src/lib/products.ts`),
   avec recherche curatée par marque et liens d'affiliation raccourcis.
 - Moteur INCI : normalisation, allergènes, irritants, lift (`src/lib/inci.ts`).
 - Base **seed_products** (Supabase) pré-remplie depuis Open Beauty Facts.
 
 ### Tables Supabase
 
+Tables : `diagnostics`, `feedback`, `product_scans` (anonymes) ;
+`seed_products` (catalogue INCI, OBF + captures) ; `product_clicks`,
+`search_queries` (signaux de demande) ; `saved_diagnostics`, `skin_checkins`
+(comptes) ; `product_photos` (+ bucket Storage `product-photos`). Le SQL de
+chaque table est dans `supabase/`.
+
 ```sql
--- diagnostics : profils anonymes (sans e-mail, sans IP)
--- product_scans : produits scannés et verdict (anonyme)
 create table if not exists seed_products (
   barcode text primary key, name text, brand text,
   inci text[], categories text[], source text,
@@ -120,7 +137,8 @@ npm run build        # build de production
 
 | Variable | Usage |
 |----------|-------|
-| `SUPABASE_URL` · `SUPABASE_SERVICE_KEY` | Stockage (diagnostics, scans, seed) |
+| `SUPABASE_URL` · `SUPABASE_SERVICE_KEY` | Stockage serveur (diagnostics, scans, seed, photos) |
+| `NEXT_PUBLIC_SUPABASE_URL` · `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Auth comptes et suivi de peau (côté client, RLS) |
 | `BREVO_API_KEY` · `BREVO_LIST_ID` | Liste d'attente et newsletter |
 | `CRON_SECRET` | Auth des crons Vercel |
 | `IMPORT_SECRET` | Auth des routes d'import produit |
@@ -135,6 +153,14 @@ npm run build        # build de production
 - Liens des réseaux sociaux (Instagram, TikTok, YouTube, Facebook, X) une fois
   les comptes créés. Photos, journaux et contenu social de lancement.
 - Branchement du flux produit Awin dès l'approbation des annonceurs.
+
+## App compagnon (Fiomio Jiwon)
+
+Petite app Android (Expo / React Native, dossier hors-repo) pour collecter des
+produits toutes marques et enrichir `seed_products` : scan du code-barres
+(remplissage auto via base propre ou OBF), jusqu'à 5 photos étiquetées, OCR
+on-device (ML Kit) des ingrédients. Envoie vers `/api/admin/add-product` et
+`/api/admin/add-photo`. Outil interne, protégé par `IMPORT_SECRET`.
 
 ## Déploiement
 
