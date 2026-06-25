@@ -21,7 +21,9 @@ const CATEGORIES = [
   "skin-care", "face-care", "moisturizers", "serums", "sunscreens",
   "cleansers", "toners", "creams", "face-masks", "eye-contour",
   "anti-aging", "day-creams", "night-creams", "lip-care", "hand-care",
-  "body-care",
+  "body-care", "facial-creams", "ampoules", "essences", "exfoliants",
+  "eye-creams", "micellar-waters", "lotions", "facial-cleansing",
+  "make-up-removers", "balms", "gels", "mists", "peelings", "scrubs",
 ];
 
 // Curated K-beauty brands to sweep specifically.
