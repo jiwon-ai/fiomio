@@ -15,6 +15,7 @@ import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/ge
 import { buildAffiliateLink } from "@/lib/affiliates";
 import { productsForIngredients, productSearchUrl, type Product } from "@/lib/products";
 import { track } from "@/lib/track";
+import { logSignal } from "@/lib/signal";
 import {
   runDiagnostic,
   avoidedIngredientIds,
@@ -932,7 +933,7 @@ function Results({
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((prod) => (
-              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} />
+              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} city={cl.city ?? undefined} season={cl[lang].label} />
             ))}
           </div>
 
@@ -1133,11 +1134,15 @@ function ProductCard({
   p,
   matchLabel,
   seeProduct,
+  city,
+  season,
 }: {
   lang: "fr" | "en";
   p: Product;
   matchLabel: string;
   seeProduct: string;
+  city?: string;
+  season?: string;
 }) {
   return (
     <div className="lab-frame flex flex-col rounded-xl bg-cream p-5">
@@ -1164,9 +1169,19 @@ function ProductCard({
         href={buildAffiliateLink(productSearchUrl(p))}
         target="_blank"
         rel="sponsored noopener noreferrer"
-        onClick={() =>
-          track("product_clicked", { brand: p.brand, name: p.name })
-        }
+        onClick={() => {
+          track("product_clicked", { brand: p.brand, name: p.name });
+          logSignal({
+            kind: "click",
+            productName: `${p.brand} ${p.name}`,
+            brand: p.brand,
+            activeId: p.ingredientIds[0] ?? null,
+            source: "diagnostic",
+            city: city ?? null,
+            season: season ?? null,
+            lang,
+          });
+        }}
         className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
       >
         {seeProduct}

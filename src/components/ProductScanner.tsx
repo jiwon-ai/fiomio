@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Lang } from "@/lib/locale";
 import { getDictionary, localePath } from "@/lib/locale";
 import { track } from "@/lib/track";
+import { logSignal } from "@/lib/signal";
 import {
   analyzeSuspects,
   analyzeAllies,
@@ -175,6 +176,13 @@ export function ProductScanner({ lang }: { lang: Lang }) {
       merged.push(prod);
     }
     setResults(merged.slice(0, 12));
+    logSignal({
+      kind: "search",
+      query: q,
+      resultCount: merged.length,
+      found: merged.length > 0,
+      lang,
+    });
     setSearching(false);
   }
 
