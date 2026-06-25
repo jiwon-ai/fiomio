@@ -72,6 +72,7 @@ export const metadata: Metadata = {
       "K-beauty décodée pour votre peau, votre climat, votre saison.",
   },
   robots: { index: true, follow: true },
+  verification: { google: "lNWskzElnYrnFdqrjf5QiOztpczeTIVTCYE7IsndAIo" },
   category: "beauty",
 };
 
