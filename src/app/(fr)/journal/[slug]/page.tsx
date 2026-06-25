@@ -4,7 +4,7 @@ import { getAllArticles, getArticle, getArticleSlugs } from "@/lib/articles";
 import { ArticleView } from "@/components/ArticleView";
 
 export function generateStaticParams() {
-  return getArticleSlugs().map((slug) => ({ slug }));
+  return getArticleSlugs("fr").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -37,7 +37,7 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) notFound();
-  const related = getAllArticles()
+  const related = getAllArticles("fr")
     .filter((x) => x.slug !== slug)
     .slice(0, 2);
   return <ArticleView lang="fr" article={article} related={related} />;

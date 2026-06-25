@@ -6,7 +6,7 @@ import { ArticleView } from "@/components/ArticleView";
 const SITE_URL = "https://fiomio.io";
 
 export function generateStaticParams() {
-  return getArticleSlugs().map((slug) => ({ slug }));
+  return getArticleSlugs("en").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -47,7 +47,7 @@ export default async function ArticlePageEn({
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) notFound();
-  const related = getAllArticles()
+  const related = getAllArticles("en")
     .filter((x) => x.slug !== slug)
     .slice(0, 2);
   return <ArticleView lang="en" article={article} related={related} />;

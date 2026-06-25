@@ -32,6 +32,7 @@ export type Photo = { src: string; label?: string; alt?: string };
 
 export type ArticleMeta = {
   slug: string;
+  lang: "fr" | "en";
   title: string;
   excerpt: string;
   date: string;
@@ -53,12 +54,14 @@ function readRaw(slug: string): string {
   return fs.readFileSync(path.join(DIR, `${slug}.md`), "utf8");
 }
 
-export function getArticleSlugs(): string[] {
+export function getArticleSlugs(lang?: "fr" | "en"): string[] {
   if (!fs.existsSync(DIR)) return [];
-  return fs
+  const slugs = fs
     .readdirSync(DIR)
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.replace(/\.md$/, ""));
+  if (!lang) return slugs;
+  return slugs.filter((slug) => toMeta(slug, readRaw(slug)).lang === lang);
 }
 
 function asStringArray(v: unknown): string[] {
@@ -100,8 +103,11 @@ function toMeta(slug: string, raw: string): ArticleMeta {
       }))
     : [];
 
+  const lang: "fr" | "en" = data.lang === "en" ? "en" : "fr";
+
   return {
     slug,
+    lang,
     title: data.title ?? slug,
     excerpt: data.excerpt ?? "",
     date,
@@ -119,10 +125,11 @@ function toMeta(slug: string, raw: string): ArticleMeta {
 }
 
 /** Published articles only (drafts hidden), newest first. */
-export function getAllArticles(): ArticleMeta[] {
+export function getAllArticles(lang?: "fr" | "en"): ArticleMeta[] {
   return getArticleSlugs()
     .map((slug) => toMeta(slug, readRaw(slug)))
     .filter((a) => !a.draft)
+    .filter((a) => !lang || a.lang === lang)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
