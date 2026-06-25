@@ -145,13 +145,20 @@ npm run build        # build de production
 | `NEXT_PUBLIC_AFF_*` | Tags d'affiliation (Awin, YesStyle, iHerb, Stylevana, Amazon) |
 | `OPENAI` ou LLM (optionnel) | Note personnalisée enrichie |
 
+## Indexation et e-mail (en place)
+
+- Google Search Console : propriété vérifiée (balise meta), sitemap soumis
+  (184 pages découvertes), page d'accueil indexée. Suivi de l'indexation et des
+  requêtes via la console.
+- Brevo : domaine fiomio.io authentifié (SPF, DKIM, DMARC), SMTP branché pour les
+  liens de connexion et la newsletter.
+
 ## Reste à faire avant lancement
 
-- Vérification du domaine sur Google Search Console et soumission du sitemap.
-- Configuration SPF et DKIM côté Brevo (délivrabilité e-mail).
 - Test du diagnostic de bout en bout.
-- Liens des réseaux sociaux (Instagram, TikTok, YouTube, Facebook, X) une fois
-  les comptes créés. Photos, journaux et contenu social de lancement.
+- Créer les comptes réseaux sociaux (Instagram, TikTok, YouTube, Facebook, X),
+  puis renseigner sameAs et les liens du footer. Photos et contenu social.
+- Quelques backlinks de marque (profils sociaux, Crunchbase, Product Hunt).
 - Branchement du flux produit Awin dès l'approbation des annonceurs.
 
 ## App compagnon (Fiomio Jiwon)
