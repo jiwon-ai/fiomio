@@ -22,6 +22,9 @@ type Body = {
   pregnancy?: string;
   city?: string;
   region?: string;
+  tempC?: number;
+  humidity?: number;
+  uv?: number;
   season?: string;
   recommended?: string[];
   lang?: string;
@@ -52,6 +55,9 @@ export async function POST(req: Request) {
     city: str(body.city, 80),
     region: str(body.region, 80),
     season: str(body.season, 40),
+    temp_c: typeof body.tempC === "number" ? body.tempC : null,
+    humidity: typeof body.humidity === "number" ? body.humidity : null,
+    uv: typeof body.uv === "number" ? body.uv : null,
     recommended: arr(body.recommended),
     lang: body.lang === "en" ? "en" : "fr",
     created_at: new Date().toISOString(),

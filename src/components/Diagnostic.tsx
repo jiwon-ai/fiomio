@@ -225,6 +225,9 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         pregnancy: preg,
         city: cl.city ?? undefined,
         season: cl.source === "season" ? cl.en.label : cl.chip.en,
+        tempC: cl.metrics?.tempC ?? null,
+        humidity: cl.metrics?.humidity ?? null,
+        uv: cl.metrics?.uv ?? null,
         recommended: r.recommendations.map((rec) => rec.ingredient.id),
         lang,
       }),
@@ -933,7 +936,7 @@ function Results({
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((prod) => (
-              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} city={cl.city ?? undefined} season={cl[lang].label} />
+              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} city={cl.city ?? undefined} season={cl[lang].label} tempC={cl.metrics?.tempC} humidity={cl.metrics?.humidity} uv={cl.metrics?.uv} />
             ))}
           </div>
 
@@ -1136,6 +1139,9 @@ function ProductCard({
   seeProduct,
   city,
   season,
+  tempC,
+  humidity,
+  uv,
 }: {
   lang: "fr" | "en";
   p: Product;
@@ -1143,6 +1149,9 @@ function ProductCard({
   seeProduct: string;
   city?: string;
   season?: string;
+  tempC?: number;
+  humidity?: number;
+  uv?: number;
 }) {
   return (
     <div className="lab-frame flex flex-col rounded-xl bg-cream p-5">
@@ -1179,6 +1188,9 @@ function ProductCard({
             source: "diagnostic",
             city: city ?? null,
             season: season ?? null,
+            tempC: tempC ?? null,
+            humidity: humidity ?? null,
+            uv: uv ?? null,
             lang,
           });
         }}

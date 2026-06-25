@@ -18,6 +18,9 @@ type Body = {
   source?: string;
   city?: string;
   season?: string;
+  tempC?: number;
+  humidity?: number;
+  uv?: number;
   query?: string;
   resultCount?: number;
   found?: boolean;
@@ -48,6 +51,9 @@ export async function POST(req: Request) {
       source: str(body.source, 30),
       city: str(body.city, 60),
       season: str(body.season, 30),
+      temp_c: typeof body.tempC === "number" ? body.tempC : null,
+      humidity: typeof body.humidity === "number" ? body.humidity : null,
+      uv: typeof body.uv === "number" ? body.uv : null,
       lang,
       created_at: new Date().toISOString(),
     };
