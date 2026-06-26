@@ -117,6 +117,49 @@ const ICONS: Record<string, ReactElement> = {
     </svg>
   ),
 
+  sunspots: (
+    <svg {...S}>
+      <circle cx="16" cy="16" r="10" />
+      <path d="M16 6V4M16 28v-2M6 16H4M28 16h-2M9 9 7.5 7.5M23 9l1.5-1.5M9 23l-1.5 1.5M23 23l1.5 1.5" opacity={0.5} />
+      <circle cx="14" cy="15" r="1.4" fill="currentColor" opacity={0.5} />
+      <circle cx="19" cy="18" r="1.2" fill="currentColor" opacity={0.4} />
+    </svg>
+  ),
+  hormonalredness: (
+    <svg {...S}>
+      <circle cx="16" cy="16" r="10" />
+      <path d="M11 18c2 2.5 8 2.5 10 0" opacity={0.6} />
+      <path d="M12 13.5c.8-.8 2-.8 2.8 0M17.2 13.5c.8-.8 2-.8 2.8 0" opacity={0.5} />
+    </svg>
+  ),
+  flaking: (
+    <svg {...S}>
+      <path d="M16 5c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11Z" />
+      <path d="M12 16l-2 1.5M20 15l2 1M13 20l-1.5 2M19 20l1.5 2" opacity={0.5} />
+    </svg>
+  ),
+
+  darkcircles: (
+    <svg {...S}>
+      <path d="M9 18c2.5 3 11.5 3 14 0" />
+      <path d="M10 15.5c1.5-1.5 4.5-1.5 6 0" opacity={0.5} />
+    </svg>
+  ),
+  postacne: (
+    <svg {...S}>
+      <circle cx="16" cy="16" r="10" />
+      <circle cx="13" cy="14" r="1.6" fill="currentColor" opacity={0.5} />
+      <circle cx="19" cy="18" r="1.3" fill="currentColor" opacity={0.4} />
+      <circle cx="18" cy="12" r="1" fill="currentColor" opacity={0.35} />
+    </svg>
+  ),
+  oiliness: (
+    <svg {...S}>
+      <path d="M16 6c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11Z" />
+      <path d="M13 17a3 3 0 0 0 3 3" opacity={0.55} />
+    </svg>
+  ),
+
   /* ---- actives ---- */
   retinoid: (
     <svg {...S}>

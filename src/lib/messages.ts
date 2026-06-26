@@ -358,7 +358,7 @@ export const fr = {
     { key: "normal", label: "Normale", desc: "Peu de tiraillements, peu de brillance, votre peau s'autorégule bien" },
   ],
   concerns: [
-    { key: "redness", label: "Rougeurs & réactivité vasculaire" },
+    { key: "redness", label: "Rougeurs réactives (soleil, chaleur)" },
     { key: "dehydration", label: "Déshydratation & manque de confort" },
     { key: "dullness", label: "Teint terne & absence d'éclat" },
     { key: "aging", label: "Rides, fermeté & prévention" },
@@ -366,6 +366,12 @@ export const fr = {
     { key: "pores", label: "Pores dilatés & grain irrégulier" },
     { key: "barrier", label: "Barrière fragilisée & hypersensibilité" },
     { key: "pigmentation", label: "Taches pigmentaires & irrégularités de teint" },
+    { key: "sunspots", label: "Taches solaires & taches de rousseur" },
+    { key: "hormonalredness", label: "Rougeurs hormonales (ménopause)" },
+    { key: "flaking", label: "Sécheresse & desquamation" },
+    { key: "darkcircles", label: "Cernes & poches sous les yeux" },
+    { key: "postacne", label: "Marques post-acné" },
+    { key: "oiliness", label: "Excès de sébum & brillance" },
   ],
   actives: [
     { key: "retinoid", label: "Rétinol / Rétinal", desc: "Actif anti-âge puissant, photosensibilisant" },
@@ -916,7 +922,7 @@ export const en: Messages = {
     { key: "normal", label: "Normal", desc: "Little tightness, little shine, your skin self-regulates well" },
   ],
   concerns: [
-    { key: "redness", label: "Redness & vascular reactivity" },
+    { key: "redness", label: "Reactive redness (sun, heat)" },
     { key: "dehydration", label: "Dehydration & lack of comfort" },
     { key: "dullness", label: "Dull complexion & lack of glow" },
     { key: "aging", label: "Fine lines, firmness & prevention" },
@@ -924,6 +930,12 @@ export const en: Messages = {
     { key: "pores", label: "Enlarged pores & uneven texture" },
     { key: "barrier", label: "Weakened barrier & hypersensitivity" },
     { key: "pigmentation", label: "Dark spots & uneven skin tone" },
+    { key: "sunspots", label: "Sun spots & freckles" },
+    { key: "hormonalredness", label: "Hormonal redness (menopause)" },
+    { key: "flaking", label: "Dryness & flaking" },
+    { key: "darkcircles", label: "Dark circles & under-eye puffiness" },
+    { key: "postacne", label: "Post-acne marks" },
+    { key: "oiliness", label: "Excess oil & shine" },
   ],
   actives: [
     { key: "retinoid", label: "Retinol / Retinal", desc: "Powerful anti-ageing active, photosensitising" },

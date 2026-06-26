@@ -34,7 +34,6 @@ const ResultViz = dynamic(() => import("./ResultViz").then((m) => m.ResultViz), 
 });
 
 const TOTAL_STEPS = 6;
-const AUTO_ADVANCE_MS = 280;
 
 export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   const d = t.diagnostic;
@@ -275,20 +274,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
     advance(gender, pregnancy);
   };
 
-  // Schedule an auto-advance for single-select steps after a selection.
-  const scheduleAdvance = useCallback(
-    (nextGender?: Gender, nextPregnancy?: Pregnancy) => {
-      if (advanceTimer.current) clearTimeout(advanceTimer.current);
-      advanceTimer.current = setTimeout(() => {
-        advance(
-          nextGender ?? gender,
-          nextPregnancy ?? pregnancy,
-        );
-      }, AUTO_ADVANCE_MS);
-    },
-    [advance, gender, pregnancy],
-  );
-
   const reset = () => {
     startedRef.current = false;
     setResult(null);
@@ -436,7 +421,6 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
                   pregnancy={pregnancy}
                   setPregnancy={setPregnancy}
                   canAdvance={canAdvance}
-                  scheduleAdvance={scheduleAdvance}
                   onBack={() => {
                     if (advanceTimer.current) clearTimeout(advanceTimer.current);
                     setStep((s) => Math.max(0, s - 1));
@@ -482,7 +466,6 @@ function Questionnaire(props: {
   pregnancy: Pregnancy | null;
   setPregnancy: (p: Pregnancy) => void;
   canAdvance: boolean;
-  scheduleAdvance: (nextGender?: Gender, nextPregnancy?: Pregnancy) => void;
   onBack: () => void;
   onNext: () => void;
 }) {
@@ -509,7 +492,6 @@ function Questionnaire(props: {
     pregnancy,
     setPregnancy,
     canAdvance,
-    scheduleAdvance,
     onBack,
     onNext,
   } = props;
@@ -549,10 +531,7 @@ function Questionnaire(props: {
                 key={s.key}
                 icon={s.key}
                 selected={skinType === s.key}
-                onClick={() => {
-                  setSkinType(s.key as SkinType);
-                  scheduleAdvance();
-                }}
+                onClick={() => setSkinType(s.key as SkinType)}
                 title={s.label}
                 desc={s.desc}
               />
@@ -565,19 +544,13 @@ function Questionnaire(props: {
             <IconCard
               icon="true"
               selected={sensitive === true}
-              onClick={() => {
-                setSensitive(true);
-                scheduleAdvance();
-              }}
+              onClick={() => setSensitive(true)}
               title={d.sensitiveYes}
             />
             <IconCard
               icon="false"
               selected={sensitive === false}
-              onClick={() => {
-                setSensitive(false);
-                scheduleAdvance();
-              }}
+              onClick={() => setSensitive(false)}
               title={d.sensitiveNo}
             />
           </div>
@@ -614,10 +587,7 @@ function Questionnaire(props: {
                 key={a.key}
                 icon={a.key}
                 selected={activeUse === a.key}
-                onClick={() => {
-                  setActiveUse(a.key as ActiveUse);
-                  scheduleAdvance();
-                }}
+                onClick={() => setActiveUse(a.key as ActiveUse)}
                 title={a.label}
                 desc={"desc" in a ? (a as { desc: string }).desc : undefined}
               />
@@ -632,10 +602,7 @@ function Questionnaire(props: {
                 key={g.key}
                 icon={g.key}
                 selected={gender === g.key}
-                onClick={() => {
-                  setGender(g.key as Gender);
-                  scheduleAdvance(g.key as Gender);
-                }}
+                onClick={() => setGender(g.key as Gender)}
                 title={g.label}
               />
             ))}
@@ -649,10 +616,7 @@ function Questionnaire(props: {
                 key={p.key}
                 icon={p.key}
                 selected={pregnancy === p.key}
-                onClick={() => {
-                  setPregnancy(p.key as Pregnancy);
-                  scheduleAdvance(undefined, p.key as Pregnancy);
-                }}
+                onClick={() => setPregnancy(p.key as Pregnancy)}
                 title={p.label}
                 desc={p.desc}
               />

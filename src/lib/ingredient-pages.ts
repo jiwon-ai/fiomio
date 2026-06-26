@@ -53,6 +53,12 @@ export const CONCERN_LABEL: Record<ConcernKey, { fr: string; en: string }> = {
   pores: { fr: "Pores", en: "Pores" },
   barrier: { fr: "Barrière", en: "Barrier" },
   pigmentation: { fr: "Taches", en: "Dark spots" },
+  sunspots: { fr: "Taches solaires", en: "Sun spots" },
+  hormonalredness: { fr: "Rougeurs hormonales", en: "Hormonal redness" },
+  flaking: { fr: "Desquamation", en: "Flaking" },
+  darkcircles: { fr: "Cernes", en: "Dark circles" },
+  postacne: { fr: "Marques post-acné", en: "Post-acne marks" },
+  oiliness: { fr: "Excès de sébum", en: "Excess oil" },
 };
 
 export const TRAIT_LABEL: Record<TraitKey, { fr: string; en: string }> = {

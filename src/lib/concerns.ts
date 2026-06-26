@@ -15,6 +15,12 @@ export const CONCERN_SLUG: Record<ConcernKey, string> = {
   pores: "pores",
   barrier: "barrier",
   pigmentation: "dark-spots",
+  sunspots: "sun-spots",
+  hormonalredness: "hormonal-redness",
+  flaking: "flaking",
+  darkcircles: "dark-circles",
+  postacne: "post-acne-marks",
+  oiliness: "oily-skin",
 };
 
 const SLUG_TO_KEY: Record<string, ConcernKey> = Object.fromEntries(
@@ -40,6 +46,12 @@ export const CONCERN_TITLE: Record<ConcernKey, { fr: string; en: string }> = {
   pores: { fr: "Pores dilatés", en: "Enlarged pores" },
   barrier: { fr: "Barrière abîmée", en: "Damaged skin barrier" },
   pigmentation: { fr: "Taches et hyperpigmentation", en: "Dark spots and pigmentation" },
+  sunspots: { fr: "Taches solaires et lentigos", en: "Sun spots and freckles" },
+  hormonalredness: { fr: "Rougeurs hormonales et persistantes", en: "Hormonal and persistent redness" },
+  flaking: { fr: "Sécheresse et desquamation", en: "Dryness and flaking" },
+  darkcircles: { fr: "Cernes et poches", en: "Dark circles and puffiness" },
+  postacne: { fr: "Marques post-acné", en: "Post-acne marks" },
+  oiliness: { fr: "Excès de sébum et brillance", en: "Excess oil and shine" },
 };
 
 export const CONCERN_INTRO: Record<ConcernKey, { fr: string; en: string }> = {
@@ -74,6 +86,30 @@ export const CONCERN_INTRO: Record<ConcernKey, { fr: string; en: string }> = {
   pigmentation: {
     fr: "Taches brunes et marques : les actifs éclaircissants qui ciblent l'hyperpigmentation, avec une protection solaire stricte.",
     en: "Dark spots and marks: the brightening actives that target hyperpigmentation, paired with strict sun protection.",
+  },
+  sunspots: {
+    fr: "Taches et taches de rousseur dues au soleil : actifs éclaircissants et antioxydants, avec une protection solaire stricte.",
+    en: "Sun-induced spots and freckles: brightening and antioxidant actives, paired with strict sun protection.",
+  },
+  hormonalredness: {
+    fr: "Rougeurs persistantes liées aux hormones ou à la ménopause : actifs apaisants et acide azélaïque pour calmer et réduire la réactivité.",
+    en: "Persistent redness linked to hormones or menopause: soothing actives and azelaic acid to calm and reduce reactivity.",
+  },
+  flaking: {
+    fr: "Peau sèche qui pèle : exfoliation douce (PHA, lactique, urée) et réparation de la barrière pour lisser sans agresser.",
+    en: "Dry, flaking skin: gentle exfoliation (PHA, lactic, urea) and barrier repair to smooth without aggression.",
+  },
+  darkcircles: {
+    fr: "Cernes et poches sous les yeux : actifs décongestionnants et anti-fatigue (caféine, peptides, adénosine) pour un regard reposé.",
+    en: "Dark circles and under-eye puffiness: decongesting, anti-fatigue actives (caffeine, peptides, adenosine) for a rested look.",
+  },
+  postacne: {
+    fr: "Marques rouges ou brunes laissées par les boutons : actifs unifiants (acide azélaïque, niacinamide, tranexamique) qui les estompent en douceur.",
+    en: "Red or brown marks left by breakouts: tone-evening actives (azelaic acid, niacinamide, tranexamic) that fade them gently.",
+  },
+  oiliness: {
+    fr: "Peau qui brille et excès de sébum, sans forcément de boutons : actifs séborégulateurs (niacinamide, zinc, thé vert) qui matifient sans décaper.",
+    en: "Shiny skin and excess oil, not necessarily with breakouts: oil-balancing actives (niacinamide, zinc, green tea) that mattify without stripping.",
   },
 };
 

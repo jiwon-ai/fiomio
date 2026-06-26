@@ -14,7 +14,13 @@ export type ConcernKey =
   | "acne"
   | "pores"
   | "barrier"
-  | "pigmentation";
+  | "pigmentation"
+  | "sunspots"
+  | "hormonalredness"
+  | "flaking"
+  | "darkcircles"
+  | "postacne"
+  | "oiliness";
 
 export type TraitKey =
   | "hydrating"
@@ -1294,4 +1300,57 @@ export const INGREDIENTS: Ingredient[] = [
 
 export function getIngredient(id: string): Ingredient | undefined {
   return INGREDIENTS.find((i) => i.id === id);
+}
+
+
+// Concerns ajoutées (taches solaires, rougeurs hormonales, sécheresse desquamante)
+// mappées ici pour garder les entrées principales lisibles. Fusionné au chargement.
+const EXTRA_TARGETS: Record<string, Partial<Record<ConcernKey, number>>> = {
+  vitaminc: { sunspots: 3, postacne: 2, darkcircles: 1 },
+  tranexamic: { sunspots: 3, postacne: 2 },
+  arbutin: { sunspots: 3, postacne: 1, darkcircles: 1 },
+  niacinamide: { sunspots: 2, hormonalredness: 1, postacne: 3, oiliness: 3, darkcircles: 2 },
+  azelaic: { sunspots: 2, hormonalredness: 3, postacne: 3 },
+  kojic: { sunspots: 2 },
+  licorice: { sunspots: 2, hormonalredness: 2, postacne: 1 },
+  glutathione: { sunspots: 2 },
+  mulberry: { sunspots: 2 },
+  ferulic: { sunspots: 1 },
+  resveratrol: { sunspots: 1 },
+  tocopherol: { sunspots: 1, darkcircles: 1 },
+  centella: { hormonalredness: 2, postacne: 2 },
+  madecassoside: { hormonalredness: 2, postacne: 1 },
+  allantoin: { hormonalredness: 2, flaking: 1, postacne: 1 },
+  greentea: { hormonalredness: 1, oiliness: 2 },
+  heartleaf: { hormonalredness: 1, oiliness: 1 },
+  mugwort: { hormonalredness: 1, oiliness: 1 },
+  calendula: { hormonalredness: 1 },
+  betaglucan: { hormonalredness: 1, flaking: 1 },
+  panthenol: { hormonalredness: 1, flaking: 2 },
+  urea: { flaking: 3 },
+  lactic: { flaking: 2 },
+  pha: { flaking: 2 },
+  lactobionic: { flaking: 2 },
+  mandelic: { flaking: 1 },
+  ceramides: { flaking: 2 },
+  squalane: { flaking: 2 },
+  sheabutter: { flaking: 2 },
+  oat: { flaking: 2 },
+  jojoba: { flaking: 1 },
+  caffeine: { darkcircles: 3 },
+  peptides: { darkcircles: 2 },
+  adenosine: { darkcircles: 2 },
+  retinol: { darkcircles: 1 },
+  ginkgo: { darkcircles: 1 },
+  zincpca: { oiliness: 3 },
+  witchhazel: { oiliness: 2 },
+  salicylic: { oiliness: 2 },
+  clay: { oiliness: 2 },
+  charcoal: { oiliness: 1 },
+  willowbark: { oiliness: 1 },
+};
+
+for (const ing of INGREDIENTS) {
+  const extra = EXTRA_TARGETS[ing.id];
+  if (extra) Object.assign(ing.targets, extra);
 }
