@@ -11,11 +11,11 @@ export function Engagement({ t }: { t: Messages }) {
           <p className="eyebrow">{e.eyebrow}</p>
           <h2
             className="font-display mt-5 font-medium leading-tight tracking-tight text-ink"
-            style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)" }}
+            style={{ fontSize: "clamp(1.95rem, 4.2vw, 3.875rem)" }}
           >
             {e.title}
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-stone">{e.intro}</p>
+          <p className="mt-5 text-lg leading-relaxed text-stone">{e.intro}</p>
         </Reveal>
 
         <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">

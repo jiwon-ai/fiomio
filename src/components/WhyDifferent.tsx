@@ -28,7 +28,7 @@ export function WhyDifferent({ t }: { t: Messages }) {
         <Reveal className="max-w-3xl">
           <h2
             className="font-display font-medium leading-tight tracking-tight text-ink"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(1.95rem, 4.2vw, 3.875rem)" }}
           >
             {w.title}
           </h2>

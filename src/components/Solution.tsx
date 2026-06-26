@@ -28,11 +28,11 @@ export function Solution({ t }: { t: Messages }) {
         <Reveal className="max-w-3xl">
           <h2
             className="font-display font-medium leading-tight tracking-tight text-ink"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(1.95rem, 4.2vw, 3.875rem)" }}
           >
             {s.title}
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-stone">{s.intro}</p>
+          <p className="mt-6 text-lg leading-relaxed text-stone">{s.intro}</p>
         </Reveal>
 
         <div className="mt-16 grid gap-px sm:grid-cols-2 lg:grid-cols-4">

@@ -29,11 +29,11 @@ export function Problem({ t }: { t: Messages }) {
         <Reveal>
           <h2
             className="font-display font-medium leading-tight tracking-tight text-ink"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(1.95rem, 4.2vw, 3.875rem)" }}
           >
             {p.title}
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-stone">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-stone">
             {p.intro}
           </p>
         </Reveal>
