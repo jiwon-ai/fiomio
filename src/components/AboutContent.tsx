@@ -47,10 +47,16 @@ export function AboutContent({ lang }: { lang: Lang }) {
             <img
               src="/founder.jpg"
               alt={L("Portrait de la fondatrice de Fiomio", "Portrait of Fiomio's founder")}
-              width={176}
-              height={176}
+              width={128}
+              height={128}
               loading="lazy"
-              className="!my-0 h-36 w-36 shrink-0 rounded-2xl object-cover shadow-sm sm:h-44 sm:w-44"
+              className="!my-0 h-24 w-24 shrink-0 object-cover sm:h-28 sm:w-28"
+              style={{
+                WebkitMaskImage:
+                  "radial-gradient(circle at 50% 45%, #000 56%, transparent 88%)",
+                maskImage:
+                  "radial-gradient(circle at 50% 45%, #000 56%, transparent 88%)",
+              }}
             />
             <p className="!mt-0">
               {L(
