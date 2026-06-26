@@ -53,9 +53,11 @@ export function AboutContent({ lang }: { lang: Lang }) {
               className="!my-0 h-24 w-24 shrink-0 object-cover sm:h-28 sm:w-28"
               style={{
                 WebkitMaskImage:
-                  "radial-gradient(circle at 50% 45%, #000 56%, transparent 88%)",
+                  "linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent)",
+                WebkitMaskComposite: "source-in",
                 maskImage:
-                  "radial-gradient(circle at 50% 45%, #000 56%, transparent 88%)",
+                  "linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent)",
+                maskComposite: "intersect",
               }}
             />
             <p className="!mt-0">
