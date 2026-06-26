@@ -113,9 +113,19 @@ Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
 
 Tables : `diagnostics`, `feedback`, `product_scans` (anonymes) ;
 `seed_products` (catalogue INCI, OBF + captures) ; `product_clicks`,
-`search_queries` (signaux de demande) ; `saved_diagnostics`, `skin_checkins`
-(comptes) ; `product_photos` (+ bucket Storage `product-photos`). Le SQL de
-chaque table est dans `supabase/`.
+`product_impressions`, `search_queries` (signaux de demande et funnel) ;
+`saved_diagnostics`, `skin_checkins` (comptes) ; `product_photos` (+ bucket
+Storage `product-photos`). Le SQL de chaque table est dans `supabase/`.
+
+**Flywheel donnees v2 (Phase 1).** Le funnel anonyme est relie par des cles sans
+donnee personnelle : `anon_id` (localStorage), `session_id` (sessionStorage) et
+`diag_id` relient recherche, diagnostic, impressions et clics. Chaque evenement
+porte `engine_version` et `schema_version`. Les recommandations sont stockees
+structurees (`[{active_id, score, rank}]`) et les impressions (produits
+affiches) servent de denominateur CTR et d'exemples negatifs. Migration
+additive : `supabase/data_signals_v2.sql`. Dictionnaire :
+`supabase/DATA_DICTIONARY.md`. Regle : incrementer `ENGINE_VERSION`
+(`src/lib/data-version.ts`) quand le scoring du diagnostic change.
 
 ```sql
 create table if not exists seed_products (
@@ -143,6 +153,7 @@ npm run build        # build de production
 | `CRON_SECRET` | Auth des crons Vercel |
 | `IMPORT_SECRET` | Auth des routes d'import produit |
 | `NEXT_PUBLIC_AFF_*` | Tags d'affiliation (Awin, YesStyle, iHerb, Stylevana, Amazon) |
+| `NEXT_PUBLIC_SOVRN_ID` | Sovrn Commerce, auto-affiliation site-wide (interrupteur de revenus) |
 | `OPENAI` ou LLM (optionnel) | Note personnalisée enrichie |
 
 ## Indexation et e-mail (en place)
@@ -153,13 +164,39 @@ npm run build        # build de production
 - Brevo : domaine fiomio.io authentifié (SPF, DKIM, DMARC), SMTP branché pour les
   liens de connexion et la newsletter.
 
+## Veille et automatisations
+
+- Veille beaute quotidienne (Slack) : canal `#fiomio-beauty-news`, briefing
+  mondial cosmetiques et K-beauty (EN + FR) publie chaque matin vers 7h (Paris).
+
+## Journal (26 juin 2026)
+
+- Refonte visuelle : fond blanc avec bande celadon alternee (#e4f1ef), accent
+  #78C0BD, CTA et liens #289479 ; polices Geist remplacees par Schibsted Grotesk
+  (titres) et Inter (texte) ; echelle de titres calmee (max 62px) ; texte
+  secondaire assombri pour la lisibilite ; ponctuation du hero unifiee.
+- Sections Solution et WhyDifferent passees en liste editoriale sobre (fin des
+  grilles de cartes facon presentation, des labels monospace et du chiffre
+  filigrane ; accent celadon discret sur les numeros).
+- Flywheel donnees v2 Phase 1 (voir Donnees).
+- Veille beaute Slack automatisee (voir ci-dessus).
+
 ## Reste à faire avant lancement
 
-- Test du diagnostic de bout en bout.
-- Créer les comptes réseaux sociaux (Instagram, TikTok, YouTube, Facebook, X),
-  puis renseigner sameAs et les liens du footer. Photos et contenu social.
-- Quelques backlinks de marque (profils sociaux, Crunchbase, Product Hunt).
-- Branchement du flux produit Awin dès l'approbation des annonceurs.
+- **Affiliation (priorite 1).** Confirmer l'approbation Sovrn et definir
+  `NEXT_PUBLIC_SOVRN_ID` dans Vercel (monetise tous les liens sans approbation par
+  marchand). Postuler aux programmes directs adaptes : YesStyle, Stylevana,
+  Amazon Associates. Verifier que chaque produit recommande a un lien monetise
+  fonctionnel. Sephora et iHerb refuses pour l'instant : repostuler apres le
+  lancement avec du trafic.
+- **Trafic de lancement.** Calendrier editorial, articles SEO cibles (K-beauty x
+  preoccupation x climat de ville), comptes reseaux sociaux puis sameAs et liens
+  du footer, backlinks de marque (Crunchbase, Product Hunt).
+- **QA avant lancement.** Diagnostic de bout en bout, tous les CTA, mobile, FR et
+  EN, verifier que le logging (diagnostics, impressions, clics) arrive bien dans
+  Supabase.
+- **Dashboard funnel.** Artefact lisant Supabase (diagnostics, impressions,
+  clics, recherches) pour suivre le funnel chaque jour apres le lancement.
 
 ## App compagnon (Fiomio Jiwon)
 
