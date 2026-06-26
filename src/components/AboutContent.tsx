@@ -50,13 +50,13 @@ export function AboutContent({ lang }: { lang: Lang }) {
               width={128}
               height={128}
               loading="lazy"
-              className="!my-0 h-24 w-24 shrink-0 object-cover sm:h-28 sm:w-28"
+              className="!my-0 h-24 w-24 shrink-0 rounded-lg object-cover sm:h-28 sm:w-28"
               style={{
                 WebkitMaskImage:
-                  "linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent)",
+                  "linear-gradient(to right, transparent, #000 2%, #000 98%, transparent), linear-gradient(to bottom, transparent, #000 2%, #000 98%, transparent)",
                 WebkitMaskComposite: "source-in",
                 maskImage:
-                  "linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent)",
+                  "linear-gradient(to right, transparent, #000 2%, #000 98%, transparent), linear-gradient(to bottom, transparent, #000 2%, #000 98%, transparent)",
                 maskComposite: "intersect",
               }}
             />
