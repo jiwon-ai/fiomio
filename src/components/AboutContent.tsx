@@ -41,13 +41,24 @@ export function AboutContent({ lang }: { lang: Lang }) {
               "A free diagnostic crosses your skin profile, your city's climate and a decoded K-beauty active database to suggest argued ingredients, with the reason for each.",
             )}
           </p>
-          <h2>{L("La fondatrice", "The founder")}</h2>
-          <p>
-            {L(
-              "Analyste de données et passionnée de cosmétique, la fondatrice a appliqué son métier à ce qu'elle aime : croiser la peau, la ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né entre Paris et Séoul.",
-              "A data analyst and cosmetics lover, the founder applied her craft to what she loves: crossing skin, city and season to understand what truly works. Fiomio was born between Paris and Seoul.",
-            )}
-          </p>
+          <h2>{L("Le mot de la fondatrice", "A word from the founder")}</h2>
+          <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-7">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/founder.jpg"
+              alt={L("Portrait de la fondatrice de Fiomio", "Portrait of Fiomio's founder")}
+              width={176}
+              height={176}
+              loading="lazy"
+              className="!my-0 h-36 w-36 shrink-0 rounded-2xl object-cover shadow-sm sm:h-44 sm:w-44"
+            />
+            <p className="!mt-0">
+              {L(
+                "Analyste de données et passionnée de cosmétique, la fondatrice a appliqué son métier à ce qu'elle aime : croiser la peau, la ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né entre Paris et Séoul.",
+                "A data analyst and cosmetics lover, the founder applied her craft to what she loves: crossing skin, city and season to understand what truly works. Fiomio was born between Paris and Seoul.",
+              )}
+            </p>
+          </div>
           <h2>{L("Nos principes", "Our principles")}</h2>
           <p>
             {L(
