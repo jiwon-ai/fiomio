@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Schibsted_Grotesk, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteJsonLd } from "@/components/JsonLd";
@@ -11,10 +11,17 @@ import { Analytics } from "@vercel/analytics/next";
 // in the Vercel env (e.g. "123456X1700000").
 const SOVRN_ID = process.env.NEXT_PUBLIC_SOVRN_ID;
 
-const geist = Geist({
-  variable: "--font-geist",
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -84,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${geist.variable} h-full antialiased`}
+      className={`${schibsted.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://ipwho.is" crossOrigin="" />

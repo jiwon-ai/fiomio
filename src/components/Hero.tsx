@@ -100,7 +100,7 @@ export function Hero({ lang, t }: { lang: Lang; t: Messages }) {
               {h.titleLead}{" "}
               <em className="not-italic text-spring-deep">{h.titleEmph}</em>
               {h.titleMid}{" "}
-              <span className="text-[#5f9485]">{h.titleEmph2}</span>
+              <span className="text-[#5f9485]">{h.titleEmph2}</span>.
             </h1>
 
             <p className="mt-7 max-w-lg text-lg leading-relaxed text-stone">

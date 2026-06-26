@@ -5,7 +5,7 @@ export function Engagement({ t }: { t: Messages }) {
   const e = t.engagement;
 
   return (
-    <section className="bg-paper-2 py-32 sm:py-44">
+    <section className="bg-paper py-32 sm:py-44">
       <div className="mx-auto max-w-6xl px-6 sm:px-12">
         <Reveal className="max-w-3xl">
           <p className="eyebrow">{e.eyebrow}</p>

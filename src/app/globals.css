@@ -11,12 +11,12 @@
   --color-ink: #0f2b31;
   --color-ink-2: #143138;
   --color-ink-soft: #1c3a40;
-  --color-paper: #f6f7f2;
-  --color-paper-2: #eceee6;
-  --color-cream: #fbfbf6;
+  --color-paper: #ffffff;
+  --color-paper-2: #e4f1ef;
+  --color-cream: #ffffff;
 
-  --color-spring: #acd6cd;
-  --color-spring-deep: #316b62;
+  --color-spring: #78C0BD;
+  --color-spring-deep: #289479;
   --color-spring-ink: #0f2b31;
   --color-sage: #8fb39e;
   --color-sage-soft: #b9c7bf;
@@ -29,10 +29,10 @@
   --color-line-dark: #ffffff14;
   --color-line-void: rgba(255, 255, 255, 0.07);
 
-  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-editorial: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-cinematic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
