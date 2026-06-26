@@ -16,6 +16,8 @@ import { buildAffiliateLink } from "@/lib/affiliates";
 import { productsForIngredients, productSearchUrl, type Product } from "@/lib/products";
 import { track } from "@/lib/track";
 import { logSignal } from "@/lib/signal";
+import { getAnonId, getSessionId } from "@/lib/analytics-ids";
+import { ENGINE_VERSION, SCHEMA_VERSION } from "@/lib/data-version";
 import {
   runDiagnostic,
   avoidedIngredientIds,
@@ -228,6 +230,15 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
         humidity: cl.metrics?.humidity ?? null,
         uv: cl.metrics?.uv ?? null,
         recommended: r.recommendations.map((rec) => rec.ingredient.id),
+        recommendations: r.recommendations.map((rec, i) => ({
+          active_id: rec.ingredient.id,
+          score: Math.round(rec.score * 1000) / 1000,
+          rank: i + 1,
+        })),
+        anonId: getAnonId(),
+        sessionId: getSessionId(),
+        engineVersion: ENGINE_VERSION,
+        schemaVersion: SCHEMA_VERSION,
         lang,
       }),
     }).catch(() => {});
@@ -760,6 +771,35 @@ function Results({
 
   const top = result.recommendations[0];
   const cl = result.climate;
+
+  // Log impressions once per result view: what was SHOWN (CTR denominator +
+  // negative samples for the future ranking model). Fire-and-forget.
+  useEffect(() => {
+    if (!diagId || products.length === 0) return;
+    logSignal({
+      kind: "impression",
+      diagId,
+      anonId: getAnonId(),
+      sessionId: getSessionId(),
+      source: "diagnostic",
+      city: cl.city ?? null,
+      season: cl[lang].label,
+      tempC: cl.metrics?.tempC ?? null,
+      humidity: cl.metrics?.humidity ?? null,
+      uv: cl.metrics?.uv ?? null,
+      engineVersion: ENGINE_VERSION,
+      schemaVersion: SCHEMA_VERSION,
+      lang,
+      items: products.map((prod, i) => ({
+        productId: prod.id,
+        brand: prod.brand,
+        productName: prod.name,
+        activeId: prod.ingredientIds[0] ?? null,
+        rank: i + 1,
+      })),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [diagId]);
   const cityLabel = cl.city || (lang === "fr" ? "votre ville" : "your city");
   const topReason = top ? ingredientClimateReason(top.ingredient, cl, lang) : "";
   const topProduct =
@@ -899,8 +939,8 @@ function Results({
           <p className="mt-1 text-sm text-stone">{p.sectionIntro}</p>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((prod) => (
-              <ProductCard key={prod.id} lang={lang} p={prod} matchLabel={p.matchLabel} seeProduct={p.seeProduct} city={cl.city ?? undefined} season={cl[lang].label} tempC={cl.metrics?.tempC} humidity={cl.metrics?.humidity} uv={cl.metrics?.uv} />
+            {products.map((prod, i) => (
+              <ProductCard key={prod.id} lang={lang} p={prod} rank={i + 1} diagId={diagId} matchLabel={p.matchLabel} seeProduct={p.seeProduct} city={cl.city ?? undefined} season={cl[lang].label} tempC={cl.metrics?.tempC} humidity={cl.metrics?.humidity} uv={cl.metrics?.uv} />
             ))}
           </div>
 
@@ -1099,6 +1139,8 @@ function FeedbackWidget({
 function ProductCard({
   lang,
   p,
+  rank,
+  diagId,
   matchLabel,
   seeProduct,
   city,
@@ -1109,6 +1151,8 @@ function ProductCard({
 }: {
   lang: "fr" | "en";
   p: Product;
+  rank?: number;
+  diagId?: string;
   matchLabel: string;
   seeProduct: string;
   city?: string;
@@ -1148,13 +1192,20 @@ function ProductCard({
             kind: "click",
             productName: `${p.brand} ${p.name}`,
             brand: p.brand,
+            productId: p.id,
             activeId: p.ingredientIds[0] ?? null,
             source: "diagnostic",
+            rank: rank ?? null,
+            diagId: diagId ?? null,
+            anonId: getAnonId(),
+            sessionId: getSessionId(),
             city: city ?? null,
             season: season ?? null,
             tempC: tempC ?? null,
             humidity: humidity ?? null,
             uv: uv ?? null,
+            engineVersion: ENGINE_VERSION,
+            schemaVersion: SCHEMA_VERSION,
             lang,
           });
         }}

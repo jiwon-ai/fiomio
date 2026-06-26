@@ -27,6 +27,11 @@ type Body = {
   uv?: number;
   season?: string;
   recommended?: string[];
+  recommendations?: { active_id?: string; score?: number; rank?: number }[];
+  anonId?: string;
+  sessionId?: string;
+  engineVersion?: string;
+  schemaVersion?: string;
   lang?: string;
 };
 
@@ -34,6 +39,19 @@ const str = (v: unknown, max = 60) =>
   typeof v === "string" ? v.slice(0, max) : null;
 const arr = (v: unknown, max = 8) =>
   Array.isArray(v) ? v.filter((x) => typeof x === "string").slice(0, max) : [];
+
+// structured, scored, ranked recommendations for learning-to-rank later
+const recs = (v: unknown, max = 12) =>
+  Array.isArray(v)
+    ? v
+        .filter((x): x is Record<string, unknown> => !!x && typeof x === "object")
+        .slice(0, max)
+        .map((x) => ({
+          active_id: typeof x.active_id === "string" ? x.active_id.slice(0, 40) : null,
+          score: typeof x.score === "number" ? x.score : null,
+          rank: typeof x.rank === "number" ? Math.round(x.rank) : null,
+        }))
+    : null;
 
 export async function POST(req: Request) {
   let body: Body;
@@ -59,6 +77,11 @@ export async function POST(req: Request) {
     humidity: typeof body.humidity === "number" ? body.humidity : null,
     uv: typeof body.uv === "number" ? body.uv : null,
     recommended: arr(body.recommended),
+    recommendations: recs(body.recommendations),
+    anon_id: str(body.anonId, 64),
+    session_id: str(body.sessionId, 64),
+    engine_version: str(body.engineVersion, 20),
+    schema_version: str(body.schemaVersion, 10),
     lang: body.lang === "en" ? "en" : "fr",
     created_at: new Date().toISOString(),
   };
