@@ -42,7 +42,7 @@ export function AboutContent({ lang }: { lang: Lang }) {
             )}
           </p>
           <h2>{L("Le mot de la fondatrice", "A word from the founder")}</h2>
-          <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-7">
+          <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/founder.jpg"
