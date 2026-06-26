@@ -25,6 +25,7 @@ export function SiteJsonLd() {
         slogan: "La K-beauty décodée pour votre peau et le climat de votre ville.",
         foundingLocation: "Paris, France",
         foundingDate: "2026",
+        founder: { "@type": "Person", name: "Jiwon Yi" },
         areaServed: ["France", "Europe"],
         knowsAbout: [
           "K-beauty",

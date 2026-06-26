@@ -60,12 +60,20 @@ export function AboutContent({ lang }: { lang: Lang }) {
                 maskComposite: "intersect",
               }}
             />
-            <p className="!mt-0">
-              {L(
-                "Analyste de données et passionnée de cosmétique, la fondatrice a appliqué son métier à ce qu'elle aime : croiser la peau, la ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né entre Paris et Séoul.",
-                "A data analyst and cosmetics lover, the founder applied her craft to what she loves: crossing skin, city and season to understand what truly works. Fiomio was born between Paris and Seoul.",
-              )}
-            </p>
+            <div>
+              <p className="!mt-0">
+                {L(
+                  "Analyste de données et passionnée de cosmétique, la fondatrice a appliqué son métier à ce qu'elle aime : croiser la peau, la ville et la saison pour comprendre ce qui marche vraiment. Fiomio est né entre Paris et Séoul.",
+                  "A data analyst and cosmetics lover, the founder applied her craft to what she loves: crossing skin, city and season to understand what truly works. Fiomio was born between Paris and Seoul.",
+                )}
+              </p>
+              <p className="!mb-0 !mt-3 text-sm font-semibold text-ink">
+                Jiwon Yi{" "}
+                <span className="font-normal text-stone">
+                  · {L("Fondatrice de Fiomio", "Founder of Fiomio")}
+                </span>
+              </p>
+            </div>
           </div>
           <h2>{L("Nos principes", "Our principles")}</h2>
           <p>
