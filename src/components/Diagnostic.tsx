@@ -312,12 +312,12 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   return (
     <section id="diagnostic" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <p className="eyebrow text-spring-deep">{d.eyebrow}</p>
           <h2 className="font-display mt-4 font-semibold leading-tight tracking-tight text-ink" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)" }}>
             {d.title}
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-stone">{d.intro}</p>
+          <p className="mt-5 text-base leading-relaxed text-stone [text-wrap:balance]">{d.intro}</p>
         </Reveal>
 
         <Reveal className="mt-12">

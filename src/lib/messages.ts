@@ -256,7 +256,7 @@ export const fr = {
     eyebrow: "Votre diagnostic, gratuit",
     title: "Voyez ce que Fiomio vous recommande.",
     intro:
-      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations, Fiomio croise les prévisions météo de votre ville pour la semaine où vous recevrez vos produits, et propose des actifs argumentés.",
+      "Un aperçu du moteur. Renseignez votre peau et vos préoccupations : Fiomio croise la météo de votre ville pour la semaine de réception et propose des actifs argumentés.",
     demoBadge: "Démo, aperçu produit",
     step: "Étape",
     of: "sur",
@@ -821,7 +821,7 @@ export const en: Messages = {
     eyebrow: "Your free diagnostic",
     title: "See what Fiomio recommends for you.",
     intro:
-      "A glimpse of the engine. Tell us about your skin and concerns, Fiomio factors in your city's forecast for the week your products will arrive, and suggests reasoned actives.",
+      "A glimpse of the engine. Tell us your skin and concerns: Fiomio factors in your city's forecast for your delivery week and suggests reasoned actives.",
     demoBadge: "Demo, product preview",
     step: "Step",
     of: "of",
