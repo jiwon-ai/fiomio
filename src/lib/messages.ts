@@ -13,7 +13,7 @@ export const fr = {
     solution: "Comment ça marche",
     diagnostic: "Diagnostic",
     market: "Le marché",
-    journal: "Journal",
+    journal: "Blog",
     ingredients: "Ingrédients",
     brands: "Pour les marques",
     products: "Affinités",
@@ -145,7 +145,7 @@ export const fr = {
     ctaSecondary: "Rejoindre la liste d'attente",
     scrollHint: "Découvrir",
     chip1: "Climat × Peau × Actifs",
-    chip2: "Recommandation explicable",
+    chip2: "Recommandation détaillée",
     statMarketValue: "1,01 Md$",
     statMarketLabel: "Marché K-beauty France projeté en 2032",
     statTrustValue: "68 %",
@@ -246,10 +246,10 @@ export const fr = {
   },
 
   journalTeaser: {
-    eyebrow: "Le journal",
+    eyebrow: "Le blog",
     title: "Des tests produits honnêtes. Vraies photos, vrai avis.",
     body: "On teste, on décode, on note sans complaisance. Recevez chaque semaine nos sélections : les cosmétiques qui valent vraiment le coup, la skincare à rapporter de Séoul, et nos derniers tests.",
-    cta: "Voir le journal",
+    cta: "Voir le blog",
   },
 
   diagnostic: {
@@ -457,7 +457,7 @@ export const fr = {
   },
 
   journal: {
-    eyebrow: "Le journal",
+    eyebrow: "Le blog",
     title: "Le secret coréen",
     intro:
       "Chaque semaine, nos sélections K-beauty : quels cosmétiques coréens valent le coup, où shopper la skincare en Corée, et comment l'adapter à votre peau et votre climat. Décodé, jamais survendu.",
@@ -580,7 +580,7 @@ export const en: Messages = {
     solution: "How it works",
     diagnostic: "Diagnostic",
     market: "The market",
-    journal: "Journal",
+    journal: "Blog",
     ingredients: "Ingredients",
     brands: "For brands",
     products: "Affinities",
@@ -710,7 +710,7 @@ export const en: Messages = {
     ctaSecondary: "Join the waitlist",
     scrollHint: "Discover",
     chip1: "Climate × Skin × Actives",
-    chip2: "Explainable recommendation",
+    chip2: "Detailed recommendation",
     statMarketValue: "$1.01B",
     statMarketLabel: "French K-beauty market projected for 2032",
     statTrustValue: "68%",
@@ -811,10 +811,10 @@ export const en: Messages = {
   },
 
   journalTeaser: {
-    eyebrow: "The journal",
+    eyebrow: "The blog",
     title: "Honest product tests. Real photos, real verdicts.",
     body: "We test, we decode, we score without flattery. Every week, get our picks: the cosmetics worth it, the skincare to bring back from Seoul, and our latest reviews.",
-    cta: "See the journal",
+    cta: "See the blog",
   },
 
   diagnostic: {
@@ -1021,7 +1021,7 @@ export const en: Messages = {
   },
 
   journal: {
-    eyebrow: "The journal",
+    eyebrow: "The blog",
     title: "The Korean secret",
     intro:
       "Every week, our K-beauty picks: which Korean cosmetics are worth it, where to shop skincare in Korea, and how to adapt it to your skin and climate. Decoded, never oversold.",

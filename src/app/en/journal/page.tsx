@@ -5,7 +5,7 @@ import { JournalIndex } from "@/components/JournalIndex";
 const SITE_URL = "https://fiomio.io";
 
 export const metadata: Metadata = {
-  title: "Journal · Weather-aware skincare",
+  title: "Blog · Weather-aware skincare",
   description:
     "Every week: how to adapt your skin to your city's climate, K-beauty ingredients decoded, anti-ageing, concrete steps. Zero influence, only facts.",
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Fiomio Journal · Weather-aware skincare",
+    title: "Fiomio Blog · Weather-aware skincare",
     description: "Ingredients decoded, anti-ageing, local climate. No influence.",
   },
 };

@@ -26,7 +26,6 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
     { href: localePath(lang, "/ingredients"), label: t.nav.ingredients },
     { href: localePath(lang, "/mes-produits"), label: t.nav.products },
     { href: localePath(lang, "/journal"), label: t.nav.journal },
-    { href: localePath(lang, "/marques"), label: t.nav.brands },
   ];
 
   const solid = scrolled || open;
@@ -55,18 +54,16 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
               </Link>
             </li>
           ))}
-          <li>
-            <Link
-              href={localePath(lang, "/compte")}
-              className="inline-flex items-center gap-1.5 whitespace-nowrap border-l border-line pl-5 text-sm font-semibold text-ink transition-colors hover:text-spring-deep"
-            >
-              <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
-              {t.nav.account}
-            </Link>
-          </li>
         </ul>
 
         <div className="flex items-center gap-3 sm:gap-4">
+          <Link
+            href={localePath(lang, "/compte")}
+            className="hidden items-center gap-1.5 whitespace-nowrap border-r border-line pr-3 text-sm font-semibold text-ink transition-colors hover:text-spring-deep md:inline-flex"
+          >
+            <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
+            {t.nav.account}
+          </Link>
           <LangToggle lang={lang} />
           <Link
             href={`${homePrefix}/#rejoindre`}

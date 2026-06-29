@@ -6,7 +6,7 @@ const SITE_URL = "https://fiomio.io";
 export const metadata: Metadata = {
   title: "Fiomio · K-beauty skincare chosen for your skin and your city's weather",
   description:
-    "Fiomio reinterprets K-beauty ingredients for your skin, your city and your season. A personalised, explainable recommendation, not a list of best-sellers.",
+    "Fiomio reinterprets K-beauty ingredients for your skin, your city and your season. A personalised, detailed recommendation, not a list of best-sellers.",
   alternates: {
     canonical: `${SITE_URL}/en`,
     languages: {
