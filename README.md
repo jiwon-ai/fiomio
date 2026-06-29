@@ -182,15 +182,21 @@ npm run build        # build de production
   filigrane ; accent celadon discret sur les numeros).
 - Flywheel donnees v2 Phase 1 (voir Donnees).
 - Veille beaute Slack automatisee (voir ci-dessus).
+- Affiliation Stylevana FR active : les liens d'achat des produits recommandes
+  sont routes vers Stylevana via deeplinks Awin (merchant 23223, publisher
+  2935207). Premier programme monetise (commission 5 a 15 pourcent).
+- Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
+  de la fondatrice" ; founder ajoute au schema Organization.
+- Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
+  favicon Google fiable ; intro du diagnostic ramenee sur deux lignes.
 
 ## Reste à faire avant lancement
 
-- **Affiliation (priorite 1).** Confirmer l'approbation Sovrn et definir
-  `NEXT_PUBLIC_SOVRN_ID` dans Vercel (monetise tous les liens sans approbation par
-  marchand). Postuler aux programmes directs adaptes : YesStyle, Stylevana,
-  Amazon Associates. Verifier que chaque produit recommande a un lien monetise
-  fonctionnel. Sephora et iHerb refuses pour l'instant : repostuler apres le
-  lancement avec du trafic.
+- **Affiliation (priorite 1).** Stylevana FR : APPROUVE et actif (deeplinks Awin,
+  tous les liens produits monetises). Reste : confirmer Sovrn et definir
+  `NEXT_PUBLIC_SOVRN_ID` (filet large), postuler YesStyle et Amazon Associates
+  (le code applique leur tag des qu'il est en env), completer le profil Awin.
+  Sephora et iHerb refuses : repostuler apres le lancement avec du trafic.
 - **Trafic de lancement.** Calendrier editorial, articles SEO cibles (K-beauty x
   preoccupation x climat de ville), comptes reseaux sociaux puis sameAs et liens
   du footer, backlinks de marque (Crunchbase, Product Hunt).
