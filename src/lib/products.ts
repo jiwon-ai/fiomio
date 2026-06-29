@@ -28,12 +28,20 @@ export function yesstyleSearchUrl(query: string): string {
   return `https://www.yesstyle.com/en/list.html?q=${q}`;
 }
 
+/** Stylevana FR search (our approved Awin merchant) — Magento catalogsearch. */
+export function stylevanaSearchUrl(query: string): string {
+  const q = encodeURIComponent(query).replace(/%20/g, "+");
+  return `https://www.stylevana.com/fr_FR/catalogsearch/result/?q=${q}`;
+}
+
+/** Buy destination for a recommended product. Routes to Stylevana (the live,
+ *  monetized retailer via Awin); buildAffiliateLink() wraps it as a deeplink. */
 export function productSearchUrl(p: Product): string {
-  return p.url ?? yesstyleSearchUrl(shortQuery(p.brand, p.name));
+  return stylevanaSearchUrl(shortQuery(p.brand, p.name));
 }
 
 export function searchUrlForName(brand: string | undefined, name: string): string {
-  return yesstyleSearchUrl(shortQuery(brand ?? "", name));
+  return stylevanaSearchUrl(shortQuery(brand ?? "", name));
 }
 
 export type Product = {

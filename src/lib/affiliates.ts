@@ -1,66 +1,60 @@
 /* ============================================================
    FIOMIO — affiliate link builder
-   Two layers:
-   1. Sovrn (the site-wide script in layout.tsx) auto-affiliates
-      everything in its 50k+ merchant network. Long-tail, zero work.
-   2. For the few KEY retailers where we have a DIRECT program
-      (higher commission), we OVERRIDE here by appending our own
-      affiliate tag. Set tags via env; leave empty and the raw URL
-      is used (Sovrn still affiliates it).
+   Three layers, in priority order:
+   1. Awin DEEPLINK for merchants where we have a DIRECT Awin
+      program (highest, reliable commission). Stylevana FR is live.
+   2. Direct ?param= tag for non-Awin programs (Amazon, etc.),
+      enabled once their tag env is set.
+   3. Everything else is left raw for the site-wide Sovrn script
+      (layout.tsx) to auto-affiliate across its 50k+ network.
 
-   NOTE: the exact query param differs per program. Adjust `param`
-   below to match each program's instructions when you sign up.
+   IDs below are public (not secrets): the Awin publisher id and
+   merchant ids appear in every outbound link anyway. Override via
+   env if needed.
    ============================================================ */
 
-// Static env refs (Next.js inlines NEXT_PUBLIC_* at build time).
+// Awin publisher (affiliate) id. Public.
+const AWIN_AFFID = process.env.NEXT_PUBLIC_AWIN_AFFID ?? "2935207";
+
+// host -> Awin merchant id (awinmid) for our APPROVED direct programs.
+const AWIN_MERCHANTS: Record<string, string> = {
+  "stylevana.com": process.env.NEXT_PUBLIC_AWIN_MID_STYLEVANA ?? "23223",
+};
+
+// Non-Awin direct programs (append our tag as a query param). Empty tag = skip.
 const TAGS = {
   amazon: process.env.NEXT_PUBLIC_AFF_AMAZON ?? "",
   yesstyle: process.env.NEXT_PUBLIC_AFF_YESSTYLE ?? "",
-  stylevana: process.env.NEXT_PUBLIC_AFF_STYLEVANA ?? "",
   iherb: process.env.NEXT_PUBLIC_AFF_IHERB ?? "",
 } as const;
 
-type Partner = {
-  name: string;
-  hosts: string[];
-  tag: string;
-  param: string; // query param the program uses for the affiliate id
-};
+type Partner = { name: string; hosts: string[]; tag: string; param: string };
 
 const PARTNERS: Partner[] = [
-  {
-    name: "Amazon",
-    hosts: ["amazon.fr", "amazon.de", "amazon.es", "amazon.it", "amazon.co.uk", "amazon.com"],
-    tag: TAGS.amazon,
-    param: "tag", // Amazon Associates store id, e.g. "fiomio-21"
-  },
-  {
-    name: "YesStyle",
-    hosts: ["yesstyle.com"],
-    tag: TAGS.yesstyle,
-    param: "rco", // adjust to your YesStyle program's referral param
-  },
-  {
-    name: "Stylevana",
-    hosts: ["stylevana.com"],
-    tag: TAGS.stylevana,
-    param: "aff", // adjust per Stylevana / network program
-  },
-  {
-    name: "iHerb",
-    hosts: ["iherb.com"],
-    tag: TAGS.iherb,
-    param: "rcode", // iHerb rewards / referral code
-  },
+  { name: "Amazon", hosts: ["amazon.fr", "amazon.de", "amazon.es", "amazon.it", "amazon.co.uk", "amazon.com"], tag: TAGS.amazon, param: "tag" },
+  { name: "YesStyle", hosts: ["yesstyle.com"], tag: TAGS.yesstyle, param: "rco" },
+  { name: "iHerb", hosts: ["iherb.com"], tag: TAGS.iherb, param: "rcode" },
 ];
 
-/** Turn a product URL into an affiliate link. Direct partners get our tag;
- *  everything else is left raw for Sovrn's script to auto-affiliate. */
+function awinDeeplink(mid: string, dest: string): string {
+  return `https://www.awin1.com/cread.php?awinmid=${mid}&awinaffid=${AWIN_AFFID}&ued=${encodeURIComponent(dest)}`;
+}
+
+/** Turn a product URL into an affiliate link.
+ *  Awin merchants -> deeplink; direct partners -> our tag; else raw (Sovrn). */
 export function buildAffiliateLink(rawUrl: string): string {
   if (!rawUrl) return rawUrl;
   try {
     const url = new URL(rawUrl);
     const host = url.hostname.replace(/^www\./, "");
+
+    // 1. Awin direct merchant -> deeplink (priority, best commission)
+    const mid = Object.entries(AWIN_MERCHANTS).find(
+      ([h]) => host === h || host.endsWith(`.${h}`),
+    )?.[1];
+    if (mid && AWIN_AFFID) return awinDeeplink(mid, rawUrl);
+
+    // 2. Non-Awin direct partner with a configured tag
     const partner = PARTNERS.find((p) =>
       p.hosts.some((h) => host === h || host.endsWith(`.${h}`)),
     );
@@ -68,11 +62,16 @@ export function buildAffiliateLink(rawUrl: string): string {
       url.searchParams.set(partner.param, partner.tag);
       return url.toString();
     }
+
+    // 3. Raw -> Sovrn auto-affiliates it
     return rawUrl;
   } catch {
     return rawUrl;
   }
 }
 
-/** Which direct partners are configured (for docs/diagnostics). */
-export const directPartners = PARTNERS.filter((p) => p.tag).map((p) => p.name);
+/** Configured direct partners (for docs/diagnostics). */
+export const directPartners = [
+  ...Object.keys(AWIN_MERCHANTS).map((h) => `Awin:${h}`),
+  ...PARTNERS.filter((p) => p.tag).map((p) => p.name),
+];

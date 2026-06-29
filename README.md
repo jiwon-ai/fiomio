@@ -154,6 +154,8 @@ npm run build        # build de production
 | `IMPORT_SECRET` | Auth des routes d'import produit |
 | `NEXT_PUBLIC_AFF_*` | Tags d'affiliation (Awin, YesStyle, iHerb, Stylevana, Amazon) |
 | `NEXT_PUBLIC_SOVRN_ID` | Sovrn Commerce, auto-affiliation site-wide (interrupteur de revenus) |
+| `NEXT_PUBLIC_AWIN_AFFID` | Awin publisher id (defaut 2935207) pour les deeplinks |
+| `NEXT_PUBLIC_AWIN_MID_STYLEVANA` | Awin merchant id Stylevana FR (defaut 23223) |
 | `OPENAI` ou LLM (optionnel) | Note personnalisée enrichie |
 
 ## Indexation et e-mail (en place)
