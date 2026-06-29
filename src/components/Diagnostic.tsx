@@ -139,11 +139,11 @@ export function Diagnostic({ lang, t }: { lang: Lang; t: Messages }) {
   };
 
   const canAdvance = useMemo(() => {
-    if (step === 0) return skinType !== null;
-    if (step === 1) return sensitive !== null;
-    if (step === 2) return concerns.length >= 1;
-    if (step === 3) return activeUse !== null;
-    if (step === 4) return gender !== null;
+    if (step === 0) return gender !== null;
+    if (step === 1) return skinType !== null;
+    if (step === 2) return sensitive !== null;
+    if (step === 3) return concerns.length >= 1;
+    if (step === 4) return activeUse !== null;
     if (step === 5) return pregnancy !== null;
     return false;
   }, [step, skinType, sensitive, concerns, activeUse, gender, pregnancy]);
@@ -508,8 +508,8 @@ function Questionnaire(props: {
     onNext,
   } = props;
 
-  const titles = [d.q1Title, d.q2Title, d.q3Title, d.q4Title, d.q6Title, d.q7Title];
-  const helps = [d.q1Help, d.q2Help, d.q3Help, d.q4Help, d.q6Help, d.q7Help];
+  const titles = [d.q6Title, d.q1Title, d.q2Title, d.q3Title, d.q4Title, d.q7Title];
+  const helps = [d.q6Help, d.q1Help, d.q2Help, d.q3Help, d.q4Help, d.q7Help];
 
   return (
     <div>
@@ -536,7 +536,7 @@ function Questionnaire(props: {
         </h3>
         <p className="mt-1.5 text-sm text-stone">{helps[step]}</p>
 
-        {step === 0 && (
+        {step === 1 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {skinTypes.map((s) => (
               <IconCard
@@ -551,7 +551,7 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {step === 1 && (
+        {step === 2 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <IconCard
               icon="true"
@@ -568,10 +568,12 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {step === 2 && (
+        {step === 3 && (
           <div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {concernsList.map((c) => {
+              {concernsList
+                .filter((c) => !(gender === "male" && c.key === "hormonalredness"))
+                .map((c) => {
                 const on = concerns.includes(c.key as ConcernKey);
                 const full = concerns.length >= 3 && !on;
                 return (
@@ -592,7 +594,7 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {activesList.map((a) => (
               <IconCard
@@ -607,7 +609,7 @@ function Questionnaire(props: {
           </div>
         )}
 
-        {step === 4 && (
+        {step === 0 && (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {gendersList.map((g) => (
               <IconCard
@@ -1183,12 +1185,23 @@ function ProductCard({
       <p className="mt-3 flex-1 text-[0.86rem] leading-relaxed text-ink/75">
         {p.blurb[lang]}
       </p>
-      {STYLEVANA[p.id]?.price && (
-        <p className="mt-3 text-sm font-semibold text-ink">
-          {STYLEVANA[p.id]!.price!.replace(".", ",")} &euro;
-          <span className="ml-1.5 text-xs font-normal text-stone">sur Stylevana</span>
-        </p>
-      )}
+      {(() => {
+        const sv = STYLEVANA[p.id];
+        if (!sv?.price) return null;
+        const pack = sv.pack && sv.pack > 1 ? sv.pack : 0;
+        const unit = pack ? (parseFloat(sv.price) / pack).toFixed(2).replace(".", ",") : null;
+        return (
+          <p className="mt-3 text-sm font-semibold text-ink">
+            {sv.price.replace(".", ",")} &euro;
+            {pack ? (
+              <span className="ml-1.5 text-xs font-normal text-spring-deep">
+                lot de {pack} ({unit} &euro;/u)
+              </span>
+            ) : null}
+            <span className="ml-1.5 text-xs font-normal text-stone">sur Stylevana</span>
+          </p>
+        );
+      })()}
       <a
         href={buildAffiliateLink(productSearchUrl(p))}
         target="_blank"
@@ -1216,7 +1229,7 @@ function ProductCard({
             lang,
           });
         }}
-        className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-spring-deep hover:text-spring-deep"
+        className="mt-4 inline-flex w-max items-center gap-1.5 rounded-full bg-spring-deep px-4 py-2 text-sm font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink"
       >
         {seeProduct}
         <span aria-hidden>→</span>
