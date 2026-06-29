@@ -14,6 +14,7 @@ import { getSeasonInfo } from "@/lib/season";
 import { detectLocation, displayPlace, type Loc, type GeoResult } from "@/lib/geo";
 import { buildAffiliateLink } from "@/lib/affiliates";
 import { productsForIngredients, productSearchUrl, type Product } from "@/lib/products";
+import { STYLEVANA } from "@/lib/stylevana-products";
 import { track } from "@/lib/track";
 import { logSignal } from "@/lib/signal";
 import { getAnonId, getSessionId } from "@/lib/analytics-ids";
@@ -1182,6 +1183,12 @@ function ProductCard({
       <p className="mt-3 flex-1 text-[0.86rem] leading-relaxed text-ink/75">
         {p.blurb[lang]}
       </p>
+      {STYLEVANA[p.id]?.price && (
+        <p className="mt-3 text-sm font-semibold text-ink">
+          {STYLEVANA[p.id]!.price!.replace(".", ",")} &euro;
+          <span className="ml-1.5 text-xs font-normal text-stone">sur Stylevana</span>
+        </p>
+      )}
       <a
         href={buildAffiliateLink(productSearchUrl(p))}
         target="_blank"

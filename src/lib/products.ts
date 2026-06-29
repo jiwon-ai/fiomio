@@ -4,6 +4,8 @@
 // pages later if desired.
 
 import type { ConcernKey } from "@/lib/ingredients";
+import { STYLEVANA } from "./stylevana-products";
+import { SV_PRODUCTS } from "./stylevana-catalog";
 import { INGREDIENTS } from "@/lib/ingredients";
 import { normalizeInci } from "@/lib/inci";
 
@@ -37,7 +39,8 @@ export function stylevanaSearchUrl(query: string): string {
 /** Buy destination for a recommended product. Routes to Stylevana (the live,
  *  monetized retailer via Awin); buildAffiliateLink() wraps it as a deeplink. */
 export function productSearchUrl(p: Product): string {
-  return stylevanaSearchUrl(shortQuery(p.brand, p.name));
+  // exact tracked Stylevana deeplink when the product is in the feed; else search
+  return STYLEVANA[p.id]?.url ?? stylevanaSearchUrl(shortQuery(p.brand, p.name));
 }
 
 export function searchUrlForName(brand: string | undefined, name: string): string {
@@ -3024,16 +3027,38 @@ export const PRODUCTS: Product[] = [
     category: "moisturizer",
     blurb: { fr: "Crème escargot réparatrice.", en: "Snail repair cream." },
   },
+  {
+    id: "imfrom-licorice",
+    brand: "I'm From",
+    name: "Licorice Soothing Ampoule",
+    searchQ: "I'm From Licorice Ampoule",
+    ingredientIds: ["licorice"],
+    category: "serum",
+    blurb: { fr: "Ampoule \u00e0 la r\u00e9glisse : apaise et ravive les teints ternes.", en: "Licorice ampoule: soothes and revives dull skin." },
+  },
+  {
+    id: "purito-seabuckthorn",
+    brand: "Purito",
+    name: "Sea Buckthorn Vital 70 Cream",
+    searchQ: "Purito Sea Buckthorn Cream",
+    ingredientIds: ["seabuckthorn"],
+    category: "moisturizer",
+    blurb: { fr: "Cr\u00e8me \u00e0 l'argousier : nourrit et redonne de l'\u00e9clat \u00e0 la barri\u00e8re.", en: "Sea buckthorn cream: nourishes and revives a dull barrier." },
+  },
 ];
 
 /** Products whose ingredientIds intersect `ids`, de-duplicated,
  *  preserving the input id priority order, capped at `max`. */
+/** Recommendation pool: hand-curated first, then the expanded Stylevana set. */
+const POOL: Product[] = [...PRODUCTS, ...SV_PRODUCTS];
+
 export function productsForIngredients(ids: string[], max = 6): Product[] {
   const out: Product[] = [];
   const seen = new Set<string>();
   for (const id of ids) {
-    for (const p of PRODUCTS) {
+    for (const p of POOL) {
       if (seen.has(p.id)) continue;
+      if (!STYLEVANA[p.id]) continue; // only products carried by Stylevana
       if (p.ingredientIds.includes(id)) {
         out.push(p);
         seen.add(p.id);
