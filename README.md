@@ -201,6 +201,8 @@ npm run build        # build de production
 - Navigation : menu haut a 5 items (Diagnostic, Ingredients, Affinites, Guide,
   Blog) ; Guide promu depuis le footer, A propos / Pour les marques / legal au
   footer ; bascule en menu hamburger sous 1024px.
+- Footer restructure en colonnes Decouvrir / Societe / Legal (navigation scindee,
+  Pour les marques deplace dans Societe B2B), reseaux sociaux et langue sous Legal.
 - Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
   de la fondatrice" ; founder ajoute au schema Organization.
 - Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
