@@ -104,8 +104,12 @@ Site : **https://fiomio.io** · Lancement visé : **1er juillet 2026**
 
 - **72 actifs** curatés et pondérés (`src/lib/ingredients.ts`) : efficacité par
   préoccupation, traits, douceur, timing, conflits. Bilingue.
-- **293 produits** K-beauty réels mappés aux actifs (`src/lib/products.ts`),
-  avec recherche curatée par marque et liens d'affiliation raccourcis.
+- **Catalogue adosse au feed Awin Stylevana FR (~1 243 produits recommandables)** :
+  base curatee (`src/lib/products.ts`) + ensemble etendu auto-genere depuis le
+  feed (`src/lib/stylevana-catalog.ts`). Chaque produit recommandable est en stock
+  chez Stylevana avec un deeplink Awin trace et un prix reel
+  (`src/lib/stylevana-products.ts`). La curation passe en premier dans les
+  resultats.
 - Moteur INCI : normalisation, allergènes, irritants, lift (`src/lib/inci.ts`).
 - Base **seed_products** (Supabase) pré-remplie depuis Open Beauty Facts.
 
@@ -185,6 +189,10 @@ npm run build        # build de production
 - Affiliation Stylevana FR active : les liens d'achat des produits recommandes
   sont routes vers Stylevana via deeplinks Awin (merchant 23223, publisher
   2935207). Premier programme monetise (commission 5 a 15 pourcent).
+- Catalogue produits adosse au feed Awin Stylevana : 1 243 produits en stock avec
+  deeplinks traces et prix reels, affiches sur les cartes. Couverture passee a 65
+  actifs. Seuls les produits presents chez Stylevana sont recommandes (zero lien
+  mort).
 - Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
   de la fondatrice" ; founder ajoute au schema Organization.
 - Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
