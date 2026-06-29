@@ -99,6 +99,9 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
               <span aria-label="X" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:border-transparent hover:text-cream">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.96 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zM17.08 19.77h1.83L7.08 4.13H5.12z" /></svg>
               </span>
+              <span aria-label="Pinterest" className="grid size-9 cursor-default place-items-center rounded-full border border-line-void text-cream/40 transition-colors hover:border-transparent hover:text-[#e60023]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2C6.48 2 2 6.48 2 12c0 4.06 2.42 7.55 5.9 9.11-.08-.77-.15-1.96.03-2.8.17-.74 1.1-4.72 1.1-4.72s-.28-.56-.28-1.39c0-1.3.76-2.27 1.7-2.27.8 0 1.19.6 1.19 1.32 0 .8-.51 2.02-.78 3.14-.22.93.47 1.68 1.39 1.68 1.66 0 2.94-1.75 2.94-4.28 0-2.24-1.61-3.8-3.9-3.8-2.66 0-4.22 1.99-4.22 4.05 0 .8.31 1.66.69 2.13.08.09.09.17.07.27-.07.31-.24.93-.27 1.06-.04.17-.14.21-.32.13-1.2-.56-1.95-2.31-1.95-3.72 0-3.03 2.2-5.81 6.34-5.81 3.33 0 5.92 2.37 5.92 5.54 0 3.31-2.09 5.97-4.98 5.97-.97 0-1.89-.5-2.2-1.1l-.6 2.28c-.22.84-.8 1.9-1.2 2.54.9.28 1.85.43 2.84.43 5.52 0 10-4.48 10-10S17.52 2 12 2z" /></svg>
+              </span>
               </div>
             </div>
           </div>
