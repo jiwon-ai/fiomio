@@ -101,9 +101,6 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
               </span>
               </div>
             </div>
-            <div className="mt-6">
-              <LangToggle lang={lang} onDark />
-            </div>
           </div>
         </div>
 
@@ -111,11 +108,12 @@ export function Footer({ lang, t }: { lang: Lang; t: Messages }) {
           {f.disclaimer}
         </p>
 
-        <div className="mt-6 flex flex-col gap-2 border-t border-line-void pt-6 text-[0.7rem] text-cream/25 sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            © {year} Fiomio. {f.rights}
-          </span>
-          <span>{f.madeIn}</span>
+        <div className="mt-10 flex flex-col gap-3 border-t border-line-void pt-6 text-[0.7rem] text-cream/25 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-1 sm:flex-row sm:gap-4">
+            <span>© {year} Fiomio. {f.rights}</span>
+            <span>{f.madeIn}</span>
+          </div>
+          <LangToggle lang={lang} onDark />
         </div>
       </div>
     </footer>
