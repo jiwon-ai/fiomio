@@ -25,6 +25,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
     { href: `${homePrefix}/#diagnostic`, label: t.nav.diagnostic },
     { href: localePath(lang, "/ingredients"), label: t.nav.ingredients },
     { href: localePath(lang, "/mes-produits"), label: t.nav.products },
+    { href: localePath(lang, "/guide-k-beauty"), label: t.nav.guide },
     { href: localePath(lang, "/journal"), label: t.nav.journal },
   ];
 
@@ -43,7 +44,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
           <Wordmark className="text-[2rem]" />
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <Link
@@ -59,7 +60,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
         <div className="flex items-center gap-3 sm:gap-4">
           <Link
             href={localePath(lang, "/compte")}
-            className="hidden items-center gap-1.5 whitespace-nowrap border-r border-line pr-3 text-sm font-semibold text-ink transition-colors hover:text-spring-deep md:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap border-r border-line pr-3 text-sm font-semibold text-ink transition-colors hover:text-spring-deep lg:inline-flex"
           >
             <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></svg>
             {t.nav.account}
@@ -77,7 +78,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
-            className="grid size-9 place-items-center rounded-full border border-line bg-white text-ink md:hidden"
+            className="grid size-9 place-items-center rounded-full border border-line bg-white text-ink lg:hidden"
           >
             {open ? (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -90,7 +91,7 @@ export function Nav({ lang, t }: { lang: Lang; t: Messages }) {
 
       {/* mobile menu */}
       {open && (
-        <div className="border-t border-line bg-cream/98 backdrop-blur-md md:hidden">
+        <div className="border-t border-line bg-cream/98 backdrop-blur-md lg:hidden">
           <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
             {links.map((l) => (
               <li key={l.href}>
