@@ -193,6 +193,14 @@ npm run build        # build de production
   deeplinks traces et prix reels, affiches sur les cartes. Couverture passee a 65
   actifs. Seuls les produits presents chez Stylevana sont recommandes (zero lien
   mort).
+- Cartes produits : bouton d'achat plein (CTA visible), prix reel, et pour les
+  produits vendus seulement en lot, mention "lot de N" + prix unitaire (le
+  catalogue privilegie les formats unitaires).
+- Diagnostic : le genre est demande en premier ; les hommes ne voient pas la
+  preoccupation rougeurs hormonales (menopause) ni l'etape grossesse.
+- Navigation : menu haut a 5 items (Diagnostic, Ingredients, Affinites, Guide,
+  Blog) ; Guide promu depuis le footer, A propos / Pour les marques / legal au
+  footer ; bascule en menu hamburger sous 1024px.
 - Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
   de la fondatrice" ; founder ajoute au schema Organization.
 - Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
