@@ -203,6 +203,9 @@ npm run build        # build de production
   footer ; bascule en menu hamburger sous 1024px.
 - Footer restructure en colonnes Decouvrir / Societe / Legal (navigation scindee,
   Pour les marques deplace dans Societe B2B), reseaux sociaux et langue sous Legal.
+- Blog : premier article de contenu publie, "Les best-sellers K-beauty en Coree,
+  expliques" (explication Olive Young + donnees + top 10 avec photos produits du
+  feed, liens affilies Stylevana et sources). Style image ajoute a article-prose.
 - Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
   de la fondatrice" ; founder ajoute au schema Organization.
 - Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
