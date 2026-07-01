@@ -206,6 +206,10 @@ npm run build        # build de production
 - Blog : premier article de contenu publie, "Les best-sellers K-beauty en Coree,
   expliques" (explication Olive Young + donnees + top 10 avec photos produits du
   feed, liens affilies Stylevana et sources). Style image ajoute a article-prose.
+- Catalogue multi-source (Stylevana + YesStyle via Awin) : ~1233 liens d'achat,
+  source la mieux commissionnee preferee (YesStyle 10% vs Stylevana 5%) quand le
+  produit existe aux deux endroits (matching EAN), filtre marques K-beauty, label
+  de source sur les cartes.
 - Page A propos : portrait et signature de la fondatrice (Jiwon Yi) dans "Le mot
   de la fondatrice" ; founder ajoute au schema Organization.
 - Favicons raster (favicon.ico 16/32/48, icon.png 192, apple-icon 180) pour un
