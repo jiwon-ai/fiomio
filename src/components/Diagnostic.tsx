@@ -1198,7 +1198,7 @@ function ProductCard({
                 lot de {pack} ({unit} &euro;/u)
               </span>
             ) : null}
-            <span className="ml-1.5 text-xs font-normal text-stone">sur Stylevana</span>
+            <span className="ml-1.5 text-xs font-normal text-stone">sur {sv.src === "yesstyle" ? "YesStyle" : "Stylevana"}</span>
           </p>
         );
       })()}
